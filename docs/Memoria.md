@@ -30,11 +30,11 @@
    2. Patrón MVP
    3. Patrón MVVM
    4. Elección del patrón
-9. Configuración de Firebase
-   1. Configuración general del proyecto
-   2. Firebase Authenticator
-   3. Firebase Firestore
-   4. Firebase Cloud Storage
+9. [Configuración de Firebase](#configuración-de-firebase)
+   1. [Configuración general del proyecto](#configuración-general-del-proyecto)
+   2. [Firebase Authentication](#firebase-authentication)
+   3. [Firebase Firestore](#firebase-firestore)
+   4. [Firebase Cloud Storage](#firebase-cloud-storage)
 10. Aplicación móvil
     1. Introducción
     2. Breve estudio visual
@@ -127,6 +127,40 @@ Debe entenderse como un lugar en el que concretar aquel partido de fútbol que s
 Como ya se señaló previamente, esta decisión se tomó en los primeros días de marzo, cuando la coyuntura todavía era propicia y no nos había alcanzado la crisis asociada al COVID-19. Tras el estado de alarma decretado por el Gobierno de España, las restricciónes a la libre circulación y reunión de personas y la lenta recuperación y vuelta a la normalidad que se prevé, especialmente en materia sociocultural, pudiera parecer el momento menos adecuado para un desarrollo de esta naturaleza. No podemos negar la mayor, lo sabemos, no es la situación adecuada para que prospere. No obstante, confiamos en que tras la recuperación, con el paso del tiempo, fuera capaz de erigirse en una opción válida para la realización de actividades con un fuerte componente social y, sobre todo, sin grandes pretensiones; planes sencillos que surgen en el día a día y no cuestan nada o casi nada.
 
 ## Objetivos del proyecto
+
+## Configuración de Firebase
+### Configuración general del proyecto
+Para obtener la firma SHA-1 de debug —necesaria en Firebase Authentication— debe ejecutarse el siguiente comando en una terminal:
+
+```
+$ keytool -list -v -alias androiddebugkey -keystore %USERPROFILE%\.android\debug.keystore
+```
+
+A continuación solicita una contraseña —`android` por defecto— y la salida por pantalla, donde se encuentra la firma SHA-1, es:
+
+```
+Nombre de Alias: androiddebugkey
+Fecha de Creación: 23-mar-2020
+Tipo de Entrada: PrivateKeyEntry
+Longitud de la Cadena de Certificado: 1
+Certificado[1]:
+Propietario: C=US, O=Android, CN=Android Debug
+Emisor: C=US, O=Android, CN=Android Debug
+Número de serie: 1
+Válido desde: Mon Mar 23 20:46:00 CET 2020 hasta: Wed Mar 16 20:46:00 CET 2050
+Huellas digitales del certificado:
+         MD5: DB:E6:70:E9:AF:7D:6E:A4:0C:6E:A9:B4:92:58:35:8C
+         SHA1: CB:0D:20:6D:58:0D:55:95:85:FA:CA:BE:77:FF:CE:42:82:DC:F3:63
+         SHA256: C8:C2:65:F9:79:F5:63:B8:7B:41:1A:AF:5C:27:36:11:1A:21:1C:6C:CB:95:EA:85:29:21:59:74:85:EB:B5:6D
+Nombre del algoritmo de firma: SHA1withRSA
+Algoritmo de clave pública de asunto: Clave RSA de 2048 bits
+Versión: 1
+```
+
+### Firebase Authentication
+### Firebase Firestore
+### Firebase Cloud Storage
+
 
 ## Bibliografía
 * [Wikipedia | Android (operating system) History](https://en.wikipedia.org/wiki/Android_(operating_system)#History)
