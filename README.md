@@ -1,5 +1,5 @@
-# kDD
-kDD, aplicación para el proyecto final de DAM.
+# dEventer
+dEventer, aplicación para el módulo de Proyecto del Ciclo Formativo de Grado Superior en Desarrollo de Aplicaciones Multiplataforma.
 
 ## Directorios
 * La carpeta `docs`contiene todos los documentos que han de ser entregados a los profesores. A saber —aparecen en orden de entrega—:

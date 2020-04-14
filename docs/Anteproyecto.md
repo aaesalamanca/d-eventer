@@ -1,4 +1,4 @@
-# kDD
+# dEventer
 **Realizado por:**
 
 * Martín Escamilla, José Ignacio

@@ -1,12 +1,12 @@
-# kDD
+# dEventer
 **Realizado por:**
 * Martín Escamilla, José Ignacio
 * Ahamad, Achraf
 * Estornell Salamanca, Alejandro Antonio
 
 ## Índice
-1. Introducción
-2. Objetivos del proyecto
+1. [Introducción](#introducción)
+2. [Objetivos del proyecto](#objetivos-del-proyecto)
 3. Análisis de requisitos
 4. Especificación de requisitos
    1. Casos de uso
@@ -43,7 +43,7 @@
     5. _Model_
 11. Conclusión
 12. Mejoras
-13. Bibliografía
+13. [Bibliografía](#bibliografía)
 
 ## Introducción
 Es 2020, han pasado más de 10 años desde la presentación del sistema operativo Android —en 2007, el día 5 de noviembre— y el lanzamiento del primer _smartphone_ en hacer uso de este —HTC Dream, anunciado el 23 de septiembre de 2008 y puesto a la venta un mes más tarde, el 20 de octubre de 2008—. Desde entonces, sin apenas competencia con la excepción de Apple y su incursión en el terreno móvil gracias al iPhone y su sistema operativo iOS, Android es el dominador absoluto del mercado. Para ello una muestra:
