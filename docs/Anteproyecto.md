@@ -60,7 +60,7 @@ Otras herramientas útiles a destacar son:
 * https://developer.android.com/studio
 * https://developer.android.com/about/versions/10
 * https://developer.android.com/about/versions/10/features
-* https://material.io/design/
+* https://material.io/design
 * https://www.tutorialspoint.com/mvc_framework/index.htm
 * https://www.tutorialspoint.com/design_pattern/mvc_pattern.htm
 * https://medium.com/upday-devs/android-architecture-patterns-part-1-model-view-controller-3baecef5f2b6
@@ -68,13 +68,13 @@ Otras herramientas útiles a destacar son:
 * https://medium.com/upday-devs/android-architecture-patterns-part-2-model-view-presenter-8a6faaae14a5
 * https://www.raywenderlich.com/7026-getting-started-with-mvp-model-view-presenter-on-android
 * https://medium.com/upday-devs/android-architecture-patterns-part-3-model-view-viewmodel-e7eeee76b73b
-* https://cloud.google.com/
-* https://firebase.google.com/
+* https://cloud.google.com
+* https://firebase.google.com
 * https://firebase.google.com/docs/reference/android/packages
 * https://firebase.google.com/products/auth
 * https://firebase.google.com/docs/auth
 * https://firebase.google.com/docs/firestore
 * https://firebase.google.com/products/firestore
-* https://github.com/
-* https://git-scm.com/
-* https://drawio-app.com/
+* https://github.com
+* https://git-scm.com
+* https://drawio-app.com
