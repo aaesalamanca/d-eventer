@@ -24,8 +24,10 @@ android {
 }
 
 dependencies {
+    // Dependencias por defecto de Android Studio
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
+    // Dependencias por defecto de Android Studio
     implementation 'androidx.appcompat:appcompat:1.1.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
