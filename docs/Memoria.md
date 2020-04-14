@@ -130,14 +130,13 @@ Como ya se señaló previamente, esta decisión se tomó en los primeros días d
 
 ## Configuración de Firebase
 ### Configuración general del proyecto
-Para obtener la firma SHA-1 de debug —necesaria en Firebase Authentication— debe ejecutarse el siguiente comando en una terminal:
 
+`SHA-1`
 ```
 $ keytool -list -v -alias androiddebugkey -keystore %USERPROFILE%\.android\debug.keystore
 ```
 
-A continuación solicita una contraseña —`android` por defecto— y la salida por pantalla, donde se encuentra la firma SHA-1, es:
-
+`SHA-1`
 ```
 Nombre de Alias: androiddebugkey
 Fecha de Creación: 23-mar-2020
@@ -155,6 +154,71 @@ Huellas digitales del certificado:
 Nombre del algoritmo de firma: SHA1withRSA
 Algoritmo de clave pública de asunto: Clave RSA de 2048 bits
 Versión: 1
+```
+
+`project/build.gradle`
+```gradle
+buildscript {
+  repositories {
+    // Check that you have the following line (if not, add it):
+    google()  // Google's Maven repository
+  }
+  dependencies {
+    ...
+    // Add this line
+    classpath 'com.google.gms:google-services:4.3.3'
+  }
+}
+
+allprojects {
+  ...
+  repositories {
+    // Check that you have the following line (if not, add it):
+    google()  // Google's Maven repository
+    ...
+  }
+}
+```
+
+`app/build.gradle`
+```gradle
+apply plugin: 'com.android.application'
+// Add the following line:
+apply plugin: 'com.google.gms.google-services'  // Google Services plugin
+
+android {
+  // ...
+}
+```
+
+`app/build.gradle`
+```gradle
+dependencies {
+  // ...
+
+  // Add the Firebase SDK for Google Analytics
+  implementation 'com.google.firebase:firebase-analytics:17.3.0'
+
+  // Add the dependencies for any other Firebase products you want to use in your app
+  // For example, to also use Firebase Authentication
+  implementation 'com.google.firebase:firebase-auth:19.3.0'
+
+  // Getting a "Could not find" error? Make sure that you've added
+  // Google's Maven repository to your root-level build.gradle file
+}
+```
+
+`app/build.gradle`
+```gradle
+dependencies {
+  // Import the platform
+  implementation platform('com.google.firebase:firebase-bom:25.2.2')
+
+  // When using a BoM, dependencies don't require a specified version
+  // If you do specify a version, it overrides the library version specified in the BoM
+  implementation 'com.google.firebase:firebase-auth'
+  implementation 'com.google.firebase:firebase-firestore'
+}
 ```
 
 ### Firebase Authentication
@@ -196,6 +260,7 @@ Versión: 1
 * [Fever](https://feverup.com)
 * [Wikipedia | Ticketmaster](https://en.wikipedia.org/wiki/Ticketmaster)
 * [Ticketmaster](https://www.ticketmaster.com)
+* [Add Firebase to your Android project](https://firebase.google.com/docs/android/setup)
 
 ---
 > Portions of this page are reproduced from work created and shared by the Android Open Source Project and used according to terms described in the Creative Commons 2.5 Attribution License.
