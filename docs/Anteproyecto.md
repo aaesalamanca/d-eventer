@@ -1,18 +1,19 @@
 # dEventer
+
 **Realizado por:**
 
 * Martín Escamilla, José Ignacio
-
 * Ahamad, Achraf
-
 * Estornell Salamanca, Alejandro Antonio
 
 ## Idea del proyecto
+
 Planteamos el desarrollo de una aplicación móvil destinada a Android —nativo— en la que los usuarios puedan crear eventos, quedadas o plantes y, a través de la misma, otros usuarios —amigos, conocidos o, incluso, desconocidos— vean esas actividades, dentro de unos parámetros preestablecidos, y se unan a ellas si están interesados.
 
 De este modo, los usuarios serán capaces tanto de ver las actividades más cercanas y afines a las que pueden apuntarse, como subir las propias para que otros se inscriban.
 
 ## Objetivos
+
 Uno de los objetivos y retos más importantes al que nos vamos a enfrentar es el diseño y desarrollo de una base de datos NoSQL en la nube que no requiera de una capa intermedia o _web service_ entre la aplicación y los datos. La dificultad que implica no reside tanto en el funcionamiento intrínseco de esta modalidad de almacenamiento, sino en la curva de aprendizaje al haber tratado poco con este tipo de tecnologías.
 
 El usuario ha de iniciar sesión con un proveedor externo —Google— y, a partir de ahí, podrá, como hemos señalado con anterioriodad, visualizar una lista de actividades filtradas según sus preferencias y geolocalización. Ya solo le queda elegir alguna para, posteriormente, si la actividad no tiene límite de particnpantes o no se ha llegado a este, inscribirse.
@@ -20,6 +21,7 @@ El usuario ha de iniciar sesión con un proveedor externo —Google— y, a part
 Así, dispondrá también de otros listados de actividades apuntadas pendientes de realización y actividades en las que ya ha participado, donde tendrá la posbilidad de establecer una valoración/puntuación.
 
 ## Tecnologías a utilizar
+
 A la hora de enumerar las tecnologías que utilizaramos, es necesario distinguir dos ámbitos: el de la aplicación móvil que ejecutan los usuarios y el servidor/base de datos que almacena los datos de estos usuarios.
 
 En el primer caso —el de la _app_ móvil, destacan:
@@ -45,6 +47,7 @@ Otras herramientas útiles a destacar son:
 * draw.io: programa de diseño de diagramas de flujo, UML, arquitectura de _software_...
 
 ## Fases del proyecto
+
 1. Análisis de requisitos.
 2. Diseño de la arquitectura de _software_.
 3. Diseño del modelo de datos y la lógica de negocio.
@@ -55,6 +58,7 @@ Otras herramientas útiles a destacar son:
 8. _Testing_ y QA.
 
 ## Bibliografía
+
 * https://www.oracle.com/technetwork/java/javase/overview/index.html
 * https://developer.android.com/studio/write/java8-support
 * https://developer.android.com/studio
