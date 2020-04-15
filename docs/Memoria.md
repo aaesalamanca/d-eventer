@@ -112,9 +112,9 @@ Esta breve presentación de datos no hacen sino confirmar la premisa de la que p
 
 La introducción tenía el propósito de servir de preámbulo a nuestro proyecto y ofrecer unas pinceladas iniciales que dieran, más o menos, cuenta, a partir de la información presentada, de la senda que pretendemos tomar para el módulo profesional de Proyecto. De alguna forma hemos de defenderlo, y creemos que se asienta sobre una base de mercado bastante estable, robusta y con posibilidades de éxito.
 
-Nuestro objetivo es el desarrollo de una aplicación móvil para el sistema operativo Android en la que los usuarios tengan la oportunidad de crear eventos —lo que comúnmente se conoce como _quedadas_— de cualquier tipo y, a través de esta, otros usuarios —como amigos, conocidos o incluso desconocidos— vean estas actividades, dentro de unos parámetros preestablecidos, y se unan a ellas si están interesados.
+Nuestro objetivo es el desarrollo de una aplicación móvil para el sistema operativo Android en la que los usuarios tengan la oportunidad de crear eventos —lo que comúnmente se conoce como _quedadas_, planes o actividades; aquí funcionan como sinónimos— de cualquier tipo y, a través de esta, otros usuarios —amigos, conocidos o incluso desconocidos— vean estas actividades y se unan a ellas si están interesados.
 
-De este modo, los usuarios registrados que utilicen la _app_ serán capaces tanto de ver las actividades más cercanas y afines a las que pueden apuntarse, como de subir las propias para que otros se inscriban.
+De este modo, los usuarios registrados que utilicen la _app_ serán capaces tanto de ver las actividades que otros han creado y a las que pueden apuntarse, como de subir las propias para que otros se inscriban.
 
 Todo ello aderezado de un conjunto de características adicionales —como _chat_ entre los miembros inscritos a una actividad— que detallaremos en profundidad durante el desarrollo de este documento; en futuros apartados.
 
@@ -132,9 +132,37 @@ Como ya se señaló previamente, esta decisión se tomó en los primeros días d
 
 ## Objetivos del proyecto
 
+El objetivo y reto principal, creemos, al que nos vamos a enfrentar es el diseño y desarrollo de una base de datos NoSQL en la nube que, además, no necesite de una capa intermedia o _web service_ entre la aplicación y esta. Su dificultad no reside tanto en el funcionamiento intrínseco de esta modalidad de almacenamiento de datos, sino en la curva de aprendizaje asociada, pues hemos trabajado poco con este tipo de tecnologías.
+
+Los usuarios crearán una cuenta —con correo electrónico y contraseña—, iniciarán sesión con esta, o con un proveedor externo como Google, y, a partir de ahí podrán, como hemos señalado con anterioridad, visualizar el listado de planes disponibles para ellos —si la actividad no tiene límite de participantes o no lo ha alcanzado si lo tiene— e inscribirse en uno.
+
+Junto al listado previo, dispondrá de otro compuesto por los planes a los que ya se ha apuntado o en los que ya ha participado.
+
+Finalmente, y esto constituye el otro gran reto de recurrir a una base de datos NoSQL _cloud_, para cada actividad hay asociado un _chat_ en el que los usuarios inscritos pueden ir hablando antes, durante y tras la realización del plan propuesto. ¿Qué implicaciones tiene este _chat_? La base de datos y la aplicación deben sincronizarse en tiempo real. Más adelante explicaremos cómo hemos sorteado esta dificultad gracias, en gran parte, a las tecnologías sobre las que se asienta la aplicación, sin las cuales esta _feature_ se habría vuelto demasiado compleja de desarollar.
+
 ## Análisis de requisitos
 
 ## Especificación de requisitos
+
+El usuario debe poder en relación a:
+
+* Su perfil:
+  * Crear el perfil.
+  * Borrar el perfil.
+  * Cambiar el correo electrónico.
+  * Cambiar la contraseña.
+  * Añadir una foto.
+  * Modificar la foto.
+  * Eliminar la foto.
+* Las actividades:
+  * Crear una actividad.
+  * Borrar una actividad.
+  * Ver las actividades disponibles.
+  * Ver las actividades a las que se ha inscrito.
+  * Apuntarse a una actividad.
+  * Darse de baja de una actividad.
+* Los _chats_:
+  * _Chatear_ con los demás miembros de una actividad en la que está inscrito.
 
 ### Casos de uso
 
@@ -208,6 +236,7 @@ Versión: 1
 ```
 
 `project/build.gradle`
+
 ```gradle
 buildscript {
   repositories {
@@ -293,6 +322,12 @@ dependencies {
 ### Conclusión
 
 ### Mejoras
+
+* Notificaciones de chats.
+* Buscador de actividades.
+* Recomendación personalizada de planes en base a gustos, preferencias, geolocalización...
+* Cifrado de contraseñas e información personal.
+* Valoración del resto de usuarios.
 
 ## Bibliografía
 
