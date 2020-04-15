@@ -8,7 +8,7 @@
 
 ## Idea del proyecto
 
-Planteamos el desarrollo de una aplicación móvil destinada a Android —nativo— en la que los usuarios puedan crear eventos, quedadas o plantes y, a través de la misma, otros usuarios —amigos, conocidos o, incluso, desconocidos— vean esas actividades, dentro de unos parámetros preestablecidos, y se unan a ellas si están interesados.
+Planteamos el desarrollo de una aplicación móvil destinada a Android —nativo— en la que los usuarios puedan crear eventos, quedadas o planes y, a través de la misma, otros usuarios —amigos, conocidos o, incluso, desconocidos— vean esas actividades y se unan a ellas si están interesados.
 
 De este modo, los usuarios serán capaces tanto de ver las actividades más cercanas y afines a las que pueden apuntarse, como subir las propias para que otros se inscriban.
 
@@ -16,9 +16,11 @@ De este modo, los usuarios serán capaces tanto de ver las actividades más cerc
 
 Uno de los objetivos y retos más importantes al que nos vamos a enfrentar es el diseño y desarrollo de una base de datos NoSQL en la nube que no requiera de una capa intermedia o _web service_ entre la aplicación y los datos. La dificultad que implica no reside tanto en el funcionamiento intrínseco de esta modalidad de almacenamiento, sino en la curva de aprendizaje al haber tratado poco con este tipo de tecnologías.
 
-El usuario ha de iniciar sesión con un proveedor externo —Google— y, a partir de ahí, podrá, como hemos señalado con anterioriodad, visualizar una lista de actividades filtradas según sus preferencias y geolocalización. Ya solo le queda elegir alguna para, posteriormente, si la actividad no tiene límite de particnpantes o no se ha llegado a este, inscribirse.
+El usuario ha de iniciar sesión con un proveedor externo —Google— y, a partir de ahí, podrá, como hemos señalado con anterioriodad, visualizar una lista de actividades disponibles para él. Ya solo le queda elegir alguna para, posteriormente, si la actividad no tiene límite de participantes o no se ha llegado a este, inscribirse.
 
-Así, dispondrá también de otros listados de actividades apuntadas pendientes de realización y actividades en las que ya ha participado, donde tendrá la posbilidad de establecer una valoración/puntuación.
+Así, dispondrá también de otro listado de planes donde ver y revisar aquellos a los que ya se ha apuntado o participado.
+
+Finalmente, para cada actividad hay asociado un chat en el que los usuarios inscritos pueden ir hablando antes, durante y tras la realización del plan propuesto.
 
 ## Tecnologías a utilizar
 
