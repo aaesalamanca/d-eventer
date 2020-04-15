@@ -1,51 +1,54 @@
 # dEventer
+
 **Realizado por:**
+
 * Martín Escamilla, José Ignacio
 * Ahamad, Achraf
 * Estornell Salamanca, Alejandro Antonio
 
 ## Índice
+
 1. [Introducción](#introducción)
 2. [Objetivos del proyecto](#objetivos-del-proyecto)
-3. Análisis de requisitos
-4. Especificación de requisitos
-   1. Casos de uso
-5. Tecnologías utilizadas
-   1. Firebase
-      1. Firebase Authentication
-      2. Firebase Firestore
-      3. Firebase Cloud Storage
-   2. Java
-   3. Android
-   4. Material Design
-   6. Google Maps Platform
-   5. Otros
-      1. Android Studio
-      2. Git y GitHub
-      3. Diagrams
-6. Modelo de datos
-7. Arquitectura de _software_
-8. Patrones de diseño
-   1. Patrón MVC
-   2. Patrón MVP
-   3. Patrón MVVM
-   4. Elección del patrón
-9. [Configuración de Firebase](#configuración-de-firebase)
+3. [Requisitos](#requisitos)
+   1. [Casos de uso](#casos-de-uso)
+4. [Tecnologías utilizadas](#tecnologías-utilizadas)
+   1. [Firebase](#firebase)
+      1. [Firebase Authentication](#firebase-authentication)
+      2. [Cloud Firestore](#cloud-firestore)
+      3. [Cloud Storage](#cloud-storage)
+   2. [Java](#java)
+   3. [Android](#android)
+   4. [Material Design](#material-design)
+   6. [Google Maps Platform](#google-maps-platform)
+   5. [Otros](#otros)
+      1. [Android Studio](#android-studio)
+      2. [Git y GitHub](#git-y-github)
+      3. [Diagrams](#diagrams)
+5. [Modelo de datos](#modelo-de-datos)
+6. [Arquitectura de _software_](#arquitectura-de-software)
+7. [Patrones de diseño](#patrones-de-diseño)
+   1. [Patrón MVC](#patrón-mvc)
+   2. [Patrón MVP](#patrón-mvp)
+   3. [Patrón MVVM](#patrón-mvvm)
+   4. [Elección del patrón](#elección-del-patrón)
+8. [Configuración de Firebase](#configuración-de-firebase)
    1. [Configuración general del proyecto](#configuración-general-del-proyecto)
-   2. [Firebase Authentication](#firebase-authentication)
-   3. [Firebase Firestore](#firebase-firestore)
-   4. [Firebase Cloud Storage](#firebase-cloud-storage)
-10. Aplicación móvil
-    1. Introducción
-    2. Breve estudio visual
-    3. _View_
-    4. _ViewModel_
-    5. _Model_
-11. Conclusión
-12. Mejoras
-13. [Bibliografía](#bibliografía)
+   2. [Configuración de Firebase Authentication](#configuración-de-firebase-authentication)
+   3. [Configuración de Cloud Firestore](#configuración-de-cloud-firestore)
+   4. [Configuración de Cloud Storage](#configuración-de-cloud-storage)
+9. [Aplicación móvil](#aplicación-móvil)
+    1. [Introducción](#introducción)
+    2. [Breve estudio visual](#breve-estudio-visual)
+    3. [_View_](#view)
+    4. [_ViewModel_](#viewmodel)
+    5. [_Model_](#model)
+10. [Conclusión](#conclusión)
+11. [Mejoras](#mejoras)
+12. [Bibliografía](#bibliografía)
 
 ## Introducción
+
 Es 2020, han pasado más de 10 años desde la presentación del sistema operativo Android —en 2007, el día 5 de noviembre— y el lanzamiento del primer _smartphone_ en hacer uso de este —HTC Dream, anunciado el 23 de septiembre de 2008 y puesto a la venta un mes más tarde, el 20 de octubre de 2008—. Desde entonces, sin apenas competencia con la excepción de Apple y su incursión en el terreno móvil gracias al iPhone y su sistema operativo iOS, Android es el dominador absoluto del mercado. Para ello una muestra:
 
 * En mayo de 2019 superó la barrera de 2.500 millones de dispositivos activos mensuales.
@@ -108,9 +111,9 @@ Esta breve presentación de datos no hacen sino confirmar la premisa de la que p
 
 La introducción tenía el propósito de servir de preámbulo a nuestro proyecto y ofrecer unas pinceladas iniciales que dieran, más o menos, cuenta, a partir de la información presentada, de la senda que pretendemos tomar para el módulo profesional de Proyecto. De alguna forma hemos de defenderlo, y creemos que se asienta sobre una base de mercado bastante estable, robusta y con posibilidades de éxito.
 
-Nuestro objetivo es el desarrollo de una aplicación móvil para el sistema operativo Android en la que los usuarios tengan la oportunidad de crear eventos —lo que comúnmente se conoce como _quedadas_— de cualquier tipo y, a través de esta, otros usuarios —como amigos, conocidos o incluso desconocidos— vean estas actividades, dentro de unos parámetros preestablecidos, y se unan a ellas si están interesados.
+Nuestro objetivo es el desarrollo de una aplicación móvil para el sistema operativo Android en la que los usuarios tengan la oportunidad de crear eventos —lo que comúnmente se conoce como _quedadas_, planes o actividades; aquí funcionan como sinónimos— de cualquier tipo y, a través de esta, otros usuarios —amigos, conocidos o incluso desconocidos— vean estas actividades y se unan a ellas si están interesados.
 
-De este modo, los usuarios registrados que utilicen la _app_ serán capaces tanto de ver las actividades más cercanas y afines a las que pueden apuntarse, como de subir las propias para que otros se inscriban.
+De este modo, los usuarios registrados que utilicen la _app_ serán capaces tanto de ver las actividades que otros han creado y a las que pueden apuntarse, como de subir las propias para que otros se inscriban.
 
 Todo ello aderezado de un conjunto de características adicionales —como _chat_ entre los miembros inscritos a una actividad— que detallaremos en profundidad durante el desarrollo de este documento; en futuros apartados.
 
@@ -128,7 +131,94 @@ Como ya se señaló previamente, esta decisión se tomó en los primeros días d
 
 ## Objetivos del proyecto
 
+El objetivo y reto principal, creemos, al que nos vamos a enfrentar es el diseño y desarrollo de una base de datos NoSQL en la nube que, además, no necesite de una capa intermedia o _web service_ entre la aplicación y esta. Su dificultad no reside tanto en el funcionamiento intrínseco de esta modalidad de almacenamiento de datos, sino en la curva de aprendizaje asociada, pues hemos trabajado poco con este tipo de tecnologías.
+
+Los usuarios crearán una cuenta —con correo electrónico y contraseña—, iniciarán sesión con esta, o con un proveedor externo como Google, y, a partir de ahí podrán, como hemos señalado con anterioridad, visualizar el listado de planes disponibles para ellos —si la actividad no tiene límite de participantes o no lo ha alcanzado si lo tiene— e inscribirse en uno.
+
+Junto al listado previo, dispondrá de otro compuesto por los planes a los que ya se ha apuntado o en los que ya ha participado.
+
+Finalmente, y esto constituye el otro gran reto de recurrir a una base de datos NoSQL _cloud_, para cada actividad hay asociado un _chat_ en el que los usuarios inscritos pueden ir hablando antes, durante y tras la realización del plan propuesto. ¿Qué implicaciones tiene este _chat_? La base de datos y la aplicación deben sincronizarse en tiempo real. Más adelante explicaremos cómo hemos sorteado esta dificultad gracias, en gran parte, a las tecnologías sobre las que se asienta la aplicación, sin las cuales esta _feature_ se habría vuelto demasiado compleja de desarollar.
+
+## Requisitos
+
+En primera instancia, definimos una serie de funcionalidades o características que nos gustaría ver desarrolladas en la aplicación. Tomando esa lista como base, seleccionamos las más viables teniendo siempre presente las limitaciones de tiempo para entregar el proyecto. Las características que quedaron fuera se proponen como mejoras en el apartado correspondiente —junto las que valoramos _a posteriori_.
+
+Dadas las aclaraciones pertinentes, el usuario debe poder en relación a:
+
+* Su perfil:
+  * Crear el perfil.
+  * Borrar el perfil.
+  * Cambiar el correo electrónico.
+  * Cambiar la contraseña.
+  * Añadir una foto.
+  * Modificar la foto.
+  * Eliminar la foto.
+* Las actividades:
+  * Crear una actividad.
+  * Borrar una actividad.
+  * Ver las actividades disponibles.
+  * Ver las actividades a las que se ha inscrito.
+  * Apuntarse a una actividad.
+  * Darse de baja de una actividad.
+* Los _chats_:
+  * Ver los _chats_ disponibles.
+  * Enviar mensajes en los _chats_.
+  * Recibir mensajes de los _chats_.
+
+A lo anterior, nosotros como desarrolladores, establecimos un par de puntos o pautas que nos marcamos. Trateremos de seguirlas lo máximo posible:
+
+1. La capa de presentación —la aplicación propiamente dicha— debe seguir alguno de los patrones de arquitectura de _software_. A saber:
+   1. Modelo-vista-controlador.
+   2. Modelo-vista-presentador.
+   3. Modelo-vista-modelo de vista.
+2. El apartado visual tiene por objeto la búsqueda de un diseño limpio y agradable a la vista —a pesar de lo subjetivo que puede llegar a ser este punto—. Para ello contamos con las pautas marcadsa por la guía de diseño —más bien _framework_— oficial de Google para Android: Material Design.
+
+Tan solo un apunte; adelantamos ya que el patrón de _software_ escogido es MVVM o _model_-_view_-_viewmodel_. Obviamente, se estudiaron los tres y en base a ventajas, desventajas y facilidades fue este el que nos pareció más adecuado.
+
+### Casos de uso
+
+## Tecnologías utilizadas
+
+### Firebase
+
+#### Firebase Authentication
+
+#### Cloud Firestore
+
+#### Cloud Storage
+
+### Java
+
+### Android
+
+### Material Design
+
+### Google Maps Platform
+
+### Otros
+
+#### Android Studio
+
+#### Git y GitHub
+
+#### Diagrams
+
+## Modelo de datos
+
+## Arquitectura de _software_
+
+## Patrones de diseño
+
+### Patrón MVC
+
+### Patrón MVP
+
+### Patrón MVVM
+
+### Elección del patrón
+
 ## Configuración de Firebase
+
 ### Configuración general del proyecto
 
 `SHA-1`
@@ -157,6 +247,7 @@ Versión: 1
 ```
 
 `project/build.gradle`
+
 ```gradle
 buildscript {
   repositories {
@@ -221,12 +312,36 @@ dependencies {
 }
 ```
 
-### Firebase Authentication
-### Firebase Firestore
-### Firebase Cloud Storage
+### Configuración de Firebase Authentication
 
+### Configuración de Cloud Firestore
+
+### Configuración de Cloud Storage
+
+## Aplicación móvil
+
+### Introducción
+
+### Breve estudio visual
+
+### _View_
+
+### _ViewModel_
+
+### Model
+
+### Conclusión
+
+### Mejoras
+
+* Notificaciones de chats.
+* Buscador de actividades.
+* Recomendación personalizada de planes en base a gustos, preferencias, geolocalización...
+* Cifrado de contraseñas e información personal.
+* Valoración del resto de usuarios.
 
 ## Bibliografía
+
 * [Wikipedia | Android (operating system) History](https://en.wikipedia.org/wiki/Android_(operating_system)#History)
 * [Open Handset Alliance | Industry Leaders Announce Open Platform for Mobile Devices](http://www.openhandsetalliance.com/press_110507.html)
 * [TechCrunch | Breaking: Google Announces Android and Open Handset Alliance](https://techcrunch.com/2007/11/05/breaking-google-announces-android-and-open-handset-alliance)
@@ -260,10 +375,21 @@ dependencies {
 * [Fever](https://feverup.com)
 * [Wikipedia | Ticketmaster](https://en.wikipedia.org/wiki/Ticketmaster)
 * [Ticketmaster](https://www.ticketmaster.com)
-* [Add Firebase to your Android project](https://firebase.google.com/docs/android/setup)
+* [Tutorialspoint | Learn MVC Framework](https://www.tutorialspoint.com/mvc_framework/index.htm)
+* [Tutorialspoint | Learn MVVM](https://www.tutorialspoint.com/mvvm/index.htm)
+* [Tutorialspoint | Design Patterns - MVC Pattern](https://www.tutorialspoint.com/design_pattern/mvc_pattern.htm)
+* [Medium | Android Architecture Patterns Part 1: Model-View-Controller](https://medium.com/upday-devs/android-architecture-patterns-part-1-model-view-controller-3baecef5f2b6)
+* [Medium | Android Architecture Patterns Part 2: Model-View-Presenter](https://medium.com/upday-devs/android-architecture-patterns-part-2-model-view-presenter-8a6faaae14a5)
+* [Medium | Android Architecture Patterns Part 3: Model-View-ViewModel](https://medium.com/upday-devs/android-architecture-patterns-part-3-model-view-viewmodel-e7eeee76b73b)
+* [Medium | Model View Presenter(MVP) in Android with a simple demo project](https://medium.com/cr8resume/make-you-hand-dirty-with-mvp-model-view-presenter-eab5b5c16e42)
+* [raywenderlich.com | Getting Started with MVP (Model View Presenter) on Android](https://www.raywenderlich.com/7026-getting-started-with-mvp-model-view-presenter-on-android)
+* [Material Design](https://material.io)
+* [Firebase Docs | Add Firebase to your Android project](https://firebase.google.com/docs/android/setup)
 
 ---
+
 > Portions of this page are reproduced from work created and shared by the Android Open Source Project and used according to terms described in the Creative Commons 2.5 Attribution License.
 
 ---
+
 > Portions of this page are modifications based on work created and shared by the Android Open Source Project and used according to terms described in the Creative Commons 2.5 Attribution License.
