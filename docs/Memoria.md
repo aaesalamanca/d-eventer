@@ -324,6 +324,8 @@ dependencies {
 
 ### Breve estudio visual
 
+![Paleta de color](../images/color-palette.png)
+
 ### _View_
 
 ### _ViewModel_
@@ -385,6 +387,11 @@ dependencies {
 * [raywenderlich.com | Getting Started with MVP (Model View Presenter) on Android](https://www.raywenderlich.com/7026-getting-started-with-mvp-model-view-presenter-on-android)
 * [Material Design](https://material.io)
 * [Firebase Docs | Add Firebase to your Android project](https://firebase.google.com/docs/android/setup)
+* [Material Design The color system](https://material.io/design/color/the-color-system.html)
+* [Material Design Color Tool](https://material.io/resources/color)
+* [Material Design Applying color to UI](https://material.io/design/color/applying-color-to-ui.html)
+* [Material Design Color usage](https://material.io/design/color/color-usage.html)
+* [Material Design Text legibility](https://material.io/design/color/text-legibility.html)
 
 ---
 
