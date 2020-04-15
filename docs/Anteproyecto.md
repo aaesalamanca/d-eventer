@@ -20,7 +20,7 @@ El usuario ha de iniciar sesión con un proveedor externo —Google— y, a part
 
 Así, dispondrá también de otro listado de planes donde ver y revisar aquellos a los que ya se ha apuntado o participado.
 
-Finalmente, para cada actividad hay asociado un chat en el que los usuarios inscritos pueden ir hablando antes, durante y tras la realización del plan propuesto.
+Finalmente, para cada actividad hay asociado un _chat_ en el que los usuarios inscritos pueden ir hablando antes, durante y tras la realización del plan propuesto.
 
 ## Tecnologías a utilizar
 
