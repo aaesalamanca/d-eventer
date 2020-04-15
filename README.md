@@ -48,4 +48,4 @@ Ten en cuenta también que deberás configurar un proyecto en [Firebase](https:/
 [Apache License, Version 2.0](https://www.apache.org/licenses/LICENSE-2.0)
 
 ---
-Este `README.md` está basado en las indicaciones de [About READMEs](https://help.github.com/en/github/creating-cloning-and-archiving-repositories/about-readmes), [Make a README](https://www.makeareadme.com), [Awesome README](https://github.com/matiassingers/awesome-readme) y [Makind READMEs readable](https://github.com/18F/open-source-guide/blob/18f-pages/pages/making-readmes-readable.md).
+Este `README.md` está basado en las indicaciones de [About READMEs](https://help.github.com/en/github/creating-cloning-and-archiving-repositories/about-readmes), [Make a README](https://www.makeareadme.com), [Awesome README](https://github.com/matiassingers/awesome-readme) y [Making READMEs readable](https://github.com/18F/open-source-guide/blob/18f-pages/pages/making-readmes-readable.md).
