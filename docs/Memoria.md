@@ -10,10 +10,9 @@
 
 1. [Introducción](#introducción)
 2. [Objetivos del proyecto](#objetivos-del-proyecto)
-3. [Análisis de requisitos](#análisis-de-requisitos)
-4. [Especificación de requisitos](#especificación-de-requisitos)
+3. [Requisitos](#requisitos)
    1. [Casos de uso](#casos-de-uso)
-5. [Tecnologías utilizadas](#tecnologías-utilizadas)
+4. [Tecnologías utilizadas](#tecnologías-utilizadas)
    1. [Firebase](#firebase)
       1. [Firebase Authentication](#firebase-authentication)
       2. [Cloud Firestore](#cloud-firestore)
@@ -26,27 +25,27 @@
       1. [Android Studio](#android-studio)
       2. [Git y GitHub](#git-y-github)
       3. [Diagrams](#diagrams)
-6. [Modelo de datos](#modelo-de-datos)
-7. [Arquitectura de _software_](#arquitectura-de-software)
-8. [Patrones de diseño](#patrones-de-diseño)
+5. [Modelo de datos](#modelo-de-datos)
+6. [Arquitectura de _software_](#arquitectura-de-software)
+7. [Patrones de diseño](#patrones-de-diseño)
    1. [Patrón MVC](#patrón-mvc)
    2. [Patrón MVP](#patrón-mvp)
    3. [Patrón MVVM](#patrón-mvvm)
    4. [Elección del patrón](#elección-del-patrón)
-9. [Configuración de Firebase](#configuración-de-firebase)
+8. [Configuración de Firebase](#configuración-de-firebase)
    1. [Configuración general del proyecto](#configuración-general-del-proyecto)
    2. [Configuración de Firebase Authentication](#configuración-de-firebase-authentication)
    3. [Configuración de Cloud Firestore](#configuración-de-cloud-firestore)
    4. [Configuración de Cloud Storage](#configuración-de-cloud-storage)
-10. [Aplicación móvil](#aplicación-móvil)
+9. [Aplicación móvil](#aplicación-móvil)
     1. [Introducción](#introducción)
     2. [Breve estudio visual](#breve-estudio-visual)
     3. [_View_](#view)
     4. [_ViewModel_](#viewmodel)
     5. [_Model_](#model)
-11. [Conclusión](#conclusión)
-12. [Mejoras](#mejoras)
-13. [Bibliografía](#bibliografía)
+10. [Conclusión](#conclusión)
+11. [Mejoras](#mejoras)
+12. [Bibliografía](#bibliografía)
 
 ## Introducción
 
@@ -140,11 +139,11 @@ Junto al listado previo, dispondrá de otro compuesto por los planes a los que y
 
 Finalmente, y esto constituye el otro gran reto de recurrir a una base de datos NoSQL _cloud_, para cada actividad hay asociado un _chat_ en el que los usuarios inscritos pueden ir hablando antes, durante y tras la realización del plan propuesto. ¿Qué implicaciones tiene este _chat_? La base de datos y la aplicación deben sincronizarse en tiempo real. Más adelante explicaremos cómo hemos sorteado esta dificultad gracias, en gran parte, a las tecnologías sobre las que se asienta la aplicación, sin las cuales esta _feature_ se habría vuelto demasiado compleja de desarollar.
 
-## Análisis de requisitos
+## Requisitos
 
-## Especificación de requisitos
+En primera instancia, definimos una serie de funcionalidades o características que nos gustaría ver desarrolladas en la aplicación. Tomando esa lista como base, seleccionamos las más viables teniendo siempre presente las limitaciones de tiempo para entregar el proyecto. Las características que quedaron fuera se proponen como mejoras en el apartado correspondiente —junto las que valoramos _a posteriori_.
 
-El usuario debe poder en relación a:
+Dadas las aclaraciones pertinentes, el usuario debe poder en relación a:
 
 * Su perfil:
   * Crear el perfil.
@@ -162,7 +161,19 @@ El usuario debe poder en relación a:
   * Apuntarse a una actividad.
   * Darse de baja de una actividad.
 * Los _chats_:
-  * _Chatear_ con los demás miembros de una actividad en la que está inscrito.
+  * Ver los _chats_ disponibles.
+  * Enviar mensajes en los _chats_.
+  * Recibir mensajes de los _chats_.
+
+A lo anterior, nosotros como desarrolladores, establecimos un par de puntos o pautas que nos marcamos. Trateremos de seguirlas lo máximo posible:
+
+1. La capa de presentación —la aplicación propiamente dicha— debe seguir alguno de los patrones de arquitectura de _software_. A saber:
+   1. Modelo-vista-controlador.
+   2. Modelo-vista-presentador.
+   3. Modelo-vista-modelo de vista.
+2. El apartado visual tiene por objeto la búsqueda de un diseño limpio y agradable a la vista —a pesar de lo subjetivo que puede llegar a ser este punto—. Para ello contamos con las pautas marcadsa por la guía de diseño —más bien _framework_— oficial de Google para Android: Material Design.
+
+Tan solo un apunte; adelantamos ya que el patrón de _software_ escogido es MVVM o _model_-_view_-_viewmodel_. Obviamente, se estudiaron los tres y en base a ventajas, desventajas y facilidades fue este el que nos pareció más adecuado.
 
 ### Casos de uso
 
@@ -364,10 +375,21 @@ dependencies {
 * [Fever](https://feverup.com)
 * [Wikipedia | Ticketmaster](https://en.wikipedia.org/wiki/Ticketmaster)
 * [Ticketmaster](https://www.ticketmaster.com)
-* [Add Firebase to your Android project](https://firebase.google.com/docs/android/setup)
+* [Tutorialspoint | Learn MVC Framework](https://www.tutorialspoint.com/mvc_framework/index.htm)
+* [Tutorialspoint | Learn MVVM](https://www.tutorialspoint.com/mvvm/index.htm)
+* [Tutorialspoint | Design Patterns - MVC Pattern](https://www.tutorialspoint.com/design_pattern/mvc_pattern.htm)
+* [Medium | Android Architecture Patterns Part 1: Model-View-Controller](https://medium.com/upday-devs/android-architecture-patterns-part-1-model-view-controller-3baecef5f2b6)
+* [Medium | Android Architecture Patterns Part 2: Model-View-Presenter](https://medium.com/upday-devs/android-architecture-patterns-part-2-model-view-presenter-8a6faaae14a5)
+* [Medium | Android Architecture Patterns Part 3: Model-View-ViewModel](https://medium.com/upday-devs/android-architecture-patterns-part-3-model-view-viewmodel-e7eeee76b73b)
+* [Medium | Model View Presenter(MVP) in Android with a simple demo project](https://medium.com/cr8resume/make-you-hand-dirty-with-mvp-model-view-presenter-eab5b5c16e42)
+* [raywenderlich.com | Getting Started with MVP (Model View Presenter) on Android](https://www.raywenderlich.com/7026-getting-started-with-mvp-model-view-presenter-on-android)
+* [Material Design](https://material.io)
+* [Firebase Docs | Add Firebase to your Android project](https://firebase.google.com/docs/android/setup)
 
 ---
+
 > Portions of this page are reproduced from work created and shared by the Android Open Source Project and used according to terms described in the Creative Commons 2.5 Attribution License.
 
 ---
+
 > Portions of this page are modifications based on work created and shared by the Android Open Source Project and used according to terms described in the Creative Commons 2.5 Attribution License.
