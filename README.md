@@ -1,4 +1,6 @@
-# dEventer
+<h1 align="center">
+	<img src="images/logo-transparent.png" height="250" alt="dEventer"/>
+</h1>
 
 Queda con amigos o conoce gente nueva haciendo los planes que más te gustan. Cañas, cenas, copas, quedadas, partidos de fútbol... Todo plan es bienvenido, ¡crea uno o únete a los que más te gusten!
 
@@ -31,6 +33,8 @@ Ten en cuenta también que deberás configurar un proyecto en [Firebase](https:/
 ## Roadmap
 
 ## Colaborar
+
+Si quieres participar en el proyecto, te pedimos, por favor, que leas antes esta [guía para colaborar en dEventer](CONTRIBUTING.md).
 
 ## Documentación
 
