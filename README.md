@@ -34,7 +34,7 @@ Ten en cuenta también que deberás configurar un proyecto en [Firebase](https:/
 
 ## Colaborar
 
-Si quieres colaborar con nosotros, te pedimos, por favor, que leas antes esta [guía](CONTRIBUTING.md).
+Si quieres participar en el proyecto, te pedimos, por favor, que leas antes esta [guía para colaborar en dEventer](CONTRIBUTING.md).
 
 ## Documentación
 
