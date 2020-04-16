@@ -1,7 +1,5 @@
 <h1 align="center">
 	<img src="images/logo-transparent.png" />
-	<br>
-	dEventer
 </h1>
 
 Queda con amigos o conoce gente nueva haciendo los planes que más te gustan. Cañas, cenas, copas, quedadas, partidos de fútbol... Todo plan es bienvenido, ¡crea uno o únete a los que más te gusten!
