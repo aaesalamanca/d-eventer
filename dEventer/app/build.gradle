@@ -1,4 +1,8 @@
+// Plugins por defecto de Andoroid Studio
 apply plugin: 'com.android.application'
+
+// https://firebase.google.com/docs/android/setup?authuser=0#add-config-file
+apply plugin: 'com.google.gms.google-services' // Plugin de Google Services requerido por Firebase
 
 android {
     compileSdkVersion 29
@@ -29,7 +33,19 @@ dependencies {
 
     // Dependencias por defecto de Android Studio
     implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+    // https://firebase.google.com/docs/android/setup?authuser=0#add-sdks
+    // https://firebase.google.com/docs/android/setup?authuser=0#firebase-bom
+    // Release notes: https://firebase.google.com/support/release-notes/android?authuser=0
+    // Dependencias de Firebase
+    // Se utiliza Bill of Materials (BoM) para no tener que mantener de forma individial el
+    // número de cada librería que utilizamos de Firebase. Así solo hay que actualizar el número
+    // de BoM sin especificar el de las librerías; estas recurren a la última versión disponible
+    // en el lanzamiento de BoM.
+    implementation platform('com.google.firebase:firebase-bom:25.2.2') // Plataforma de BoM
+    implementation 'com.google.firebase:firebase-analytics' // SDK de Firebase para Google Analytics
 }
