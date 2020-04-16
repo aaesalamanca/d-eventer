@@ -394,6 +394,7 @@ dependencies {
 * [Material Design Applying color to UI](https://material.io/design/color/applying-color-to-ui.html)
 * [Material Design Color usage](https://material.io/design/color/color-usage.html)
 * [Material Design Text legibility](https://material.io/design/color/text-legibility.html)
+* [Free Logo Maker](https://logomakr.com/)
 
 ---
 
