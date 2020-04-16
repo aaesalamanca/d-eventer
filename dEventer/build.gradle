@@ -3,7 +3,9 @@
 buildscript {
     
     repositories {
-        google()
+        // https://firebase.google.com/docs/android/setup?authuser=0#add-config-file
+        // Repositorios por defecto de Android Studio
+        google() // Repositorio de Google Maven requerido por Firebase
         jcenter()
         
     }
@@ -13,12 +15,18 @@ buildscript {
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
+
+        // https://firebase.google.com/docs/android/setup?authuser=0#add-config-file
+        // Dependencia para añadir Firebase
+        classpath 'com.google.gms:google-services:4.3.3'
     }
 }
 
 allprojects {
     repositories {
-        google()
+        // https://firebase.google.com/docs/android/setup?authuser=0#add-config-file
+        // Repositorios por defecto de Android Studio
+        google() // Repositorio de Google Maven requerido por Firebase
         jcenter()
         
     }
