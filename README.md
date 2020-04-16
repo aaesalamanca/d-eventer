@@ -34,6 +34,8 @@ Ten en cuenta también que deberás configurar un proyecto en [Firebase](https:/
 
 ## Colaborar
 
+Si quieres colaborar con nosotros, te pedimos, por favor, que leas antes esta [guía](CONTRIBUTING.md).
+
 ## Documentación
 
 * La carpeta `docs`contiene todos los documentos que han de ser entregados a los profesores. A saber —aparecen en orden de entrega—:
