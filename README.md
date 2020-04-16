@@ -11,7 +11,8 @@ dEventer es una aplicación Android que estamos desarrollando para el módulo de
 1. [Features](#features)
 2. [Instalación](#instalación)
 3. [Roadmap](#roadmap)
-4. [License](#license)
+4. [Colaborar](#colaborar)
+5. [License](#license)
 
 ## Features
 
