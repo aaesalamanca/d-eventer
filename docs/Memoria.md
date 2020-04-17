@@ -47,7 +47,6 @@
     2. [Breve estudio visual](#breve-estudio-visual)
     3. [_View_](#view)
     4. [_ViewModel_](#viewmodel)
-
     5. [_Model_](#model)
 10. [Conclusión](#conclusión)
 11. [Mejoras](#mejoras)
