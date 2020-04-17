@@ -36,6 +36,10 @@
    4. [Elección del patrón](#elección-del-patrón)
 8. [Configuración de Firebase](#configuración-de-firebase)
    1. [Configuración general del proyecto](#configuración-general-del-proyecto)
+      1. [Crear el proyecto en Firebase](#crear-el-proyecto-en-firebase)
+      2. [Registrar la aplicación en Firebase](#registrar-la-aplicación-en-firebase)
+      3. [Añadir el archivo de configuración de Firebase](#añadir-el-archivo-de-configuración-de-firebase)
+      4. [Añadir el SDK de Firebase a la _app_](#añadir-el-sdk-de-firebase-a-la-app)
    2. [Configuración de Firebase Authentication](#configuración-de-firebase-authentication)
    3. [Configuración de Cloud Firestore](#configuración-de-cloud-firestore)
    4. [Configuración de Cloud Storage](#configuración-de-cloud-storage)
@@ -223,6 +227,51 @@ Tan solo un apunte; adelantamos ya que el patrón de _software_ escogido es MVVM
 
 ### Configuración general del proyecto
 
+Requisitos:
+
+* Android Studio
+* La API objetivo es Jelly Bean —número d versión16— o superior.
+* Gradle 4.1 o superior.
+* Jetpack (AndroidX) cumpliendo:
+  * `com.androir.tools.build:gradle` v3.2.1 o más reciente.
+  * `compileSdkVersion` 28 o posterior.
+* Configurar un dispositivo físico o un emulador en el que ejecutar la aplicación.
+* Iniciar sesión en Firebase.
+
+Usamos el flujo de trabajo recomendado con la consola de Firebase; la otra opción recurre al asistente de Firebase para Android Studio y necesita pasos adicionales para su puesta en marcha.
+
+#### Crear el proyecto en Firebase
+![Crear el proyecto en Firebase: Parte 1](../images/create-firebase-1.png)
+
+![Crear el proyecto en Firebase: Parte 2.1](../images/create-firebase-2-1.png)
+
+![Crear el proyecto en Firebase: Parte 2.2](../images/create-firebase-2-2.png)
+
+![Crear el proyecto en Firebase: Parte 3](../images/create-firebase-3.png)
+
+![Crear el proyecto en Firebase: Consola](../images/firebase-console.png)
+
+#### Registrar la aplicación en Firebase
+
+![Registrar la aplicación en Firebase: Parte 1](../images/firebase-add-app-1.png)
+
+![Registrar la aplicación en Firebase: Parte 2](../images/firebase-add-app-2.png)
+
+![Registrar la aplicación en Firebase: Parte 3](../images/firebase-add-app-3.png)
+
+`app/build.gradle`
+```gradle
+// ...
+android {
+	// ...
+    defaultConfig {
+        applicationId "es.deventer.test"
+        // ...
+    }
+	// ...
+}
+```
+
 `SHA-1`
 ```
 $ keytool -list -v -alias androiddebugkey -keystore %USERPROFILE%\.android\debug.keystore
@@ -248,8 +297,13 @@ Algoritmo de clave pública de asunto: Clave RSA de 2048 bits
 Versión: 1
 ```
 
-`project/build.gradle`
+#### Añadir el archivo de configuración de Firebase
 
+![Añadir el archivo de configuración de Firebase: Parte 1](../images/firebase-add-app-4.png)
+
+![Añadir el archivo de configuración de Firebase: Parte 2](../images/firebase-add-app-5.png)
+
+`project/build.gradle`
 ```gradle
 buildscript {
   repositories {
@@ -257,18 +311,18 @@ buildscript {
     google()  // Google's Maven repository
   }
   dependencies {
-    ...
+    // ...
     // Add this line
     classpath 'com.google.gms:google-services:4.3.3'
   }
 }
 
 allprojects {
-  ...
+  // ...
   repositories {
     // Check that you have the following line (if not, add it):
     google()  // Google's Maven repository
-    ...
+    // ...
   }
 }
 ```
@@ -283,6 +337,8 @@ android {
   // ...
 }
 ```
+
+#### Añadir el SDK de Firebase a la _app_
 
 `app/build.gradle`
 ```gradle
