@@ -47,6 +47,7 @@
     2. [Breve estudio visual](#breve-estudio-visual)
     3. [_View_](#view)
     4. [_ViewModel_](#viewmodel)
+
     5. [_Model_](#model)
 10. [Conclusión](#conclusión)
 11. [Mejoras](#mejoras)
@@ -252,11 +253,11 @@ Usamos el flujo de trabajo recomendado con la consola de Firebase; la otra opci�
 
 #### Registrar la aplicación en Firebase
 
-![Registrar la aplicación en Firebase: Parte 1](../images/firebase-add-app-1)
+![Registrar la aplicación en Firebase: Parte 1](../images/firebase-add-app-1.png)
 
-![Registrar la aplicación en Firebase: Parte 2](../images/firebase-add-app-2)
+![Registrar la aplicación en Firebase: Parte 2](../images/firebase-add-app-2.png)
 
-![Registrar la aplicación en Firebase: Parte 3](../images/firebase-add-app-3)
+![Registrar la aplicación en Firebase: Parte 3](../images/firebase-add-app-3.png)
 
 `app/build.gradle`
 ```gradle
@@ -298,9 +299,9 @@ Versión: 1
 
 #### Añadir el archivo de configuración de Firebase
 
-![Añadir el archivo de configuración de Firebase: Parte 1](../images/firebase-add-app-4)
+![Añadir el archivo de configuración de Firebase: Parte 1](../images/firebase-add-app-4.png)
 
-![Añadir el archivo de configuración de Firebase: Parte 2](../images/firebase-add-app-5)
+![Añadir el archivo de configuración de Firebase: Parte 2](../images/firebase-add-app-5.png)
 
 `project/build.gradle`
 
