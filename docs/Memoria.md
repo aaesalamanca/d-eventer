@@ -38,7 +38,8 @@
    1. [Configuración general del proyecto](#configuración-general-del-proyecto)
       1. [Crear el proyecto en Firebase](#crear-el-proyecto-en-firebase)
       2. [Registrar la aplicación en Firebase](#registrar-la-aplicación-en-firebase)
-      3. [Añadir el archivo de configuración de Firebase](#añadir-el-archivo-de-configuración-de-firebase	)
+      3. [Añadir el archivo de configuración de Firebase](#añadir-el-archivo-de-configuración-de-firebase)
+      4. [Añadir el SDK de Firebase a la _app_](#añadir-el-sdk-de-firebase-a-la-app)
    2. [Configuración de Firebase Authentication](#configuración-de-firebase-authentication)
    3. [Configuración de Cloud Firestore](#configuración-de-cloud-firestore)
    4. [Configuración de Cloud Storage](#configuración-de-cloud-storage)
@@ -303,7 +304,6 @@ Versión: 1
 ![Añadir el archivo de configuración de Firebase: Parte 2](../images/firebase-add-app-5.png)
 
 `project/build.gradle`
-
 ```gradle
 buildscript {
   repositories {
@@ -337,6 +337,8 @@ android {
   // ...
 }
 ```
+
+#### Añadir el SDK de Firebase a la _app_
 
 `app/build.gradle`
 ```gradle
