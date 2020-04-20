@@ -1,7 +1,7 @@
 ---
 name: Informe de error
 about: Crea un informe para ayudarnos a mejorar
-title: "[Problema al]"
+title: Problema al
 labels: bug
 assignees: aaesalamanca
 

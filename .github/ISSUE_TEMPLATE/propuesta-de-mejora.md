@@ -1,7 +1,7 @@
 ---
 name: Propuesta de mejora
 about: Sugiere una idea para el proyecto
-title: "[Añadir o mejorar]"
+title: Añadir
 labels: enhancement
 assignees: aaesalamanca
 
