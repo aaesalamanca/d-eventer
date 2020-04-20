@@ -58,7 +58,7 @@ La rama `master` está protegida, todo _merge_ a esta rama debe hacerse previo _
   * :racehorse: `:racehorse:` al mejorar el rendimiento.
   * :bug: `:bug:` al arreglar un _bug_ —error—.
   * :fire: `:fire:` al eliminar código o archivos.
-  * :memo: `:memo:` al escribir documentos.
+  * :memo: `:memo:` al escribir o modificar documentos.
 
 ### Java
 
