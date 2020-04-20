@@ -7,3 +7,7 @@
 2. Cambia este texto con el contenido de la plantilla.
 3. Rellena todos los apartados de la plantilla.
 4. Haz click en `Create pull request`.
+
+---
+
+Basado en [Atom Pull Request Template](https://github.com/atom/atom/blob/master/PULL_REQUEST_TEMPLATE.md)
