@@ -53,7 +53,7 @@ La rama `master` está protegida, todo _merge_ a esta rama debe hacerse previo _
 * Referencia los _issues_ y _pull requests_ después de la primera línea.
 * Es recomendable empezar el mensaje de _commit_ con alguno de los siguientes _emoji_:
   * :file_folder: `:file_folder:` al aplicar cambios generales al repositorio.
-  * :iphone: `:iphone:` al aplicar cambios generales a la aplicación.
+  * :iphone: `:iphone:` al aplicar cambios generales a la aplicación como nuevas funcionalidades.
   * :art: `:art:`al añadir imágenes, elementos visuales o mejorar el formato/estructura del código.
   * :racehorse: `:racehorse:` al mejorar el rendimiento.
   * :bug: `:bug:` al arreglar un _bug_ —error—.
