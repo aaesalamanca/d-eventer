@@ -37,7 +37,7 @@ quien revise este PR puede no estar familiarizado o no haber trabajado con el c�
 
 ### Proceso de validación
 
-<--
+<!--
 
 ¿Cuáles fueron los pasos que seguiste para comprobar que el cambio no introduce problemas ya solucionados? Describe las
 acciones que llevaste a cabo (incluyendo botones en los que hiciste clic, texto que escribiste, commandos que ejecutaste, etc.)
