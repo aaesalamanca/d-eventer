@@ -19,7 +19,7 @@ Pasos para reproducir el comportamiento:
 3. Hacer _scroll_hacia '...'
 4. Ver el error
 
-### Expected behavior
+### Comportamiento esperado
 
 Una descripción clara y concisa sobre el comportamiento que esperabas.
 
