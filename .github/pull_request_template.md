@@ -1,6 +1,6 @@
 ¡Bienvenido! Por favor, sigue los pasos que aparecen abajo para contarnos más sobre tu aportación.
 1. Copia la plantilla adecuada:
-* :bug: ¿Estás corrigiendo un error? Copia [esta plantilla](https://raw.githubusercontent.com/aaesalamanca/d-eventer/master/.github/PULL_REQUEST_TEMPLATE/bug_fix.md).
+* :bug: ¿Estás corrigiendo un error? Copia [esta plantilla](https://raw.githubusercontent.com/aaesalamanca/d-eventer/master/.github/PULL_REQUEST_TEMPLATE/bug_fix.md). Copia [esta plantilla](https://raw.githubusercontent.com/aaesalamanca/d-eventer/templates/.github/PULL_REQUEST_TEMPLATE/performance_improvement.md).
 * :racehorse: ¿Estás mejorando el rendimiento?
 * :memo: ¿Estás actualizando documentación?
 * :iphone: ¿Estás cambiando funcionalidad?
