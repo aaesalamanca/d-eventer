@@ -1,14 +1,14 @@
 ### Requisitos para contribuir en la documentación
 
-* Rellena la plantilla. Cualquier `pull request` que no contenga la información suficiente para ser revisado de manera oportuna puede ser borrado por decisión de los desarroladores.
-* El `pull request` tan solo debe corregir un error existente. Para aportar otros cambios, usa otra plantilla. Puedes acceder a todas las plantilas [aquí](https://github.com/aaesalamanca/d-eventer/blob/master/.github/pull_request_template.md).
+* Rellena la plantilla. Cualquier _pull request_ que no contenga la información suficiente para ser revisado de manera oportuna puede ser borrado por decisión de los desarroladores.
+* El _pull request_ tan solo debe afectar a la documentación. Para aportar otros cambios, usa otra plantilla. Puedes acceder a todas las plantilas [aquí](https://github.com/aaesalamanca/d-eventer/blob/master/.github/pull_request_template.md).
 
 ### Descripción de los cambios
 
 <!--
 
 Debemos ser capaces de entender el diseño de tu cambios desde esta descripción. Si no nos podemos hacer a la idea de qué hará
-el código mediante esta descripción, el `pull request` puede ser cerrado por decisión de los desarrolladores.
+el código mediante esta descripción, el pull request puede ser cerrado por decisión de los desarrolladores.
 
 -->
 
