@@ -9,7 +9,7 @@
 
 Escribe el link del issue asociado al error que estás corrigiendo.
 
-Si todavía no hay un issuepara tu error, por favor abre un nuevo issue y después enlázalo con tu pull request.
+Si todavía no hay un issue para tu error, por favor, abre un nuevo issue y después enlázalo con tu pull request.
 
 Nota: en algunas ocasiones, el error de una persona es la funcionalidad de otra. Si el pull request no se relaciona 
 con ningún issue existente con la etiqueta bug, los desarrolladores tienen la última palabra para decidir si es un error.
