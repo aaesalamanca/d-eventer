@@ -8,7 +8,7 @@
 <!--
 
 Debemos ser capaces de entender el diseño de tu cambios desde esta descripción. Si no nos podemos hacer a la idea de qué hará
-el código mediante esta descripción, el `pull request` puede ser cerrado por decisión de los desarrolladores. Ten cuenta que
+el código mediante esta descripción, el pull request puede ser cerrado por decisión de los desarrolladores. Ten cuenta que
 quien revise este PR puede no estar familiarizado o no haber trabajado con el código recientemente, así que explica los conceptos.
 
 -->
@@ -19,7 +19,7 @@ quien revise este PR puede no estar familiarizado o no haber trabajado con el c�
 
 Describe con precisión la mejora de rendimiento (por ejemplo: tiempo reducido en completar una operación, menor uso de memoria, etc.).
 Describe cómo has medido el cambio y la mejora. Se valorará posiivamente la inclusión de gráficos que reflejen la mejora o los
-resultados arrojados por las herramientas de _debugging_.
+resultados arrojados por las herramientas de debugging.
 
 -->
 
