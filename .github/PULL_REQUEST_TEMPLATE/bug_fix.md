@@ -7,7 +7,7 @@
 
 <!--
 
-Escribe el _link_ del issue asociado al error que estás corrigiendo.
+Escribe el link del issue asociado al error que estás corrigiendo.
 
 Si todavía no hay un issuepara tu error, por favor abre un nuevo issue y después enlázalo con tu pull request.
 
