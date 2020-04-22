@@ -3,8 +3,6 @@
 * Rellena la plantilla. Cualquier _pull request_ que no contenga la información suficiente para ser revisado de manera oportuna puede ser borrado por decisión de los desarroladores.
 * El _pull request_ solo debe añadir, cambiar o eliminar una característica. Para aportar cambios diferentes, usa otra plantilla. Puedes acceder a todas las plantilas [aquí](https://github.com/aaesalamanca/d-eventer/blob/master/.github/pull_request_template.md).
 
-### Issue o RFC adjunto por los desarrolladores
-
 ### Descripción de los cambios
 
 <!--
