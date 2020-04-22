@@ -1,7 +1,7 @@
 ### Requisitos para corregir un error
 
 * Rellena la plantilla. Cualquier _pull request_ que no contenga la información suficiente para ser revisado de manera oportuna puede ser borrado por decisión de los desarroladores.
-* El _pull request_ solo debe corregir un error existente. Para aportar otros cambios, usa otra plantilla. Puedes acceder a todas las plantilas [aquí](https://github.com/aaesalamanca/d-eventer/blob/master/.github/pull_request_template.md).
+* El _pull request_ solo debe corregir un error existente. Para aportar cambios diferentes, usa otra plantilla. Puedes acceder a todas las plantilas [aquí](https://github.com/aaesalamanca/d-eventer/blob/master/.github/pull_request_template.md).
 
 ### Identifica el error
 
@@ -29,7 +29,6 @@ quien revise este PR puede no estar familiarizado o no haber trabajado con el c�
 ### Alternativas
 
 <!-- Explica otras alternativas que tuviste en cuenta y por qué esta versión fue la elegida. -->
-
 
 ### Posibles problemas o desventajas
 
