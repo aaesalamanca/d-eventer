@@ -1,18 +1,18 @@
 ### Requisitos para corregir un error
 
-* Rellena la plantilla. Cualquier `pull request` que no contenga la información suficiente para ser revisado de manera oportuna puede ser borrado por decisión de los desarroladores.
-* El `pull request` tan solo debe corregir un error existente. Para aportar otros cambios, usa otra plantilla. Puedes acceder a todas las plantilas [aquí](https://github.com/aaesalamanca/d-eventer/blob/master/.github/pull_request_template.md).
+* Rellena la plantilla. Cualquier _pull request_ que no contenga la información suficiente para ser revisado de manera oportuna puede ser borrado por decisión de los desarroladores.
+* El _pull request_ tan solo debe corregir un error existente. Para aportar otros cambios, usa otra plantilla. Puedes acceder a todas las plantilas [aquí](https://github.com/aaesalamanca/d-eventer/blob/master/.github/pull_request_template.md).
 
 ### Identifica el error
 
 <!--
 
-Escribe el _link_ del `issue` asociado al error que estás corrigiendo.
+Escribe el _link_ del issue asociado al error que estás corrigiendo.
 
-Si todavía no hay un `issue`para tu error, por favor abre un nuevo `issue`y después enlázalo con tu `pull request`.
+Si todavía no hay un issuepara tu error, por favor abre un nuevo issue y después enlázalo con tu pull request.
 
-Nota: en algunas ocasiones, el error de una persona es la funcionalidad de otra. Si el `pull request` no se relaciona 
-con ningún `issue` existente con la etiqueta `bug`, los desarrolladores tienen la última palabra para decidir si es un error.
+Nota: en algunas ocasiones, el error de una persona es la funcionalidad de otra. Si el pull request no se relaciona 
+con ningún issue existente con la etiqueta bug, los desarrolladores tienen la última palabra para decidir si es un error.
 
 -->
 
@@ -21,7 +21,7 @@ con ningún `issue` existente con la etiqueta `bug`, los desarrolladores tienen 
 <!--
 
 Debemos ser capaces de entender el diseño de tu cambios desde esta descripción. Si no nos podemos hacer a la idea de qué hará
-el código mediante esta descripción, el `pull request` puede ser cerrado por decisión de los desarrolladores. Ten cuenta que
+el código mediante esta descripción, el pull request puede ser cerrado por decisión de los desarrolladores. Ten cuenta que
 quien revise este PR puede no estar familiarizado o no haber trabajado con el código recientemente, así que explica los conceptos.
 
 -->
@@ -65,4 +65,4 @@ Ejemplos:
 
 ---
 
-Basado en [Atom Bug Fix Pull Request Template](https://raw.githubusercontent.com/atom/.github/master/.github/PULL_REQUEST_TEMPLATE/bug_fix.md)
+Basado en [Atom Bug Fix Pull Request Template](https://raw.githubusercontent.com/atom/.github/master/.github/PULL_REQUEST_TEMPLATE/bug_fix.md).
