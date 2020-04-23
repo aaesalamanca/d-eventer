@@ -4,8 +4,9 @@ buildscript {
     
     repositories {
         // https://firebase.google.com/docs/android/setup?authuser=0#add-config-file
+        // https://material.io/develop/android/docs/getting-started/
         // Repositorios por defecto de Android Studio
-        // Son también necesarios por:
+        // Son también necesarios para:
         //  - Firebase
         //  - Material Design
         google()
@@ -28,8 +29,11 @@ buildscript {
 allprojects {
     repositories {
         // https://firebase.google.com/docs/android/setup?authuser=0#add-config-file
+        // https://material.io/develop/android/docs/getting-started/
         // Repositorios por defecto de Android Studio
-        // Son también requeridos por Firebase y Material Design
+        // Son también necesarios para:
+        //  - Firebase
+        //  - Material Design
         google()
         jcenter()
         
