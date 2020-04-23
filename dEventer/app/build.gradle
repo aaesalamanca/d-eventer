@@ -57,6 +57,7 @@ dependencies {
     implementation 'com.google.android.material:material:1.2.0-alpha05'
     implementation 'com.google.android.material:material:1.1.0'
 
+    // Release Notes: https://github.com/facebook/facebook-android-sdk/releases
     // Dependencias de Facebook
-    implementation 'com.facebook.android:facebook-android-sdk:5.15.3'
+    implementation 'com.facebook.android:facebook-android-sdk:6.4.0'
 }

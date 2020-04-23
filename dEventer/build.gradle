@@ -11,7 +11,12 @@ buildscript {
         //  - Material Design
         google()
         jcenter()
-        
+
+        // https://developers.facebook.com/docs/android/componentsdks
+        // https://developers.facebook.com/docs/android/getting-started/
+        // https://github.com/facebook/facebook-android-sdk
+        // Necesario para el SDK de Facebook
+        mavenCentral()
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.6.3'
