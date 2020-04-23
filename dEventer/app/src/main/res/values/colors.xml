@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Colores para el tema -->
     <color name="colorPrimary">#263237</color>
     <color name="colorPrimaryDark">#182237</color>
     <color name="colorPrimaryDark2">#1e282d</color>
@@ -11,6 +12,7 @@
     <color name="successText">#aaFF00</color>
     <color name="colorPrincipal">#293859</color>
 
+    <!-- Colores para los diferentes estados de los text field -->
     <!-- Color for the text field's disabled state: 12% black -->
     <color name="mtrl_textinput_disabled_color">@color/colorAccent</color>
     <!-- Color for the text field's default box stroke: 42% black -->
@@ -21,4 +23,7 @@
     <color name="mtrl_textinput_focused_box_stroke_color">@color/colorAccent</color>
     <!-- Color for the text field's default box background: 4% black -->
     <color name="mtrl_textinput_filled_box_default_background_color">#ffff</color>
+
+    <!-- Colores propios -->
+    <color name="blanco">#FFFFFF</color>
 </resources>

@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">dEventer</string>
+
+    <!-- Strings para el login -->
+    <string name="logo">logo</string>
+    <string name="bienvenido">Bienvenido a dEventer</string>
+    <string name="email">Correo electrónico</string>
+    <string name="contrasenna">password</string>
+    <string name="entrar">Entrar</string>
+    <string name="acceso_huella">Acceder con huella</string>
+    <string name="crear_cuenta">¿Aún no tienes cuenta? Create una</string>
+    <string name="google_fb">¿Tienes cuenta de google o de facebook?</string>
+    <string name="facebook_login">Entrar con Facebook</string>
+    <string name="google_login">Entrar con Google</string>
 </resources>

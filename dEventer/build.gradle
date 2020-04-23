@@ -5,7 +5,10 @@ buildscript {
     repositories {
         // https://firebase.google.com/docs/android/setup?authuser=0#add-config-file
         // Repositorios por defecto de Android Studio
-        google() // Repositorio de Google Maven requerido por Firebase
+        // Son también necesarios por:
+        //  - Firebase
+        //  - Material Design
+        google()
         jcenter()
         
     }
@@ -26,7 +29,8 @@ allprojects {
     repositories {
         // https://firebase.google.com/docs/android/setup?authuser=0#add-config-file
         // Repositorios por defecto de Android Studio
-        google() // Repositorio de Google Maven requerido por Firebase
+        // Son también requeridos por Firebase y Material Design
+        google()
         jcenter()
         
     }
