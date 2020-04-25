@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:layout_weight="2"
+            android:background="@color/colorAccent"
+            android:hint="@string/busca_ciudades_calles_lugares"
+            android:textColorHint="@color/colorPrincipal"
+            app:hintAnimationEnabled="true"
+            app:endIconMode="clear_text"
+            app:startIconDrawable="@drawable/ic_map_black_24dp">
+
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/txtBuscaMap"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@color/colorAccent"
+                android:fontFamily="@font/proximanovaregular"
+                android:inputType="text"
+                android:lines="1" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <ImageButton
+            android:id="@+id/imgBuscar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:backgroundTint="@color/colorPrimaryDark"
+            android:contentDescription="@string/busca_ciudades_calles_lugares"
+            android:foregroundGravity="center"
+            android:src="@drawable/ic_search_black_24dp"
+            android:textColor="@color/colorPrimaryDark"
+            android:theme="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            app:cornerRadius="20dp" />
+
+    </LinearLayout>
+
+    <androidx.fragment.app.FragmentContainerView xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".MapsActivity" />
+
+</LinearLayout>
