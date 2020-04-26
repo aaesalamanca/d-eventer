@@ -76,3 +76,6 @@ vcs.xml
 **/lint/outputs/
 **/lint/tmp/
 # lint/reports/
+
+# API Keys
+api
