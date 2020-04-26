@@ -78,4 +78,4 @@ vcs.xml
 # lint/reports/
 
 # API Keys
-api
+google_map_api_key.xml
