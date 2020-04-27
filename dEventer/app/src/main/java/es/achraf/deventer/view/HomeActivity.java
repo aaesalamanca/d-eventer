@@ -1,4 +1,4 @@
-package es.achraf.deventer;
+package es.achraf.deventer.view;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -18,23 +18,28 @@ import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
 import com.roughike.bottombar.BottomBar;
 
+import es.achraf.deventer.Perfil;
+import es.achraf.deventer.R;
 import es.achraf.deventer.fragments.FragmentChat;
 import es.achraf.deventer.fragments.FragmentMisPlanes;
 import es.achraf.deventer.fragments.FragmentPlanes;
 import es.achraf.deventer.restApi.ConstantesRestApi;
-import es.achraf.deventer.view.LoginActivity;
+import es.achraf.deventer.viewmodel.IViewModel;
+import es.achraf.deventer.viewmodel.ViewModel;
 
 
-public class Inicio extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity {
+
+    // Fields
+    private IViewModel viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_inicio);
+        setContentView(R.layout.activity_home);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
 
         BottomBar bottomBar = findViewById(R.id.bottomBar);
         bottomBar.setOnTabSelectListener(tabId -> {
@@ -51,6 +56,8 @@ public class Inicio extends AppCompatActivity {
                 cambiarFragment(fChat);
             }
         });
+
+        viewModel = getIntent().getParcelableExtra(IViewModel.K_VIEWMODEL);
     }
 
     public void cambiarFragment(Fragment fragment) {
@@ -79,7 +86,7 @@ public class Inicio extends AppCompatActivity {
 
     public void cerrarSession() {
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
-        Intent intentLogin = new Intent(Inicio.this, LoginActivity.class);
+        Intent intentLogin = new Intent(HomeActivity.this, SignInActivity.class);
         startActivity(intentLogin);
         finish();
         mAuth.signOut();
@@ -113,7 +120,7 @@ public class Inicio extends AppCompatActivity {
                 break;
 
             case R.id.mPerfil:
-                Intent intentPerfil = new Intent(Inicio.this, Perfil.class);
+                Intent intentPerfil = new Intent(HomeActivity.this, Perfil.class);
                 startActivity(intentPerfil);
                 break;
         }

@@ -8,7 +8,7 @@
     android:fitsSystemWindows="true"
     android:gravity="center_vertical"
     android:orientation="vertical"
-    tools:context=".view.LoginActivity">
+    tools:context=".view.SignInActivity">
 
     <ImageView
         android:layout_width="@dimen/size_100"
@@ -25,7 +25,7 @@
         android:layout_marginBottom="@dimen/margin_10"
         android:fontFamily="@font/proximanovaregular"
         android:gravity="center"
-        android:text="@string/bienvenido"
+        android:text="@string/welcome"
         android:textColor="@color/blanco"
         android:textSize="@dimen/text_20" />
 
@@ -85,7 +85,7 @@
         android:layout_margin="@dimen/margin_16"
         android:fontFamily="@font/proximanovaregular"
         android:tag="custom_login_button"
-        android:text="@string/entrar"
+        android:text="@string/sign_in"
         android:textColor="@color/colorPrincipal"
         android:theme="@style/Theme.MaterialComponents"
         app:backgroundTint="@color/blanco"
@@ -106,7 +106,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/margin_20"
         android:gravity="center"
-        android:text="@string/acceso_huella"
+        android:text="@string/acces_w_fingertip"
         android:textColor="@color/colorAccent" />
 
     <ProgressBar
@@ -125,7 +125,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="@string/cargando"
+        android:text="@string/loading"
         android:textColor="@color/blanco"
         android:textSize="@dimen/text_12"
         android:visibility="gone" />
@@ -139,7 +139,7 @@
         android:layout_marginRight="16dp"
         android:fontFamily="@font/proximanovaregular"
         android:gravity="center_vertical"
-        android:text="@string/crear_cuenta"
+        android:text="@string/create_account"
         android:textColor="@color/blanco"
         android:textSize="@dimen/text_15" />
 
@@ -162,7 +162,7 @@
             android:layout_gravity="center"
             android:layout_weight="0.5"
             android:gravity="center"
-            android:text="@string/google_o_fb"
+            android:text="@string/google_or_fb"
             android:textAlignment="center"
             android:textColor="@color/colorAccent"
             android:textSize="@dimen/text_12" />
@@ -193,7 +193,7 @@
             android:drawableStart="@drawable/facebook"
             android:fontFamily="@font/proximanovaregular"
             android:padding="@dimen/padding_10"
-            android:text="@string/login_fb"
+            android:text="@string/sign_in_fb"
             android:textColor="@color/blanco" />
 
         <com.google.android.gms.common.SignInButton
@@ -205,7 +205,7 @@
             android:drawableStart="@drawable/google"
             android:elevation="@dimen/elevation_10"
             android:fontFamily="@font/proximanovaregular"
-            android:text="@string/login_google"
+            android:text="@string/sign_in_google"
             android:textColor="#CB181717" />
 
     </LinearLayout>

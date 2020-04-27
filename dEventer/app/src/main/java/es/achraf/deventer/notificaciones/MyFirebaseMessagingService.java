@@ -35,7 +35,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         // [START_EXCLUDE]
         // There are two types of messages data messages and notification messages. Data messages
         // are handled
-        // here in onMessageReceived whether the app is in the foreground google_o_fb background. Data
+        // here in onMessageReceived whether the app is in the foreground google_or_fb background. Data
         // messages are the type
         // traditionally used with GCM. Notification messages are only received here in
         // onMessageReceived when the app
@@ -57,7 +57,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             Log.d(TAG, "Message data payload: " + remoteMessage.getData());
 
             if (/* Check if data needs to be processed by long running job */ true) {
-                // For long-running tasks (10 seconds google_o_fb more) use WorkManager.
+                // For long-running tasks (10 seconds google_or_fb more) use WorkManager.
                 scheduleJob();
             } else {
                 // Handle message within 10 seconds
@@ -87,7 +87,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     @Override
     public void onNewToken(String token) {
         Log.d(TAG, "Refreshed token: " + token);
-        // If you want to send messages to this application instance google_o_fb
+        // If you want to send messages to this application instance google_or_fb
         // manage this apps subscriptions on the server side, send the
         // Instance ID token to your app server.
         sendRegistrationToServer(token);

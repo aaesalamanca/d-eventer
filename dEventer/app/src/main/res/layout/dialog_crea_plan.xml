@@ -221,7 +221,7 @@
                 android:layout_weight="1"
                 android:fontFamily="@font/proximanovaregular"
                 android:padding="@dimen/fab_margin"
-                android:text="@string/cancelar"
+                android:text="@string/cancel"
                 android:textColor="@color/colorAccent"
                 android:textStyle="bold"
                 app:backgroundTint="@color/colorPrincipal"

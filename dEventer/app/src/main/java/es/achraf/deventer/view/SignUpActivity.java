@@ -1,4 +1,4 @@
-package es.achraf.deventer;
+package es.achraf.deventer.view;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
@@ -30,11 +30,14 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.Objects;
 
+import es.achraf.deventer.R;
 import es.achraf.deventer.model.User;
-import es.achraf.deventer.view.LoginActivity;
+import es.achraf.deventer.viewmodel.IViewModel;
+import es.achraf.deventer.viewmodel.ViewModel;
 
-public class Register extends AppCompatActivity implements View.OnClickListener {
+public class SignUpActivity extends AppCompatActivity implements View.OnClickListener {
 
+    // Fields
     private int edad = 0;
 
     private MaterialButton btnLogin;
@@ -58,12 +61,13 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
 
     private FirebaseDatabase firebaseDatabase;
 
+    private IViewModel viewModel;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register);
-
+        setContentView(R.layout.activity_sign_up);
 
         this.btnLogin = findViewById(R.id.btnLogin);
         this.btnLogin.setOnClickListener(this);
@@ -90,11 +94,13 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
 
         this.mAuth = FirebaseAuth.getInstance();
         this.firebaseDatabase = FirebaseDatabase.getInstance();
+
+        viewModel = getIntent().getParcelableExtra(IViewModel.K_VIEWMODEL);
     }
 
 
     public void irLogin() {
-        Intent intentLogin = new Intent(Register.this, LoginActivity.class);
+        Intent intentLogin = new Intent(SignUpActivity.this, SignInActivity.class);
         startActivity(intentLogin);
         overridePendingTransition(R.anim.anim, R.anim.zoom_back);
         finish();
@@ -131,7 +137,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
                         cargandoRegistro.setVisibility(View.GONE);
 
                         if (!task.isSuccessful()) {
-                            Toast.makeText(Register.this, Objects.requireNonNull(task.getException()).getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(SignUpActivity.this, Objects.requireNonNull(task.getException()).getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                         } else {
                             //codigo de registro
 
@@ -196,10 +202,10 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
             user.updateProfile(profileUpdates)
                     .addOnCompleteListener(task -> {
                         if (task.isSuccessful())
-                            Toast.makeText(Register.this, "Registrado con éxito", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(SignUpActivity.this, "Registrado con éxito", Toast.LENGTH_SHORT).show();
                     });
 
-            Intent intentInicio = new Intent(Register.this, Inicio.class);
+            Intent intentInicio = new Intent(SignUpActivity.this, HomeActivity.class);
             startActivity(intentInicio);
             overridePendingTransition(R.anim.anim, R.anim.zoom_back);
             finish();
@@ -215,7 +221,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
         final int dia = calendar.get(Calendar.DAY_OF_MONTH);
 
         DatePickerDialog datePickerDialog = new DatePickerDialog(
-                Register.this, R.style.datepicker, (view, year, month, dayOfMonth) -> {
+                SignUpActivity.this, R.style.datepicker, (view, year, month, dayOfMonth) -> {
             int anoUser = year - ano;
             if (anoUser < 0)
                 anoUser *= -1;
@@ -228,7 +234,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
                         .setAction("Entendido", new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                Toast.makeText(Register.this, "Gracias por entendernos, HASTA PRONTO!", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(SignUpActivity.this, "Gracias por entendernos, HASTA PRONTO!", Toast.LENGTH_SHORT).show();
                             }
                         }).show();
             } else {

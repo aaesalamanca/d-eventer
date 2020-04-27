@@ -3,23 +3,31 @@
 
     <!-- login_activity -->
     <string name="logo">Logo</string>
-    <string name="bienvenido">Bienvenido a dEventer</string>
+    <string name="welcome">Bienvenido a dEventer</string>
     <string name="email">Email</string>
     <string name="password">Contraseña</string>
-    <string name="entrar">Entrar</string>
-    <string name="acceso_huella">Acceder con huella</string>
-    <string name="cargando">Cargando…</string>
-    <string name="crear_cuenta">¿Aún no tienes cuenta? Créate una</string>
-    <string name="google_o_fb">¿Tienes cuenta de Google o Facebook?</string>
-    <string name="login_fb">Entrar con Facebook</string>
-    <string name="login_google">Entrar con Google</string>
+    <string name="sign_in">Entrar</string>
+    <string name="acces_w_fingertip">Acceder con huella</string>
+    <string name="loading">Cargando…</string>
+    <string name="create_account">¿Aún no tienes cuenta? Créate una</string>
+    <string name="google_or_fb">¿Tienes cuenta de Google o Facebook?</string>
+    <string name="sign_in_fb">Entrar con Facebook</string>
+    <string name="sign_in_google">Entrar con Google</string>
 
-    <!-- LoginActivity -->
-    <string name="inicio_rapido">Inicio rápido</string>
-    <string name="msg_inicio_rapido">¿Desea acceder la próxima vez mediante sus datos biométricos?</string>
+    <!-- SignInActivity -->
+    <string name="fast_start">Inicio rápido</string>
+    <string name="fingertip_start">¿Desea acceder la próxima vez mediante su huella?</string>
     <string name="afirmativo">De acuerdo</string>
     <string name="negativo">No, gracias</string>
-    <string name="faltan_campos">Por favor, rellene todos los campos para continuar</string>
+    <string name="empty_fields">Por favor, rellene todos los campos para continuar</string>
+    <string name="failed_sign_in">No se ha podido iniciar sesión</string>
+    <string name="disabled_biometric">El acceso con huella no está disponible actualmente</string>
+    <string name="no_biometric_hw">Este dispositivo no tiene huella</string>
+    <string name="no_registered_fingertip">No hay ninguna huella registrada</string>
+    <string name="biometric_access">Acceso con huella a dEventer</string>
+    <string name="use_fingertip">Introduzca su huella para acceder</string>
+    <string name="cancel">Cancelar</string>
+    <string name="previous_access_fingertip">Debe acceder almenos una vez para poder guardar sus datos de acceso.</string>
 
     <string name="correo_electr_nico">Correo electrónico</string>
     <string name="confirmar_contrase_a">Confirmar contraseña</string>
@@ -92,7 +100,6 @@
     <string name="c_anto_cuesta">¿Cúanto cuesta?</string>
     <string name="crear">Crear plan</string>
     <string name="ponle_una_imagen_al_plan">(Ponle una imagen al plan)</string>
-    <string name="cancelar">Cancelar</string>
     <string name="busca_ciudades_calles_lugares">Busca ciudades, calles, lugares ...</string>
     <string name="quieres_describir_el_plan">¿Quieres describir el plan?</string>
     <string name="fecha">Fecha</string>

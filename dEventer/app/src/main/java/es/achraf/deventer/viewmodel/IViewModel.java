@@ -1,12 +1,13 @@
 package es.achraf.deventer.viewmodel;
 
+import android.os.Parcelable;
+
 import es.achraf.deventer.view.IView;
 
-public interface IViewModel {
+public interface IViewModel extends Parcelable {
+
     // Fields
-    enum BIOMETRIC {
-        TRUE, FALSE
-    };
+    String K_VIEWMODEL = "viewModel";
 
     // Getters
     String getEmail();
@@ -16,5 +17,7 @@ public interface IViewModel {
     void setView(IView view);
 
     // Methods
-    boolean emailSignIn(String email, String password, BIOMETRIC biometric);
+    boolean isLogged();
+
+    boolean emailSignIn(String email, String password, boolean biometricSave);
 }

@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".view.SignUpActivity">
 
     <LinearLayout
         style="@style/Theme.AppCompat.Light"
@@ -28,7 +30,7 @@
             android:layout_marginBottom="10dp"
             android:fontFamily="@font/proximanovaregular"
             android:gravity="center"
-            android:text="@string/bienvenido"
+            android:text="@string/welcome"
             android:textColor="@color/colorAccent"
             android:textSize="20sp" />
 
@@ -192,10 +194,10 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/txtFechaNacimiento"
                 android:layout_width="match_parent"
-                android:focusableInTouchMode="false"
-                android:focusable="false"
                 android:layout_height="wrap_content"
                 android:drawableEnd="@drawable/ic_date_range_black_24dp"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
                 android:fontFamily="@font/proximanovaregular"
                 android:inputType="number"
                 android:textColor="#ffff" />
@@ -280,7 +282,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/proximanovaregular"
             android:gravity="center"
-            android:text="@string/cargando"
+            android:text="@string/loading"
             android:textColor="#ffff"
             android:textSize="12sp"
             android:visibility="gone" />

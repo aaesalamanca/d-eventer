@@ -2,8 +2,12 @@ package es.achraf.deventer.viewmodel;
 
 import android.content.SharedPreferences;
 import android.os.Parcel;
-import android.os.Parcelable;
 
+import androidx.annotation.NonNull;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -13,11 +17,11 @@ import es.achraf.deventer.view.IView;
 
 import static android.content.Context.MODE_PRIVATE;
 
-public class ViewModel implements IViewModel, Parcelable {
+public class ViewModel implements IViewModel {
 
     // Fields
-    public static final String SPK_EMAIL = "email";
-    public static final String SPK_PASSWORD = "password";
+    public static final String KSP_EMAIL = "email";
+    public static final String KSP_PASSWORD = "password";
 
     private IView view;
 
@@ -29,24 +33,24 @@ public class ViewModel implements IViewModel, Parcelable {
 
     // Constructors
     public ViewModel() {
-        firebaseAuth = FirebaseAuth.getInstance();
-        firebaseUser = firebaseAuth.getCurrentUser();
-
-        userModel = new User();
-        planModel = new Plan();
+        init();
     }
 
     // Getters
+    /**
+     * Devuelve el email del usuario.
+     *
+     * Debe cambiarse para que lo devuelva del modelo y no de las SharedPreferences.
+     * @return
+     */
     @Override
     public String getEmail() {
-
-        return "";
+        return view.getPreferences(MODE_PRIVATE).getString(KSP_EMAIL, "");
     }
 
     @Override
     public String getPassword() {
-
-        return "";
+        return view.getPreferences(MODE_PRIVATE).getString(KSP_PASSWORD, "");
     }
 
     // Setters
@@ -56,20 +60,47 @@ public class ViewModel implements IViewModel, Parcelable {
     }
 
     // Methods
+    private void init() {
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseUser = firebaseAuth.getCurrentUser();
+
+        userModel = new User();
+        planModel = new Plan();
+    }
+
     @Override
-    public boolean emailSignIn(String email, String password, IViewModel.BIOMETRIC biometric) {
+    public boolean isLogged() {
+        return firebaseUser != null;
+    }
+
+    @Override
+    public boolean emailSignIn(String email, String password, boolean saveBiometric) {
         email = email.trim();
         password = password.trim();
 
-        if (biometric == BIOMETRIC.TRUE) {
-            SharedPreferences sharedPreferences = view.getPreferences(MODE_PRIVATE);
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putString(SPK_EMAIL, email);
-            editor.putString(SPK_PASSWORD, password);
-            editor.commit();
+        if (saveBiometric) {
+            saveBiometric(email, password);
         }
 
-        return true;
+        firebaseAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            firebaseUser = firebaseAuth.getCurrentUser();
+                        }
+                    }
+                });
+
+        return firebaseUser != null;
+    }
+
+    private void saveBiometric(String email, String password) {
+        SharedPreferences sharedPreferences = view.getPreferences(MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(KSP_EMAIL, email);
+        editor.putString(KSP_PASSWORD, password);
+        editor.commit();
     }
 
     // Parcelable implementation

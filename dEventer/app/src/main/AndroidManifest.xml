@@ -66,7 +66,7 @@
             android:value="@string/facebook_app_id" />
 
         <service
-            android:name="es.achraf.deventer.Inicio"
+            android:name="es.achraf.deventer.view.HomeActivity"
             android:exported="false" />
 
         <!-- Activities -->
@@ -83,19 +83,19 @@
             android:screenOrientation="fullSensor"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".Inicio"
+            android:name=".view.HomeActivity"
             android:label=""
             android:screenOrientation="fullSensor"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".Register"
+            android:name=".view.SignUpActivity"
             android:screenOrientation="fullSensor"
             android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar.Bridge" />
 
-        <!-- LoginActivity -->
+        <!-- SignInActivity -->
         <!-- https://developer.android.com/studio/write/tool-attributes#toolstargetapi -->
         <activity
-            android:name=".view.LoginActivity"
+            android:name=".view.SignInActivity"
             android:rotationAnimation="jumpcut"
             android:screenOrientation="fullSensor"
             android:theme="@style/TemaSplash"
