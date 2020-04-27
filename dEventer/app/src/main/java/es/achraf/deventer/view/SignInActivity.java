@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
@@ -20,16 +19,10 @@ import androidx.biometric.BiometricPrompt;
 
 import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.common.SignInButton;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
-import java.util.Objects;
 import java.util.concurrent.Executor;
 
 import es.achraf.deventer.R;
@@ -57,8 +50,6 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     private SignInButton sbtnGoogle;
 
     private IViewModel viewModel; // ViewModel para seguir el patrón MVVM
-
-    private FirebaseAuth mAuth;
 
     // Methods
 
@@ -103,8 +94,6 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         if (viewModel.isLogged()) {
             startHomeActivity();
         }
-
-        mAuth = FirebaseAuth.getInstance();
     }
 
     /**
@@ -137,21 +126,26 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     /**
      * Inicia sesión en la aplicación con email y contraseña.
      */
-    public void emailSignIn() {
+    private void emailSignIn() {
         String email = tietEmail.getText().toString();
         String password = tietPassword.getText().toString();
 
         if (!TextUtils.isEmpty(email) && !TextUtils.isEmpty(password)) {
-            progressBar.setVisibility(View.VISIBLE);
-            tvCarga.setVisibility(View.VISIBLE);
-
+            loadingMessage(true);
             saveBiometric(email, password);
         } else {
             Toast.makeText(this, R.string.empty_fields, Toast.LENGTH_SHORT).show();
         }
+    }
 
-        progressBar.setVisibility(View.GONE);
-        tvCarga.setVisibility(View.GONE);
+    private void loadingMessage(boolean loading) {
+        if (loading) {
+            progressBar.setVisibility(View.VISIBLE);
+            tvCarga.setVisibility(View.VISIBLE);
+        } else {
+            progressBar.setVisibility(View.GONE);
+            tvCarga.setVisibility(View.GONE);
+        }
     }
 
     /**
@@ -161,33 +155,35 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
      * @param email    es el email del usuario.
      * @param password es la contraseña del usuario.
      */
-    public void saveBiometric(String email, String password) {
+    private void saveBiometric(String email, String password) {
         new MaterialAlertDialogBuilder(this)
                 .setTitle(R.string.fast_start)
                 .setMessage(R.string.fingertip_start)
                 .setPositiveButton(R.string.afirmativo, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        if (viewModel.emailSignIn(email, password, true)) {
-                            startHomeActivity();
-                        } else {
-                            Toast.makeText(SignInActivity.this,
-                                    R.string.failed_sign_in, Toast.LENGTH_SHORT).show();
-                        }
+                        viewModel.emailSignIn(email, password, true);
                     }
                 })
                 .setNegativeButton(R.string.negativo, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        if (viewModel.emailSignIn(email, password, false)) {
-                            startHomeActivity();
-                        } else {
-                            Toast.makeText(SignInActivity.this,
-                                    R.string.failed_sign_in, Toast.LENGTH_SHORT).show();
-                        }
+                        viewModel.emailSignIn(email, password, false);
                     }
                 })
                 .show();
+    }
+
+    @Override
+    public void onSignInComplete(boolean signedIn) {
+        loadingMessage(false);
+
+        if (signedIn) {
+            startHomeActivity();
+        } else {
+            Toast.makeText(SignInActivity.this,
+                    R.string.failed_sign_in, Toast.LENGTH_SHORT).show();
+        }
     }
 
     /**
@@ -205,9 +201,8 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         // Toast.makeText(this, "Bienvenido de nuevo " + user.getDisplayName(), Toast.LENGTH_SHORT).show();
     }
 
-    public void testFingertip() {
-        progressBar.setVisibility(View.VISIBLE);
-        tvCarga.setVisibility(View.VISIBLE);
+    private void testFingertip() {
+        loadingMessage(true);
 
         BiometricManager biometricManager = BiometricManager.from(this);
         switch (biometricManager.canAuthenticate()) {
@@ -227,12 +222,9 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                         R.string.no_biometric_hw, Toast.LENGTH_SHORT).show();
                 break;
         }
-
-        progressBar.setVisibility(View.GONE);
-        tvCarga.setVisibility(View.GONE);
     }
 
-    public void askForFingertip() {
+    private void askForFingertip() {
         handler = new Handler();
         executor = new Executor() {
             @Override
@@ -275,24 +267,29 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         biometricPrompt.authenticate(promptInfo);
     }
 
-    public void fingertipSignIn() {
+    /**
+     * Lanza la a
+     */
+    private void fingertipSignIn() {
         String email = viewModel.getEmail();
         String password = viewModel.getPassword();
+        tietEmail.setText(email);
+        tietPassword.setText(password);
+
+        loadingMessage(false);
 
         if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password)) {
             Toast.makeText(this,
                     R.string.previous_access_fingertip, Toast.LENGTH_SHORT).show();
         } else {
-            if (viewModel.emailSignIn(email, password, false)) {
-                startHomeActivity();
-            } else {
-                Toast.makeText(SignInActivity.this,
-                        R.string.failed_sign_in, Toast.LENGTH_SHORT).show();
-            }
+            viewModel.emailSignIn(email, password, false);
         }
     }
 
-    public void startSignUpActivity() {
+    /**
+     * Lanza la actividad de registro en la aplicación.
+     */
+    private void startSignUpActivity() {
         Intent signUpIntent = new Intent(this, SignUpActivity.class);
         signUpIntent.putExtra(IViewModel.K_VIEWMODEL, viewModel);
         startActivity(signUpIntent);
@@ -304,7 +301,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
 
     /**
      * Falta implementar.
-     *
+     * <p>
      * Inicia sesión con Facebook.
      */
     private void signInFb() {
@@ -313,7 +310,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
 
     /**
      * Falta implementar.
-     *
+     * <p>
      * Inicia sesión con Google.
      */
     private void signInGoogle() {
@@ -321,6 +318,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     // IView implementation
+
     /**
      * Obtiene las SharedPreferences de la Activity.
      *
@@ -329,7 +327,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
      */
     @Override
     public SharedPreferences getPreferences(int mode) {
-        return getPreferences(mode);
+        return super.getPreferences(mode);
     }
 
 }

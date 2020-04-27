@@ -37,10 +37,12 @@ public class ViewModel implements IViewModel {
     }
 
     // Getters
+
     /**
      * Devuelve el email del usuario.
-     *
+     * <p>
      * Debe cambiarse para que lo devuelva del modelo y no de las SharedPreferences.
+     *
      * @return
      */
     @Override
@@ -74,7 +76,7 @@ public class ViewModel implements IViewModel {
     }
 
     @Override
-    public boolean emailSignIn(String email, String password, boolean saveBiometric) {
+    public void emailSignIn(String email, String password, boolean saveBiometric) {
         email = email.trim();
         password = password.trim();
 
@@ -88,11 +90,12 @@ public class ViewModel implements IViewModel {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             firebaseUser = firebaseAuth.getCurrentUser();
+                            view.onSignInComplete(true);
+                        } else {
+                            view.onSignInComplete(false);
                         }
                     }
                 });
-
-        return firebaseUser != null;
     }
 
     private void saveBiometric(String email, String password) {

@@ -19,5 +19,5 @@ public interface IViewModel extends Parcelable {
     // Methods
     boolean isLogged();
 
-    boolean emailSignIn(String email, String password, boolean biometricSave);
+    void emailSignIn(String email, String password, boolean biometricSave);
 }
