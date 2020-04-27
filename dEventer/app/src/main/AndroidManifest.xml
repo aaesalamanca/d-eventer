@@ -95,7 +95,7 @@
         <!-- LoginActivity -->
         <!-- https://developer.android.com/studio/write/tool-attributes#toolstargetapi -->
         <activity
-            android:name=".LoginActivity"
+            android:name=".view.LoginActivity"
             android:rotationAnimation="jumpcut"
             android:screenOrientation="fullSensor"
             android:theme="@style/TemaSplash"

@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">dEventer</string>
 
-    <!-- LoginActivity -->
+    <!-- login_activity -->
     <string name="logo">Logo</string>
     <string name="bienvenido">Bienvenido a dEventer</string>
     <string name="email">Email</string>
@@ -13,6 +13,13 @@
     <string name="google_o_fb">¿Tienes cuenta de Google o Facebook?</string>
     <string name="login_fb">Entrar con Facebook</string>
     <string name="login_google">Entrar con Google</string>
+
+    <!-- LoginActivity -->
+    <string name="inicio_rapido">Inicio rápido</string>
+    <string name="msg_inicio_rapido">¿Desea acceder la próxima vez mediante sus datos biométricos?</string>
+    <string name="afirmativo">De acuerdo</string>
+    <string name="negativo">No, gracias</string>
+    <string name="faltan_campos">Por favor, rellene todos los campos para continuar</string>
 
     <string name="correo_electr_nico">Correo electrónico</string>
     <string name="confirmar_contrase_a">Confirmar contraseña</string>

@@ -33,7 +33,7 @@ import es.achraf.deventer.ChatActivity;
 import es.achraf.deventer.R;
 import es.achraf.deventer.adaptadores.AdapterChatPlan;
 import es.achraf.deventer.interfaces.ItemClickListener;
-import es.achraf.deventer.modelo.Plan;
+import es.achraf.deventer.model.Plan;
 
 public class FragmentChat extends Fragment implements ItemClickListener {
 

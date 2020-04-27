@@ -1,4 +1,4 @@
-package es.achraf.deventer;
+package es.achraf.deventer.view;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -18,7 +18,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.biometric.BiometricManager;
 import androidx.biometric.BiometricPrompt;
 
-import com.facebook.login.LoginManager;
 import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -33,78 +32,122 @@ import com.google.firebase.auth.FirebaseUser;
 import java.util.Objects;
 import java.util.concurrent.Executor;
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
+import es.achraf.deventer.Inicio;
+import es.achraf.deventer.R;
+import es.achraf.deventer.Register;
+import es.achraf.deventer.viewmodel.IViewModel;
+import es.achraf.deventer.viewmodel.ViewModel;
 
-    private LoginButton btnEntrarFacebook;
-    private SignInButton btnEntrarGoogle;
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener, IView {
 
-    private TextView txtCrearCuenta;
-    private TextInputEditText txtCorreo;
-    private TextInputEditText txtPassword;
-    private MaterialButton btnEntrar;
+    // Fields
+    private TextInputEditText tietEmail;
+    private TextInputEditText tietPassword;
 
-    private ImageButton btnHuella;
+    private MaterialButton mbtnEntrar;
 
-    private ProgressBar progressBar;
-    private TextView txtCargando;
+    private ImageButton ibtnHuella;
 
-    private FirebaseAuth mAuth;
-
-    //huella biometrica
     private Handler handler;
     private Executor executor;
 
+    private ProgressBar progressBar;
+    private TextView tvCarga;
+    private TextView tvCrear;
+
+    private LoginButton lbtnFb;
+    private SignInButton sbtnGoogle;
+
+    private IViewModel viewModel;
+
+    private FirebaseAuth mAuth;
+
+    // Methods
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        init();
+    }
 
-        btnEntrar = findViewById(R.id.mbtnEntrar);
-        btnEntrar.setOnClickListener(this);
+    private void init() {
+        tietEmail = findViewById(R.id.tietEmail);
+        tietPassword = findViewById(R.id.tietPassword);
+        mbtnEntrar = findViewById(R.id.mbtnSignIn);
+        mbtnEntrar.setOnClickListener(this);
 
-        btnEntrarFacebook = findViewById(R.id.lgnBtnLoginFb);
-        this.btnEntrarFacebook.setOnClickListener(this);
+        ibtnHuella = findViewById(R.id.ibtnHuella);
+        ibtnHuella.setOnClickListener(this);
 
-        btnEntrarGoogle = findViewById(R.id.btnEntrarGoogle);
-        this.btnEntrarGoogle.setOnClickListener(this);
+        progressBar = findViewById(R.id.progressBar);
+        tvCarga = findViewById(R.id.tvCarga);
+        tvCrear = findViewById(R.id.tvCrear);
+        tvCrear.setOnClickListener(this);
 
-        txtCorreo = findViewById(R.id.tietEmail);
-        txtPassword = findViewById(R.id.tietPassword);
+        lbtnFb = findViewById(R.id.lbtnFb);
+        lbtnFb.setOnClickListener(this);
+        sbtnGoogle = findViewById(R.id.sbtnGoogle);
+        sbtnGoogle.setOnClickListener(this);
 
-        txtCrearCuenta = findViewById(R.id.tvCrearCuenta);
-        this.txtCrearCuenta.setOnClickListener(this);
-
-        this.progressBar = findViewById(R.id.progressBar);
-        this.txtCargando = findViewById(R.id.tvCarga);
-
-        this.btnHuella = findViewById(R.id.ibtnHuella);
-        this.btnHuella.setOnClickListener(this);
+        viewModel = new ViewModel();
 
         mAuth = FirebaseAuth.getInstance();
     }
 
-    public void guardarInicioRapido(String correo, String pass) {
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.mbtnSignIn:
+                emailSignIn();
+                break;
+            case R.id.tvCrear:
+                irRegistro();
+                break;
+            case R.id.lbtnFb:
+                signInFb();
+                break;
+            case R.id.sbtnGoogle:
+                signInGoogle();
+                break;
+            case R.id.ibtnHuella:
+                comprobarHuella();
+                break;
+        }
+    }
+
+    public void emailSignIn() {
+        String email = tietEmail.getText().toString();
+        String password = tietPassword.getText().toString();
+
+        if (!TextUtils.isEmpty(email) && !TextUtils.isEmpty(password)) {
+            saveBiometric(email, password);
+            progressBar.setVisibility(View.VISIBLE);
+            tvCarga.setVisibility(View.VISIBLE);
+        } else
+            Toast.makeText(this, R.string.faltan_campos, Toast.LENGTH_SHORT).show();
+    }
+
+    public void saveBiometric(String email, String password) {
         new MaterialAlertDialogBuilder(this)
-                .setTitle("Inicio rápido")
-                .setMessage("¿Desea la proxima vez acceder mediante sus datos biométricos?")
-                .setPositiveButton("DE ACUERDO", new DialogInterface.OnClickListener() {
+                .setTitle(R.string.inicio_rapido)
+                .setMessage(R.string.msg_inicio_rapido)
+                .setPositiveButton(R.string.afirmativo, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         SharedPreferences sharedPreferences = getPreferences(MODE_PRIVATE);
                         SharedPreferences.Editor editor = sharedPreferences.edit();
-                        editor.putString("email", correo);
-                        editor.putString("pass", pass);
+                        editor.putString(ViewModel.SPK_EMAIL, email);
+                        editor.putString(ViewModel.SPK_PASSWORD, password);
                         editor.commit();
 
-                        mAuth.signInWithEmailAndPassword(correo, pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 progressBar.setVisibility(View.GONE);
-                                txtCargando.setVisibility(View.GONE);
+                                tvCarga.setVisibility(View.GONE);
                                 if (task.isSuccessful()) {
                                     FirebaseUser user = mAuth.getCurrentUser();
                                     updateUI(user);
-
                                 } else {
                                     updateUI(null);
                                     Toast.makeText(LoginActivity.this, Objects.requireNonNull(task.getException()).getLocalizedMessage(), Toast.LENGTH_SHORT).show();
@@ -114,14 +157,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         });
                     }
                 })
-                .setNegativeButton("NO, GRACIAS", new DialogInterface.OnClickListener() {
+                .setNegativeButton(R.string.negativo, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        mAuth.signInWithEmailAndPassword(correo, pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 progressBar.setVisibility(View.GONE);
-                                txtCargando.setVisibility(View.GONE);
+                                tvCarga.setVisibility(View.GONE);
                                 if (task.isSuccessful()) {
                                     FirebaseUser user = mAuth.getCurrentUser();
                                     updateUI(user);
@@ -136,12 +179,17 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 .show();
     }
 
+    @Override
+    public SharedPreferences getPreferences(int mode) {
+        return getPreferences(mode);
+    }
+
     public void recuperarInicioRapido() {
         SharedPreferences sharedPreferences = this.getPreferences(MODE_PRIVATE);
-        String correo = sharedPreferences.getString("email", "");
-        String pass = sharedPreferences.getString("pass", "");
-        txtCorreo.setText(correo);
-        txtPassword.setText(pass);
+        String correo = sharedPreferences.getString(ViewModel.SPK_EMAIL, "");
+        String pass = sharedPreferences.getString(ViewModel.SPK_PASSWORD, "");
+        tietEmail.setText(correo);
+        tietPassword.setText(pass);
 
         if (TextUtils.isEmpty(correo) || TextUtils.isEmpty(pass)) {
             Toast.makeText(this, "Debe acceder almenos una vez para poder guardar sus datos de acceso.", Toast.LENGTH_SHORT).show();
@@ -150,7 +198,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     progressBar.setVisibility(View.GONE);
-                    txtCargando.setVisibility(View.GONE);
+                    tvCarga.setVisibility(View.GONE);
                     if (task.isSuccessful()) {
                         FirebaseUser user = mAuth.getCurrentUser();
                         updateUI(user);
@@ -171,18 +219,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         overridePendingTransition(R.anim.anim, R.anim.zoom_back);
     }
 
-    public void entrarEmail() {
-        String email = txtCorreo.getText().toString().trim();
-        String password = txtPassword.getText().toString().trim();
-
-        if (!TextUtils.isEmpty(email) && !TextUtils.isEmpty(password)) {
-            guardarInicioRapido(email, password);
-            progressBar.setVisibility(View.VISIBLE);
-            txtCargando.setVisibility(View.VISIBLE);
-        } else
-            Toast.makeText(this, "Por favor, rellene todos los campos para continuar.", Toast.LENGTH_SHORT).show();
-    }
-
 
     private void updateUI(FirebaseUser user) {
         if (user != null) {
@@ -192,7 +228,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             overridePendingTransition(R.anim.anim, R.anim.zoom_back);
             Toast.makeText(this, "Bienvenido de nuevo " + user.getDisplayName(), Toast.LENGTH_SHORT).show();
         }
-
     }
 
 
@@ -218,8 +253,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     public void pedirHuella() {
-        this.handler = new Handler();
-        this.executor = new Executor() {
+        handler = new Handler();
+        executor = new Executor() {
             @Override
             public void execute(Runnable command) {
                 handler.post(command);
@@ -257,39 +292,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         biometricPrompt.authenticate(promptInfo);
     }
 
-    @Override
-    public void onClick(View v) {
-        mAuth.signOut();
-        LoginManager.getInstance().logOut();
-        switch (v.getId()) {
-            case R.id.mbtnEntrar:
-                entrarEmail();
-                break;
 
-            case R.id.tvCrearCuenta:
-                irRegistro();
-                break;
-
-            case R.id.lgnBtnLoginFb:
-                entrarFacebook();
-                break;
-
-            case R.id.btnEntrarGoogle:
-                entrarGoogle();
-                break;
-
-            case R.id.ibtnHuella:
-                comprobarHuella();
-                break;
-        }
-    }
-
-
-    private void entrarFacebook() {
+    private void signInFb() {
 
     }
 
-    private void entrarGoogle() {
+    private void signInGoogle() {
 
     }
 

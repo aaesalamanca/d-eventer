@@ -31,7 +31,7 @@ import java.util.ArrayList;
 import es.achraf.deventer.R;
 import es.achraf.deventer.adaptadores.AdapterRecyclerViewPlanes;
 import es.achraf.deventer.interfaces.ItemClickListener;
-import es.achraf.deventer.modelo.Plan;
+import es.achraf.deventer.model.Plan;
 
 public class FragmentMisPlanes extends Fragment implements ItemClickListener {
 

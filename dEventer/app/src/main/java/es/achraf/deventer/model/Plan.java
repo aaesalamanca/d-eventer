@@ -1,4 +1,4 @@
-package es.achraf.deventer.modelo;
+package es.achraf.deventer.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;

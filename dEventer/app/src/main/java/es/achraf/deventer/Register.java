@@ -30,7 +30,8 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.Objects;
 
-import es.achraf.deventer.modelo.User;
+import es.achraf.deventer.model.User;
+import es.achraf.deventer.view.LoginActivity;
 
 public class Register extends AppCompatActivity implements View.OnClickListener {
 

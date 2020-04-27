@@ -50,7 +50,7 @@ import org.json.JSONObject;
 import java.util.Objects;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-import es.achraf.deventer.modelo.User;
+import es.achraf.deventer.model.User;
 
 public class Perfil extends AppCompatActivity {
 

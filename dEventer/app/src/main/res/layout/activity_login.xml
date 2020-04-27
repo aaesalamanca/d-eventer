@@ -8,7 +8,7 @@
     android:fitsSystemWindows="true"
     android:gravity="center_vertical"
     android:orientation="vertical"
-    tools:context=".LoginActivity">
+    tools:context=".view.LoginActivity">
 
     <ImageView
         android:layout_width="@dimen/size_100"
@@ -79,7 +79,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/mbtnEntrar"
+        android:id="@+id/mbtnSignIn"
         android:layout_width="match_parent"
         android:layout_height="@dimen/size_56"
         android:layout_margin="@dimen/margin_16"
@@ -131,7 +131,7 @@
         android:visibility="gone" />
 
     <TextView
-        android:id="@+id/tvCrearCuenta"
+        android:id="@+id/tvCrear"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/size_48"
         android:layout_gravity="center_horizontal"
@@ -184,7 +184,7 @@
         android:orientation="vertical">
 
         <com.facebook.login.widget.LoginButton
-            android:id="@+id/lgnBtnLoginFb"
+            android:id="@+id/lbtnFb"
             android:layout_width="match_parent"
             android:layout_height="@dimen/size_0"
             android:layout_marginBottom="@dimen/margin_4"
@@ -197,7 +197,7 @@
             android:textColor="@color/blanco" />
 
         <com.google.android.gms.common.SignInButton
-            android:id="@+id/btnEntrarGoogle"
+            android:id="@+id/sbtnGoogle"
             android:layout_width="match_parent"
             android:layout_height="@dimen/size_0"
             android:layout_weight="1"

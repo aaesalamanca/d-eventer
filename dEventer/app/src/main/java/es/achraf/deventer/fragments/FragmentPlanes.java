@@ -66,8 +66,8 @@ import es.achraf.deventer.MapsActivity;
 import es.achraf.deventer.R;
 import es.achraf.deventer.adaptadores.AdapterRecyclerViewPlanes;
 import es.achraf.deventer.interfaces.ItemClickListener;
-import es.achraf.deventer.modelo.Plan;
-import es.achraf.deventer.modelo.User;
+import es.achraf.deventer.model.Plan;
+import es.achraf.deventer.model.User;
 
 public class FragmentPlanes extends Fragment implements ItemClickListener {
 
