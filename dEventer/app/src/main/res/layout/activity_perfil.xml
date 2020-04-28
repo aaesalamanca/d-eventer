@@ -19,7 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:background="@drawable/fondo_card"
+            android:background="@drawable/sex_preference_background"
             android:orientation="vertical"
             android:padding="10dp">
 
@@ -65,7 +65,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:background="@drawable/fondo_card"
+            android:background="@drawable/sex_preference_background"
             android:orientation="vertical"
             android:padding="10dp">
 
@@ -205,7 +205,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:background="@drawable/fondo_card"
+            android:background="@drawable/sex_preference_background"
             android:orientation="vertical"
             android:padding="10dp">
 

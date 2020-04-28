@@ -92,7 +92,7 @@
         app:cornerRadius="@dimen/radius_20" />
 
     <ImageButton
-        android:id="@+id/ibtnHuella"
+        android:id="@+id/ibtnFingertip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -101,7 +101,7 @@
         app:cornerRadius="@dimen/radius_20" />
 
     <TextView
-        android:id="@+id/tvAccesoHuella"
+        android:id="@+id/tvFingertip"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/margin_20"
@@ -110,7 +110,7 @@
         android:textColor="@color/colorAccent" />
 
     <ProgressBar
-        android:id="@+id/progressBar"
+        android:id="@+id/pbLoading"
         style="?android:attr/absListViewStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -121,7 +121,7 @@
         android:visibility="gone" />
 
     <TextView
-        android:id="@+id/tvCarga"
+        android:id="@+id/tvLoading"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -131,7 +131,7 @@
         android:visibility="gone" />
 
     <TextView
-        android:id="@+id/tvCrear"
+        android:id="@+id/tvSignUp"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/size_48"
         android:layout_gravity="center_horizontal"

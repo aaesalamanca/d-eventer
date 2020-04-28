@@ -28,4 +28,5 @@
 
     <!-- Colores propios -->
     <color name="blanco">#FFFFFF</color>
+    <color name="gris_sex_preference">#B0FFFFFF</color>
 </resources>

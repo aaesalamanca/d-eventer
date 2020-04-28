@@ -42,8 +42,8 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
 
     private Handler handler; // Necesario para utilizar la huella
 
-    private ProgressBar progressBar;
-    private TextView tvCarga;
+    private ProgressBar pbLoading;
+    private TextView tvLoading;
 
     private IViewModel viewModel; // ViewModel para seguir el patrón MVVM
 
@@ -81,11 +81,11 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
 
         findViewById(R.id.mbtnSignIn).setOnClickListener(this);
 
-        findViewById(R.id.ibtnHuella).setOnClickListener(this);
+        findViewById(R.id.ibtnFingertip).setOnClickListener(this);
 
-        progressBar = findViewById(R.id.progressBar);
-        tvCarga = findViewById(R.id.tvCarga);
-        findViewById(R.id.tvCrear).setOnClickListener(this);
+        pbLoading = findViewById(R.id.pbLoading);
+        tvLoading = findViewById(R.id.tvLoading);
+        findViewById(R.id.tvSignUp).setOnClickListener(this);
 
         findViewById(R.id.lbtnFb).setOnClickListener(this);
         findViewById(R.id.sbtnGoogle).setOnClickListener(this);
@@ -110,10 +110,10 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
             case R.id.mbtnSignIn:
                 emailSignIn();
                 break;
-            case R.id.ibtnHuella:
+            case R.id.ibtnFingertip:
                 testFingertip();
                 break;
-            case R.id.tvCrear:
+            case R.id.tvSignUp:
                 startSignUpActivity();
                 break;
             case R.id.lbtnFb:
@@ -151,9 +151,9 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         new MaterialAlertDialogBuilder(this)
                 .setTitle(R.string.fast_start)
                 .setMessage(R.string.fingertip_start)
-                .setPositiveButton(R.string.afirmativo, new DialogInterface.OnClickListener() {
+                .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                     /**
-                     * Handler de la acción que debe ejecutarse en un click afirmativo.
+                     * Handler de la acción que debe ejecutarse en un click yes.
                      *
                      * Solicita el inicio de sesión con guardado de las SharedPreferences —con
                      * huella—.
@@ -166,9 +166,9 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                         viewModel.emailSignIn(email, password, true);
                     }
                 })
-                .setNegativeButton(R.string.negativo, new DialogInterface.OnClickListener() {
+                .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
                     /**
-                     * Handler de la acción que debe ejecutarse con un click negativo.
+                     * Handler de la acción que debe ejecutarse con un click no.
                      *
                      * Solicita el inicio de sesión sin guardar las SharedPreferences —sin
                      * huella —.
@@ -299,6 +299,8 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
      * Inicia sesión con Google.
      */
     private void googleSignIn() {
+        loadingMessage(true);
+
         Intent signInIntent = gsc.getSignInIntent();
         startActivityForResult(signInIntent, RC_GOOGLE_SIGN_IN);
     }
@@ -314,11 +316,11 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
      */
     private void loadingMessage(boolean loading) {
         if (loading) {
-            progressBar.setVisibility(View.VISIBLE);
-            tvCarga.setVisibility(View.VISIBLE);
+            pbLoading.setVisibility(View.VISIBLE);
+            tvLoading.setVisibility(View.VISIBLE);
         } else {
-            progressBar.setVisibility(View.GONE);
-            tvCarga.setVisibility(View.GONE);
+            pbLoading.setVisibility(View.GONE);
+            tvLoading.setVisibility(View.GONE);
         }
     }
 

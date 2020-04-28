@@ -33,7 +33,6 @@ import java.util.Objects;
 import es.achraf.deventer.R;
 import es.achraf.deventer.model.User;
 import es.achraf.deventer.viewmodel.IViewModel;
-import es.achraf.deventer.viewmodel.ViewModel;
 
 public class SignUpActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -75,21 +74,21 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         this.btnRegistrarse = findViewById(R.id.btnRegistrarse);
         this.btnRegistrarse.setOnClickListener(this);
 
-        this.rbHombre = findViewById(R.id.rbHombre);
-        this.rbMujer = findViewById(R.id.rbMujer);
-        this.rbOtro = findViewById(R.id.rbOtro);
+        this.rbHombre = findViewById(R.id.rbMan);
+        this.rbMujer = findViewById(R.id.rbWoman);
+        this.rbOtro = findViewById(R.id.rbAny);
 
 
-        this.txtNombre = findViewById(R.id.txtNombre);
+        this.txtNombre = findViewById(R.id.tietName);
         this.txtEmailRegistro = findViewById(R.id.txtEmailRegistro);
-        this.txtPasswordRegistro = findViewById(R.id.txtPasswordRegistro);
-        this.txtRepetirContrasena = findViewById(R.id.txtRepetirContrasena);
-        this.txtCp = findViewById(R.id.txtCpRegistro);
+        this.txtPasswordRegistro = findViewById(R.id.tietPassword);
+        this.txtRepetirContrasena = findViewById(R.id.tietRepeatPassword);
+        this.txtCp = findViewById(R.id.tietPostalCode);
 
         this.progressBarRegistro = findViewById(R.id.progressbarRegistro);
         this.cargandoRegistro = findViewById(R.id.cargandoRegistro);
 
-        this.txtFechaNacimiento = findViewById(R.id.txtFechaNacimiento);
+        this.txtFechaNacimiento = findViewById(R.id.tietBirth);
         this.txtFechaNacimiento.setOnClickListener(this);
 
         this.mAuth = FirebaseAuth.getInstance();
@@ -149,11 +148,11 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
                             String sexo = "";
                             if (rbHombre.isChecked()) {
-                                sexo = "hombre";
+                                sexo = "man";
                             } else if (rbMujer.isChecked())
-                                sexo = "mujer";
+                                sexo = "woman";
                             else if (rbOtro.isChecked())
-                                sexo = "otro";
+                                sexo = "any";
 
                             ArrayList<String> planesApuntados = new ArrayList<>();//array list de planes(ID) inicialmente vacío
 
@@ -276,7 +275,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                 registrarse();
                 break;
 
-            case R.id.txtFechaNacimiento:
+            case R.id.tietBirth:
                 dialogFechaNacimiento();
                 break;
         }

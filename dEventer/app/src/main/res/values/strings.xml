@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">dEventer</string>
 
-    <!-- login_activity -->
+    <!-- activity_sign_in -->
     <string name="logo">Logo</string>
     <string name="welcome">Bienvenido a dEventer</string>
     <string name="email">Email</string>
@@ -17,8 +17,8 @@
     <!-- SignInActivity -->
     <string name="fast_start">Inicio rápido</string>
     <string name="fingertip_start">¿Desea acceder la próxima vez mediante su huella?</string>
-    <string name="afirmativo">De acuerdo</string>
-    <string name="negativo">No, gracias</string>
+    <string name="yes">De acuerdo</string>
+    <string name="no">No, gracias</string>
     <string name="empty_fields">Por favor, rellene todos los campos para continuar</string>
     <string name="failed_sign_in">No se ha podido iniciar sesión</string>
     <string name="disabled_biometric">El acceso con huella no está disponible actualmente</string>
@@ -29,12 +29,17 @@
     <string name="cancel">Cancelar</string>
     <string name="previous_access_fingertip">Debe acceder almenos una vez para poder guardar sus datos de acceso.</string>
 
-    <string name="correo_electr_nico">Correo electrónico</string>
-    <string name="confirmar_contrase_a">Confirmar contraseña</string>
-    <string name="nombreYapellido">Nombre y apellidos</string>
+    <!-- activity_sign_up -->
+    <string name="name_surname">Nombre y apellidos</string>
+    <string name="repeat_password">Confirmar contraseña</string>
+    <string name="postal_code">Código postal</string>
+    <string name="birth">Fecha de nacimiento</string>
+    <string name="sex_preference">Escoja el sexo con el que más se identifique</string>
+    <string name="man">Hombre</string>
+    <string name="woman">Mujer</string>
+    <string name="any">Otro</string>
+
     <string name="registrarse">Registrarse</string>
-    <string name="hombre">Hombre</string>
-    <string name="mujer">Mujer</string>
     <string name="log_in">Log In</string>
     <string name="title_activity_inicio">Inicio</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -62,8 +67,6 @@
     <string name="guardar">Guardar</string>
     <string name="pa_s_de_residencia">País de residencia</string>
     <string name="pulsa_para_cambiar_la_foto_de_perfil">(pulsa para escoger la foto de perfil)</string>
-    <string name="otro">Otro</string>
-    <string name="escoja_su_sexo">Escoja el sexo con el que más se identifique</string>
 
 
     <string name="title_activity_splash_screen">SplashScreen</string>
@@ -86,8 +89,6 @@
     <string name="datos_de_acceso">Datos de acceso</string>
     <string name="c_p">•C.P:</string>
     <string name="ok">OK</string>
-    <string name="c_digo_postal">Código postal</string>
-    <string name="fecha_de_nacimiento">Fecha de nacimiento</string>
     <string name="ubicacion">Ubicacion</string>
     <string name="hora_del_plan">Hora del plan</string>
     <string name="fecha_del_plan">Fecha del plan</string>
@@ -124,5 +125,5 @@
 
     <string name="id_fcm">AAAASNGD9Do:APA91bHSAXZXcX70y-sxSYLtEQF_uN57mu8EXLL20MRdRP-QvsOlko8OhAF23HLIxmcH4DIr1_GfMiGmgYmQbDvx8D22K3B1v0pCKgCc6LUF4BSPR2n2GOqjG1wmpx7qB870dtcBPjf4</string>
     <string name="url_fcm">https://fcm.googleapis.com/fcm/send</string>
-    <string name="fcm_message" >Titulo de la notificación</string>
+    <string name="fcm_message">Titulo de la notificación</string>
 </resources>
