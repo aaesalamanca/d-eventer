@@ -265,8 +265,6 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         String email = viewModel.getEmail();
         String password = viewModel.getPassword();
 
-        loadingMessage(false);
-
         if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password)) {
             Toast.makeText(this,
                     R.string.previous_access_fingertip, Toast.LENGTH_SHORT).show();
