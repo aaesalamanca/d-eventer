@@ -3,13 +3,12 @@ package es.achraf.deventer.viewmodel;
 import android.content.SharedPreferences;
 import android.os.Parcel;
 
-import androidx.annotation.NonNull;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GoogleAuthProvider;
 
 import es.achraf.deventer.model.Plan;
 import es.achraf.deventer.model.User;
@@ -104,6 +103,20 @@ public class ViewModel implements IViewModel {
     }
 
     /**
+     * Guarda el email y la contraseña del usuario en SharedPreferences.
+     *
+     * @param email    es el email del usuario.
+     * @param password es la contraseña del usuario.
+     */
+    private void saveBiometric(String email, String password) {
+        SharedPreferences sharedPreferences = view.getPreferences(MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(KSP_EMAIL, email);
+        editor.putString(KSP_PASSWORD, password);
+        editor.commit();
+    }
+
+    /**
      * Devuelve si el usuario ha iniciado o no sesión.
      *
      * @return true si ya ha iniciado sesión, false si no.
@@ -135,9 +148,8 @@ public class ViewModel implements IViewModel {
         }
 
         firebaseAuth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
+                .addOnCompleteListener(task -> {
+                    if (view != null) {
                         if (task.isSuccessful()) {
                             firebaseUser = firebaseAuth.getCurrentUser();
                             view.onSignInComplete(true);
@@ -149,17 +161,37 @@ public class ViewModel implements IViewModel {
     }
 
     /**
-     * Guarda el email y la contraseña del usuario en SharedPreferences.
+     * Solicita iniciar sesión con cuenta de Google.
      *
-     * @param email es el email del usuario.
-     * @param password es la contraseña del usuario.
+     * @param account es la cuenta de Google.
      */
-    private void saveBiometric(String email, String password) {
-        SharedPreferences sharedPreferences = view.getPreferences(MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(KSP_EMAIL, email);
-        editor.putString(KSP_PASSWORD, password);
-        editor.commit();
+    @Override
+    public void googleSignIn(GoogleSignInAccount account) {
+        AuthCredential credential = GoogleAuthProvider.getCredential(account.getIdToken(),
+                null);
+        firebaseAuth.signInWithCredential(credential)
+                .addOnCompleteListener(task -> {
+                    if (view != null) {
+                        if (task.isSuccessful()) {
+                            firebaseUser = firebaseAuth.getCurrentUser();
+                            view.onSignInComplete(true);
+                        } else {
+                            view.onSignInComplete(false);
+                        }
+                    }
+                });
+    }
+
+    /**
+     * Cierra la sesión actual.
+     */
+    @Override
+    public void signOut() {
+        if (view != null) {
+            view.onSignOutComplete();
+        }
+
+        firebaseAuth.signOut();
     }
 
     // Parcelable implementation

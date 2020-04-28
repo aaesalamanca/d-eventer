@@ -2,6 +2,8 @@ package es.achraf.deventer.viewmodel;
 
 import android.os.Parcelable;
 
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+
 import es.achraf.deventer.view.IView;
 
 public interface IViewModel extends Parcelable {
@@ -58,4 +60,16 @@ public interface IViewModel extends Parcelable {
      *                      - No -> False
      */
     void emailSignIn(String email, String password, boolean saveBiometric);
+
+    /**
+     * Solicita iniciar sesión con cuenta de Google.
+     *
+     * @param account es la cuenta de Google.
+     */
+    void googleSignIn(GoogleSignInAccount account);
+
+    /**
+     * Cierra la sesión actual.
+     */
+    void signOut();
 }

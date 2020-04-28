@@ -15,6 +15,11 @@ public interface IView {
     void onSignInComplete(boolean signedIn);
 
     /**
+     * Handler que ejecuta la acción requerida cuando el usuario cierra la sesión.
+     */
+    void onSignOutComplete();
+
+    /**
      * Obtiene las SharedPreferences de la Activity.
      *
      * @param mode es el modo de acceso a las SharedPreferences.

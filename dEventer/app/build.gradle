@@ -142,6 +142,7 @@ dependencies {
 
     // Dependencia de Google Sign-In for Android
     // https://developers.google.com/identity/sign-in/android/start-integrating#add_google_play_services
+    // https://firebase.google.com/docs/auth/android/google-signin#before_you_begin
     // Release notes: https://developers.google.com/android/guides/releases
     implementation 'com.google.android.gms:play-services-auth:18.0.0'
 

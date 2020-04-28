@@ -12,10 +12,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.biometric.BiometricManager;
 import androidx.biometric.BiometricPrompt;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputEditText;
 
@@ -28,6 +35,7 @@ import es.achraf.deventer.viewmodel.ViewModel;
 public class SignInActivity extends AppCompatActivity implements View.OnClickListener, IView {
 
     // Fields
+    private static final int RC_GOOGLE_SIGN_IN = 0;
 
     private TextInputEditText tietEmail;
     private TextInputEditText tietPassword;
@@ -38,6 +46,8 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     private TextView tvCarga;
 
     private IViewModel viewModel; // ViewModel para seguir el patrón MVVM
+
+    private GoogleSignInClient gsc;
 
     // Methods
 
@@ -58,6 +68,14 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
      * Inicializa los componentes de la actividad.
      */
     private void init() {
+        viewModel = new ViewModel();
+        viewModel.setView(this);
+        // Comprueba que el usuario ya ha iniciado sesión previamente para lanzar la actividad
+        // de inicio.
+        if (viewModel.isSignedIn()) {
+            startHomeActivity();
+        }
+
         tietEmail = findViewById(R.id.tietEmail);
         tietPassword = findViewById(R.id.tietPassword);
 
@@ -72,14 +90,12 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         findViewById(R.id.lbtnFb).setOnClickListener(this);
         findViewById(R.id.sbtnGoogle).setOnClickListener(this);
 
-        viewModel = new ViewModel();
-        viewModel.setView(this);
-
-        // Comprueba que el usuario ya ha iniciado sesión previamente para lanzar la actividad
-        // de inicio.
-        if (viewModel.isSignedIn()) {
-            startHomeActivity();
-        }
+        GoogleSignInOptions gso = new GoogleSignInOptions
+                .Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+        gsc = GoogleSignIn.getClient(this, gso);
     }
 
     /**
@@ -101,10 +117,10 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                 startSignUpActivity();
                 break;
             case R.id.lbtnFb:
-                signInFb();
+                facebookSignIn();
                 break;
             case R.id.sbtnGoogle:
-                signInGoogle();
+                googleSignIn();
                 break;
         }
     }
@@ -142,8 +158,8 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                      * Solicita el inicio de sesión con guardado de las SharedPreferences —con
                      * huella—.
                      *
-                     * @param dialog
-                     * @param which
+                     * @param dialog es el diálogo.
+                     * @param which es dónde.
                      */
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -157,8 +173,8 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                      * Solicita el inicio de sesión sin guardar las SharedPreferences —sin
                      * huella —.
                      *
-                     * @param dialog
-                     * @param which
+                     * @param dialog es el diálogo.
+                     * @param which es dónde.
                      */
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -200,12 +216,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
      */
     private void askForFingertip() {
         handler = new Handler();
-        Executor executor = new Executor() {
-            @Override
-            public void execute(Runnable command) {
-                handler.post(command);
-            }
-        };
+        Executor executor = command -> handler.post(command);
 
         BiometricPrompt.PromptInfo promptInfo = new BiometricPrompt.PromptInfo.Builder()
                 .setTitle(getString(R.string.biometric_access))
@@ -234,7 +245,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
              * Handler que solicita el inicio de sesión con email cuando la autenticación
              * es exitosa.
              *
-             * @param result
+             * @param result es el resultado de la autenticación exitosa.
              */
             @Override
             public void onAuthenticationSucceeded(@NonNull BiometricPrompt.AuthenticationResult result) {
@@ -278,7 +289,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
      * <p>
      * Inicia sesión con Facebook.
      */
-    private void signInFb() {
+    private void facebookSignIn() {
 
     }
 
@@ -287,8 +298,9 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
      * <p>
      * Inicia sesión con Google.
      */
-    private void signInGoogle() {
-
+    private void googleSignIn() {
+        Intent signInIntent = gsc.getSignInIntent();
+        startActivityForResult(signInIntent, RC_GOOGLE_SIGN_IN);
     }
 
     /**
@@ -343,6 +355,28 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     /**
+     * Se ejecuta cuando termina la actividad iniciada por esta y espera un resultado de vuelta.
+     *
+     * @param requestCode es el código que identifica a la actividad invocada.
+     * @param resultCode es el código del resultado.
+     * @param data es el Intent con los datos devueltos.
+     */
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == RC_GOOGLE_SIGN_IN) {
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+            try {
+                GoogleSignInAccount account = task.getResult(ApiException.class);
+                viewModel.googleSignIn(account);
+            } catch (ApiException e) {
+                Toast.makeText(this, R.string.failed_sign_in, Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    /**
      * Obtiene las SharedPreferences de la Activity.
      *
      * @param mode es el modo de acceso a las SharedPreferences.
@@ -371,6 +405,16 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
             Toast.makeText(SignInActivity.this,
                     R.string.failed_sign_in, Toast.LENGTH_SHORT).show();
         }
+    }
+
+    /**
+     * Handler que ejecuta la acción requerida cuando el usuario cierra la sesión.
+     * <p>
+     * Implementación vacía.
+     */
+    @Override
+    public void onSignOutComplete() {
+
     }
 
 }
