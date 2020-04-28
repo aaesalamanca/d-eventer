@@ -20,10 +20,13 @@ import static android.content.Context.MODE_PRIVATE;
 public class ViewModel implements IViewModel {
 
     // Fields
-    public static final String KSP_EMAIL = "email";
-    public static final String KSP_PASSWORD = "password";
 
-    private IView view;
+    // Clave para la obtención del email en las SharedPreferences
+    private static final String KSP_EMAIL = "email";
+    // Clave para la obtención de la contraseña en las SharedPreferences
+    private static final String KSP_PASSWORD = "password";
+
+    private IView view; // View para seguir el patrón MVVM
 
     private FirebaseAuth firebaseAuth;
     private FirebaseUser firebaseUser;
@@ -32,6 +35,10 @@ public class ViewModel implements IViewModel {
     private User userModel;
 
     // Constructors
+
+    /**
+     * Constructor por defecto —vacío—.
+     */
     public ViewModel() {
         init();
     }
@@ -41,27 +48,53 @@ public class ViewModel implements IViewModel {
     /**
      * Devuelve el email del usuario.
      * <p>
-     * Debe cambiarse para que lo devuelva del modelo y no de las SharedPreferences.
+     * Debe cambiarse la implementación para que lo devuelva del modelo y no de las
+     * SharedPreferences.
      *
-     * @return
+     * @return el email del usuario. Cadena vacía si no se ha guardado con anterioridad o no se
+     * tiene acceso a la vista.
      */
     @Override
     public String getEmail() {
-        return view.getPreferences(MODE_PRIVATE).getString(KSP_EMAIL, "");
+        if (view != null) {
+            return view.getPreferences(MODE_PRIVATE).getString(KSP_EMAIL, "");
+        }
+
+        return "";
     }
 
+    /**
+     * Devuelve la contaseña del usuario.
+     *
+     * @return la contraseña del usuario. Cadena vacía si no se ha guardado con anterioridad o no
+     * se tiene acceso a la vista.
+     */
     @Override
     public String getPassword() {
-        return view.getPreferences(MODE_PRIVATE).getString(KSP_PASSWORD, "");
+        if (view != null) {
+            return view.getPreferences(MODE_PRIVATE).getString(KSP_PASSWORD, "");
+        }
+
+        return "";
     }
 
     // Setters
+
+    /**
+     * Establece la vista actual del ViewModel.
+     *
+     * @param view vista con la que va a trabajar el ViewModel.
+     */
     @Override
     public void setView(IView view) {
         this.view = view;
     }
 
     // Methods
+
+    /**
+     * Inicializa el objeto.
+     */
     private void init() {
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
@@ -70,11 +103,28 @@ public class ViewModel implements IViewModel {
         planModel = new Plan();
     }
 
+    /**
+     * Devuelve si el usuario ha iniciado o no sesión.
+     *
+     * @return true si ya ha iniciado sesión, false si no.
+     */
     @Override
-    public boolean isLogged() {
+    public boolean isSignedIn() {
         return firebaseUser != null;
     }
 
+    /**
+     * Solicita iniciar sesión con email y contraseña. También los guarda en SharedPreferences si
+     * el usuario marca la opción correspondiente.
+     *
+     * @param email         es el email del usuario.
+     * @param password      es la contraseña del usuario.
+     * @param saveBiometric indica si el usuario quiere guardar el email y la contraseña como
+     *                      SharedPreferences para poder utilizar la huella:
+     *                      <p>
+     *                      - Sí -> True
+     *                      - No -> False
+     */
     @Override
     public void emailSignIn(String email, String password, boolean saveBiometric) {
         email = email.trim();
@@ -98,6 +148,12 @@ public class ViewModel implements IViewModel {
                 });
     }
 
+    /**
+     * Guarda el email y la contraseña del usuario en SharedPreferences.
+     *
+     * @param email es el email del usuario.
+     * @param password es la contraseña del usuario.
+     */
     private void saveBiometric(String email, String password) {
         SharedPreferences sharedPreferences = view.getPreferences(MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -107,6 +163,7 @@ public class ViewModel implements IViewModel {
     }
 
     // Parcelable implementation
+
     protected ViewModel(Parcel in) {
     }
 

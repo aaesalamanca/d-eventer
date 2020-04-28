@@ -7,17 +7,55 @@ import es.achraf.deventer.view.IView;
 public interface IViewModel extends Parcelable {
 
     // Fields
-    String K_VIEWMODEL = "viewModel";
+
+    String K_VIEWMODEL = "viewModel"; // Clave para el paso del ViewModel entre actividades.
 
     // Getters
+
+    /**
+     * Devuelve el email del usuario.
+     * <p>
+     *
+     * @return el email del usuario.
+     */
     String getEmail();
+
+    /**
+     * Devuelve la contaseña del usuario.
+     *
+     * @return la contraseña del usuario.
+     */
     String getPassword();
 
     // Setters
+
+    /**
+     * Establece la vista actual del ViewModel.
+     *
+     * @param view vista con la que va a trabajar el ViewModel.
+     */
     void setView(IView view);
 
     // Methods
-    boolean isLogged();
 
-    void emailSignIn(String email, String password, boolean biometricSave);
+    /**
+     * Devuelve si el usuario ha iniciado o no sesión.
+     *
+     * @return true si ya ha iniciado sesión, false si no.
+     */
+    boolean isSignedIn();
+
+    /**
+     * Solicita iniciar sesión con email y contraseña. También los guarda en SharedPreferences si
+     * el usuario marca la opción correspondiente.
+     *
+     * @param email         es el email del usuario.
+     * @param password      es la contraseña del usuario.
+     * @param saveBiometric indica si el usuario quiere guardar el email y la contraseña como
+     *                      SharedPreferences para poder utilizar la huella:
+     *                      <p>
+     *                      - Sí -> True
+     *                      - No -> False
+     */
+    void emailSignIn(String email, String password, boolean saveBiometric);
 }
