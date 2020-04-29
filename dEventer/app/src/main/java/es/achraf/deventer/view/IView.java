@@ -8,9 +8,11 @@ public interface IView {
 
     /**
      * Handler que ejecuta la acción requerida según el resultado del intento de inicio de sesión.
-     * <p>
      *
      * @param signedIn es el resultado del intento de inicio de sesión.
+     *                 <p>
+     *                 - True -> Inicio de sesión con éxito
+     *                 - False -> Inicio de sesión fracasado
      */
     void onSignInComplete(boolean signedIn);
 

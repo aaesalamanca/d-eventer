@@ -68,10 +68,10 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
 
-        this.btnLogin = findViewById(R.id.btnLogin);
+        this.btnLogin = findViewById(R.id.mbtnGoBack);
         this.btnLogin.setOnClickListener(this);
 
-        this.btnRegistrarse = findViewById(R.id.btnRegistrarse);
+        this.btnRegistrarse = findViewById(R.id.mbtnSignUp);
         this.btnRegistrarse.setOnClickListener(this);
 
         this.rbHombre = findViewById(R.id.rbMan);
@@ -85,8 +85,8 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         this.txtRepetirContrasena = findViewById(R.id.tietRepeatPassword);
         this.txtCp = findViewById(R.id.tietPostalCode);
 
-        this.progressBarRegistro = findViewById(R.id.progressbarRegistro);
-        this.cargandoRegistro = findViewById(R.id.cargandoRegistro);
+        this.progressBarRegistro = findViewById(R.id.pbLoading);
+        this.cargandoRegistro = findViewById(R.id.tvLoading);
 
         this.txtFechaNacimiento = findViewById(R.id.tietBirth);
         this.txtFechaNacimiento.setOnClickListener(this);
@@ -267,11 +267,11 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     public void onClick(View v) {
 
         switch (v.getId()) {
-            case R.id.btnLogin:
+            case R.id.mbtnGoBack:
                 irLogin();
                 break;
 
-            case R.id.btnRegistrarse:
+            case R.id.mbtnSignUp:
                 registrarse();
                 break;
 

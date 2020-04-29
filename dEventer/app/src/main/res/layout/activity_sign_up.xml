@@ -81,7 +81,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/proximanovaregular"
                 android:inputType="textEmailAddress"
-                android:textColor="#ffff"
+                android:textColor="@color/blanco"
                 app:endIconMode="clear_text"
                 app:errorEnabled="true"
                 app:hintTextColor="@color/colorAccent" />
@@ -109,7 +109,6 @@
                 android:textColor="@color/blanco" />
 
         </com.google.android.material.textfield.TextInputLayout>
-
 
         <com.google.android.material.textfield.TextInputLayout
             style="@style/LoginTextInputLayoutStyle"
@@ -245,59 +244,57 @@
         </RadioGroup>
 
         <ProgressBar
-            android:id="@+id/progressbarRegistro"
+            android:id="@+id/pbLoading"
             style="?android:attr/absListViewStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="#ffff"
+            android:backgroundTint="@color/blanco"
             android:indeterminate="true"
             android:indeterminateTint="@color/colorPrimaryDark"
             android:max="200"
             android:visibility="gone" />
 
         <TextView
-            android:id="@+id/cargandoRegistro"
+            android:id="@+id/tvLoading"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/proximanovaregular"
             android:gravity="center"
             android:text="@string/loading"
-            android:textColor="#ffff"
-            android:textSize="12sp"
+            android:textColor="@color/blanco"
+            android:textSize="@dimen/text_12"
             android:visibility="gone" />
 
-
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnRegistrarse"
+            android:id="@+id/mbtnSignUp"
             android:layout_width="match_parent"
-            android:layout_height="56dp"
+            android:layout_height="@dimen/size_56"
             android:layout_gravity="bottom"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
+            android:layout_marginStart="@dimen/margin_16"
+            android:layout_marginEnd="@dimen/margin_16"
             android:fontFamily="@font/proximanovaregular"
             android:tag="custom_login_button"
-            android:text="@string/registrarse"
+            android:text="@string/sign_up"
             android:textColor="@color/colorPrimaryDark"
             android:textStyle="bold"
             android:theme="@style/Theme.MaterialComponents"
             app:backgroundTint="@color/colorAccent"
-            app:cornerRadius="20dp" />
-
+            app:cornerRadius="@dimen/radius_20" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnLogin"
+            android:id="@+id/mbtnGoBack"
             android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
+            android:layout_height="@dimen/size_56"
+            android:layout_marginStart="@dimen/margin_16"
+            android:layout_marginEnd="@dimen/margin_16"
             android:fontFamily="@font/proximanovaregular"
             android:tag="custom_login_button"
-            android:text="@string/log_in"
-            android:textColor="#ffff"
+            android:text="@string/go_back"
+            android:textColor="@color/blanco"
             android:theme="@style/Theme.MaterialComponents"
             app:backgroundTint="@color/colorPrimaryDark"
-            app:cornerRadius="20dp" />
-
+            app:cornerRadius="@dimen/radius_20" />
 
     </LinearLayout>
+
 </ScrollView>

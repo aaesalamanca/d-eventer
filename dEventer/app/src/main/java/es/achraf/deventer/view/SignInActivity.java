@@ -4,7 +4,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Handler;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -16,6 +15,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.biometric.BiometricManager;
 import androidx.biometric.BiometricPrompt;
+import androidx.core.content.ContextCompat;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -35,24 +35,30 @@ import es.achraf.deventer.viewmodel.ViewModel;
 public class SignInActivity extends AppCompatActivity implements View.OnClickListener, IView {
 
     // Fields
-    private static final int RC_GOOGLE_SIGN_IN = 0;
+    private static final int RC_GOOGLE_SIGN_IN = 0; // Request code para lanzar el SignIn con Google
 
     private TextInputEditText tietEmail;
     private TextInputEditText tietPassword;
 
-    private Handler handler; // Necesario para utilizar la huella
+    // Necesario para el sensor de huellas
+    // https://developer.android.com/training/sign-in/biometric-auth#display-login-prompt
+    private Executor executor;
+    private BiometricPrompt biometricPrompt;
+    private BiometricPrompt.PromptInfo promptInfo;
 
     private ProgressBar pbLoading;
     private TextView tvLoading;
 
     private IViewModel viewModel; // ViewModel para seguir el patrón MVVM
 
-    private GoogleSignInClient gsc;
+    // https://firebase.google.com/docs/auth/android/google-signin#authenticate_with_firebase
+    // https://developers.google.com/identity/sign-in/android/sign-in#configure_google_sign-in_and_the_googlesigninclient_object
+    private GoogleSignInClient gsc; // Necesario para Google Sign In
 
     // Methods
 
     /**
-     * Primer método ejecutado por la actividad. Inicialización de los componentes de la actividad.
+     * Primer método ejecutado por la actividad. Inicializa los elmentos de la actividad.
      *
      * @param savedInstanceState es el bundle que almacena los datos del estado de la actividad
      *                           cuando se produce un cambio como rotaciones.
@@ -65,11 +71,12 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     /**
-     * Inicializa los componentes de la actividad.
+     * Inicializa los elementos de la actividad.
      */
     private void init() {
         viewModel = new ViewModel();
         viewModel.setView(this);
+
         // Comprueba que el usuario ya ha iniciado sesión previamente para lanzar la actividad
         // de inicio.
         if (viewModel.isSignedIn()) {
@@ -90,6 +97,71 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         findViewById(R.id.lbtnFb).setOnClickListener(this);
         findViewById(R.id.sbtnGoogle).setOnClickListener(this);
 
+        loadBiometric();
+
+        loadGoogleSignIn();
+    }
+
+    /**
+     * Inicializa los componentes necesarios para utilizar el sensor de huellas.
+     */
+    private void loadBiometric() {
+        // Utilizar el sensor de huellas
+        // https://developer.android.com/training/sign-in/biometric-auth#display-login-prompt
+        executor = ContextCompat.getMainExecutor(this);
+        biometricPrompt = new BiometricPrompt(this,
+                executor, new BiometricPrompt.AuthenticationCallback() {
+            /**
+             * Handler que muestra un mensaje de error por pantalla cuando hay un error de
+             * autenticación al utilizar el sensor de huellas.
+             *
+             * @param errorCode es el código de error.
+             * @param errString es la secuencia de error.
+             */
+            @Override
+            public void onAuthenticationError(int errorCode, @NonNull CharSequence errString) {
+                super.onAuthenticationError(errorCode, errString);
+                Toast.makeText(SignInActivity.this,
+                        R.string.no_biometric_hw, Toast.LENGTH_SHORT).show();
+            }
+
+            /**
+             * Handler que solicita el inicio de sesión con email cuando la autenticación
+             * es exitosa.
+             *
+             * @param result es el resultado de la autenticación exitosa.
+             */
+            @Override
+            public void onAuthenticationSucceeded(@NonNull BiometricPrompt.AuthenticationResult result) {
+                super.onAuthenticationSucceeded(result);
+                fingertipSignIn();
+            }
+
+            /**
+             * Handler que muestra un mensaje de error por pantalla cuando ha fallado la
+             * autenticación.
+             */
+            @Override
+            public void onAuthenticationFailed() {
+                super.onAuthenticationFailed();
+                Toast.makeText(SignInActivity.this,
+                        R.string.failed_sign_in, Toast.LENGTH_SHORT).show();
+            }
+        });
+        promptInfo = new BiometricPrompt.PromptInfo.Builder()
+                .setTitle(getString(R.string.biometric_access))
+                .setSubtitle(getString(R.string.use_fingertip))
+                .setNegativeButtonText(getString(R.string.cancel))
+                .setConfirmationRequired(false)
+                .build();
+    }
+
+    /**
+     * Inicializa los elementos necesarios para poder iniciar sesión con Google.
+     */
+    private void loadGoogleSignIn() {
+        // https://firebase.google.com/docs/auth/android/google-signin#authenticate_with_firebase
+        // https://developers.google.com/identity/sign-in/android/sign-in#configure_google_sign-in_and_the_googlesigninclient_object
         GoogleSignInOptions gso = new GoogleSignInOptions
                 .Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
@@ -153,10 +225,9 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                 .setMessage(R.string.fingertip_start)
                 .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                     /**
-                     * Handler de la acción que debe ejecutarse en un click yes.
+                     * Handler de la acción que debe ejecutarse en un click afirmativo.
                      *
-                     * Solicita el inicio de sesión con guardado de las SharedPreferences —con
-                     * huella—.
+                     * Solicita el inicio de sesión guardando las SharedPreferences —con huella—.
                      *
                      * @param dialog es el diálogo.
                      * @param which es dónde.
@@ -168,7 +239,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                 })
                 .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
                     /**
-                     * Handler de la acción que debe ejecutarse con un click no.
+                     * Handler de la acción que debe ejecutarse con un click negativo.
                      *
                      * Solicita el inicio de sesión sin guardar las SharedPreferences —sin
                      * huella —.
@@ -186,6 +257,8 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
 
     /**
      * Comprueba la posibilidad de utilizar el sensor de huellas.
+     * <p>
+     * https://developer.android.com/training/sign-in/biometric-auth#available
      */
     private void testFingertip() {
         loadingMessage(true);
@@ -193,7 +266,12 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         BiometricManager biometricManager = BiometricManager.from(this);
         switch (biometricManager.canAuthenticate()) {
             case BiometricManager.BIOMETRIC_SUCCESS:
-                askForFingertip();
+                // https://developer.android.com/training/sign-in/biometric-auth#display-login-prompt
+                biometricPrompt.authenticate(promptInfo);
+                break;
+            case BiometricManager.BIOMETRIC_ERROR_NO_HARDWARE:
+                Toast.makeText(this,
+                        R.string.no_biometric_hw, Toast.LENGTH_SHORT).show();
                 break;
             case BiometricManager.BIOMETRIC_ERROR_HW_UNAVAILABLE:
                 Toast.makeText(this,
@@ -203,69 +281,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                 Toast.makeText(this,
                         R.string.no_registered_fingertip, Toast.LENGTH_SHORT).show();
                 break;
-            case BiometricManager.BIOMETRIC_ERROR_NO_HARDWARE:
-                Toast.makeText(this,
-                        R.string.no_biometric_hw, Toast.LENGTH_SHORT).show();
-                break;
         }
-    }
-
-    /**
-     * Una vez que es posible utilizar el sensor de huellas —porque está disponible—, solicita su
-     * utilización para iniciar sesión.
-     */
-    private void askForFingertip() {
-        handler = new Handler();
-        Executor executor = command -> handler.post(command);
-
-        BiometricPrompt.PromptInfo promptInfo = new BiometricPrompt.PromptInfo.Builder()
-                .setTitle(getString(R.string.biometric_access))
-                .setSubtitle(getString(R.string.use_fingertip))
-                .setNegativeButtonText(getString(R.string.cancel))
-                .setConfirmationRequired(false)
-                .build();
-
-        BiometricPrompt biometricPrompt = new BiometricPrompt(this,
-                executor, new BiometricPrompt.AuthenticationCallback() {
-            /**
-             * Handler que muestra un mensaje de error por pantalla cuando hay un error de
-             * autenticación al utilizar el sensor de huellas.
-             *
-             * @param errorCode es el código de error.
-             * @param errString es la secuencia de error.
-             */
-            @Override
-            public void onAuthenticationError(int errorCode, @NonNull CharSequence errString) {
-                super.onAuthenticationError(errorCode, errString);
-                Toast.makeText(SignInActivity.this,
-                        R.string.no_biometric_hw, Toast.LENGTH_SHORT).show();
-            }
-
-            /**
-             * Handler que solicita el inicio de sesión con email cuando la autenticación
-             * es exitosa.
-             *
-             * @param result es el resultado de la autenticación exitosa.
-             */
-            @Override
-            public void onAuthenticationSucceeded(@NonNull BiometricPrompt.AuthenticationResult result) {
-                super.onAuthenticationSucceeded(result);
-                fingertipSignIn();
-            }
-
-            /**
-             * Handler que muestra un mensaje de error por pantalla cuando ha fallado la
-             * autenticación.
-             */
-            @Override
-            public void onAuthenticationFailed() {
-                super.onAuthenticationFailed();
-                Toast.makeText(SignInActivity.this,
-                        R.string.failed_sign_in, Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        biometricPrompt.authenticate(promptInfo);
     }
 
     /**
@@ -294,9 +310,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     /**
-     * Falta implementar.
-     * <p>
-     * Inicia sesión con Google.
+     * Solicita iniciar sesión con Google.
      */
     private void googleSignIn() {
         loadingMessage(true);
@@ -311,8 +325,8 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
      *
      * @param loading indica si los elementos deben desaparecer o verse.
      *                <p>
-     *                - Deben verse -> True
-     *                - No deben verse -> False
+     *                - True -> Deben verse
+     *                - False -> No deben verse
      */
     private void loadingMessage(boolean loading) {
         if (loading) {
@@ -360,8 +374,8 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
      * Se ejecuta cuando termina la actividad iniciada por esta y espera un resultado de vuelta.
      *
      * @param requestCode es el código que identifica a la actividad invocada.
-     * @param resultCode es el código del resultado.
-     * @param data es el Intent con los datos devueltos.
+     * @param resultCode  es el código del resultado.
+     * @param data        es el Intent con los datos devueltos.
      */
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -396,6 +410,9 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
      * pantalla.
      *
      * @param signedIn es el resultado del intento de inicio de sesión.
+     *                 <p>
+     *                 - True -> Inicio de sesión con éxito
+     *                 - False -> Inicio de sesión fracasado
      */
     @Override
     public void onSignInComplete(boolean signedIn) {

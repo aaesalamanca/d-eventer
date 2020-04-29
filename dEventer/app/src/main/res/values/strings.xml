@@ -21,8 +21,8 @@
     <string name="no">No, gracias</string>
     <string name="empty_fields">Por favor, rellene todos los campos para continuar</string>
     <string name="failed_sign_in">No se ha podido iniciar sesión</string>
-    <string name="disabled_biometric">El acceso con huella no está disponible actualmente</string>
-    <string name="no_biometric_hw">Este dispositivo no tiene huella</string>
+    <string name="disabled_biometric">El sensor de huellas no está disponible actualmente</string>
+    <string name="no_biometric_hw">Este dispositivo no tiene sensor de huellas</string>
     <string name="no_registered_fingertip">No hay ninguna huella registrada</string>
     <string name="biometric_access">Acceso con huella a dEventer</string>
     <string name="use_fingertip">Introduzca su huella para acceder</string>
@@ -38,9 +38,9 @@
     <string name="man">Hombre</string>
     <string name="woman">Mujer</string>
     <string name="any">Otro</string>
+    <string name="sign_up">Registrarse</string>
+    <string name="go_back">Volver</string>
 
-    <string name="registrarse">Registrarse</string>
-    <string name="log_in">Log In</string>
     <string name="title_activity_inicio">Inicio</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>

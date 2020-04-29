@@ -11,6 +11,7 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <!-- Estilo para los TextInputLayout -->
     <style name="LoginTextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <item name="boxStrokeColor">#BAFFFFFF</item>
         <item name="boxCornerRadiusBottomStart">20dp</item>
