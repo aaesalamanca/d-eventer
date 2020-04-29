@@ -169,15 +169,6 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         datePickerDialog.show();
     }
 
-    public void startSignInActivity() {
-        Intent intentLogin = new Intent(SignUpActivity.this, SignInActivity.class);
-        startActivity(intentLogin);
-
-        overridePendingTransition(R.anim.anim, R.anim.zoom_back);
-
-        finish();
-    }
-
     public boolean comprobarContrasenas(String pass, String repitePass) {
         return pass.equals(repitePass);
     }
@@ -262,6 +253,15 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             tvLoading.setVisibility(View.GONE);
         }
 
+    }
+
+    public void startSignInActivity() {
+        Intent intentLogin = new Intent(SignUpActivity.this, SignInActivity.class);
+        startActivity(intentLogin);
+
+        overridePendingTransition(R.anim.anim, R.anim.zoom_back);
+
+        finish();
     }
 
     private void updateUI(FirebaseUser user, String nombre) {
