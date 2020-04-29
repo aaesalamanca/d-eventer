@@ -49,6 +49,8 @@ public class ViewModel implements IViewModel {
      * <p>
      * Debe cambiarse la implementación para que lo devuelva del modelo y no de las
      * SharedPreferences.
+     * <p>
+     * https://developer.android.com/training/data-storage/shared-preferences#ReadSharedPreference
      *
      * @return el email del usuario. Cadena vacía si no se ha guardado con anterioridad o no se
      * tiene acceso a la vista.
@@ -64,6 +66,8 @@ public class ViewModel implements IViewModel {
 
     /**
      * Devuelve la contaseña del usuario.
+     * <p>
+     * https://developer.android.com/training/data-storage/shared-preferences#ReadSharedPreference
      *
      * @return la contraseña del usuario. Cadena vacía si no se ha guardado con anterioridad o no
      * se tiene acceso a la vista.
@@ -104,6 +108,8 @@ public class ViewModel implements IViewModel {
 
     /**
      * Guarda el email y la contraseña del usuario en SharedPreferences.
+     * <p>
+     * https://developer.android.com/training/data-storage/shared-preferences#WriteSharedPreference
      *
      * @param email    es el email del usuario.
      * @param password es la contraseña del usuario.
@@ -118,6 +124,8 @@ public class ViewModel implements IViewModel {
 
     /**
      * Devuelve si el usuario ha iniciado o no sesión.
+     * <p>
+     * https://firebase.google.com/docs/auth/android/password-auth#sign_in_a_user_with_an_email_address_and_password
      *
      * @return true si ya ha iniciado sesión, false si no.
      */
@@ -129,6 +137,8 @@ public class ViewModel implements IViewModel {
     /**
      * Solicita iniciar sesión con email y contraseña. También los guarda en SharedPreferences si
      * el usuario marca la opción correspondiente.
+     * <p>
+     * https://firebase.google.com/docs/auth/android/password-auth#sign_in_a_user_with_an_email_address_and_password
      *
      * @param email         es el email del usuario.
      * @param password      es la contraseña del usuario.
@@ -162,6 +172,9 @@ public class ViewModel implements IViewModel {
 
     /**
      * Solicita iniciar sesión con cuenta de Google.
+     * <p>
+     * https://firebase.google.com/docs/auth/android/google-signin#authenticate_with_firebase
+     * https://developers.google.com/identity/sign-in/android/sign-in#configure_google_sign-in_and_the_googlesigninclient_object
      *
      * @param account es la cuenta de Google.
      */

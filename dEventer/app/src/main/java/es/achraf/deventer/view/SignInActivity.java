@@ -42,7 +42,6 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
 
     // Necesario para el sensor de huellas
     // https://developer.android.com/training/sign-in/biometric-auth#display-login-prompt
-    private Executor executor;
     private BiometricPrompt biometricPrompt;
     private BiometricPrompt.PromptInfo promptInfo;
 
@@ -99,6 +98,8 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
 
         loadBiometric();
 
+        testFingertip();
+
         loadGoogleSignIn();
     }
 
@@ -108,7 +109,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     private void loadBiometric() {
         // Utilizar el sensor de huellas
         // https://developer.android.com/training/sign-in/biometric-auth#display-login-prompt
-        executor = ContextCompat.getMainExecutor(this);
+        Executor executor = ContextCompat.getMainExecutor(this);
         biometricPrompt = new BiometricPrompt(this,
                 executor, new BiometricPrompt.AuthenticationCallback() {
             /**
@@ -122,7 +123,8 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
             public void onAuthenticationError(int errorCode, @NonNull CharSequence errString) {
                 super.onAuthenticationError(errorCode, errString);
                 Toast.makeText(SignInActivity.this,
-                        R.string.no_biometric_hw, Toast.LENGTH_SHORT).show();
+                        R.string.failed_sign_in, Toast.LENGTH_SHORT).show();
+                loadingMessage(false);
             }
 
             /**
@@ -146,6 +148,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                 super.onAuthenticationFailed();
                 Toast.makeText(SignInActivity.this,
                         R.string.failed_sign_in, Toast.LENGTH_SHORT).show();
+                loadingMessage(false);
             }
         });
         promptInfo = new BiometricPrompt.PromptInfo.Builder()
@@ -158,10 +161,11 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
 
     /**
      * Inicializa los elementos necesarios para poder iniciar sesión con Google.
+     * <p>
+     * https://firebase.google.com/docs/auth/android/google-signin#authenticate_with_firebase
+     * https://developers.google.com/identity/sign-in/android/sign-in#configure_google_sign-in_and_the_googlesigninclient_object
      */
     private void loadGoogleSignIn() {
-        // https://firebase.google.com/docs/auth/android/google-signin#authenticate_with_firebase
-        // https://developers.google.com/identity/sign-in/android/sign-in#configure_google_sign-in_and_the_googlesigninclient_object
         GoogleSignInOptions gso = new GoogleSignInOptions
                 .Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
