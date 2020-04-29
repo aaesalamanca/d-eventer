@@ -197,14 +197,15 @@ public class ViewModel implements IViewModel {
 
     /**
      * Cierra la sesión actual.
+     *
+     * https://firebase.google.com/docs/auth/android/password-auth#next_steps
      */
     @Override
     public void signOut() {
         if (view != null) {
             view.onSignOutComplete();
+            firebaseAuth.signOut();
         }
-
-        firebaseAuth.signOut();
     }
 
     // Parcelable implementation

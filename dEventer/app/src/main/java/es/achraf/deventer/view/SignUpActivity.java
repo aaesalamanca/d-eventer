@@ -37,24 +37,25 @@ import es.achraf.deventer.viewmodel.IViewModel;
 public class SignUpActivity extends AppCompatActivity implements View.OnClickListener {
 
     // Fields
-    private int edad = 0;
+    private static final int AGE_LIMIT = 18;
 
-    private MaterialButton btnLogin;
-    private MaterialButton btnRegistrarse;
+    private int userAge;
 
-    private TextInputEditText txtNombre;
-    private TextInputEditText txtEmailRegistro;
-    private TextInputEditText txtPasswordRegistro;
-    private TextInputEditText txtRepetirContrasena;
-    private TextInputEditText txtCp;
-    private TextInputEditText txtFechaNacimiento;
+    private TextInputEditText tietName;
+    private TextInputEditText tietEmail;
+    private TextInputEditText tietPassword;
+    private TextInputEditText tietRepeatPassword;
+    private TextInputEditText tietPostalCode;
+    private TextInputEditText tietBirth;
 
-    private ProgressBar progressBarRegistro;
-    private TextView cargandoRegistro;
+    private RadioButton rbMan;
+    private RadioButton rbWoman;
+    private RadioButton rbAny;
 
-    private RadioButton rbHombre;
-    private RadioButton rbMujer;
-    private RadioButton rbOtro;
+    private ProgressBar pbLoading;
+    private TextView tvLoading;
+
+    private MaterialButton mbtnSignUp;
 
     private FirebaseAuth mAuth;
 
@@ -62,46 +63,118 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
     private IViewModel viewModel;
 
+    // Methods
 
+    /**
+     * Primer método ejecutado por la actividad. Inicializa los elmentos de la actividad.
+     *
+     * @param savedInstanceState es el bundle que almacena los datos del estado de la actividad
+     *                           cuando se produce un cambio como rotaciones.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
-
-        this.btnLogin = findViewById(R.id.mbtnGoBack);
-        this.btnLogin.setOnClickListener(this);
-
-        this.btnRegistrarse = findViewById(R.id.mbtnSignUp);
-        this.btnRegistrarse.setOnClickListener(this);
-
-        this.rbHombre = findViewById(R.id.rbMan);
-        this.rbMujer = findViewById(R.id.rbWoman);
-        this.rbOtro = findViewById(R.id.rbAny);
-
-
-        this.txtNombre = findViewById(R.id.tietName);
-        this.txtEmailRegistro = findViewById(R.id.txtEmailRegistro);
-        this.txtPasswordRegistro = findViewById(R.id.tietPassword);
-        this.txtRepetirContrasena = findViewById(R.id.tietRepeatPassword);
-        this.txtCp = findViewById(R.id.tietPostalCode);
-
-        this.progressBarRegistro = findViewById(R.id.pbLoading);
-        this.cargandoRegistro = findViewById(R.id.tvLoading);
-
-        this.txtFechaNacimiento = findViewById(R.id.tietBirth);
-        this.txtFechaNacimiento.setOnClickListener(this);
-
-        this.mAuth = FirebaseAuth.getInstance();
-        this.firebaseDatabase = FirebaseDatabase.getInstance();
-
-        viewModel = getIntent().getParcelableExtra(IViewModel.K_VIEWMODEL);
+        init();
     }
 
+    /**
+     * Inicializa los elementos de la actividad.
+     */
+    private void init() {
+        viewModel = getIntent().getParcelableExtra(IViewModel.K_VIEWMODEL);
 
-    public void irLogin() {
+        tietName = findViewById(R.id.tietName);
+        tietEmail = findViewById(R.id.tietEmail);
+        tietPassword = findViewById(R.id.tietPassword);
+        tietRepeatPassword = findViewById(R.id.tietRepeatPassword);
+        tietPostalCode = findViewById(R.id.tietPostalCode);
+        tietBirth = findViewById(R.id.tietBirth);
+        tietBirth.setOnClickListener(this);
+
+        rbMan = findViewById(R.id.rbMan);
+        rbWoman = findViewById(R.id.rbWoman);
+        rbAny = findViewById(R.id.rbAny);
+
+        pbLoading = findViewById(R.id.pbLoading);
+        tvLoading = findViewById(R.id.tvLoading);
+
+        findViewById(R.id.mbtnGoBack).setOnClickListener(this);
+        mbtnSignUp = findViewById(R.id.mbtnSignUp);
+        mbtnSignUp.setOnClickListener(this);
+
+        mAuth = FirebaseAuth.getInstance();
+        firebaseDatabase = FirebaseDatabase.getInstance();
+    }
+
+    /**
+     * Invoca a los distintos métodos —acciones— que se pueden llevar a cabo en elementos
+     * interactivos de la actividad.
+     *
+     * @param v view que invoca al método —handler—.
+     */
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.tietBirth:
+                showBirthDialog();
+                break;
+            case R.id.mbtnSignUp:
+                startHomeActivity();
+                break;
+            case R.id.mbtnGoBack:
+                startSignInActivity();
+                break;
+        }
+    }
+
+    /**
+     * Muestra un DatePickerDialog para elegir la fecha de nacimiento del usuario.
+     * <p>
+     * Comprueba que el usuario es mayor de edad —muestra un Snackbar en caso contrario— y muestra
+     * esa fecha en el TextInputEditText de la fecha de nacimiento.
+     */
+    public void showBirthDialog() {
+        // Obtención de la fecha actual para comparar con la fecha de nacimiento del usuario.
+        // Además, se utilizan para establecer la fecha inicial con la que se muestra el
+        // DatePickerDialog.
+        Calendar calendar = Calendar.getInstance();
+        int currentYear = calendar.get(Calendar.YEAR);
+        int currentMonth = calendar.get(Calendar.MONTH);
+        int currentDay = calendar.get(Calendar.DAY_OF_MONTH);
+
+        DatePickerDialog datePickerDialog = new DatePickerDialog(
+                SignUpActivity.this, R.style.datepicker, (view, year, month,
+                                                          dayOfMonth) -> {
+            userAge = currentYear - year;
+            if (userAge < AGE_LIMIT) {
+                mbtnSignUp.setEnabled(false);
+
+                tietBirth.setError(getString(R.string.under_age));
+
+                Snackbar.make(getWindow().getDecorView().getRootView(), tietBirth.getError(),
+                        Snackbar.LENGTH_INDEFINITE)
+                        .setActionTextColor(Color.RED).setBackgroundTint(Color.RED)
+                        .setAction(R.string.agree, v -> Toast.makeText(this,
+                                R.string.see_you, Toast.LENGTH_SHORT).show()).show();
+            } else {
+                mbtnSignUp.setEnabled(true);
+                tietBirth.setError(null);
+            }
+
+            tietBirth.setText(dayOfMonth + "/" + (month + 1) + "/" + year);
+        }, currentYear, currentMonth, currentDay);
+        datePickerDialog.setMessage(getString(R.string.birth));
+        datePickerDialog.setIcon(R.drawable.ic_home_black_24dp);
+        datePickerDialog.show();
+    }
+
+    public void startSignInActivity() {
         Intent intentLogin = new Intent(SignUpActivity.this, SignInActivity.class);
         startActivity(intentLogin);
+
         overridePendingTransition(R.anim.anim, R.anim.zoom_back);
+
         finish();
     }
 
@@ -113,27 +186,27 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         return rbHombre.isChecked() || rbMujer.isChecked();
     }
 
-    public void registrarse() {
-        progressBarRegistro.setVisibility(View.VISIBLE);
-        cargandoRegistro.setVisibility(View.VISIBLE);
+    public void startHomeActivity() {
+        pbLoading.setVisibility(View.VISIBLE);
+        tvLoading.setVisibility(View.VISIBLE);
 
-        final String nombreYapellidos = txtNombre.getText().toString();
-        final String email = txtEmailRegistro.getText().toString();
-        final String password = txtPasswordRegistro.getText().toString();
-        final String cp = txtCp.getText().toString();
+        final String nombreYapellidos = tietName.getText().toString();
+        final String email = tietEmail.getText().toString();
+        final String password = tietPassword.getText().toString();
+        final String cp = tietPostalCode.getText().toString();
 
-        String passwordRepetida = txtRepetirContrasena.getText().toString();
+        String passwordRepetida = tietRepeatPassword.getText().toString();
 
         if (!TextUtils.isEmpty(nombreYapellidos) && !TextUtils.isEmpty(email) && !TextUtils.isEmpty(password)
-                && !TextUtils.isEmpty(passwordRepetida) && !TextUtils.isEmpty(txtFechaNacimiento.getText())) {
+                && !TextUtils.isEmpty(passwordRepetida) && !TextUtils.isEmpty(tietBirth.getText())) {
 
             if (comprobarContrasenas(password, passwordRepetida)) {
 
-                if (comprbarRadioButtons(rbHombre, rbMujer)) {
+                if (comprbarRadioButtons(rbMan, rbWoman)) {
 
                     mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
-                        progressBarRegistro.setVisibility(View.GONE);
-                        cargandoRegistro.setVisibility(View.GONE);
+                        pbLoading.setVisibility(View.GONE);
+                        tvLoading.setVisibility(View.GONE);
 
                         if (!task.isSuccessful()) {
                             Toast.makeText(SignUpActivity.this, Objects.requireNonNull(task.getException()).getLocalizedMessage(), Toast.LENGTH_SHORT).show();
@@ -144,14 +217,14 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                             updateUI(firebaseUser, nombreYapellidos);
 
                             String id = mAuth.getUid();
-                            String eddad = String.valueOf(edad);
+                            String eddad = String.valueOf(userAge);
 
                             String sexo = "";
-                            if (rbHombre.isChecked()) {
+                            if (rbMan.isChecked()) {
                                 sexo = "man";
-                            } else if (rbMujer.isChecked())
+                            } else if (rbWoman.isChecked())
                                 sexo = "woman";
-                            else if (rbOtro.isChecked())
+                            else if (rbAny.isChecked())
                                 sexo = "any";
 
                             ArrayList<String> planesApuntados = new ArrayList<>();//array list de planes(ID) inicialmente vacío
@@ -168,31 +241,30 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                 } else {
                     Toast.makeText(this, "Debe seleccionar el sexo", Toast.LENGTH_SHORT).show();
 
-                    progressBarRegistro.setVisibility(View.GONE);
-                    cargandoRegistro.setVisibility(View.GONE);
+                    pbLoading.setVisibility(View.GONE);
+                    tvLoading.setVisibility(View.GONE);
                 }
 
 
             } else {
 
-                txtRepetirContrasena.setError("Las contraseñas no son iguales");
+                tietRepeatPassword.setError("Las contraseñas no son iguales");
 
-                progressBarRegistro.setVisibility(View.GONE);
-                cargandoRegistro.setVisibility(View.GONE);
+                pbLoading.setVisibility(View.GONE);
+                tvLoading.setVisibility(View.GONE);
             }
 
 
         } else {
             Toast.makeText(this, "Por favor, rellene todos los campos para continuar", Toast.LENGTH_SHORT).show();
 
-            progressBarRegistro.setVisibility(View.GONE);
-            cargandoRegistro.setVisibility(View.GONE);
+            pbLoading.setVisibility(View.GONE);
+            tvLoading.setVisibility(View.GONE);
         }
 
     }
 
     private void updateUI(FirebaseUser user, String nombre) {
-
         if (user != null) {
             UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                     .setDisplayName(nombre)
@@ -209,82 +281,6 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             overridePendingTransition(R.anim.anim, R.anim.zoom_back);
             finish();
         }
-    }
-
-
-    public void dialogFechaNacimiento() {
-        Calendar calendar = Calendar.getInstance();
-
-        final int ano = calendar.get(Calendar.YEAR);
-        int mes = calendar.get(Calendar.MONTH);
-        final int dia = calendar.get(Calendar.DAY_OF_MONTH);
-
-        DatePickerDialog datePickerDialog = new DatePickerDialog(
-                SignUpActivity.this, R.style.datepicker, (view, year, month, dayOfMonth) -> {
-            int anoUser = year - ano;
-            if (anoUser < 0)
-                anoUser *= -1;
-            edad = anoUser;
-            if (anoUser < 18) {
-                btnRegistrarse.setEnabled(false);
-                txtFechaNacimiento.setError("Lo sentimos, pero la aplicación requiere que seas mayor de edad.");
-                Snackbar.make(getWindow().getDecorView().getRootView(), txtFechaNacimiento.getError(), Snackbar.LENGTH_INDEFINITE)
-                        .setActionTextColor(Color.RED).setBackgroundTint(Color.RED)
-                        .setAction("Entendido", new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                Toast.makeText(SignUpActivity.this, "Gracias por entendernos, HASTA PRONTO!", Toast.LENGTH_SHORT).show();
-                            }
-                        }).show();
-            } else {
-                btnRegistrarse.setEnabled(true);
-                txtFechaNacimiento.setError(null);
-            }
-
-
-            Date fecha;
-            try {
-                fecha = new SimpleDateFormat("dd/MM/yyyy", Locale.FRANCE).parse(dayOfMonth + "/" + (month + 1) + "/" + year);
-                if (fecha != null) {
-                    txtFechaNacimiento.setText(new SimpleDateFormat("dd/MM/yyyy").format(fecha));
-                }
-
-
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-
-
-        }, ano, mes, dia);
-
-        datePickerDialog.setMessage("Fecha de nacimiento");
-        datePickerDialog.setIcon(R.drawable.ic_home_black_24dp);
-        datePickerDialog.show();
-
-    }
-
-    @Override
-    public void onClick(View v) {
-
-        switch (v.getId()) {
-            case R.id.mbtnGoBack:
-                irLogin();
-                break;
-
-            case R.id.mbtnSignUp:
-                registrarse();
-                break;
-
-            case R.id.tietBirth:
-                dialogFechaNacimiento();
-                break;
-        }
-    }
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        overridePendingTransition(R.anim.anim, R.anim.zoom_back);
     }
 }
 

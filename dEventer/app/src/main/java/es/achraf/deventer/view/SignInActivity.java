@@ -124,7 +124,6 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                 super.onAuthenticationError(errorCode, errString);
                 Toast.makeText(SignInActivity.this,
                         R.string.failed_sign_in, Toast.LENGTH_SHORT).show();
-                loadingMessage(false);
             }
 
             /**
@@ -148,7 +147,6 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                 super.onAuthenticationFailed();
                 Toast.makeText(SignInActivity.this,
                         R.string.failed_sign_in, Toast.LENGTH_SHORT).show();
-                loadingMessage(false);
             }
         });
         promptInfo = new BiometricPrompt.PromptInfo.Builder()
@@ -208,7 +206,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         String email = tietEmail.getText().toString();
         String password = tietPassword.getText().toString();
 
-        if (!TextUtils.isEmpty(email) && !TextUtils.isEmpty(password)) {
+        if (isValidForm(email, password)) {
             loadingMessage(true);
             saveBiometric(email, password);
         } else {
@@ -265,8 +263,6 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
      * https://developer.android.com/training/sign-in/biometric-auth#available
      */
     private void testFingertip() {
-        loadingMessage(true);
-
         BiometricManager biometricManager = BiometricManager.from(this);
         switch (biometricManager.canAuthenticate()) {
             case BiometricManager.BIOMETRIC_SUCCESS:
@@ -296,11 +292,12 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         String email = viewModel.getEmail();
         String password = viewModel.getPassword();
 
-        if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password)) {
+        if (isValidForm(email, password)) {
+            loadingMessage(true);
+            viewModel.emailSignIn(email, password, false);
+        } else {
             Toast.makeText(this,
                     R.string.previous_access_fingertip, Toast.LENGTH_SHORT).show();
-        } else {
-            viewModel.emailSignIn(email, password, false);
         }
     }
 
@@ -321,6 +318,16 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
 
         Intent signInIntent = gsc.getSignInIntent();
         startActivityForResult(signInIntent, RC_GOOGLE_SIGN_IN);
+    }
+
+    /**
+     * Comprueba que el formulario es válido, es decir, que los campos de email y contraseña no
+     * están vacíos.
+     *
+     * @return true si el formulario es válido y false en caso contrario.
+     */
+    private boolean isValidForm(String email, String password) {
+        return !(TextUtils.isEmpty(email) || TextUtils.isEmpty(password));
     }
 
     /**
@@ -352,9 +359,9 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         homeIntent.putExtra(IViewModel.K_VIEWMODEL, viewModel);
         startActivity(homeIntent);
 
-        finish();
-
         overridePendingTransition(R.anim.anim, R.anim.zoom_back);
+
+        finish();
         // Corregir con los cambios a MVVM
         // Toast.makeText(this, "Bienvenido de nuevo " + user.getDisplayName(), Toast.LENGTH_SHORT).show();
     }
@@ -369,9 +376,9 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         signUpIntent.putExtra(IViewModel.K_VIEWMODEL, viewModel);
         startActivity(signUpIntent);
 
-        finish();
-
         overridePendingTransition(R.anim.anim, R.anim.zoom_back);
+
+        finish();
     }
 
     /**

@@ -41,6 +41,12 @@
     <string name="sign_up">Registrarse</string>
     <string name="go_back">Volver</string>
 
+    <!-- SignUpActivity -->
+    <string name="under_age">Lo sentimos, pero la aplicación requiere que seas mayor de edad.</string>
+    <string name="agree">Entendido</string>
+    <string name="parse_date_exception">Error al seleccionar la fecha</string>
+    <string name="see_you">Gracias por entendernos, ¡HASTA PRONTO!</string>
+
     <string name="title_activity_inicio">Inicio</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
