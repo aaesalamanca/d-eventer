@@ -2,7 +2,6 @@ package es.achraf.deventer.view;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -29,10 +28,9 @@ import com.google.android.material.textfield.TextInputEditText;
 import java.util.concurrent.Executor;
 
 import es.achraf.deventer.R;
-import es.achraf.deventer.viewmodel.IViewModel;
-import es.achraf.deventer.viewmodel.ViewModel;
+import es.achraf.deventer.viewmodel.ViewModelSignIn;
 
-public class SignInActivity extends AppCompatActivity implements View.OnClickListener, IView {
+public class SignInActivity extends AppCompatActivity implements View.OnClickListener {
 
     // Fields
     private static final int RC_GOOGLE_SIGN_IN = 0; // Request code para lanzar el SignIn con Google
@@ -48,7 +46,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     private ProgressBar pbLoading;
     private TextView tvLoading;
 
-    private IViewModel viewModel; // ViewModel para seguir el patrón MVVM
+    private ViewModelSignIn vmsi;
 
     // https://firebase.google.com/docs/auth/android/google-signin#authenticate_with_firebase
     // https://developers.google.com/identity/sign-in/android/sign-in#configure_google_sign-in_and_the_googlesigninclient_object
@@ -73,14 +71,26 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
      * Inicializa los elementos de la actividad.
      */
     private void init() {
-        viewModel = new ViewModel();
-        viewModel.setView(this);
+        vmsi = new ViewModelSignIn();
 
         // Comprueba que el usuario ya ha iniciado sesión previamente para lanzar la actividad
         // de inicio.
-        if (viewModel.isSignedIn()) {
+        if (vmsi.isSignedIn()) {
             startHomeActivity();
         }
+
+        // Establece los Listener para el ViewModelSignUp asociado a esta vista
+        vmsi.setSignInCompleteListener(signedIn -> {
+            loadingMessage(false);
+
+            if (signedIn) {
+                startHomeActivity();
+            } else {
+                Toast.makeText(this,
+                        R.string.failed_sign_in, Toast.LENGTH_SHORT).show();
+            }
+        });
+        vmsi.setGetPreferencesListener(super::getPreferences);
 
         tietEmail = findViewById(R.id.tietEmail);
         tietPassword = findViewById(R.id.tietPassword);
@@ -207,7 +217,6 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         String password = tietPassword.getText().toString();
 
         if (isValidForm(email, password)) {
-            loadingMessage(true);
             saveBiometric(email, password);
         } else {
             Toast.makeText(this, R.string.empty_fields, Toast.LENGTH_SHORT).show();
@@ -222,6 +231,8 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
      * @param password es la contraseña del usuario.
      */
     private void saveBiometric(String email, String password) {
+        loadingMessage(true);
+
         new MaterialAlertDialogBuilder(this)
                 .setTitle(R.string.fast_start)
                 .setMessage(R.string.fingertip_start)
@@ -236,7 +247,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                      */
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        viewModel.emailSignIn(email, password, true);
+                        vmsi.emailSignIn(email, password, true);
                     }
                 })
                 .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
@@ -251,7 +262,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                      */
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        viewModel.emailSignIn(email, password, false);
+                        vmsi.emailSignIn(email, password, false);
                     }
                 })
                 .show();
@@ -289,12 +300,12 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
      * el sensor de huellas ha sido exitoso y solicita iniciar sesión.
      */
     private void fingertipSignIn() {
-        String email = viewModel.getEmail();
-        String password = viewModel.getPassword();
+        String email = vmsi.getEmail();
+        String password = vmsi.getPassword();
 
         if (isValidForm(email, password)) {
             loadingMessage(true);
-            viewModel.emailSignIn(email, password, false);
+            vmsi.emailSignIn(email, password, false);
         } else {
             Toast.makeText(this,
                     R.string.previous_access_fingertip, Toast.LENGTH_SHORT).show();
@@ -353,24 +364,21 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
      * Lanza la actividad de inicio de la aplicación.
      */
     private void startHomeActivity() {
-        viewModel.setView(null);
-
         Intent homeIntent = new Intent(this, HomeActivity.class);
         startActivity(homeIntent);
 
         overridePendingTransition(R.anim.anim, R.anim.zoom_back);
 
         finish();
-        // Corregir con los cambios a MVVM
-        // Toast.makeText(this, "Bienvenido de nuevo " + user.getDisplayName(), Toast.LENGTH_SHORT).show();
+
+        Toast.makeText(this, "Bienvenido de nuevo " + vmsi.getDisplayName(),
+                Toast.LENGTH_SHORT).show();
     }
 
     /**
      * Lanza la actividad de registro en la aplicación.
      */
     private void startSignUpActivity() {
-        viewModel.setView(null);
-
         Intent signUpIntent = new Intent(this, SignUpActivity.class);
         startActivity(signUpIntent);
 
@@ -394,70 +402,10 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             try {
                 GoogleSignInAccount account = task.getResult(ApiException.class);
-                viewModel.googleSignIn(account);
+                vmsi.googleSignIn(account);
             } catch (ApiException e) {
                 Toast.makeText(this, R.string.failed_sign_in, Toast.LENGTH_SHORT).show();
             }
         }
     }
-
-    /**
-     * Obtiene las SharedPreferences de la Activity.
-     *
-     * @param mode es el modo de acceso a las SharedPreferences.
-     * @return las SharedPreferences según mode.
-     */
-    @Override
-    public SharedPreferences getPreferences(int mode) {
-        return super.getPreferences(mode);
-    }
-
-    /**
-     * Handler que ejecuta la acción requerida según el resultado del intento de inicio de sesión.
-     * <p>
-     * Si ha sido exitoso, lanza la actividad de inicio, si no, muestra un mensaje de error por
-     * pantalla.
-     *
-     * @param signedIn es el resultado del intento de inicio de sesión.
-     *                 <p>
-     *                 - True -> Inicio de sesión con éxito
-     *                 - False -> Inicio de sesión fracasado
-     */
-    @Override
-    public void onSignInComplete(boolean signedIn) {
-        loadingMessage(false);
-
-        if (signedIn) {
-            startHomeActivity();
-        } else {
-            Toast.makeText(SignInActivity.this,
-                    R.string.failed_sign_in, Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    /**
-     * Handler que ejecuta la acción requerida según el resultado de intentar crear un usuario.
-     * <p>
-     * Implementación vacía.
-     *
-     * @param signedUp es el resultado del intento de creación de un usuario.
-     *                 <p>
-     *                 - True -> Usuario creado con éxito
-     *                 - False -> Usuario no creado
-     */
-    @Override
-    public void onSignUpComplete(boolean signedUp) {
-
-    }
-
-    /**
-     * Handler que ejecuta la acción requerida cuando el usuario cierra la sesión.
-     * <p>
-     * Implementación vacía.
-     */
-    @Override
-    public void onSignOutComplete() {
-
-    }
-
 }

@@ -25,13 +25,11 @@ import es.achraf.deventer.fragments.FragmentMisPlanes;
 import es.achraf.deventer.fragments.FragmentPlanes;
 import es.achraf.deventer.restApi.ConstantesRestApi;
 import es.achraf.deventer.viewmodel.IViewModel;
-import es.achraf.deventer.viewmodel.ViewModel;
 
 
 public class HomeActivity extends AppCompatActivity {
 
-    // Fields
-    private IViewModel viewModel;
+    // Methods
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,8 +54,6 @@ public class HomeActivity extends AppCompatActivity {
                 cambiarFragment(fChat);
             }
         });
-
-        viewModel = getIntent().getParcelableExtra(IViewModel.K_VIEWMODEL);
     }
 
     public void cambiarFragment(Fragment fragment) {

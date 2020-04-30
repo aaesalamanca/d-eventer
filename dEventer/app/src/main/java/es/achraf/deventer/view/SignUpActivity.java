@@ -28,9 +28,9 @@ import java.util.Calendar;
 import es.achraf.deventer.R;
 import es.achraf.deventer.model.User;
 import es.achraf.deventer.viewmodel.IViewModel;
-import es.achraf.deventer.viewmodel.ViewModel;
+import es.achraf.deventer.viewmodel.ViewModelSignUp;
 
-public class SignUpActivity extends AppCompatActivity implements View.OnClickListener, IView {
+public class SignUpActivity extends AppCompatActivity implements View.OnClickListener {
 
     // Fields
     private static final int AGE_LIMIT = 18;
@@ -57,7 +57,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
     private FirebaseDatabase firebaseDatabase;
 
-    private IViewModel viewModel;
+    private IViewModel.SignUp vmsu;
 
     // Methods
 
@@ -78,8 +78,15 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
      * Inicializa los elementos de la actividad.
      */
     private void init() {
-        viewModel = new ViewModel();
-        viewModel.setView(this);
+        vmsu = new ViewModelSignUp();
+        vmsu.setSignUpCompleteListener(signedUp -> {
+            if (signedUp) {
+
+            } else {
+                Toast.makeText(this,
+                        R.string.failed_sign_up, Toast.LENGTH_SHORT).show();
+            }
+        });
 
         tietName = findViewById(R.id.tietName);
         tietEmail = findViewById(R.id.tietEmail);
@@ -194,6 +201,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             if (isValidPassword(password, repeatPassword)) {
                 if (isValidRadioGroup()) {
                     loadingMessage(true);
+                    vmsu.emailSignUp(email, password);
 
                     firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
                         if (task.isSuccessful()) {
@@ -219,7 +227,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                             DatabaseReference crearUsuario = referenceDb.child(usuario.getID());
                             crearUsuario.setValue(usuario);
                         } else {
-                            Toast.makeText(SignUpActivity.this,
+                            Toast.makeText(this,
                                     R.string.failed_sign_up, Toast.LENGTH_SHORT).show();
                         }
                     });
@@ -279,55 +287,15 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             user.updateProfile(profileUpdates)
                     .addOnCompleteListener(task -> {
                         if (task.isSuccessful())
-                            Toast.makeText(SignUpActivity.this,
+                            Toast.makeText(this,
                                     R.string.succeeded_sign_up, Toast.LENGTH_SHORT).show();
                     });
 
-            Intent intentInicio = new Intent(SignUpActivity.this, HomeActivity.class);
+            Intent intentInicio = new Intent(this, HomeActivity.class);
             startActivity(intentInicio);
             overridePendingTransition(R.anim.anim, R.anim.zoom_back);
             finish();
         }
-    }
-
-    /**
-     * Handler que ejecuta la acción requerida según el resultado de intentar crear un usuario.
-     * <p>
-     * Implementación vacía.
-     *
-     * @param signedUp es el resultado del intento de creación de un usuario.
-     *                 <p>
-     *                 - True -> Usuario creado con éxito
-     *                 - False -> Usuario no creado
-     */
-    @Override
-    public void onSignUpComplete(boolean signedUp) {
-
-    }
-
-    /**
-     * Handler que ejecuta la acción requerida según el resultado del intento de inicio de sesión.
-     * <p>
-     * Implementación vacía.
-     *
-     * @param signedIn es el resultado del intento de inicio de sesión.
-     *                 <p>
-     *                 - True -> Inicio de sesión con éxito
-     *                 - False -> Inicio de sesión fracasado
-     */
-    @Override
-    public void onSignInComplete(boolean signedIn) {
-
-    }
-
-    /**
-     * Handler que ejecuta la acción requerida cuando el usuario cierra la sesión.
-     * <p>
-     * Implementación vacía.
-     */
-    @Override
-    public void onSignOutComplete() {
-
     }
 }
 
