@@ -44,8 +44,11 @@
     <!-- SignUpActivity -->
     <string name="under_age">Lo sentimos, pero la aplicación requiere que seas mayor de edad.</string>
     <string name="agree">Entendido</string>
-    <string name="parse_date_exception">Error al seleccionar la fecha</string>
     <string name="see_you">Gracias por entendernos, ¡HASTA PRONTO!</string>
+    <string name="failed_sign_up">Hubo un fallo al registrarse</string>
+    <string name="sex_selection">Debe seleccionar el sexo</string>
+    <string name="no_password_match">Las contraseñas no son iguales</string>
+    <string name="succeeded_sign_up">Registrado con éxito</string>
 
     <string name="title_activity_inicio">Inicio</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -84,7 +87,7 @@
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
-    <string name="crear_plan">Crear plan</string>
+    <string name="crear_plan">Crear event</string>
     <string name="datos_personales">Datos personales</string>
     <string name="edad">•Edad:</string>
     <string name="usuario">Usuario</string>
@@ -96,27 +99,27 @@
     <string name="c_p">•C.P:</string>
     <string name="ok">OK</string>
     <string name="ubicacion">Ubicacion</string>
-    <string name="hora_del_plan">Hora del plan</string>
-    <string name="fecha_del_plan">Fecha del plan</string>
+    <string name="hora_del_plan">Hora del event</string>
+    <string name="fecha_del_plan">Fecha del event</string>
     <string name="titulo_del_plan">Titulo del Plan</string>
-    <string name="presenta_el_plan">Presenta el plan</string>
-    <string name="c_mo_se_llama_el_plan">¿Cómo se llama el plan?</string>
+    <string name="presenta_el_plan">Presenta el event</string>
+    <string name="c_mo_se_llama_el_plan">¿Cómo se llama el event?</string>
     <string name="c_ando_es">¿Cúando es?</string>
     <string name="a_qu_hora_es">¿A qué hora es?</string>
     <string name="d_nde_es">¿Dónde es?</string>
     <string name="c_anto_cuesta">¿Cúanto cuesta?</string>
-    <string name="crear">Crear plan</string>
-    <string name="ponle_una_imagen_al_plan">(Ponle una imagen al plan)</string>
+    <string name="crear">Crear event</string>
+    <string name="ponle_una_imagen_al_plan">(Ponle una imagen al event)</string>
     <string name="busca_ciudades_calles_lugares">Busca ciudades, calles, lugares ...</string>
-    <string name="quieres_describir_el_plan">¿Quieres describir el plan?</string>
+    <string name="quieres_describir_el_plan">¿Quieres describir el event?</string>
     <string name="fecha">Fecha</string>
-    <string name="informaci_n_del_plan">Información del plan</string>
+    <string name="informaci_n_del_plan">Información del event</string>
     <string name="hora">Hora</string>
     <string name="ubicaci_n">Ubicación</string>
     <string name="precio">Precio</string>
     <string name="descripcion">Descripcion</string>
     <string name="ir">IR</string>
-    <string name="apuntarse_al_plan">¡Apuntarse al plan!</string>
+    <string name="apuntarse_al_plan">¡Apuntarse al event!</string>
     <string name="apuntado">Apuntado</string>
     <string name="apuntados">Apuntados</string>
 

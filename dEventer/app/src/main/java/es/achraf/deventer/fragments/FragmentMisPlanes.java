@@ -31,7 +31,7 @@ import java.util.ArrayList;
 import es.achraf.deventer.R;
 import es.achraf.deventer.adaptadores.AdapterRecyclerViewPlanes;
 import es.achraf.deventer.interfaces.ItemClickListener;
-import es.achraf.deventer.model.Plan;
+import es.achraf.deventer.model.Event;
 
 public class FragmentMisPlanes extends Fragment implements ItemClickListener {
 
@@ -43,7 +43,7 @@ public class FragmentMisPlanes extends Fragment implements ItemClickListener {
     private FirebaseFirestore db;
     private ItemClickListener itemClickListener;
 
-    private ArrayList<Plan> planes = new ArrayList<>();
+    private ArrayList<Event> planes = new ArrayList<>();
 
     @Nullable
     @Override
@@ -108,7 +108,7 @@ public class FragmentMisPlanes extends Fragment implements ItemClickListener {
                     String imgDueno = document.getString("imgDueno");
                     ArrayList<String> usuariosApuntados = (ArrayList<String>) document.get("usuariosApuntados");
 
-                    planes.add(new Plan(idPlan, titulo, ubicacion, fecha, hora, precio, urlImagen, descripcion, dueno, imgDueno, usuariosApuntados));
+                    planes.add(new Event(idPlan, titulo, ubicacion, fecha, hora, precio, urlImagen, descripcion, dueno, imgDueno, usuariosApuntados));
 
 
                 } else {

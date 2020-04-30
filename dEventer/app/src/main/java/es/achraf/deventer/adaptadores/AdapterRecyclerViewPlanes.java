@@ -21,17 +21,17 @@ import java.util.ArrayList;
 import de.hdodenhof.circleimageview.CircleImageView;
 import es.achraf.deventer.R;
 import es.achraf.deventer.interfaces.ItemClickListener;
-import es.achraf.deventer.model.Plan;
+import es.achraf.deventer.model.Event;
 
 public class AdapterRecyclerViewPlanes extends RecyclerView.Adapter<AdapterRecyclerViewPlanes.ViewHolder> {
 
-    private ArrayList<Plan> plans;
+    private ArrayList<Event> events;
     private Context context;
     private ItemClickListener itemClickListener;
     private int resource;
 
-    public AdapterRecyclerViewPlanes(Context context, ArrayList<Plan> plans, ItemClickListener itemClickListener, int resource) {
-        this.plans = plans;
+    public AdapterRecyclerViewPlanes(Context context, ArrayList<Event> events, ItemClickListener itemClickListener, int resource) {
+        this.events = events;
         this.context = context;
         this.itemClickListener = itemClickListener;
         this.resource = resource;
@@ -52,20 +52,20 @@ public class AdapterRecyclerViewPlanes extends RecyclerView.Adapter<AdapterRecyc
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-        Plan plan = plans.get(position);
+        Event event = events.get(position);
 
-        holder.txtTituloPlan.setText(plan.getNombre());
-        holder.txtFechaPlan.setText(plan.getFecha());
-        holder.txtHoraPlan.setText(plan.getHora());
-        holder.txtUbicacionPlan.setText(plan.getUbicacion());
-        holder.txtPrecioPlan.setText(plan.getPrecio());
+        holder.txtTituloPlan.setText(event.getNombre());
+        holder.txtFechaPlan.setText(event.getFecha());
+        holder.txtHoraPlan.setText(event.getHora());
+        holder.txtUbicacionPlan.setText(event.getUbicacion());
+        holder.txtPrecioPlan.setText(event.getPrecio());
 
 
         FirebaseStorage storage = FirebaseStorage.getInstance();
 
         StorageReference storageReference = storage.getReference();
 
-        StorageReference sCreaPlan = storageReference.child("FotosPlanes").child(plan.getUrlImagen());
+        StorageReference sCreaPlan = storageReference.child("FotosPlanes").child(event.getUrlImagen());
 
         Task<Uri> task = sCreaPlan.getDownloadUrl();
 
@@ -80,7 +80,7 @@ public class AdapterRecyclerViewPlanes extends RecyclerView.Adapter<AdapterRecyc
     }
     @Override
     public int getItemCount() {
-        return plans.size();
+        return events.size();
     }
 
 

@@ -356,7 +356,6 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         viewModel.setView(null);
 
         Intent homeIntent = new Intent(this, HomeActivity.class);
-        homeIntent.putExtra(IViewModel.K_VIEWMODEL, viewModel);
         startActivity(homeIntent);
 
         overridePendingTransition(R.anim.anim, R.anim.zoom_back);
@@ -373,7 +372,6 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         viewModel.setView(null);
 
         Intent signUpIntent = new Intent(this, SignUpActivity.class);
-        signUpIntent.putExtra(IViewModel.K_VIEWMODEL, viewModel);
         startActivity(signUpIntent);
 
         overridePendingTransition(R.anim.anim, R.anim.zoom_back);
@@ -435,6 +433,21 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
             Toast.makeText(SignInActivity.this,
                     R.string.failed_sign_in, Toast.LENGTH_SHORT).show();
         }
+    }
+
+    /**
+     * Handler que ejecuta la acción requerida según el resultado de intentar crear un usuario.
+     * <p>
+     * Implementación vacía.
+     *
+     * @param signedUp es el resultado del intento de creación de un usuario.
+     *                 <p>
+     *                 - True -> Usuario creado con éxito
+     *                 - False -> Usuario no creado
+     */
+    @Override
+    public void onSignUpComplete(boolean signedUp) {
+
     }
 
     /**

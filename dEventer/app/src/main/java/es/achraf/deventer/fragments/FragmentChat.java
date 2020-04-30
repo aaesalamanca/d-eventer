@@ -33,7 +33,7 @@ import es.achraf.deventer.ChatActivity;
 import es.achraf.deventer.R;
 import es.achraf.deventer.adaptadores.AdapterChatPlan;
 import es.achraf.deventer.interfaces.ItemClickListener;
-import es.achraf.deventer.model.Plan;
+import es.achraf.deventer.model.Event;
 
 public class FragmentChat extends Fragment implements ItemClickListener {
 
@@ -43,7 +43,7 @@ public class FragmentChat extends Fragment implements ItemClickListener {
     private DatabaseReference reference;
     private FirebaseFirestore firestore;
     private AdapterChatPlan adapterChatPlan;
-    private ArrayList<Plan> planes = new ArrayList<>();
+    private ArrayList<Event> planes = new ArrayList<>();
 
     private ItemClickListener itemClickListener;
 
@@ -115,7 +115,7 @@ public class FragmentChat extends Fragment implements ItemClickListener {
                     String imgDueno = document.getString("imgDueno");
                     ArrayList<String> usuariosApuntados = (ArrayList<String>) document.get("usuariosApuntados");
 
-                    planes.add(new Plan(idPlan, titulo, ubicacion, fecha, hora, precio, urlImagen, descripcion, dueno, imgDueno, usuariosApuntados));
+                    planes.add(new Event(idPlan, titulo, ubicacion, fecha, hora, precio, urlImagen, descripcion, dueno, imgDueno, usuariosApuntados));
 
 
                 } else {
@@ -138,12 +138,12 @@ public class FragmentChat extends Fragment implements ItemClickListener {
 
     @Override
     public void onItemClick(View view, int posicion) {
-        Plan plan = planes.get(posicion);
+        Event event = planes.get(posicion);
 
         Intent intentChat = new Intent(getActivity(), ChatActivity.class);
-        intentChat.putExtra("id", plan.getId());
-        intentChat.putExtra("titulo", plan.getNombre());
-        intentChat.putExtra("imagen", plan.getUrlImagen());
+        intentChat.putExtra("id", event.getId());
+        intentChat.putExtra("titulo", event.getNombre());
+        intentChat.putExtra("imagen", event.getUrlImagen());
         startActivity(intentChat);
     }
 }

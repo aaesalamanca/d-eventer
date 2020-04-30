@@ -22,19 +22,15 @@ import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
-import java.util.Objects;
 
 import es.achraf.deventer.R;
 import es.achraf.deventer.model.User;
 import es.achraf.deventer.viewmodel.IViewModel;
+import es.achraf.deventer.viewmodel.ViewModel;
 
-public class SignUpActivity extends AppCompatActivity implements View.OnClickListener {
+public class SignUpActivity extends AppCompatActivity implements View.OnClickListener, IView {
 
     // Fields
     private static final int AGE_LIMIT = 18;
@@ -57,7 +53,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
     private MaterialButton mbtnSignUp;
 
-    private FirebaseAuth mAuth;
+    private FirebaseAuth firebaseAuth;
 
     private FirebaseDatabase firebaseDatabase;
 
@@ -69,7 +65,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
      * Primer método ejecutado por la actividad. Inicializa los elmentos de la actividad.
      *
      * @param savedInstanceState es el bundle que almacena los datos del estado de la actividad
-     *                           cuando se produce un cambio como rotaciones.
+     *                           cuando se produce un cambio como rotaciones de la pantalla.
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,7 +78,8 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
      * Inicializa los elementos de la actividad.
      */
     private void init() {
-        viewModel = getIntent().getParcelableExtra(IViewModel.K_VIEWMODEL);
+        viewModel = new ViewModel();
+        viewModel.setView(this);
 
         tietName = findViewById(R.id.tietName);
         tietEmail = findViewById(R.id.tietEmail);
@@ -103,7 +100,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         mbtnSignUp = findViewById(R.id.mbtnSignUp);
         mbtnSignUp.setOnClickListener(this);
 
-        mAuth = FirebaseAuth.getInstance();
+        firebaseAuth = FirebaseAuth.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance();
     }
 
@@ -120,7 +117,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                 showBirthDialog();
                 break;
             case R.id.mbtnSignUp:
-                startHomeActivity();
+                emailSignUp();
                 break;
             case R.id.mbtnGoBack:
                 startSignInActivity();
@@ -134,7 +131,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
      * Comprueba que el usuario es mayor de edad —muestra un Snackbar en caso contrario— y muestra
      * esa fecha en el TextInputEditText de la fecha de nacimiento.
      */
-    public void showBirthDialog() {
+    private void showBirthDialog() {
         // Obtención de la fecha actual para comparar con la fecha de nacimiento del usuario.
         // Además, se utilizan para establecer la fecha inicial con la que se muestra el
         // DatePickerDialog.
@@ -169,102 +166,111 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         datePickerDialog.show();
     }
 
-    public boolean comprobarContrasenas(String pass, String repitePass) {
-        return pass.equals(repitePass);
+    /**
+     * Comprueba que el formulario es válido, es decir, que los campos de nombre, email, contraseña,
+     * repetir contraseña y código postal no están vacíos.
+     *
+     * @param name           es el nombre del usuario.
+     * @param email          es el email del usuario.
+     * @param password       es la contraseña del usuario.
+     * @param repeatPassword es la contraseña del usuario.
+     * @param postalCode     es el código postal del usuario.
+     * @return true si el formulario es válido y false en caso contrario.
+     */
+    private boolean isValidForm(String name, String email, String password, String repeatPassword,
+                                String postalCode) {
+        return !(TextUtils.isEmpty(name) || TextUtils.isEmpty(email) || TextUtils.isEmpty(password)
+                || TextUtils.isEmpty(repeatPassword) || TextUtils.isEmpty(postalCode));
     }
 
-    public boolean comprbarRadioButtons(RadioButton rbHombre, RadioButton rbMujer) {
-        return rbHombre.isChecked() || rbMujer.isChecked();
-    }
+    private void emailSignUp() {
+        String name = tietName.getText().toString();
+        String email = tietEmail.getText().toString();
+        String password = tietPassword.getText().toString();
+        String repeatPassword = tietRepeatPassword.getText().toString();
+        String postalCode = tietPostalCode.getText().toString();
 
-    public void startHomeActivity() {
-        pbLoading.setVisibility(View.VISIBLE);
-        tvLoading.setVisibility(View.VISIBLE);
+        if (isValidForm(name, email, password, repeatPassword, postalCode)) {
+            if (isValidPassword(password, repeatPassword)) {
+                if (isValidRadioGroup()) {
+                    loadingMessage(true);
 
-        final String nombreYapellidos = tietName.getText().toString();
-        final String email = tietEmail.getText().toString();
-        final String password = tietPassword.getText().toString();
-        final String cp = tietPostalCode.getText().toString();
+                    firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+                            startHomeActivity(firebaseUser, name);
 
-        String passwordRepetida = tietRepeatPassword.getText().toString();
+                            String uid = firebaseAuth.getUid();
+                            String age = String.valueOf(userAge);
 
-        if (!TextUtils.isEmpty(nombreYapellidos) && !TextUtils.isEmpty(email) && !TextUtils.isEmpty(password)
-                && !TextUtils.isEmpty(passwordRepetida) && !TextUtils.isEmpty(tietBirth.getText())) {
-
-            if (comprobarContrasenas(password, passwordRepetida)) {
-
-                if (comprbarRadioButtons(rbMan, rbWoman)) {
-
-                    mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
-                        pbLoading.setVisibility(View.GONE);
-                        tvLoading.setVisibility(View.GONE);
-
-                        if (!task.isSuccessful()) {
-                            Toast.makeText(SignUpActivity.this, Objects.requireNonNull(task.getException()).getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-                        } else {
-                            //codigo de registro
-
-                            FirebaseUser firebaseUser = mAuth.getCurrentUser();
-                            updateUI(firebaseUser, nombreYapellidos);
-
-                            String id = mAuth.getUid();
-                            String eddad = String.valueOf(userAge);
-
-                            String sexo = "";
+                            String sex = "";
                             if (rbMan.isChecked()) {
-                                sexo = "man";
+                                sex = getString(R.string.man);
                             } else if (rbWoman.isChecked())
-                                sexo = "woman";
+                                sex = getString(R.string.woman);
                             else if (rbAny.isChecked())
-                                sexo = "any";
+                                sex = getString(R.string.any);
 
-                            ArrayList<String> planesApuntados = new ArrayList<>();//array list de planes(ID) inicialmente vacío
+                            ArrayList<String> alEvent = new ArrayList<>();//array list de planes(ID) inicialmente vacío
 
-                            User usuario = new User(id, nombreYapellidos, email, eddad, sexo, cp, planesApuntados);
+                            User usuario = new User(uid, name, email, age, sex, postalCode, alEvent);
 
                             DatabaseReference referenceDb = firebaseDatabase.getReference();
                             DatabaseReference crearUsuario = referenceDb.child(usuario.getID());
                             crearUsuario.setValue(usuario);
-
+                        } else {
+                            Toast.makeText(SignUpActivity.this,
+                                    R.string.failed_sign_up, Toast.LENGTH_SHORT).show();
                         }
                     });
-
                 } else {
-                    Toast.makeText(this, "Debe seleccionar el sexo", Toast.LENGTH_SHORT).show();
-
-                    pbLoading.setVisibility(View.GONE);
-                    tvLoading.setVisibility(View.GONE);
+                    Toast.makeText(this, R.string.sex_selection, Toast.LENGTH_SHORT).show();
                 }
-
-
             } else {
-
-                tietRepeatPassword.setError("Las contraseñas no son iguales");
-
-                pbLoading.setVisibility(View.GONE);
-                tvLoading.setVisibility(View.GONE);
+                tietRepeatPassword.setError(getString(R.string.no_password_match));
             }
-
-
         } else {
-            Toast.makeText(this, "Por favor, rellene todos los campos para continuar", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.empty_fields, Toast.LENGTH_SHORT).show();
+        }
+    }
 
+    private boolean isValidPassword(String password, String passwordRepeat) {
+        return password.equals(passwordRepeat);
+    }
+
+    private boolean isValidRadioGroup() {
+        return rbMan.isChecked() || rbWoman.isChecked() || rbAny.isChecked();
+    }
+
+    /**
+     * Muestra o hace invisibles —GONE— distintos elementos de la actividad relacionados con la
+     * espera e invocación de una nueva actividad.
+     *
+     * @param loading indica si los elementos deben desaparecer o verse.
+     *                <p>
+     *                - True -> Deben verse
+     *                - False -> No deben verse
+     */
+    private void loadingMessage(boolean loading) {
+        if (loading) {
+            pbLoading.setVisibility(View.VISIBLE);
+            tvLoading.setVisibility(View.VISIBLE);
+        } else {
             pbLoading.setVisibility(View.GONE);
             tvLoading.setVisibility(View.GONE);
         }
-
     }
 
-    public void startSignInActivity() {
-        Intent intentLogin = new Intent(SignUpActivity.this, SignInActivity.class);
-        startActivity(intentLogin);
+    private void startSignInActivity() {
+        Intent signUpIntent = new Intent(this, SignInActivity.class);
+        startActivity(signUpIntent);
 
         overridePendingTransition(R.anim.anim, R.anim.zoom_back);
 
         finish();
     }
 
-    private void updateUI(FirebaseUser user, String nombre) {
+    private void startHomeActivity(FirebaseUser user, String nombre) {
         if (user != null) {
             UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                     .setDisplayName(nombre)
@@ -273,7 +279,8 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             user.updateProfile(profileUpdates)
                     .addOnCompleteListener(task -> {
                         if (task.isSuccessful())
-                            Toast.makeText(SignUpActivity.this, "Registrado con éxito", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(SignUpActivity.this,
+                                    R.string.succeeded_sign_up, Toast.LENGTH_SHORT).show();
                     });
 
             Intent intentInicio = new Intent(SignUpActivity.this, HomeActivity.class);
@@ -281,6 +288,46 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             overridePendingTransition(R.anim.anim, R.anim.zoom_back);
             finish();
         }
+    }
+
+    /**
+     * Handler que ejecuta la acción requerida según el resultado de intentar crear un usuario.
+     * <p>
+     * Implementación vacía.
+     *
+     * @param signedUp es el resultado del intento de creación de un usuario.
+     *                 <p>
+     *                 - True -> Usuario creado con éxito
+     *                 - False -> Usuario no creado
+     */
+    @Override
+    public void onSignUpComplete(boolean signedUp) {
+
+    }
+
+    /**
+     * Handler que ejecuta la acción requerida según el resultado del intento de inicio de sesión.
+     * <p>
+     * Implementación vacía.
+     *
+     * @param signedIn es el resultado del intento de inicio de sesión.
+     *                 <p>
+     *                 - True -> Inicio de sesión con éxito
+     *                 - False -> Inicio de sesión fracasado
+     */
+    @Override
+    public void onSignInComplete(boolean signedIn) {
+
+    }
+
+    /**
+     * Handler que ejecuta la acción requerida cuando el usuario cierra la sesión.
+     * <p>
+     * Implementación vacía.
+     */
+    @Override
+    public void onSignOutComplete() {
+
     }
 }
 

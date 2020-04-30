@@ -48,6 +48,14 @@ public interface IViewModel extends Parcelable {
     boolean isSignedIn();
 
     /**
+     * Solicita crear un usuario con email y contraseña.
+     *
+     * @param email    es el email del usuario.
+     * @param password es la contraseña del usuario.
+     */
+    void emailSignUp(String email, String password);
+
+    /**
      * Solicita iniciar sesión con email y contraseña. También los guarda en SharedPreferences si
      * el usuario marca la opción correspondiente.
      *

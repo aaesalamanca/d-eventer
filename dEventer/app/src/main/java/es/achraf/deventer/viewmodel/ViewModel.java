@@ -10,7 +10,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
-import es.achraf.deventer.model.Plan;
+import es.achraf.deventer.model.Event;
 import es.achraf.deventer.model.User;
 import es.achraf.deventer.view.IView;
 
@@ -27,19 +27,13 @@ public class ViewModel implements IViewModel {
 
     private IView view; // View para seguir el patrón MVVM
 
-    private FirebaseAuth firebaseAuth;
-    private FirebaseUser firebaseUser;
-
-    private Plan planModel;
-    private User userModel;
-
     // Constructors
 
     /**
-     * Constructor por defecto —vacío—.
+     * Constructor vacío —por defecto—.
      */
     public ViewModel() {
-        init();
+
     }
 
     // Getters
@@ -96,17 +90,6 @@ public class ViewModel implements IViewModel {
     // Methods
 
     /**
-     * Inicializa el objeto.
-     */
-    private void init() {
-        firebaseAuth = FirebaseAuth.getInstance();
-        firebaseUser = firebaseAuth.getCurrentUser();
-
-        userModel = new User();
-        planModel = new Plan();
-    }
-
-    /**
      * Guarda el email y la contraseña del usuario en SharedPreferences.
      * <p>
      * https://developer.android.com/training/data-storage/shared-preferences#WriteSharedPreference
@@ -115,11 +98,13 @@ public class ViewModel implements IViewModel {
      * @param password es la contraseña del usuario.
      */
     private void saveBiometric(String email, String password) {
-        SharedPreferences sharedPreferences = view.getPreferences(MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(KSP_EMAIL, email);
-        editor.putString(KSP_PASSWORD, password);
-        editor.commit();
+        if (view != null) {
+            SharedPreferences sharedPreferences = view.getPreferences(MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString(KSP_EMAIL, email);
+            editor.putString(KSP_PASSWORD, password);
+            editor.apply();
+        }
     }
 
     /**
@@ -131,7 +116,29 @@ public class ViewModel implements IViewModel {
      */
     @Override
     public boolean isSignedIn() {
-        return firebaseUser != null;
+        return FirebaseAuth.getInstance().getCurrentUser() != null;
+    }
+
+    /**
+     * Solicita crear un usuario con email y contraseña.
+     * <p>
+     * https://firebase.google.com/docs/auth/android/start#sign_up_new_users
+     *
+     * @param email    es el email del usuario.
+     * @param password es la contraseña del usuario.
+     */
+    @Override
+    public void emailSignUp(String email, String password) {
+        FirebaseAuth.getInstance().createUserWithEmailAndPassword(email,
+                password).addOnCompleteListener(task -> {
+            if (view != null) {
+                if (task.isSuccessful()) {
+                    view.onSignUpComplete(true);
+                } else {
+                    view.onSignUpComplete(false);
+                }
+            }
+        });
     }
 
     /**
@@ -157,11 +164,10 @@ public class ViewModel implements IViewModel {
             saveBiometric(email, password);
         }
 
-        firebaseAuth.signInWithEmailAndPassword(email, password)
+        FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(task -> {
                     if (view != null) {
                         if (task.isSuccessful()) {
-                            firebaseUser = firebaseAuth.getCurrentUser();
                             view.onSignInComplete(true);
                         } else {
                             view.onSignInComplete(false);
@@ -182,11 +188,10 @@ public class ViewModel implements IViewModel {
     public void googleSignIn(GoogleSignInAccount account) {
         AuthCredential credential = GoogleAuthProvider.getCredential(account.getIdToken(),
                 null);
-        firebaseAuth.signInWithCredential(credential)
+        FirebaseAuth.getInstance().signInWithCredential(credential)
                 .addOnCompleteListener(task -> {
                     if (view != null) {
                         if (task.isSuccessful()) {
-                            firebaseUser = firebaseAuth.getCurrentUser();
                             view.onSignInComplete(true);
                         } else {
                             view.onSignInComplete(false);
@@ -197,14 +202,14 @@ public class ViewModel implements IViewModel {
 
     /**
      * Cierra la sesión actual.
-     *
+     * <p>
      * https://firebase.google.com/docs/auth/android/password-auth#next_steps
      */
     @Override
     public void signOut() {
         if (view != null) {
+            FirebaseAuth.getInstance().signOut();
             view.onSignOutComplete();
-            firebaseAuth.signOut();
         }
     }
 

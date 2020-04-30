@@ -3,7 +3,7 @@ package es.achraf.deventer.model;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Plan implements Serializable {
+public class Event implements Serializable {
 
     private String id;
     private String nombre;
@@ -17,11 +17,11 @@ public class Plan implements Serializable {
     private String uriImageDuenoPlan;
     private ArrayList<String> usuariosApuntadosUID;
 
-    public Plan() {
+    public Event() {
         this.usuariosApuntadosUID = new ArrayList<>();
     }
 
-    public Plan(String id,String nombre, String ubicacion, String fecha, String hora, String precio, String urlImagen, String descripcion, String duenoPlan, String uriImageDuenoPlan, ArrayList<String> usuariosApuntadosUID) {
+    public Event(String id, String nombre, String ubicacion, String fecha, String hora, String precio, String urlImagen, String descripcion, String duenoPlan, String uriImageDuenoPlan, ArrayList<String> usuariosApuntadosUID) {
         this.id = id;
         this.nombre = nombre;
         this.ubicacion = ubicacion;

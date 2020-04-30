@@ -35,8 +35,6 @@ public class User implements Serializable {
         this.ID = ID;
     }
 
-
-
     public ArrayList<String> getPlanesApuntados() {
         return planesApuntados;
     }

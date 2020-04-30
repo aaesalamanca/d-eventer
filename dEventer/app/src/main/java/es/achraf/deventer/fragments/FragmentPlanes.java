@@ -66,7 +66,7 @@ import es.achraf.deventer.MapsActivity;
 import es.achraf.deventer.R;
 import es.achraf.deventer.adaptadores.AdapterRecyclerViewPlanes;
 import es.achraf.deventer.interfaces.ItemClickListener;
-import es.achraf.deventer.model.Plan;
+import es.achraf.deventer.model.Event;
 import es.achraf.deventer.model.User;
 
 public class FragmentPlanes extends Fragment implements ItemClickListener {
@@ -95,7 +95,7 @@ public class FragmentPlanes extends Fragment implements ItemClickListener {
     private static ProgressBar progressbarPlanes;
     private static TextView cargandoPlanes;
 
-    private ArrayList<Plan> planes;
+    private ArrayList<Event> planes;
 
     private FirebaseStorage storage = FirebaseStorage.getInstance();
     private StorageReference storageReference = storage.getReference();//referencia de la app
@@ -320,7 +320,7 @@ public class FragmentPlanes extends Fragment implements ItemClickListener {
 
 
             db.collection("tabla_planes").document().set(planesMap).addOnSuccessListener(aVoid ->
-                    Snackbar.make(getView().getRootView(), "Plan en marcha. ¡Buena suerte!", Snackbar.LENGTH_SHORT).show())
+                    Snackbar.make(getView().getRootView(), "Event en marcha. ¡Buena suerte!", Snackbar.LENGTH_SHORT).show())
                     .addOnFailureListener(e -> Snackbar.make(getView().getRootView(), "Se ha producido un error al guardar los datos", Snackbar.LENGTH_SHORT).show());
 
             dialog.dismiss();
@@ -428,7 +428,7 @@ public class FragmentPlanes extends Fragment implements ItemClickListener {
                             String imgDueno = document.getString("imgDueno");
                             ArrayList<String> usuariosApuntados = (ArrayList<String>) document.get("usuariosApuntados");
 
-                            planes.add(new Plan(idPlan, titulo, ubicacion, fecha, hora, precio, urlImagen, descripcion, dueno, imgDueno, usuariosApuntados));
+                            planes.add(new Event(idPlan, titulo, ubicacion, fecha, hora, precio, urlImagen, descripcion, dueno, imgDueno, usuariosApuntados));
                         }
                         adapterPlan = new AdapterRecyclerViewPlanes(getContext(), planes, this, R.layout.item_planes);
                         recyclerViewPlanes.setAdapter(adapterPlan);
@@ -464,7 +464,7 @@ public class FragmentPlanes extends Fragment implements ItemClickListener {
     @Override
     public void onItemClick(View view, int posicion) {
 
-        Plan plan = (Plan) planes.get(posicion);
+        Event event = (Event) planes.get(posicion);
 
         final Dialog dialogVistaPlan = new Dialog(getContext(), R.style.full_screen_dialog);
         dialogVistaPlan.setContentView(R.layout.detalle_plan);
@@ -494,7 +494,7 @@ public class FragmentPlanes extends Fragment implements ItemClickListener {
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     User user = dataSnapshot.getValue(User.class);
 
-                    ArrayList<String> idsUsuariosApuntados = plan.getUsuariosApuntadosUID();
+                    ArrayList<String> idsUsuariosApuntados = event.getUsuariosApuntadosUID();
                     for (String id : idsUsuariosApuntados) {
                         if (id.equals(user.getID())) {
                             btnApuntarsePlan.setEnabled(false);
@@ -511,7 +511,7 @@ public class FragmentPlanes extends Fragment implements ItemClickListener {
             });
         }
 
-        //agregamos el usuario al plan de nuestra base de datos para tener un seguimiento de os usuarios que hay en la base de datos por cada plan
+        //agregamos el usuario al event de nuestra base de datos para tener un seguimiento de os usuarios que hay en la base de datos por cada event
         btnApuntarsePlan.setOnClickListener(v -> {
 
             String nombree = mAuth.getCurrentUser().getDisplayName();
@@ -523,23 +523,23 @@ public class FragmentPlanes extends Fragment implements ItemClickListener {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         User user = dataSnapshot.getValue(User.class);
-                        plan.getUsuariosApuntadosUID().add(user.getID());//si no está, lo agrego
+                        event.getUsuariosApuntadosUID().add(user.getID());//si no está, lo agrego
 
-                        db.collection("tabla_planes").document(plan.getId()).update("usuariosApuntados", plan.getUsuariosApuntadosUID());
+                        db.collection("tabla_planes").document(event.getId()).update("usuariosApuntados", event.getUsuariosApuntadosUID());
 
-                        //Una vez agregamos el usuario a la lista de usuarios del plan, agregamos el plan a la lista de planes del usuario
+                        //Una vez agregamos el usuario a la lista de usuarios del event, agregamos el event a la lista de planes del usuario
 
                         DatabaseReference referenceDb = firebaseDatabase.getReference();
                         DatabaseReference crearUsuario = referenceDb.child(user.getID());
-                        user.getPlanesApuntados().add(plan.getId());
+                        user.getPlanesApuntados().add(event.getId());
                         crearUsuario.setValue(user);
 
 
                         //FALTA LA OPCION DE DESAPUNTARSE DEL PLAN
-                        /*plan.getUsuariosApuntados().remove(user);
-                        db.collection("tabla_planes").document(plan.getId()).update("usuariosApuntados", plan.getUsuariosApuntados());*/
+                        /*event.getUsuariosApuntados().remove(user);
+                        db.collection("tabla_planes").document(event.getId()).update("usuariosApuntados", event.getUsuariosApuntados());*/
 
-                        Toast.makeText(getContext(), "Apuntado al plan, que te diviertas", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "Apuntado al event, que te diviertas", Toast.LENGTH_SHORT).show();
                         btnApuntarsePlan.setEnabled(false);
                         btnApuntarsePlan.setText(R.string.apuntado);
 
@@ -558,20 +558,20 @@ public class FragmentPlanes extends Fragment implements ItemClickListener {
         });
 
 
-        txtTituloPlanDetalle.setText(plan.getNombre());
-        txtFechaPlanDetalle.setText(plan.getFecha());
-        txtHoraPlanDetalle.setText(plan.getHora());
-        txtPrecioPlanDetalle.setText(plan.getPrecio());
-        txtUbicacionPlanDetalle.setText(plan.getUbicacion());
-        txtDescripcionDetalle.setText(plan.getDescripcion());
-        txtDueno.setText(plan.getDuenoPlan());
-        txtNumApuntado.setText(String.valueOf(plan.getUsuariosApuntadosUID().size()));
+        txtTituloPlanDetalle.setText(event.getNombre());
+        txtFechaPlanDetalle.setText(event.getFecha());
+        txtHoraPlanDetalle.setText(event.getHora());
+        txtPrecioPlanDetalle.setText(event.getPrecio());
+        txtUbicacionPlanDetalle.setText(event.getUbicacion());
+        txtDescripcionDetalle.setText(event.getDescripcion());
+        txtDueno.setText(event.getDuenoPlan());
+        txtNumApuntado.setText(String.valueOf(event.getUsuariosApuntadosUID().size()));
 
         FirebaseStorage storage = FirebaseStorage.getInstance();
 
         StorageReference storageReference = storage.getReference();
 
-        StorageReference sDuenoPlan = storageReference.child("Perfil").child(plan.getUriImageDuenoPlan());
+        StorageReference sDuenoPlan = storageReference.child("Perfil").child(event.getUriImageDuenoPlan());
 
         Task<Uri> taskDueno = sDuenoPlan.getDownloadUrl();
 
@@ -585,7 +585,7 @@ public class FragmentPlanes extends Fragment implements ItemClickListener {
             }
         });
 
-        StorageReference sCreaPlan = storageReference.child("FotosPlanes").child(plan.getUrlImagen());
+        StorageReference sCreaPlan = storageReference.child("FotosPlanes").child(event.getUrlImagen());
 
         Task<Uri> taskPlan = sCreaPlan.getDownloadUrl();
 

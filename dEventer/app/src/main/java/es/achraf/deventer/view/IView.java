@@ -7,6 +7,16 @@ public interface IView {
     // Methods
 
     /**
+     * Handler que ejecuta la acción requerida según el resultado de intentar crear un usuario.
+     *
+     * @param signedUp es el resultado del intento de creación de un usuario.
+     *
+     *                 - True -> Usuario creado con éxito
+     *                 - False -> Usuario no creado
+     */
+    void onSignUpComplete(boolean signedUp);
+
+    /**
      * Handler que ejecuta la acción requerida según el resultado del intento de inicio de sesión.
      *
      * @param signedIn es el resultado del intento de inicio de sesión.

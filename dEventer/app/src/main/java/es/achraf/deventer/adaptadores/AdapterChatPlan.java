@@ -21,18 +21,18 @@ import java.util.ArrayList;
 import de.hdodenhof.circleimageview.CircleImageView;
 import es.achraf.deventer.R;
 import es.achraf.deventer.interfaces.ItemClickListener;
-import es.achraf.deventer.model.Plan;
+import es.achraf.deventer.model.Event;
 
 public class AdapterChatPlan extends RecyclerView.Adapter<AdapterChatPlan.ViewHolder> {
 
 
-    private ArrayList<Plan> plans;
+    private ArrayList<Event> events;
     private Context context;
     private ItemClickListener itemClickListener;
     private int resource;
 
-    public AdapterChatPlan(Context context, ArrayList<Plan> plans, ItemClickListener itemClickListener, int resource) {
-        this.plans = plans;
+    public AdapterChatPlan(Context context, ArrayList<Event> events, ItemClickListener itemClickListener, int resource) {
+        this.events = events;
         this.context = context;
         this.itemClickListener = itemClickListener;
         this.resource = resource;
@@ -52,17 +52,17 @@ public class AdapterChatPlan extends RecyclerView.Adapter<AdapterChatPlan.ViewHo
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-        Plan plan = plans.get(position);
+        Event event = events.get(position);
 
-        holder.txtTituloPlan.setText(plan.getNombre());
-        holder.fechaPlan.setText(plan.getFecha());
-        holder.numPersonas.setText(plan.getUsuariosApuntadosUID().size() + "/10");
+        holder.txtTituloPlan.setText(event.getNombre());
+        holder.fechaPlan.setText(event.getFecha());
+        holder.numPersonas.setText(event.getUsuariosApuntadosUID().size() + "/10");
 
         FirebaseStorage storage = FirebaseStorage.getInstance();
 
         StorageReference storageReference = storage.getReference();
 
-        StorageReference sCreaPlan = storageReference.child("FotosPlanes").child(plan.getUrlImagen());
+        StorageReference sCreaPlan = storageReference.child("FotosPlanes").child(event.getUrlImagen());
 
         Task<Uri> task = sCreaPlan.getDownloadUrl();
 
@@ -78,7 +78,7 @@ public class AdapterChatPlan extends RecyclerView.Adapter<AdapterChatPlan.ViewHo
 
     @Override
     public int getItemCount() {
-        return plans.size();
+        return events.size();
     }
 
 
