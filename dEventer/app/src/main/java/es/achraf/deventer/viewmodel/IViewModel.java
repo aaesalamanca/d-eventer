@@ -93,7 +93,12 @@ public interface IViewModel {
         void googleSignIn(GoogleSignInAccount account);
     }
 
-    interface SetSignOutListener {
+    interface SignOut {
+        /**
+         * Establece el Listener que escuchará el intento de cerrar la sesión actual.
+         *
+         * @param signOutListener
+         */
         void setSignOutListener(IView.SignOutListener signOutListener);
 
         /**
