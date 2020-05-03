@@ -5,81 +5,61 @@ import java.util.ArrayList;
 
 public class User implements Serializable {
 
-    private String ID;
-    private String nombreUsuario;
-    private String edad;
-    private String email;
-    private String sexo;
-    private String cp;
-    private ArrayList<String> planesApuntados;
+    // Fields
+    private String name;
+    private String age;
+    private String sex;
+    private String postalCode;
+    private ArrayList<String> alEvent;
 
-    public User(String ID, String nombreUSuario, String email, String edad, String sexo, String cp, ArrayList<String> planesApuntados) {
-        this.ID = ID;
-        this.nombreUsuario = nombreUSuario;
-        this.email = email;
-        this.edad = edad;
-        this.sexo = sexo;
-        this.cp = cp;
-        this.planesApuntados = planesApuntados;
-    }
+    // Constructors
 
+    /**
+     * Constructor vacío —por defecto—.
+     */
     public User() {
-        this.planesApuntados = new ArrayList<>();
+        alEvent = new ArrayList<>();
     }
 
-    public String getID() {
-        return ID;
+    // Getters
+    public String getName() {
+        return name;
     }
 
-    public void setID(String ID) {
-        this.ID = ID;
+    public String getAge() {
+        return age;
     }
 
-    public ArrayList<String> getPlanesApuntados() {
-        return planesApuntados;
+    public String getSex() {
+        return sex;
     }
 
-    public void setPlanesApuntados(ArrayList<String> planesApuntados) {
-        this.planesApuntados = planesApuntados;
+    public String getPostalCode() {
+        return postalCode;
     }
 
-    public String getNombreUsuario() {
-        return nombreUsuario;
+    public ArrayList<String> getAlEvent() {
+        return alEvent;
     }
 
-    public void setNombreUsuario(String nombreUsuario) {
-        this.nombreUsuario = nombreUsuario;
+    // Setters
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getEdad() {
-        return edad;
+    public void setAge(String age) {
+        this.age = age;
     }
 
-    public void setEdad(String edad) {
-        this.edad = edad;
+    public void setSex(String sex) {
+        this.sex = sex;
     }
 
-    public String getEmail() {
-        return email;
+    public void setPostalCode(String postalCode) {
+        this.postalCode = postalCode;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getSexo() {
-        return sexo;
-    }
-
-    public void setSexo(String sexo) {
-        this.sexo = sexo;
-    }
-
-    public String getCp() {
-        return cp;
-    }
-
-    public void setCp(String cp) {
-        this.cp = cp;
+    public void setAlEvent(ArrayList<String> alEvent) {
+        this.alEvent = alEvent;
     }
 }

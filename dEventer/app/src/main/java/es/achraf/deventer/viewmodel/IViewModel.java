@@ -6,6 +6,9 @@ import es.achraf.deventer.view.IView;
 
 public interface IViewModel {
 
+    // Fields
+    String USERS = "users";
+
     // Interfaces
     interface GetEmail {
         /**
@@ -45,15 +48,24 @@ public interface IViewModel {
     }
 
     interface SignUp {
+        /**
+         * Establece el Listener que escuchará el intento de crear un usuario.
+         *
+         * @param signUpCompleteListener es el Listener del intento de inicio de sesión.
+         */
         void setSignUpCompleteListener(IView.SignUpCompleteListener signUpCompleteListener);
 
         /**
          * Solicita crear un usuario con email y contraseña.
          *
-         * @param email    es el email del usuario.
-         * @param password es la contraseña del usuario.
+         * @param email      es el email del usuario.
+         * @param password   es la contraseña del usuario.
+         * @param name       es el nombre del usuario.
+         * @param age        es la edad del usuario.
+         * @param postalCode es el código postal del usuario.
          */
-        void emailSignUp(String email, String password);
+        void emailSignUp(String email, String password, String name, String age,
+                         String sex, String postalCode);
     }
 
     interface SignIn {

@@ -20,6 +20,7 @@
     <string name="yes">De acuerdo</string>
     <string name="no">No, gracias</string>
     <string name="empty_fields">Por favor, rellene todos los campos para continuar</string>
+    <string name="welcome_again">Bienvenido de nuevo,</string>
     <string name="failed_sign_in">No se ha podido iniciar sesión</string>
     <string name="disabled_biometric">El sensor de huellas no está disponible actualmente</string>
     <string name="no_biometric_hw">Este dispositivo no tiene sensor de huellas</string>
@@ -47,7 +48,7 @@
     <string name="see_you">Gracias por entendernos, ¡HASTA PRONTO!</string>
     <string name="failed_sign_up">Hubo un fallo al registrarse</string>
     <string name="sex_selection">Debe seleccionar el sexo</string>
-    <string name="no_password_match">Las contraseñas no son iguales</string>
+    <string name="no_password_match">Las contraseñas no coinciden</string>
     <string name="succeeded_sign_up">Registrado con éxito</string>
 
     <string name="title_activity_inicio">Inicio</string>

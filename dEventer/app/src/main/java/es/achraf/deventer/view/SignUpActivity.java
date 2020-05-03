@@ -16,17 +16,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.UserProfileChangeRequest;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 
 import es.achraf.deventer.R;
-import es.achraf.deventer.model.User;
 import es.achraf.deventer.viewmodel.IViewModel;
 import es.achraf.deventer.viewmodel.ViewModelSignUp;
 
@@ -53,10 +46,6 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
     private MaterialButton mbtnSignUp;
 
-    private FirebaseAuth firebaseAuth;
-
-    private FirebaseDatabase firebaseDatabase;
-
     private IViewModel.SignUp vmsu;
 
     // Methods
@@ -80,8 +69,12 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     private void init() {
         vmsu = new ViewModelSignUp();
         vmsu.setSignUpCompleteListener(signedUp -> {
-            if (signedUp) {
+            loadingMessage(false);
 
+            if (signedUp) {
+                Toast.makeText(this,
+                        R.string.succeeded_sign_up, Toast.LENGTH_SHORT).show();
+                startHomeActivity();
             } else {
                 Toast.makeText(this,
                         R.string.failed_sign_up, Toast.LENGTH_SHORT).show();
@@ -106,9 +99,6 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         findViewById(R.id.mbtnGoBack).setOnClickListener(this);
         mbtnSignUp = findViewById(R.id.mbtnSignUp);
         mbtnSignUp.setOnClickListener(this);
-
-        firebaseAuth = FirebaseAuth.getInstance();
-        firebaseDatabase = FirebaseDatabase.getInstance();
     }
 
     /**
@@ -173,64 +163,30 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         datePickerDialog.show();
     }
 
-    /**
-     * Comprueba que el formulario es válido, es decir, que los campos de nombre, email, contraseña,
-     * repetir contraseña y código postal no están vacíos.
-     *
-     * @param name           es el nombre del usuario.
-     * @param email          es el email del usuario.
-     * @param password       es la contraseña del usuario.
-     * @param repeatPassword es la contraseña del usuario.
-     * @param postalCode     es el código postal del usuario.
-     * @return true si el formulario es válido y false en caso contrario.
-     */
-    private boolean isValidForm(String name, String email, String password, String repeatPassword,
-                                String postalCode) {
-        return !(TextUtils.isEmpty(name) || TextUtils.isEmpty(email) || TextUtils.isEmpty(password)
-                || TextUtils.isEmpty(repeatPassword) || TextUtils.isEmpty(postalCode));
-    }
-
     private void emailSignUp() {
         String name = tietName.getText().toString();
         String email = tietEmail.getText().toString();
         String password = tietPassword.getText().toString();
         String repeatPassword = tietRepeatPassword.getText().toString();
         String postalCode = tietPostalCode.getText().toString();
+        String birth = tietBirth.getText().toString();
 
-        if (isValidForm(name, email, password, repeatPassword, postalCode)) {
+        if (isValidForm(name, email, password, repeatPassword, postalCode, birth)) {
             if (isValidPassword(password, repeatPassword)) {
                 if (isValidRadioGroup()) {
                     loadingMessage(true);
-                    vmsu.emailSignUp(email, password);
 
-                    firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
-                        if (task.isSuccessful()) {
-                            FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
-                            startHomeActivity(firebaseUser, name);
+                    String sex = "";
+                    if (rbMan.isChecked()) {
+                        sex = getString(R.string.man);
+                    } else if (rbWoman.isChecked()) {
+                        sex = getString(R.string.woman);
+                    } else {
+                        sex = getString(R.string.any);
+                    }
 
-                            String uid = firebaseAuth.getUid();
-                            String age = String.valueOf(userAge);
-
-                            String sex = "";
-                            if (rbMan.isChecked()) {
-                                sex = getString(R.string.man);
-                            } else if (rbWoman.isChecked())
-                                sex = getString(R.string.woman);
-                            else if (rbAny.isChecked())
-                                sex = getString(R.string.any);
-
-                            ArrayList<String> alEvent = new ArrayList<>();//array list de planes(ID) inicialmente vacío
-
-                            User usuario = new User(uid, name, email, age, sex, postalCode, alEvent);
-
-                            DatabaseReference referenceDb = firebaseDatabase.getReference();
-                            DatabaseReference crearUsuario = referenceDb.child(usuario.getID());
-                            crearUsuario.setValue(usuario);
-                        } else {
-                            Toast.makeText(this,
-                                    R.string.failed_sign_up, Toast.LENGTH_SHORT).show();
-                        }
-                    });
+                    vmsu.emailSignUp(email, password, name, String.valueOf(userAge),
+                            sex, postalCode);
                 } else {
                     Toast.makeText(this, R.string.sex_selection, Toast.LENGTH_SHORT).show();
                 }
@@ -242,10 +198,41 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         }
     }
 
+    /**
+     * Comprueba que el formulario es válido, es decir, que los campos de nombre, email, contraseña,
+     * repetir contraseña y código postal no están vacíos.
+     *
+     * @param name           es el nombre del usuario.
+     * @param email          es el email del usuario.
+     * @param password       es la contraseña del usuario.
+     * @param repeatPassword es la contraseña del usuario.
+     * @param postalCode     es el código postal del usuario.
+     * @param birth          es la fecha de nacimiento del usuario.
+     * @return true si el formulario es válido y false en caso contrario.
+     */
+    private boolean isValidForm(String name, String email, String password, String repeatPassword,
+                                String postalCode, String birth) {
+        return !(TextUtils.isEmpty(name) || TextUtils.isEmpty(email) || TextUtils.isEmpty(password)
+                || TextUtils.isEmpty(repeatPassword) || TextUtils.isEmpty(postalCode)
+                || TextUtils.isEmpty(birth));
+    }
+
+    /**
+     * Comprueba que la contraseña es válida y coincide con la repetición.
+     *
+     * @param password       es la contraseña.
+     * @param passwordRepeat es la contraseña repetida.
+     * @return true si la contraseña es válida, false en caso contrario.
+     */
     private boolean isValidPassword(String password, String passwordRepeat) {
         return password.equals(passwordRepeat);
     }
 
+    /**
+     * Comprueba que se ha seleccionado uno de los RadioButton de la elección de sexo.
+     *
+     * @return true si se ha seleccionado un RadioButton, false si no hay ninguno seleccionado.
+     */
     private boolean isValidRadioGroup() {
         return rbMan.isChecked() || rbWoman.isChecked() || rbAny.isChecked();
     }
@@ -269,6 +256,9 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         }
     }
 
+    /**
+     * Lanza la actividad de login de la aplicación.
+     */
     private void startSignInActivity() {
         Intent signUpIntent = new Intent(this, SignInActivity.class);
         startActivity(signUpIntent);
@@ -278,24 +268,16 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         finish();
     }
 
-    private void startHomeActivity(FirebaseUser user, String nombre) {
-        if (user != null) {
-            UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                    .setDisplayName(nombre)
-                    .build();
+    /**
+     * Lanza la actividad de inicio de la aplicación.
+     */
+    private void startHomeActivity() {
+        Intent homeIntent = new Intent(this, HomeActivity.class);
+        startActivity(homeIntent);
 
-            user.updateProfile(profileUpdates)
-                    .addOnCompleteListener(task -> {
-                        if (task.isSuccessful())
-                            Toast.makeText(this,
-                                    R.string.succeeded_sign_up, Toast.LENGTH_SHORT).show();
-                    });
+        overridePendingTransition(R.anim.anim, R.anim.zoom_back);
 
-            Intent intentInicio = new Intent(this, HomeActivity.class);
-            startActivity(intentInicio);
-            overridePendingTransition(R.anim.anim, R.anim.zoom_back);
-            finish();
-        }
+        finish();
     }
 }
 

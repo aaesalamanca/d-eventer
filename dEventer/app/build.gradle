@@ -16,9 +16,9 @@ android {
     buildToolsVersion "29.0.3"
 
     defaultConfig {
-        applicationId "es.achraf.deventer"
+        applicationId "es.deventer.achraf"
         // Damos soporte a partir de Android 8.0 Oreo (API 26)
-        // https://en.wikipedia.org/wiki/Android_version_history
+        // https://en.wikipedia.or/wiki/Android_version_history
         minSdkVersion 26
         // Desarrollamos para Android 10 (API 29)
         // https://en.wikipedia.org/wiki/Android_version_history

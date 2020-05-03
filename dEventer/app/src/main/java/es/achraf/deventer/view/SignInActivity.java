@@ -84,6 +84,8 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
             loadingMessage(false);
 
             if (signedIn) {
+                Toast.makeText(this, getString(R.string.welcome_again) + ' ' + vmsi.getDisplayName(),
+                        Toast.LENGTH_SHORT).show();
                 startHomeActivity();
             } else {
                 Toast.makeText(this,
@@ -370,9 +372,6 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         overridePendingTransition(R.anim.anim, R.anim.zoom_back);
 
         finish();
-
-        Toast.makeText(this, "Bienvenido de nuevo " + vmsi.getDisplayName(),
-                Toast.LENGTH_SHORT).show();
     }
 
     /**

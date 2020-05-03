@@ -496,10 +496,10 @@ public class FragmentPlanes extends Fragment implements ItemClickListener {
 
                     ArrayList<String> idsUsuariosApuntados = event.getUsuariosApuntadosUID();
                     for (String id : idsUsuariosApuntados) {
-                        if (id.equals(user.getID())) {
+                        /*if (id.equals(user.getUid())) {
                             btnApuntarsePlan.setEnabled(false);
                             btnApuntarsePlan.setText(R.string.apuntado);
-                        }
+                        }*/
                     }
 
                 }
@@ -523,16 +523,16 @@ public class FragmentPlanes extends Fragment implements ItemClickListener {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         User user = dataSnapshot.getValue(User.class);
-                        event.getUsuariosApuntadosUID().add(user.getID());//si no está, lo agrego
+                        //event.getUsuariosApuntadosUID().add(user.getUid());//si no está, lo agrego
 
                         db.collection("tabla_planes").document(event.getId()).update("usuariosApuntados", event.getUsuariosApuntadosUID());
 
                         //Una vez agregamos el usuario a la lista de usuarios del event, agregamos el event a la lista de planes del usuario
 
                         DatabaseReference referenceDb = firebaseDatabase.getReference();
-                        DatabaseReference crearUsuario = referenceDb.child(user.getID());
-                        user.getPlanesApuntados().add(event.getId());
-                        crearUsuario.setValue(user);
+                        //DatabaseReference crearUsuario = referenceDb.child(user.getUid());
+                        user.getAlEvent().add(event.getId());
+                        //crearUsuario.setValue(user);
 
 
                         //FALTA LA OPCION DE DESAPUNTARSE DEL PLAN

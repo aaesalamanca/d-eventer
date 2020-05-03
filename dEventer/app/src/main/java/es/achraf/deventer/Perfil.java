@@ -143,14 +143,14 @@ public class Perfil extends AppCompatActivity {
                     assert email != null;
                     assert nombre != null;
                     assert user != null;
-                    if (email.equalsIgnoreCase(user.getEmail()) && nombre.equalsIgnoreCase(user.getNombreUsuario())) {
+                    if (/*email.equalsIgnoreCase(user.getEmail()) && */nombre.equalsIgnoreCase(user.getName())) {
 
-                        txtNombreUsuario.setText(user.getNombreUsuario().toUpperCase());
-                        txtNombreYapellido.setText(user.getNombreUsuario());
-                        txtEdad.setText(user.getEdad());
-                        txtSexo.setText(user.getSexo());
-                        txtCp.setText(user.getCp());
-                        txtEmail.setText(user.getEmail());
+                        txtNombreUsuario.setText(user.getName().toUpperCase());
+                        txtNombreYapellido.setText(user.getName());
+                        txtEdad.setText(user.getAge());
+                        txtSexo.setText(user.getSex());
+                        txtCp.setText(user.getPostalCode());
+                        // txtEmail.setText(user.getEmail());
                         recuperarImagen();
 
                     }
