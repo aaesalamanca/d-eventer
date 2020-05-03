@@ -13,6 +13,8 @@ public class ViewModelSignUp implements IViewModel.SignUp {
     // Fields
     private IView.SignUpCompleteListener signUpCompleteListener;
 
+    private String name;
+
     // Setters
 
     /**
@@ -43,13 +45,12 @@ public class ViewModelSignUp implements IViewModel.SignUp {
                             String sex, String postalCode) {
         email = email.trim();
         password = password.trim();
-        name = name.trim();
+        this.name = name.trim();
         age = age.trim();
         sex = sex.trim();
         postalCode = postalCode.trim();
 
         User user = new User();
-        user.setName(name);
         user.setAge(age);
         user.setSex(sex);
         user.setPostalCode(postalCode);
@@ -61,12 +62,12 @@ public class ViewModelSignUp implements IViewModel.SignUp {
 
                 UserProfileChangeRequest userProfileChangeRequest =
                         new UserProfileChangeRequest.Builder()
-                                .setDisplayName(user.getName())
+                                .setDisplayName(this.name)
                                 .build();
                 firebaseUser.updateProfile(userProfileChangeRequest);
 
                 FirebaseDatabase.getInstance().getReference().child(IViewModel.USERS)
-                        .child(firebaseUser.getEmail())
+                        .child(firebaseUser.getUid())
                         .setValue(user);
 
                 signUpCompleteListener.onSignUpComplete(true);

@@ -143,9 +143,9 @@ public class Perfil extends AppCompatActivity {
                     assert email != null;
                     assert nombre != null;
                     assert user != null;
-                    if (/*email.equalsIgnoreCase(user.getEmail()) && */nombre.equalsIgnoreCase(user.getName())) {
+                    /*if (email.equalsIgnoreCase(user.getEmail()) && nombre.equalsIgnoreCase(user.getName())) {
 
-                        txtNombreUsuario.setText(user.getName().toUpperCase());
+                        //txtNombreUsuario.setText(user.getName().toUpperCase());
                         txtNombreYapellido.setText(user.getName());
                         txtEdad.setText(user.getAge());
                         txtSexo.setText(user.getSex());
@@ -153,7 +153,7 @@ public class Perfil extends AppCompatActivity {
                         // txtEmail.setText(user.getEmail());
                         recuperarImagen();
 
-                    }
+                    }*/
                 }
 
                 @Override

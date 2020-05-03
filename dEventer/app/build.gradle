@@ -132,7 +132,7 @@ dependencies {
     // número de cada librería que utilizamos de Firebase. Así solo hay que actualizar el número
     // de BoM sin especificar el de las librerías; estas recurren a la última versión disponible
     // en el lanzamiento de BoM.
-    implementation platform('com.google.firebase:firebase-bom:25.2.2') // Plataforma de BoM
+    implementation platform('com.google.firebase:firebase-bom:25.3.0') // Plataforma de BoM
     implementation 'com.google.firebase:firebase-analytics' // SDK de Firebase para Google Analytics
     implementation 'com.google.firebase:firebase-auth' // SDK de Firebase para Authentication
     implementation 'com.google.firebase:firebase-firestore' // SDK de Firebase Firestore
