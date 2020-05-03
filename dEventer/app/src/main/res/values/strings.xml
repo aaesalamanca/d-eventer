@@ -1,3 +1,139 @@
 <resources>
     <string name="app_name">dEventer</string>
+
+    <!-- activity_sign_in -->
+    <string name="logo">Logo</string>
+    <string name="welcome">Bienvenido a dEventer</string>
+    <string name="email">Email</string>
+    <string name="password">Contraseña</string>
+    <string name="sign_in">Entrar</string>
+    <string name="acces_w_fingertip">Acceder con huella</string>
+    <string name="loading">Cargando…</string>
+    <string name="create_account">¿Aún no tienes cuenta? Créate una</string>
+    <string name="google_or_fb">¿Tienes cuenta de Google o Facebook?</string>
+    <string name="sign_in_fb">Entrar con Facebook</string>
+    <string name="sign_in_google">Entrar con Google</string>
+
+    <!-- SignInActivity -->
+    <string name="fast_start">Inicio rápido</string>
+    <string name="fingertip_start">¿Desea acceder la próxima vez mediante su huella?</string>
+    <string name="yes">De acuerdo</string>
+    <string name="no">No, gracias</string>
+    <string name="empty_fields">Por favor, rellene todos los campos para continuar</string>
+    <string name="welcome_again">Bienvenido de nuevo,</string>
+    <string name="failed_sign_in">No se ha podido iniciar sesión</string>
+    <string name="disabled_biometric">El sensor de huellas no está disponible actualmente</string>
+    <string name="no_biometric_hw">Este dispositivo no tiene sensor de huellas</string>
+    <string name="no_registered_fingertip">No hay ninguna huella registrada</string>
+    <string name="biometric_access">Acceso con huella a dEventer</string>
+    <string name="use_fingertip">Introduzca su huella para acceder</string>
+    <string name="cancel">Cancelar</string>
+    <string name="previous_access_fingertip">Debe acceder almenos una vez para poder guardar sus datos de acceso.</string>
+
+    <!-- activity_sign_up -->
+    <string name="name_surname">Nombre y apellidos</string>
+    <string name="repeat_password">Confirmar contraseña</string>
+    <string name="postal_code">Código postal</string>
+    <string name="birth">Fecha de nacimiento</string>
+    <string name="sex_preference">Escoja el sexo con el que más se identifique</string>
+    <string name="man">Hombre</string>
+    <string name="woman">Mujer</string>
+    <string name="any">Otro</string>
+    <string name="sign_up">Registrarse</string>
+    <string name="go_back">Volver</string>
+
+    <!-- SignUpActivity -->
+    <string name="under_age">Lo sentimos, pero la aplicación requiere que seas mayor de edad.</string>
+    <string name="agree">Entendido</string>
+    <string name="see_you">Gracias por entendernos, ¡HASTA PRONTO!</string>
+    <string name="failed_sign_up">Hubo un fallo al registrarse</string>
+    <string name="sex_selection">Debe seleccionar el sexo</string>
+    <string name="no_password_match">Las contraseñas no coinciden</string>
+    <string name="succeeded_sign_up">Registrado con éxito</string>
+
+    <string name="title_activity_inicio">Inicio</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="menu_salir">Cerrar sesion</string>
+
+
+    <string name="confgiruacion">confgiruacion</string>
+    <string name="correo_ejemplo">ejemplo@gmail.com</string>
+    <string name="inicio">Inicio</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="cerrar_sesion">Cerrar sesion</string>
+    <string name="mi_perfil">Mi perfil</string>
+    <string name="ajustes">Ajustes</string>
+    <string name="nombre">Nombre</string>
+    <string name="apellidos">Apellidos</string>
+    <string name="correo_electr_nicoPerfil">Correo electrónico</string>
+    <string name="tel_fono_de_contacto">Teléfono de contacto</string>
+    <string name="nivel_de_estudios">Nivel de estudios</string>
+    <string name="cuenta_algo_m_s_sobre_ti">Cuenta algo más sobre ti…</string>
+    <string name="guardar">Guardar</string>
+    <string name="pa_s_de_residencia">País de residencia</string>
+    <string name="pulsa_para_cambiar_la_foto_de_perfil">(pulsa para escoger la foto de perfil)</string>
+
+
+    <string name="title_activity_splash_screen">SplashScreen</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="crear_plan">Crear event</string>
+    <string name="datos_personales">Datos personales</string>
+    <string name="edad">•Edad:</string>
+    <string name="usuario">Usuario</string>
+    <string name="sexo">•Sexo:</string>
+    <string name="email_w_icon">•Email:</string>
+    <string name="para_modificar_los_datos_personales_solicitalo_en_1998informatica1998_gmail_com">Para modificar los datos personales solicitalo en: 1998informatica1998@gmail.com</string>
+    <string name="nombre_y_apellidos">•Nombre y apellidos:</string>
+    <string name="datos_de_acceso">Datos de acceso</string>
+    <string name="c_p">•C.P:</string>
+    <string name="ok">OK</string>
+    <string name="ubicacion">Ubicacion</string>
+    <string name="hora_del_plan">Hora del event</string>
+    <string name="fecha_del_plan">Fecha del event</string>
+    <string name="titulo_del_plan">Titulo del Plan</string>
+    <string name="presenta_el_plan">Presenta el event</string>
+    <string name="c_mo_se_llama_el_plan">¿Cómo se llama el event?</string>
+    <string name="c_ando_es">¿Cúando es?</string>
+    <string name="a_qu_hora_es">¿A qué hora es?</string>
+    <string name="d_nde_es">¿Dónde es?</string>
+    <string name="c_anto_cuesta">¿Cúanto cuesta?</string>
+    <string name="crear">Crear event</string>
+    <string name="ponle_una_imagen_al_plan">(Ponle una imagen al event)</string>
+    <string name="busca_ciudades_calles_lugares">Busca ciudades, calles, lugares ...</string>
+    <string name="quieres_describir_el_plan">¿Quieres describir el event?</string>
+    <string name="fecha">Fecha</string>
+    <string name="informaci_n_del_plan">Información del event</string>
+    <string name="hora">Hora</string>
+    <string name="ubicaci_n">Ubicación</string>
+    <string name="precio">Precio</string>
+    <string name="descripcion">Descripcion</string>
+    <string name="ir">IR</string>
+    <string name="apuntarse_al_plan">¡Apuntarse al event!</string>
+    <string name="apuntado">Apuntado</string>
+    <string name="apuntados">Apuntados</string>
+
+
+    <string name="facebook_app_id" translatable="false">533589277584622</string>
+    <string name="nombre_canal">Nombre del canal</string>
+    <string name="descripcion_canal">Descripcion del canal</string>
+
+    <string name="msg_token_fmt" translatable="false">InstanceID Token: %s</string>
+    <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
+
+
+    <string name="id_fcm">AAAASNGD9Do:APA91bHSAXZXcX70y-sxSYLtEQF_uN57mu8EXLL20MRdRP-QvsOlko8OhAF23HLIxmcH4DIr1_GfMiGmgYmQbDvx8D22K3B1v0pCKgCc6LUF4BSPR2n2GOqjG1wmpx7qB870dtcBPjf4</string>
+    <string name="url_fcm">https://fcm.googleapis.com/fcm/send</string>
+    <string name="fcm_message">Titulo de la notificación</string>
 </resources>

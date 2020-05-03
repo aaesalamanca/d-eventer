@@ -1,34 +1,52 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
-    
+
     repositories {
-        // https://firebase.google.com/docs/android/setup?authuser=0#add-config-file
         // Repositorios por defecto de Android Studio
-        google() // Repositorio de Google Maven requerido por Firebase
+        // Son también necesarios para:
+        //  - Firebase
+        //  - Material Design
+        // https://firebase.google.com/docs/android/setup?authuser=0#add-config-file
+        // https://material.io/develop/android/docs/getting-started/
+        google() // Repositorio de Google Maven
         jcenter()
-        
+
+        // Repositorio del SDK de Facebook
+        // https://developers.facebook.com/docs/android/componentsdks
+        // https://developers.facebook.com/docs/android/getting-started/
+        // https://github.com/facebook/facebook-android-sdk
+        mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.6.3'
-        
+        // Dependencias por defecto de Android Studio
+        classpath 'com.android.tools.build:gradle:3.6.3' // Dependencia de Gradle
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
 
+        // Dependencia de Firebase
         // https://firebase.google.com/docs/android/setup?authuser=0#add-config-file
-        // Dependencia para añadir Firebase
+        // Release notes: https://developers.google.com/android/guides/releases
         classpath 'com.google.gms:google-services:4.3.3'
     }
 }
 
 allprojects {
     repositories {
-        // https://firebase.google.com/docs/android/setup?authuser=0#add-config-file
         // Repositorios por defecto de Android Studio
-        google() // Repositorio de Google Maven requerido por Firebase
+        // Son también necesarios para:
+        //  - Firebase
+        //  - Material Design
+        // https://firebase.google.com/docs/android/setup?authuser=0#add-config-file
+        // https://material.io/develop/android/docs/getting-started/
+        google() // Repositorio de Google Maven
         jcenter()
-        
+
+        // Repositorio de Maven para JitPack y poder añadir directamente proyectos de Git como
+        // dependencias.
+        // https://jitpack.io/
+        maven { url 'https://jitpack.io' }
     }
 }
 

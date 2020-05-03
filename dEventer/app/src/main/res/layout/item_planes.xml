@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:baselineAligned="false"
+    android:gravity="center"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:layout_weight="2"
+        android:orientation="vertical">
+
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/imgPlan"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_gravity="center"
+            android:scaleType="centerCrop"
+            android:src="@drawable/logo"
+            app:civ_border_color="@color/colorAccent" />
+
+
+        <TextView
+            android:id="@+id/txtTituloPlan"
+            style="@style/TextAppearance.AppCompat.Light.SearchResult.Subtitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/proximanovaregular"
+            android:gravity="center"
+            android:text="@string/titulo_del_plan"
+            android:textColor="@color/colorPrincipal"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/txtFechaPlan"
+            style="@style/TextAppearance.AppCompat.Light.SearchResult.Subtitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:drawableStart="@drawable/icono_fecha"
+            android:fontFamily="@font/proximanovaregular"
+            android:gravity="center"
+            android:text="@string/fecha_del_plan"
+            android:textColor="@color/colorPrincipal"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+
+        <TextView
+            android:id="@+id/txtHoraPlan"
+            style="@style/TextAppearance.AppCompat.Light.SearchResult.Subtitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:drawableStart="@drawable/icono_hora"
+            android:fontFamily="@font/proximanovaregular"
+            android:gravity="center"
+            android:text="@string/hora_del_plan"
+            android:textColor="@color/colorPrincipal"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+
+        <TextView
+            android:id="@+id/txtUbicacionPlan"
+            style="@style/TextAppearance.AppCompat.Light.SearchResult.Subtitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:drawableStart="@drawable/icono_location"
+            android:fontFamily="@font/proximanovaregular"
+            android:gravity="center"
+            android:text="@string/ubicacion"
+            android:textColor="@color/colorPrincipal"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+
+        <TextView
+            android:id="@+id/txtPrecioPlan"
+            style="@style/TextAppearance.AppCompat.Light.SearchResult.Subtitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:drawableStart="@drawable/icono_euro"
+            android:fontFamily="@font/proximanovaregular"
+            android:gravity="center"
+            android:textColor="@color/colorPrincipal"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+
+</LinearLayout>

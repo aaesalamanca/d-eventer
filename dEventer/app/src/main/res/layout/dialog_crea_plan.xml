@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrincipal"
+    android:orientation="vertical"
+    android:theme="@style/AppTheme">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:orientation="vertical"
+        android:theme="@style/AppTheme">
+
+        <TextView
+            style="@style/TextAppearance.AppCompat.Light.SearchResult.Title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="5dp"
+            android:fontFamily="@font/mifuente"
+            android:gravity="center"
+            android:text="@string/presenta_el_plan"
+            android:textColor="#FF814E" />
+
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/imgCreaPlan"
+            style="@style/Widget.AppCompat.Button.Borderless.Colored"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_gravity="center"
+            android:scaleType="centerCrop"
+            android:src="@drawable/logo"
+            app:civ_border_color="@color/colorAccent"
+            app:civ_border_width="2dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="5dp"
+            android:fontFamily="@font/proximanovaregular"
+            android:gravity="center"
+            android:text="@string/ponle_una_imagen_al_plan"
+            android:textColor="@color/colorAccent" />
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/AppTheme"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:background="@color/colorAccent"
+            android:hint="@string/c_mo_se_llama_el_plan"
+            android:textColorHint="@color/colorPrincipal"
+            app:hintAnimationEnabled="true"
+            app:startIconDrawable="@drawable/icono_texto">
+
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/txtTituloCreaPlan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorAccent"
+                android:fontFamily="@font/proximanovaregular"
+                android:inputType="text"
+                android:lines="1"
+                app:cornerRadius="20dp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/AppTheme"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:background="@color/colorAccent"
+            android:hint="@string/c_ando_es"
+            android:textColorHint="@color/colorPrincipal"
+            app:hintAnimationEnabled="true"
+            app:startIconDrawable="@drawable/icono_fecha">
+
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/txtFechaCreaPlan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorAccent"
+                android:focusable="false"
+                android:fontFamily="@font/proximanovaregular"
+                android:lines="1" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/AppTheme"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:background="@color/colorAccent"
+            android:hint="@string/a_qu_hora_es"
+            android:textColorHint="@color/colorPrincipal"
+            app:hintAnimationEnabled="true"
+            app:startIconDrawable="@drawable/icono_hora">
+
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/txtHoraCreaPlan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorAccent"
+                android:focusable="false"
+                android:fontFamily="@font/proximanovaregular"
+                android:inputType="text"
+                android:lines="1" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/AppTheme"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:background="@color/colorAccent"
+            android:hint="@string/d_nde_es"
+            android:textColorHint="@color/colorPrincipal"
+            app:hintAnimationEnabled="true"
+            app:startIconDrawable="@drawable/icono_location">
+
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/txtUbicacionCreaPlan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorAccent"
+                android:focusable="false"
+                android:fontFamily="@font/proximanovaregular"
+                android:inputType="text"
+                android:lines="1" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/AppTheme"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:background="@color/colorAccent"
+            android:hint="@string/c_anto_cuesta"
+            android:textColorHint="@color/colorPrincipal"
+            app:hintAnimationEnabled="true"
+            app:startIconDrawable="@drawable/icono_euro">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/txtPrecioCreaPlan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorAccent"
+                android:fontFamily="@font/proximanovaregular"
+                android:inputType="numberDecimal" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/AppTheme"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:background="@color/colorAccent"
+            android:hint="@string/quieres_describir_el_plan"
+            android:textColorHint="@color/colorPrincipal"
+            app:hintAnimationEnabled="true">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/txtDescripcion"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:background="@color/colorAccent"
+                android:fontFamily="@font/proximanovaregular"
+                android:gravity="top"
+                android:inputType="textMultiLine"
+                android:lines="40"
+                android:scrollbars="vertical" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:orientation="horizontal">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnCrearPlan"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                android:layout_weight="1"
+                android:backgroundTint="@color/colorAccent"
+                android:fontFamily="@font/proximanovaregular"
+                android:padding="@dimen/fab_margin"
+                android:text="@string/crear_plan"
+                android:textColor="@color/colorPrimaryDark"
+                android:textStyle="bold"
+                app:cornerRadius="15dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnSalirDeCrearPlan"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/proximanovaregular"
+                android:padding="@dimen/fab_margin"
+                android:text="@string/cancel"
+                android:textColor="@color/colorAccent"
+                android:textStyle="bold"
+                app:backgroundTint="@color/colorPrincipal"
+                app:cornerRadius="15dp"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>

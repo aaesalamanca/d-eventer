@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrincipal"
+    android:fitsSystemWindows="true"
+    android:gravity="center_vertical"
+    android:orientation="vertical"
+    tools:context=".view.SignInActivity">
+
+    <ImageView
+        android:layout_width="@dimen/size_100"
+        android:layout_height="@dimen/size_100"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="@dimen/margin_10"
+        android:contentDescription="@string/logo"
+        android:scaleType="centerInside"
+        android:src="@drawable/logo" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_10"
+        android:fontFamily="@font/proximanovaregular"
+        android:gravity="center"
+        android:text="@string/welcome"
+        android:textColor="@color/blanco"
+        android:textSize="@dimen/text_20" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilEmail"
+        style="@style/LoginTextInputLayoutStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_16"
+        android:layout_marginRight="@dimen/margin_16"
+        android:hint="@string/email"
+        android:textColorHint="@color/colorAccent"
+        app:counterEnabled="true"
+        app:counterMaxLength="30"
+        app:counterTextColor="@color/colorAccent"
+        app:endIconMode="clear_text"
+        app:errorEnabled="true"
+        app:hintTextColor="@color/colorAccent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tietEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/proximanovaregular"
+            android:inputType="textEmailAddress"
+            android:textColor="@color/blanco" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilPassword"
+        style="@style/LoginTextInputLayoutStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_16"
+        android:layout_marginRight="@dimen/margin_16"
+        android:hint="@string/password"
+        android:textColorHint="@color/colorAccent"
+        app:endIconMode="password_toggle"
+        app:errorEnabled="true"
+        app:hintTextColor="@color/colorAccent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tietPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/proximanovaregular"
+            android:inputType="textPassword"
+            android:textColor="@color/blanco" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/mbtnSignIn"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_56"
+        android:layout_margin="@dimen/margin_16"
+        android:fontFamily="@font/proximanovaregular"
+        android:tag="custom_login_button"
+        android:text="@string/sign_in"
+        android:textColor="@color/colorPrincipal"
+        android:theme="@style/Theme.MaterialComponents"
+        app:backgroundTint="@color/blanco"
+        app:cornerRadius="@dimen/radius_20" />
+
+    <ImageButton
+        android:id="@+id/ibtnFingertip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:backgroundTint="@color/colorPrincipal"
+        android:src="@drawable/ic_huella"
+        app:cornerRadius="@dimen/radius_20" />
+
+    <TextView
+        android:id="@+id/tvFingertip"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_20"
+        android:gravity="center"
+        android:text="@string/acces_w_fingertip"
+        android:textColor="@color/colorAccent" />
+
+    <ProgressBar
+        android:id="@+id/pbLoading"
+        style="?android:attr/absListViewStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/blanco"
+        android:indeterminate="true"
+        android:indeterminateTint="@color/colorPrimaryDark"
+        android:max="200"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/tvLoading"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/loading"
+        android:textColor="@color/blanco"
+        android:textSize="@dimen/text_12"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/tvSignUp"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/size_48"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:fontFamily="@font/proximanovaregular"
+        android:gravity="center_vertical"
+        android:text="@string/create_account"
+        android:textColor="@color/blanco"
+        android:textSize="@dimen/text_15" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_16"
+        android:orientation="horizontal">
+
+        <View
+            android:layout_width="@dimen/size_0"
+            android:layout_height="@dimen/size_1"
+            android:layout_marginTop="@dimen/margin_8"
+            android:layout_weight="0.5"
+            android:background="@color/colorAccent" />
+
+        <TextView
+            android:layout_width="@dimen/size_0"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="0.5"
+            android:gravity="center"
+            android:text="@string/google_or_fb"
+            android:textAlignment="center"
+            android:textColor="@color/colorAccent"
+            android:textSize="@dimen/text_12" />
+
+        <View
+            android:layout_width="@dimen/size_0"
+            android:layout_height="@dimen/size_1"
+            android:layout_marginTop="@dimen/margin_8"
+            android:layout_weight="0.5"
+            android:background="@color/colorAccent" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_16"
+        android:layout_marginEnd="@dimen/margin_16"
+        android:orientation="vertical">
+
+        <com.facebook.login.widget.LoginButton
+            android:id="@+id/lbtnFb"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/size_0"
+            android:layout_marginBottom="@dimen/margin_4"
+            android:layout_weight="1"
+            android:backgroundTint="#D71E2840"
+            android:drawableStart="@drawable/facebook"
+            android:fontFamily="@font/proximanovaregular"
+            android:padding="@dimen/padding_10"
+            android:text="@string/sign_in_fb"
+            android:textColor="@color/blanco" />
+
+        <com.google.android.gms.common.SignInButton
+            android:id="@+id/sbtnGoogle"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/size_0"
+            android:layout_weight="1"
+            android:backgroundTint="#C8FFFFFF"
+            android:drawableStart="@drawable/google"
+            android:elevation="@dimen/elevation_10"
+            android:fontFamily="@font/proximanovaregular"
+            android:text="@string/sign_in_google"
+            android:textColor="#CB181717" />
+
+    </LinearLayout>
+
+</LinearLayout>
