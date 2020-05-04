@@ -157,7 +157,7 @@ public class EventsFragment extends Fragment implements ItemClickListener {
                         //FLAT DIALOG
                         /*    final FlatDialog flatDialog = new FlatDialog(getContext());
                         flatDialog.setTitle("ejemplo de flat dialog").setSubtitle("ejemplo de subtitulo")
-                                .setFirstTextFieldHint("email_w_icon")
+                                .setFirstTextFieldHint("email_stylized")
                                 .setSecondTextFieldHint("password")
                                 .setFirstButtonText("CONNECT")
                                 .setSecondButtonText("CANCEL")
@@ -483,7 +483,7 @@ public class EventsFragment extends Fragment implements ItemClickListener {
         TextView txtDueno = dialogVistaPlan.findViewById(R.id.txtDuenoPlan);
         TextView txtNumApuntado = dialogVistaPlan.findViewById(R.id.txtNumApuntado);
 
-        //comprobamos si el usuario ya está apuntado o no
+        //comprobamos si el user ya está apuntado o no
 
         String ID = mAuth.getCurrentUser().getUid();
         if (ID != null) {
@@ -511,7 +511,7 @@ public class EventsFragment extends Fragment implements ItemClickListener {
             });
         }
 
-        //agregamos el usuario al event de nuestra base de datos para tener un seguimiento de os usuarios que hay en la base de datos por cada event
+        //agregamos el user al event de nuestra base de datos para tener un seguimiento de os usuarios que hay en la base de datos por cada event
         btnApuntarsePlan.setOnClickListener(v -> {
 
             String nombree = mAuth.getCurrentUser().getDisplayName();
@@ -527,7 +527,7 @@ public class EventsFragment extends Fragment implements ItemClickListener {
 
                         db.collection("tabla_planes").document(event.getId()).update("usuariosApuntados", event.getUsuariosApuntadosUID());
 
-                        //Una vez agregamos el usuario a la lista de usuarios del event, agregamos el event a la lista de planes del usuario
+                        //Una vez agregamos el user a la lista de usuarios del event, agregamos el event a la lista de planes del user
 
                         DatabaseReference referenceDb = firebaseDatabase.getReference();
                         //DatabaseReference crearUsuario = referenceDb.child(user.getUid());

@@ -13,7 +13,6 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.roughike.bottombar.BottomBar;
 
-import es.achraf.deventer.ProfileActivity;
 import es.achraf.deventer.R;
 import es.achraf.deventer.fragments.ChatFragment;
 import es.achraf.deventer.fragments.EventsFragment;
@@ -140,7 +139,7 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     /**
-     * Lanza la actividad para ver el perfil del usuario.
+     * Lanza la actividad para ver el perfil del user.
      */
     private void startProfileActivity() {
         Intent profileIntent = new Intent(this, ProfileActivity.class);

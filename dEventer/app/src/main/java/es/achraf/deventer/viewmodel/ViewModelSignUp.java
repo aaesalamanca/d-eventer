@@ -18,7 +18,7 @@ public class ViewModelSignUp implements IViewModel.SignUp {
     // Setters
 
     /**
-     * Establece el Listener que escuchará el intento de crear un usuario.
+     * Establece el Listener que escuchará el intento de crear un user.
      *
      * @param signUpCompleteListener es el Listener del intento de inicio de sesión.
      */
@@ -30,15 +30,15 @@ public class ViewModelSignUp implements IViewModel.SignUp {
     // Methods
 
     /**
-     * Solicita crear un usuario con email y contraseña.
+     * Solicita crear un user con email y contraseña.
      * <p>
      * https://firebase.google.com/docs/auth/android/start#sign_up_new_users
      *
-     * @param email      es el email del usuario.
-     * @param password   es la contraseña del usuario.
-     * @param name       es el nombre del usuario.
-     * @param age        es la edad del usuario.
-     * @param postalCode es el código postal del usuario.
+     * @param email      es el email del user.
+     * @param password   es la contraseña del user.
+     * @param name       es el nombre del user.
+     * @param age        es la age del user.
+     * @param postalCode es el código postal del user.
      */
     @Override
     public void emailSignUp(String email, String password, String name, String age,

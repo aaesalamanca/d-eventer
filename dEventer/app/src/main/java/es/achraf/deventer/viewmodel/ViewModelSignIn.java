@@ -22,11 +22,11 @@ public class ViewModelSignIn implements IViewModel.SetGetPreferencesListener,
     // Getters
 
     /**
-     * Devuelve el email del usuario.
+     * Devuelve el email del user.
      * <p>
      * https://developer.android.com/training/data-storage/shared-preferences#ReadSharedPreference
      *
-     * @return el email del usuario. Cadena vacía si no se ha guardado con anterioridad o no se
+     * @return el email del user. Cadena vacía si no se ha guardado con anterioridad o no se
      * tiene acceso a la vista.
      */
     @Override
@@ -36,11 +36,11 @@ public class ViewModelSignIn implements IViewModel.SetGetPreferencesListener,
     }
 
     /**
-     * Devuelve la contaseña del usuario.
+     * Devuelve la contaseña del user.
      * <p>
      * https://developer.android.com/training/data-storage/shared-preferences#ReadSharedPreference
      *
-     * @return la contraseña del usuario. Cadena vacía si no se ha guardado con anterioridad o no
+     * @return la contraseña del user. Cadena vacía si no se ha guardado con anterioridad o no
      * se tiene acceso a la vista.
      */
     @Override
@@ -50,12 +50,12 @@ public class ViewModelSignIn implements IViewModel.SetGetPreferencesListener,
     }
 
     /**
-     * Devuelve el nombre del usuario.
+     * Devuelve el nombre del user.
      *
-     * @return el nombre del usuario.
+     * @return el nombre del user.
      */
     @Override
-    public String getDisplayName() {
+    public String getName() {
         return FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
     }
 
@@ -84,7 +84,7 @@ public class ViewModelSignIn implements IViewModel.SetGetPreferencesListener,
     // Methods
 
     /**
-     * Devuelve si el usuario ha iniciado o no sesión.
+     * Devuelve si el user ha iniciado o no sesión.
      * <p>
      * https://firebase.google.com/docs/auth/android/password-auth#sign_in_a_user_with_an_email_address_and_password
      *
@@ -97,13 +97,13 @@ public class ViewModelSignIn implements IViewModel.SetGetPreferencesListener,
 
     /**
      * Solicita iniciar sesión con email y contraseña. También los guarda en SharedPreferences si
-     * el usuario marca la opción correspondiente.
+     * el user marca la opción correspondiente.
      * <p>
      * https://firebase.google.com/docs/auth/android/password-auth#sign_in_a_user_with_an_email_address_and_password
      *
-     * @param email         es el email del usuario.
-     * @param password      es la contraseña del usuario.
-     * @param saveBiometric indica si el usuario quiere guardar el email y la contraseña como
+     * @param email         es el email del user.
+     * @param password      es la contraseña del user.
+     * @param saveBiometric indica si el user quiere guardar el email y la contraseña como
      *                      SharedPreferences para poder utilizar la huella:
      *                      <p>
      *                      - Sí -> True
@@ -129,12 +129,12 @@ public class ViewModelSignIn implements IViewModel.SetGetPreferencesListener,
     }
 
     /**
-     * Guarda el email y la contraseña del usuario en SharedPreferences.
+     * Guarda el email y la contraseña del user en SharedPreferences.
      * <p>
      * https://developer.android.com/training/data-storage/shared-preferences#WriteSharedPreference
      *
-     * @param email    es el email del usuario.
-     * @param password es la contraseña del usuario.
+     * @param email    es el email del user.
+     * @param password es la contraseña del user.
      */
     private void savePreferences(String email, String password) {
         SharedPreferences sharedPreferences = getPreferencesListener.getPreferences(MODE_PRIVATE);

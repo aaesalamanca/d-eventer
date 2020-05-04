@@ -72,7 +72,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
      */
     private void init() {
         vmsi = new ViewModelSignIn();
-        // Comprueba que el usuario ya ha iniciado sesión previamente para lanzar la actividad
+        // Comprueba que el user ya ha iniciado sesión previamente para lanzar la actividad
         // de inicio.
         if (vmsi.isSignedIn()) {
             startHomeActivity();
@@ -82,7 +82,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
             loadingMessage(false);
 
             if (signedIn) {
-                Toast.makeText(this, getString(R.string.welcome_again) + ' ' + vmsi.getDisplayName(),
+                Toast.makeText(this, getString(R.string.welcome_again) + ' ' + vmsi.getName(),
                         Toast.LENGTH_SHORT).show();
                 startHomeActivity();
             } else {
@@ -227,8 +227,8 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
      * Guarda las SharedPreferences del email y la contraseña para poder iniciar sesión con la
      * huella y solicita iniciar sesión.
      *
-     * @param email    es el email del usuario.
-     * @param password es la contraseña del usuario.
+     * @param email    es el email del user.
+     * @param password es la contraseña del user.
      */
     private void saveBiometric(String email, String password) {
         loadingMessage(true);

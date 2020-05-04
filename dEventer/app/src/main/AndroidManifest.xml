@@ -76,7 +76,7 @@
             android:screenOrientation="fullSensor"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".ProfileActivity"
+            android:name=".view.ProfileActivity"
             android:screenOrientation="fullSensor"
             android:theme="@style/AppTheme" />
         <activity

@@ -67,7 +67,7 @@ public class AdapterMensajes extends RecyclerView.Adapter<HolderMensaje> {
     }
 
     public void addMensaje(MensajeRecibir m) {
-        //aqui creo que es donde debería comparar el token del usuario con el token que esta en el mensaje en database
+        //aqui creo que es donde debería comparar el token del user con el token que esta en el mensaje en database
         String tokenUsuarioActual = RestApiConstants.TOKEN;
         String titulo = m.getNombre();
         String mensaje = m.getMensaje();

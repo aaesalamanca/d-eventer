@@ -61,7 +61,7 @@ public class OwnEventsFragment extends Fragment implements ItemClickListener {
     }
 
     private void leerDatosMisPlanes() {
-        //recuperamos el id del usuario
+        //recuperamos el id del user
         FirebaseUser user = mAuth.getCurrentUser();
         String IDusuario = user.getUid();
 
