@@ -123,13 +123,13 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     /**
-     * Muestra un DatePickerDialog para elegir la fecha de nacimiento del usuario.
+     * Muestra un DatePickerDialog para elegir la fecha de nacimiento del user.
      * <p>
-     * Comprueba que el usuario es mayor de edad —muestra un Snackbar en caso contrario— y muestra
+     * Comprueba que el user es mayor de age —muestra un Snackbar en caso contrario— y muestra
      * esa fecha en el TextInputEditText de la fecha de nacimiento.
      */
     private void showBirthDialog() {
-        // Obtención de la fecha actual para comparar con la fecha de nacimiento del usuario.
+        // Obtención de la fecha actual para comparar con la fecha de nacimiento del user.
         // Además, se utilizan para establecer la fecha inicial con la que se muestra el
         // DatePickerDialog.
         Calendar calendar = Calendar.getInstance();
@@ -202,12 +202,12 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
      * Comprueba que el formulario es válido, es decir, que los campos de nombre, email, contraseña,
      * repetir contraseña y código postal no están vacíos.
      *
-     * @param name           es el nombre del usuario.
-     * @param email          es el email del usuario.
-     * @param password       es la contraseña del usuario.
-     * @param repeatPassword es la contraseña del usuario.
-     * @param postalCode     es el código postal del usuario.
-     * @param birth          es la fecha de nacimiento del usuario.
+     * @param name           es el nombre del user.
+     * @param email          es el email del user.
+     * @param password       es la contraseña del user.
+     * @param repeatPassword es la contraseña del user.
+     * @param postalCode     es el código postal del user.
+     * @param birth          es la fecha de nacimiento del user.
      * @return true si el formulario es válido y false en caso contrario.
      */
     private boolean isValidForm(String name, String email, String password, String repeatPassword,
@@ -229,7 +229,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     /**
-     * Comprueba que se ha seleccionado uno de los RadioButton de la elección de sexo.
+     * Comprueba que se ha seleccionado uno de los RadioButton de la elección de sex_stylized.
      *
      * @return true si se ha seleccionado un RadioButton, false si no hay ninguno seleccionado.
      */

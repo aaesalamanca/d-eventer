@@ -199,7 +199,7 @@
             android:layout_marginStart="@dimen/margin_16"
             android:layout_marginEnd="@dimen/margin_16"
             android:layout_marginBottom="@dimen/margin_16"
-            android:background="@drawable/sex_preference_background"
+            android:background="@drawable/blue_background"
             android:gravity="center"
             android:orientation="horizontal"
             android:padding="@dimen/padding_10">
@@ -214,7 +214,7 @@
                 android:fontFamily="@font/proximanovaregular"
                 android:padding="@dimen/padding_10"
                 android:text="@string/man"
-                android:textColor="@color/gris_sex_preference" />
+                android:textColor="@color/gris_sign_up" />
 
 
             <RadioButton
@@ -227,7 +227,7 @@
                 android:fontFamily="@font/proximanovaregular"
                 android:padding="@dimen/padding_10"
                 android:text="@string/woman"
-                android:textColor="@color/gris_sex_preference" />
+                android:textColor="@color/gris_sign_up" />
 
             <RadioButton
                 android:id="@+id/rbAny"
@@ -239,7 +239,7 @@
                 android:fontFamily="@font/proximanovaregular"
                 android:padding="@dimen/padding_10"
                 android:text="@string/any"
-                android:textColor="@color/gris_sex_preference" />
+                android:textColor="@color/gris_sign_up" />
 
         </RadioGroup>
 

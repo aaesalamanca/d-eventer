@@ -91,7 +91,7 @@
             app:cornerRadius="20dp">
 
             <TextView
-                android:id="@+id/datosPersonales"
+                android:id="@+id/tvPersonalData"
                 style="@style/TextAppearance.AppCompat.Light.SearchResult.Subtitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
