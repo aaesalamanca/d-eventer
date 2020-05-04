@@ -22,7 +22,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import java.io.IOException;
 import java.util.List;
 
-import es.achraf.deventer.fragments.FragmentPlanes;
+import es.achraf.deventer.fragments.EventsFragment;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -66,7 +66,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                             mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
                         }
 
-                        FragmentPlanes.txtUbicacionCreaPlan.setText(lugar);
+                        EventsFragment.txtUbicacionCreaPlan.setText(lugar);
 
                     } else
                         Snackbar.make(getWindow().getDecorView().getRootView(), "No se ha encontrado la localización proporcionada", Snackbar.LENGTH_SHORT).show();

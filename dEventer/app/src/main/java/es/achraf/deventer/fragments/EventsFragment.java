@@ -69,7 +69,7 @@ import es.achraf.deventer.interfaces.ItemClickListener;
 import es.achraf.deventer.model.Event;
 import es.achraf.deventer.model.User;
 
-public class FragmentPlanes extends Fragment implements ItemClickListener {
+public class EventsFragment extends Fragment implements ItemClickListener {
 
     private static final int CODIGO_PERMISOS = 123;
     private static final int COD_IMAGEN = 4040;
@@ -403,7 +403,7 @@ public class FragmentPlanes extends Fragment implements ItemClickListener {
     */
     //recupero los datos de cloud firestore
     private void leerDatos() {
-        // FragmentPlanes.mostrarProgressBar();
+        // EventsFragment.mostrarProgressBar();
         planes = new ArrayList<>();
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -435,7 +435,7 @@ public class FragmentPlanes extends Fragment implements ItemClickListener {
                         adapterPlan.notifyDataSetChanged();
                         recyclerViewPlanes.setLayoutManager(new LinearLayoutManager(getContext()));
 
-                        // FragmentPlanes.ocultarProgressBar();
+                        // EventsFragment.ocultarProgressBar();
                     } else {
                         Toast.makeText(getContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                     }
@@ -451,7 +451,7 @@ public class FragmentPlanes extends Fragment implements ItemClickListener {
 
             urlImagen = data.getData();
 
-            Glide.with(getActivity().getApplicationContext()).load(urlImagen).error(R.drawable.logo).dontTransform()
+            Glide.with(getActivity().getApplicationContext()).load(urlImagen).error(R.mipmap.logo).dontTransform()
                     .centerCrop()
                     .diskCacheStrategy(DiskCacheStrategy.ALL)//almacene la imagen en cache antes y despues de la carga de la magen, consiguiendo una disminucon del lag
                     .thumbnail(.5f).into(imgCreaPlan);
@@ -571,14 +571,14 @@ public class FragmentPlanes extends Fragment implements ItemClickListener {
 
         StorageReference storageReference = storage.getReference();
 
-        StorageReference sDuenoPlan = storageReference.child("Perfil").child(event.getUriImageDuenoPlan());
+        StorageReference sDuenoPlan = storageReference.child("ProfileActivity").child(event.getUriImageDuenoPlan());
 
         Task<Uri> taskDueno = sDuenoPlan.getDownloadUrl();
 
         taskDueno.addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
-                Glide.with(getContext()).load(uri).error(R.drawable.logo).dontTransform()
+                Glide.with(getContext()).load(uri).error(R.mipmap.logo).dontTransform()
                         .centerCrop()
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .thumbnail(.5f).into(imgPerfilUsuario);
@@ -592,7 +592,7 @@ public class FragmentPlanes extends Fragment implements ItemClickListener {
         taskPlan.addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
-                Glide.with(getContext()).load(uri).error(R.drawable.logo).dontTransform()
+                Glide.with(getContext()).load(uri).error(R.mipmap.logo).dontTransform()
                         .centerCrop()
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .thumbnail(.5f).into(imgPlanDetalle);

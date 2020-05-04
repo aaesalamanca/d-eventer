@@ -28,6 +28,8 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     // Fields
     private static final int AGE_LIMIT = 18;
 
+    private IViewModel.SignUp vmsu;
+
     private int userAge;
 
     private TextInputEditText tietName;
@@ -45,8 +47,6 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     private TextView tvLoading;
 
     private MaterialButton mbtnSignUp;
-
-    private IViewModel.SignUp vmsu;
 
     // Methods
 

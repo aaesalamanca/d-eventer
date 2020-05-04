@@ -52,7 +52,7 @@ import java.util.Objects;
 import de.hdodenhof.circleimageview.CircleImageView;
 import es.achraf.deventer.model.User;
 
-public class Perfil extends AppCompatActivity {
+public class ProfileActivity extends AppCompatActivity {
 
     private static final int COD_IMAGEN = 1010;
     public static final int CODIGO_PERMISOS = 123;
@@ -158,7 +158,7 @@ public class Perfil extends AppCompatActivity {
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
-                    Toast.makeText(Perfil.this, databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ProfileActivity.this, databaseError.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             });
         }
@@ -186,7 +186,7 @@ public class Perfil extends AppCompatActivity {
                             txtCp.setText(location);
 
                         } catch (JSONException e) {
-                            Toast.makeText(Perfil.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ProfileActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -203,7 +203,7 @@ public class Perfil extends AppCompatActivity {
 
             @Override
             public void onError(FacebookException e) {
-                Toast.makeText(Perfil.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(ProfileActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         };
     }
@@ -215,14 +215,14 @@ public class Perfil extends AppCompatActivity {
 
         if (currentAPIVersion >= android.os.Build.VERSION_CODES.M) {
 
-            if (ContextCompat.checkSelfPermission(Perfil.this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            if (ContextCompat.checkSelfPermission(ProfileActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
 
-                if (ActivityCompat.shouldShowRequestPermissionRationale(Perfil.this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
+                if (ActivityCompat.shouldShowRequestPermissionRationale(ProfileActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
 
-                    showDialog("Es necesario aceptar los permisos para poder cambiar su foto de perfil", Perfil.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.MANAGE_DOCUMENTS});
+                    showDialog("Es necesario aceptar los permisos para poder cambiar su foto de perfil", ProfileActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.MANAGE_DOCUMENTS});
 
                 } else {
-                    ActivityCompat.requestPermissions(Perfil.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.MANAGE_DOCUMENTS}, CODIGO_PERMISOS);
+                    ActivityCompat.requestPermissions(ProfileActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.MANAGE_DOCUMENTS}, CODIGO_PERMISOS);
                 }
                 return false;
             } else {
@@ -242,7 +242,7 @@ public class Perfil extends AppCompatActivity {
         alertBuilder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 
             public void onClick(DialogInterface dialog, int which) {
-                ActivityCompat.requestPermissions(Perfil.this, permission, CODIGO_PERMISOS);
+                ActivityCompat.requestPermissions(ProfileActivity.this, permission, CODIGO_PERMISOS);
             }
         });
         AlertDialog alert = alertBuilder.create();
@@ -255,7 +255,7 @@ public class Perfil extends AppCompatActivity {
         String rutaImagen = uId + "/fotoDePerfil.jpg";
 
 
-        StorageReference sPerfil = storageReference.child("Perfil").child(rutaImagen);
+        StorageReference sPerfil = storageReference.child("ProfileActivity").child(rutaImagen);
 
         Task<Uri> task = sPerfil.getDownloadUrl();
 
@@ -263,7 +263,7 @@ public class Perfil extends AppCompatActivity {
             @Override
             public void onSuccess(Uri uri) {
 
-                Glide.with(getApplicationContext()).load(uri).error(R.drawable.logo).dontTransform()
+                Glide.with(getApplicationContext()).load(uri).error(R.mipmap.logo).dontTransform()
                         .centerCrop()
                         .diskCacheStrategy(DiskCacheStrategy.ALL)//almacene la imagen en cache antes y despues de la carga de la magen, consiguiendo una disminucon del lag
                         .thumbnail(.5f).into(imgPerfil);
@@ -285,7 +285,7 @@ public class Perfil extends AppCompatActivity {
 
             String rutaImagen = uId + "/fotoDePerfil.jpg";
 
-            StorageReference sPerfil = storageReference.child("Perfil").child(rutaImagen);
+            StorageReference sPerfil = storageReference.child("ProfileActivity").child(rutaImagen);
 
             assert uri != null;
             UploadTask uploadTask = sPerfil.putFile(uri);
@@ -295,7 +295,7 @@ public class Perfil extends AppCompatActivity {
             uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    Glide.with(getApplicationContext()).load(uri).error(R.drawable.logo).dontTransform()
+                    Glide.with(getApplicationContext()).load(uri).error(R.mipmap.logo).dontTransform()
                             .centerCrop()
                             .diskCacheStrategy(DiskCacheStrategy.ALL)//almacene la imagen en cache antes y despues de la carga de la magen, consiguiendo una disminucon del lag
                             .thumbnail(.5f).into(imgPerfil);
@@ -304,7 +304,7 @@ public class Perfil extends AppCompatActivity {
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(Perfil.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ProfileActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             });
 

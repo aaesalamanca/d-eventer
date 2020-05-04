@@ -1,5 +1,6 @@
 package es.achraf.deventer.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,65 +29,71 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 
+import es.achraf.deventer.ChatActivity;
 import es.achraf.deventer.R;
-import es.achraf.deventer.adaptadores.AdapterRecyclerViewPlanes;
+import es.achraf.deventer.adaptadores.AdapterChatPlan;
 import es.achraf.deventer.interfaces.ItemClickListener;
 import es.achraf.deventer.model.Event;
 
-public class FragmentMisPlanes extends Fragment implements ItemClickListener {
+public class ChatFragment extends Fragment implements ItemClickListener {
 
-    private RecyclerView recyclerViewMisPlanes;
-    private AdapterRecyclerViewPlanes adapterMisPlanes;
+    private RecyclerView recyclerViewPlanesChat;
     private FirebaseAuth mAuth;
-    private FirebaseDatabase mDatabase;
+    private FirebaseDatabase db;
     private DatabaseReference reference;
-    private FirebaseFirestore db;
-    private ItemClickListener itemClickListener;
-
+    private FirebaseFirestore firestore;
+    private AdapterChatPlan adapterChatPlan;
     private ArrayList<Event> planes = new ArrayList<>();
+
+    private ItemClickListener itemClickListener;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_mis_planes, container, false);
-        this.itemClickListener = this;
-        mDatabase = FirebaseDatabase.getInstance();
-        reference = mDatabase.getReference();
-        mAuth = FirebaseAuth.getInstance();
-        db = FirebaseFirestore.getInstance();
+        View v = inflater.inflate(R.layout.fragment_chat, container, false);
 
-        this.recyclerViewMisPlanes = v.findViewById(R.id.recyclerViewMisPlanes);
-        leerDatosMisPlanes();
+        db = FirebaseDatabase.getInstance();
+        firestore = FirebaseFirestore.getInstance();
+        mAuth = FirebaseAuth.getInstance();
+        reference = db.getReference();
+
+        this.recyclerViewPlanesChat = v.findViewById(R.id.recyclerViewPlanes);
+        this.itemClickListener = this;
+
+        leerDatos();
+
         return v;
     }
 
-    private void leerDatosMisPlanes() {
-        //recuperamos el id del usuario
+
+    public void leerDatos() {
+
         FirebaseUser user = mAuth.getCurrentUser();
-        String IDusuario = user.getUid();
+        if (user != null) {
 
-        DatabaseReference usuario = reference.child(IDusuario);
-        usuario.child("planesApuntados").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                    String IDplan = ds.getValue().toString();
-                    leerPlan(IDplan);
+            DatabaseReference dbReferecnce = reference.child(user.getUid());
+
+            dbReferecnce.child("planesApuntados").addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    for (DataSnapshot ds : dataSnapshot.getChildren()) {
+
+                        String IDplan = ds.getValue().toString();
+                        leerPlan(IDplan);
+                    }
                 }
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(getContext(), databaseError.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
-
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    Toast.makeText(getContext(), databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
     }
 
     public void leerPlan(String id) {
 
-
-        DocumentReference ref = db.collection("tabla_planes").document(id);
+        DocumentReference ref = firestore.collection("tabla_planes").document(id);
 
         ref.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -115,10 +122,11 @@ public class FragmentMisPlanes extends Fragment implements ItemClickListener {
                     Toast.makeText(getContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                 }
 
-                adapterMisPlanes = new AdapterRecyclerViewPlanes(getContext(), planes, itemClickListener, R.layout.item_planes);
-                recyclerViewMisPlanes.setAdapter(adapterMisPlanes);
-                adapterMisPlanes.notifyDataSetChanged();
-                recyclerViewMisPlanes.setLayoutManager(new LinearLayoutManager(getContext()));
+                adapterChatPlan = new AdapterChatPlan(getContext(), planes, itemClickListener, R.layout.item_recycler_planes_chat);
+                recyclerViewPlanesChat.setAdapter(adapterChatPlan);
+                adapterChatPlan.notifyDataSetChanged();
+                recyclerViewPlanesChat.setLayoutManager(new LinearLayoutManager(getContext()));
+
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -130,6 +138,12 @@ public class FragmentMisPlanes extends Fragment implements ItemClickListener {
 
     @Override
     public void onItemClick(View view, int posicion) {
+        Event event = planes.get(posicion);
 
+        Intent intentChat = new Intent(getActivity(), ChatActivity.class);
+        intentChat.putExtra("id", event.getId());
+        intentChat.putExtra("titulo", event.getNombre());
+        intentChat.putExtra("imagen", event.getUrlImagen());
+        startActivity(intentChat);
     }
 }

@@ -42,7 +42,7 @@ import java.util.Random;
 import es.achraf.deventer.ChatActivity;
 import es.achraf.deventer.R;
 import es.achraf.deventer.mensaje.MensajeRecibir;
-import es.achraf.deventer.restApi.ConstantesRestApi;
+import es.achraf.deventer.restApi.RestApiConstants;
 
 
 public class AdapterMensajes extends RecyclerView.Adapter<HolderMensaje> {
@@ -68,7 +68,7 @@ public class AdapterMensajes extends RecyclerView.Adapter<HolderMensaje> {
 
     public void addMensaje(MensajeRecibir m) {
         //aqui creo que es donde debería comparar el token del usuario con el token que esta en el mensaje en database
-        String tokenUsuarioActual = ConstantesRestApi.TOKEN;
+        String tokenUsuarioActual = RestApiConstants.TOKEN;
         String titulo = m.getNombre();
         String mensaje = m.getMensaje();
 
@@ -79,7 +79,7 @@ public class AdapterMensajes extends RecyclerView.Adapter<HolderMensaje> {
 
 
 
-          //Toast.makeText(c, "TOKEN USUARIO: "+ConstantesRestApi.TOKEN+"\n"+"TOKEN MENSAJE: "+m.getToken(), Toast.LENGTH_SHORT).show();
+          //Toast.makeText(c, "TOKEN USUARIO: "+RestApiConstants.TOKEN+"\n"+"TOKEN MENSAJE: "+m.getToken(), Toast.LENGTH_SHORT).show();
         listMensaje.add(m);
         notifyItemInserted(listMensaje.size());
     }
@@ -170,7 +170,7 @@ public class AdapterMensajes extends RecyclerView.Adapter<HolderMensaje> {
             FirebaseStorage storage = FirebaseStorage.getInstance();
             StorageReference storageReference = storage.getReference();
             String ruta = listMensaje.get(position).getFotoPerfil();
-            StorageReference sCreaPlan = storageReference.child("Perfil").child(ruta);
+            StorageReference sCreaPlan = storageReference.child("ProfileActivity").child(ruta);
 
             Task<Uri> task = sCreaPlan.getDownloadUrl();
 
@@ -178,7 +178,7 @@ public class AdapterMensajes extends RecyclerView.Adapter<HolderMensaje> {
                 @Override
                 public void onSuccess(Uri uri) {
 
-                    Glide.with(c).load(uri).error(R.drawable.logo).dontTransform()
+                    Glide.with(c).load(uri).error(R.mipmap.logo).dontTransform()
                             .centerCrop()
                             .diskCacheStrategy(DiskCacheStrategy.ALL)//almacene la imagen en cache antes y despues de la carga de la magen, consiguiendo una disminucon del lag
                             .thumbnail(.5f).into(holder.getFotoMensajePerfil());

@@ -1,0 +1,21 @@
+<tabs>
+
+    <tab
+        activeColor="@color/blanco"
+        icon="@drawable/ic_home_black_24dp"
+        id="@+id/events_tab"
+        title="@string/events" />
+
+    <tab
+        activeColor="@color/blanco"
+        icon="@drawable/ic_local_activity_black_24dp"
+        id="@+id/own_events_tab"
+        title="@string/own_events" />
+
+    <tab
+        activeColor="@color/blanco"
+        icon="@drawable/ic_chat_black_24dp"
+        id="@+id/chat_tab"
+        title="@string/chat" />
+
+</tabs>

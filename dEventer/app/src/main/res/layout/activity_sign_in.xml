@@ -17,7 +17,7 @@
         android:layout_margin="@dimen/margin_10"
         android:contentDescription="@string/logo"
         android:scaleType="centerInside"
-        android:src="@drawable/logo" />
+        android:src="@mipmap/logo" />
 
     <TextView
         android:layout_width="match_parent"
@@ -31,7 +31,7 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilEmail"
-        style="@style/LoginTextInputLayoutStyle"
+        style="@style/text_input_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/margin_16"
@@ -57,7 +57,7 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilPassword"
-        style="@style/LoginTextInputLayoutStyle"
+        style="@style/text_input_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/margin_16"

@@ -7,6 +7,12 @@ import es.achraf.deventer.view.IView;
 public interface IViewModel {
 
     // Fields
+
+    // Clave para la obtención del email en las SharedPreferences
+    String KSP_EMAIL = "email";
+    // Clave para la obtención de la contraseña en las SharedPreferences
+    String KSP_PASSWORD = "password";
+    // Clave de usuarios en el JSON de la base de datos
     String USERS = "users";
 
     // Interfaces
