@@ -8,22 +8,22 @@
     tools:context=".view.HomeActivity">
 
     <include
-        layout="@layout/barra_inicio"
+        layout="@layout/top_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="550dp">
-
+        android:layout_height="@dimen/size_550">
 
         <FrameLayout
-            android:id="@+id/fragmentContenedor"
+            android:id="@+id/frgContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/colorAccent" />
+
     </RelativeLayout>
 
-    <include layout="@layout/container_bottom_app_bar" />
+    <include layout="@layout/bottom_bar" />
 
 </LinearLayout>

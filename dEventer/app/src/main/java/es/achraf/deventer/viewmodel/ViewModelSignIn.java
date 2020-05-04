@@ -16,11 +16,6 @@ public class ViewModelSignIn implements IViewModel.SetGetPreferencesListener,
 
     // Fields
 
-    // Clave para la obtención del email en las SharedPreferences
-    private static final String KSP_EMAIL = "email";
-    // Clave para la obtención de la contraseña en las SharedPreferences
-    private static final String KSP_PASSWORD = "password";
-
     private IView.SignInCompleteListener signInCompleteListener;
     private IView.GetPreferencesListener getPreferencesListener;
 
@@ -37,7 +32,7 @@ public class ViewModelSignIn implements IViewModel.SetGetPreferencesListener,
     @Override
     public String getEmail() {
         return getPreferencesListener.getPreferences(MODE_PRIVATE)
-                .getString(KSP_EMAIL, "");
+                .getString(IViewModel.KSP_EMAIL, "");
     }
 
     /**
@@ -51,9 +46,14 @@ public class ViewModelSignIn implements IViewModel.SetGetPreferencesListener,
     @Override
     public String getPassword() {
         return getPreferencesListener.getPreferences(MODE_PRIVATE)
-                .getString(KSP_PASSWORD, "");
+                .getString(IViewModel.KSP_PASSWORD, "");
     }
 
+    /**
+     * Devuelve el nombre del usuario.
+     *
+     * @return el nombre del usuario.
+     */
     @Override
     public String getDisplayName() {
         return FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
@@ -115,7 +115,7 @@ public class ViewModelSignIn implements IViewModel.SetGetPreferencesListener,
         password = password.trim();
 
         if (saveBiometric) {
-            saveBiometric(email, password);
+            savePreferences(email, password);
         }
 
         FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password)
@@ -136,11 +136,11 @@ public class ViewModelSignIn implements IViewModel.SetGetPreferencesListener,
      * @param email    es el email del usuario.
      * @param password es la contraseña del usuario.
      */
-    private void saveBiometric(String email, String password) {
+    private void savePreferences(String email, String password) {
         SharedPreferences sharedPreferences = getPreferencesListener.getPreferences(MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(KSP_EMAIL, email);
-        editor.putString(KSP_PASSWORD, password);
+        editor.putString(IViewModel.KSP_EMAIL, email);
+        editor.putString(IViewModel.KSP_PASSWORD, password);
         editor.apply();
     }
 

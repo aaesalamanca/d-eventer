@@ -72,7 +72,7 @@ public class AdapterRecyclerViewPlanes extends RecyclerView.Adapter<AdapterRecyc
         task.addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
-                Glide.with(context).load(uri).error(R.drawable.logo).fitCenter().into(holder.imgPlan);
+                Glide.with(context).load(uri).error(R.mipmap.logo).fitCenter().into(holder.imgPlan);
             }
         });
 

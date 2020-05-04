@@ -1,6 +1,12 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- Base application theme. -->
+    <!--
+
+     Estilos generados por defecto por Android Studio.
+
+     Establece los colores primarios que definirán el aspecto general de la aplicación.
+
+     -->
     <style name="AppTheme" parent="Theme.MaterialComponents.Light">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrincipal</item>
@@ -11,8 +17,13 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <!-- Tema de SignInActivity para cargar el splash screen -->
+    <style name="splash" parent="@style/Theme.MaterialComponents.Light.NoActionBar.Bridge">
+        <item name="android:windowBackground">@drawable/splash_screen</item>
+    </style>
+
     <!-- Estilo para los TextInputLayout -->
-    <style name="LoginTextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+    <style name="text_input_layout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <item name="boxStrokeColor">#BAFFFFFF</item>
         <item name="boxCornerRadiusBottomStart">20dp</item>
         <item name="boxCornerRadiusTopEnd">20dp</item>
@@ -20,14 +31,21 @@
         <item name="boxStrokeWidth">1dp</item>
     </style>
 
+    <!-- Estilos para la Top Bar -->
+    <style name="AppTheme.AppBarOverlay" parent="Theme.AppCompat" />
+    <style name="AppTheme.PopupOverlay" parent="Theme.AppCompat.Light" />
+
+    <!-- Estilo para la Bottom Bar -->
+    <style name="AppTheme.TransNav" parent="AppTheme">
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:windowTranslucentNavigation">true</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+    </style>
+
     <style name="AppTheme.NoActionBar" parent="Theme.AppCompat">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
-
-    <style name="AppTheme.AppBarOverlay" parent="Theme.AppCompat" />
-
-    <style name="AppTheme.PopupOverlay" parent="Theme.AppCompat.Light" />
 
 
     <style name="ThemeToolbar" parent="Theme.AppCompat.Light.DarkActionBar">
@@ -50,17 +68,6 @@
         </item>
         <item name="actionOverflowMenuStyle">@style/Widget.MaterialComponents.PopupMenu.Overflow
         </item>
-    </style>
-
-    <style name="TemaSplash" parent="@style/Theme.MaterialComponents.Light.NoActionBar.Bridge">
-        <item name="android:windowBackground">@drawable/splash_screen</item>
-    </style>
-
-
-    <style name="AppTheme.TransNav" parent="AppTheme">
-        <item name="android:navigationBarColor">@android:color/transparent</item>
-        <item name="android:windowTranslucentNavigation">true</item>
-        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
     </style>
 
     <style name="full_screen_dialog">

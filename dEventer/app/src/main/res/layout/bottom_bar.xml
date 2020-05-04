@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.roughike.bottombar.BottomBar xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/bottomBar"
+    android:id="@+id/bottom_bar"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="bottom"
     android:background="@color/colorPrincipal"
     android:theme="@style/AppTheme.TransNav"
     app:bb_behavior="shifting"
-    app:bb_tabXmlResource="@xml/barra_navegacion" />
+    app:bb_tabXmlResource="@xml/bottom_bar_tabs" />

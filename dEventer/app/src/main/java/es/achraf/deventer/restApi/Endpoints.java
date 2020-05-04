@@ -10,9 +10,9 @@ import retrofit2.http.Path;
 public interface Endpoints {
 
     @FormUrlEncoded
-    @POST(ConstantesRestApi.KEY_POST_ID_TOKEN)
+    @POST(RestApiConstants.KEY_POST_ID_TOKEN)
     Call<Respuesta> registrarTokenId(@Field("token") String token, @Field("mensaje") String mensaje);
 
-    @GET(ConstantesRestApi.KEY_TOQUE_ANIMAL)
+    @GET(RestApiConstants.KEY_TOQUE_ANIMAL)
     Call<Respuesta> traerUsuario(@Path("id") String id, @Path("mensaje") String mensaje);
 }

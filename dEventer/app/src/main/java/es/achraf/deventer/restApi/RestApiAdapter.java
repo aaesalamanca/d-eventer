@@ -6,7 +6,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class RestApiAdapter {
 
     public Endpoints establecerConexionApi() {
-        Retrofit retrofit = new Retrofit.Builder().baseUrl(ConstantesRestApi.ROOT_URL).addConverterFactory(GsonConverterFactory.create()).build();
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(RestApiConstants.ROOT_URL).addConverterFactory(GsonConverterFactory.create()).build();
         return retrofit.create(Endpoints.class);
     }
 }

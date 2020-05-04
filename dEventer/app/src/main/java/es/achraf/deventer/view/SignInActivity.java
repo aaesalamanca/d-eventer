@@ -35,6 +35,8 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     // Fields
     private static final int RC_GOOGLE_SIGN_IN = 0; // Request code para lanzar el SignIn con Google
 
+    private ViewModelSignIn vmsi;
+
     private TextInputEditText tietEmail;
     private TextInputEditText tietPassword;
 
@@ -45,8 +47,6 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
 
     private ProgressBar pbLoading;
     private TextView tvLoading;
-
-    private ViewModelSignIn vmsi;
 
     // https://firebase.google.com/docs/auth/android/google-signin#authenticate_with_firebase
     // https://developers.google.com/identity/sign-in/android/sign-in#configure_google_sign-in_and_the_googlesigninclient_object
@@ -72,13 +72,11 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
      */
     private void init() {
         vmsi = new ViewModelSignIn();
-
         // Comprueba que el usuario ya ha iniciado sesión previamente para lanzar la actividad
         // de inicio.
         if (vmsi.isSignedIn()) {
             startHomeActivity();
         }
-
         // Establece los Listener para el ViewModelSignUp asociado a esta vista
         vmsi.setSignInCompleteListener(signedIn -> {
             loadingMessage(false);

@@ -1,6 +1,5 @@
 package es.achraf.deventer.view;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -8,118 +7,153 @@ import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.iid.FirebaseInstanceId;
-import com.google.firebase.iid.InstanceIdResult;
 import com.roughike.bottombar.BottomBar;
 
-import es.achraf.deventer.Perfil;
+import es.achraf.deventer.ProfileActivity;
 import es.achraf.deventer.R;
-import es.achraf.deventer.fragments.FragmentChat;
-import es.achraf.deventer.fragments.FragmentMisPlanes;
-import es.achraf.deventer.fragments.FragmentPlanes;
-import es.achraf.deventer.restApi.ConstantesRestApi;
-import es.achraf.deventer.viewmodel.IViewModel;
+import es.achraf.deventer.fragments.ChatFragment;
+import es.achraf.deventer.fragments.EventsFragment;
+import es.achraf.deventer.fragments.OwnEventsFragment;
+import es.achraf.deventer.restApi.RestApiConstants;
+import es.achraf.deventer.viewmodel.ViewModelHome;
 
 
 public class HomeActivity extends AppCompatActivity {
 
+    // Fields
+    private ViewModelHome vmh;
+
     // Methods
 
+    /**
+     * Primer método ejecutado por la actividad. Inicializa los elmentos de la actividad.
+     *
+     * @param savedInstanceState es el bundle que almacena los datos del estado de la actividad
+     *                           cuando se produce un cambio como rotaciones de la pantalla.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        init();
+    }
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+    /**
+     * Inicializa los elementos de la actividad.
+     */
+    private void init() {
+        vmh = new ViewModelHome();
+        vmh.setSignOutListener(this::startSignInActivity);
 
-        BottomBar bottomBar = findViewById(R.id.bottomBar);
-        bottomBar.setOnTabSelectListener(tabId -> {
-            if (tabId == R.id.tab_planes) {
-                FragmentPlanes fPlanes = new FragmentPlanes();
-                cambiarFragment(fPlanes);
+        setSupportActionBar(findViewById(R.id.toolbar));
 
-            } else if (tabId == R.id.tab_misplanes) {
-                FragmentMisPlanes fMisPlanes = new FragmentMisPlanes();
-                cambiarFragment(fMisPlanes);
-
-            } else if (tabId == R.id.tab_chat) {
-                FragmentChat fChat = new FragmentChat();
-                cambiarFragment(fChat);
+        BottomBar bottomBar = findViewById(R.id.bottom_bar);
+        bottomBar.setOnTabReselectListener(tabId -> {
+            switch (tabId) {
+                case R.id.events_tab:
+                    EventsFragment frgEvents = new EventsFragment();
+                    loadFragment(frgEvents);
+                    break;
+                case R.id.own_events_tab:
+                    OwnEventsFragment frgOwnEvents = new OwnEventsFragment();
+                    loadFragment(frgOwnEvents);
+                    break;
+                case R.id.chat_tab:
+                    ChatFragment frgChat = new ChatFragment();
+                    loadFragment(frgChat);
+                    break;
+                default:
+                    break;
             }
         });
     }
 
-    public void cambiarFragment(Fragment fragment) {
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContenedor, fragment).commit();
-
-        recuperarToken();
+    /**
+     * Carga el Fragment que debe visualizarse.
+     *
+     * @param fragment es el Fragment a visualizar.
+     */
+    private void loadFragment(Fragment fragment) {
+        getSupportFragmentManager().beginTransaction().replace(R.id.frgContainer, fragment).commit();
+        getToken();
     }
 
+    /**
+     * Obtiene el Token de Firebase para las notificaciones.
+     */
+    private void getToken() {
+        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(instanceIdResult -> {
+            String token = instanceIdResult.getToken();
+            RestApiConstants.TOKEN = token;
+        });
+    }
+
+    /**
+     * Establece el menú de la aplicación.
+     *
+     * @param menu es el menú que se va a cargar.
+     * @return true, pues se ha creado el menú.
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu, menu);
         return true;
     }
 
-
-    public void recuperarToken() {
-        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(new OnSuccessListener<InstanceIdResult>() {
-            @Override
-            public void onSuccess(InstanceIdResult instanceIdResult) {
-                String token = instanceIdResult.getToken();
-                //Toast.makeText(getApplicationContext(), token, Toast.LENGTH_SHORT).show();
-                ConstantesRestApi.TOKEN = token;
-            }
-        });
+    /**
+     * Handler que ejecuta la acción requerida según el ítem seleccionado en el menú.
+     *
+     * @param item es el ítem selecciconado.
+     * @return
+     */
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.iProfile:
+                startProfileActivity();
+                break;
+            case R.id.iSignOut:
+                showSignOutConfirm();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
-    public void cerrarSession() {
-        FirebaseAuth mAuth = FirebaseAuth.getInstance();
-        Intent intentLogin = new Intent(HomeActivity.this, SignInActivity.class);
-        startActivity(intentLogin);
-        finish();
-        mAuth.signOut();
-    }
-
-
-    public void cuadroDialogo(String mensaje, String titulo) {
+    /**
+     * Muestra el diálogo de confirmación para cerrar la sesión.
+     */
+    private void showSignOutConfirm() {
         new MaterialAlertDialogBuilder(this)
-                .setTitle(titulo)
-                .setMessage(mensaje)
-                .setPositiveButton("CERRAR SESIÓN", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        cerrarSession();
-                    }
+                .setTitle(R.string.sign_out)
+                .setMessage(R.string.confirm_sign_out)
+                .setPositiveButton(R.string.sign_out, (showDialog, which) -> {
+                    vmh.signOut();
                 })
-                .setNegativeButton("CANCELAR", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
+                .setNegativeButton(R.string.cancel, (dialog, which) -> {
 
-                    }
                 })
                 .show();
     }
 
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.mSalir:
-                cuadroDialogo("¿Seguro que desea cerrar sesión?", "Cerrar sesión");
-                break;
+    /**
+     * Lanza la actividad para ver el perfil del usuario.
+     */
+    private void startProfileActivity() {
+        Intent profileIntent = new Intent(this, ProfileActivity.class);
+        startActivity(profileIntent);
+    }
 
-            case R.id.mPerfil:
-                Intent intentPerfil = new Intent(HomeActivity.this, Perfil.class);
-                startActivity(intentPerfil);
-                break;
-        }
-        return super.onOptionsItemSelected(item);
+    /**
+     * Lanza la actividad de sign in para volver a iniciar sesión.
+     */
+    private void startSignInActivity() {
+        Intent signInIntent = new Intent(this, SignInActivity.class);
+        startActivity(signInIntent);
+
+        finish();
     }
 }

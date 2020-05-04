@@ -51,6 +51,15 @@
     <string name="no_password_match">Las contraseñas no coinciden</string>
     <string name="succeeded_sign_up">Registrado con éxito</string>
 
+    <!-- activity_home -->
+    <string name="settings">Ajustes</string>
+    <string name="profile">Mi perfil</string>
+    <string name="sign_out">Cerrar sesión</string>
+    <string name="confirm_sign_out">¿Seguro que desea cerrar sesión?</string>
+    <string name="events">Planes</string>
+    <string name="own_events">Mis planes</string>
+    <string name="chat">Chat</string>
+
     <string name="title_activity_inicio">Inicio</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -65,9 +74,6 @@
     <string name="inicio">Inicio</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
-    <string name="cerrar_sesion">Cerrar sesion</string>
-    <string name="mi_perfil">Mi perfil</string>
-    <string name="ajustes">Ajustes</string>
     <string name="nombre">Nombre</string>
     <string name="apellidos">Apellidos</string>
     <string name="correo_electr_nicoPerfil">Correo electrónico</string>

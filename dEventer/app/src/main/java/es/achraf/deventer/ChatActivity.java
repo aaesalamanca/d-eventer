@@ -43,7 +43,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import es.achraf.deventer.adaptadores.AdapterMensajes;
 import es.achraf.deventer.mensaje.MensajeEnviar;
 import es.achraf.deventer.mensaje.MensajeRecibir;
-import es.achraf.deventer.restApi.ConstantesRestApi;
+import es.achraf.deventer.restApi.RestApiConstants;
 import es.achraf.deventer.restApi.Endpoints;
 import es.achraf.deventer.restApi.Respuesta;
 import es.achraf.deventer.restApi.RestApiAdapter;
@@ -112,7 +112,7 @@ public class ChatActivity extends AppCompatActivity {
             task.addOnSuccessListener(new OnSuccessListener<Uri>() {
                 @Override
                 public void onSuccess(Uri uri) {
-                    Glide.with(ChatActivity.this).load(uri).error(R.drawable.logo).fitCenter().into(fotoPlanChat);
+                    Glide.with(ChatActivity.this).load(uri).error(R.mipmap.logo).fitCenter().into(fotoPlanChat);
                     tituloPlanChat.setText(tituloPlan);
                 }
             }).addOnFailureListener(new OnFailureListener() {
@@ -148,7 +148,7 @@ public class ChatActivity extends AppCompatActivity {
                     MensajeEnviar mEnviar = new MensajeEnviar(mensaje, nombreUsuario, fotoPerfilCadena, "1", ServerValue.TIMESTAMP);
 
 
-                    String idUsuario = ConstantesRestApi.TOKEN;
+                    String idUsuario = RestApiConstants.TOKEN;
                     mEnviar.setToken(idUsuario);
 
                     String idMensaje = databaseReference.child(idPlan).push().getKey();
@@ -156,7 +156,7 @@ public class ChatActivity extends AppCompatActivity {
                         databaseReference.child(idPlan).child(idMensaje).setValue(mEnviar);
                     txtMensaje.setText("");
 
-                    //  Toast.makeText(ChatActivity.this, ConstantesRestApi.TOKEN, Toast.LENGTH_SHORT).show();
+                    //  Toast.makeText(ChatActivity.this, RestApiConstants.TOKEN, Toast.LENGTH_SHORT).show();
 
 
                     //  enviarNotificacion(idUsuario, idMensaje, mEnviar, idPlan);
