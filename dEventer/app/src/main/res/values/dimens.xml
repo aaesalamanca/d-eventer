@@ -34,4 +34,5 @@
     <dimen name="padding_20">20dp</dimen>
 
     <dimen name="elevation_10">10dp</dimen>
+    <dimen name="elevation_16">16dp</dimen>
 </resources>

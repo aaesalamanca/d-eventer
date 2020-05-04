@@ -55,8 +55,12 @@ public interface IView {
          * datos
          *
          * @param cloudUri es la Uri de la imagen en la base de datos.
+         * @param isChange indica si se ha actualizado o no la imagen:
+         *                 <p>
+         *                 True -> Se ha actualizado
+         *                 False -> No se ha actualizado
          */
-        void onGetImageComplete(Uri cloudUri);
+        void onGetImageComplete(Uri cloudUri, boolean isChange);
     }
 
     interface SignOutListener {

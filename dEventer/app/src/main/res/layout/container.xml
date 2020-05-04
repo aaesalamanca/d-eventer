@@ -5,7 +5,6 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/fabCreaPlan"
         android:layout_width="wrap_content"
@@ -16,7 +15,7 @@
         android:elevation="@dimen/fab_margin"
         android:fontFamily="@font/proximanovaregular"
         android:text="@string/crear_plan"
-        android:textColor="#FFFFFF"
+        android:textColor="@color/blanco"
         android:theme="@style/AppTheme" />
 
 </LinearLayout>

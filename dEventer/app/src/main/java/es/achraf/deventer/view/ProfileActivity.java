@@ -63,10 +63,12 @@ public class ProfileActivity extends AppCompatActivity {
     private void init() {
         vmp = new ViewModelProfile();
         vmp.setGetProfileListener(this::getProfile);
-        vmp.setGetImageListener(cloudUri -> {
+        vmp.setGetImageListener((cloudUri, isChange) -> {
             getImage(cloudUri);
-            Snackbar.make(getWindow().getDecorView().getRootView(),
-                    R.string.succeded_image_change, Snackbar.LENGTH_SHORT).show();
+            if (isChange) {
+                Snackbar.make(getWindow().getDecorView().getRootView(),
+                        R.string.succeded_image_change, Snackbar.LENGTH_SHORT).show();
+            }
         });
         vmp.getImage();
 
@@ -168,7 +170,7 @@ public class ProfileActivity extends AppCompatActivity {
     private void getImage(Uri cloudUri) {
         Glide.with(getApplicationContext()).load(cloudUri).error(R.mipmap.logo).dontTransform()
                 .centerCrop()
-                .diskCacheStrategy(DiskCacheStrategy.ALL)//almacene la imagen en cache antes y despues de la carga de la magen, consiguiendo una disminucon del lag
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .thumbnail(.5f).into(civProfile);
     }
 
