@@ -1,5 +1,5 @@
 <h1 align="center">
-	<img src="../images/logo-transparent.png" height="250" alt="dEventer"/>
+	<img src="../images/logo.png" alt="dEventer"/>
 </h1>
 
 **Realizado por:**
