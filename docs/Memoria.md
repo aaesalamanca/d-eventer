@@ -2,7 +2,7 @@
 	<img src="../images/logo.png" alt="dEventer"/>
 </h1>
 
-**Realizado por:**
+**Realizado por:**	
 
 * Martín Escamilla, José Ignacio
 * Ahamad, Achraf
@@ -123,7 +123,7 @@ De este modo, los usuarios registrados que utilicen la _app_ serán capaces tant
 
 Todo ello aderezado de un conjunto de características adicionales —como _chat_ entre los miembros inscritos a una actividad— que detallaremos en profundidad durante el desarrollo de este documento; en futuros apartados.
 
-El deseo y la decisión de llevar a cabo una aplicación de este tipo se tomó a principios de marzo —con lo lejos, aparentemente, que queda ya en el momento de escribir esto—. La decisión se basaba, entre otros, en dos pilares fundamentales.
+El deseo y la decisión de llevar a cabo una aplicación de este tipo se tomó a principios de marzo —con lo lejos, aparentemente, que queda ya en el momento de escribir esto—. La decisión se basaba, entre otros, en tres pilares fundamentales.
 
 Uno, no encontrábamos una aplicación en `Play Store` que supliera esta necesidad —propia para el caso— de forma específica y según nuestros requisitos. Sí, es cierto que existen gigantes como Meetup o Eventbrite. El problema de estas es, por un lado, la orientación de la primera al hecho de conocer gente nueva y no tanto a la organización de planes con conocidos y, por el otro, el carácter profesional o corporativo asociado a Eventbrite —más en la línea del _coworking_, emprendimiento y desarrollo de _startups_—.
 
@@ -132,6 +132,8 @@ Dos, Fever, una propuesta potente, asentada, y bastante similar en apariencia a 
 Nuestra idea, por el contrario, no podía estar más alejada. Queremos desarrollar una aplicación en las antípodas de las anteriores, con un toque desenfadado, alejada de toda pretensión de explotación comercial por parte de posibles colaboradores futuros que quieran publicar en ella sus productos —eventos o actividades— a aquellos que la usen.
 
 Debe entenderse como un lugar en el que concretar aquel partido de fútbol que siempre se intenta jugar entre amigos y nunca sale; ese _ya si eso quedamos_ tan común con compañeros o conocidos a los que nos encontramos tras demasiado tiempo sin saber de ellos; o, por qué no, para organizar la salida del viernes por la noche con los compañeros de clase. El contenido ha de estar generado, en todo momento, por usuarios particulares e individuales. Las empresas que pudieran estar asociadas a los lugares en los que van a tener lugar esos eventos no son el tipo de usuario que esperamos en nuestra aplicación.
+
+Y tres; tras una búsqueda de mayor profundidad, dimos con alternativas más alineadas con los objetivos que planteamos: dplanes, Plan & Go y GeoKeda. Las dos primeras desaparecieron de las _stores_ en las que estaban disponibles; desconemos los motivos que llevaron a dicho cierre en dplanes, pero Plan & Go dejó de estar disponible el 30 de septiembre de 2019 por falta de apoyo financiero aun habiendo conseguido más de 50.000 descargas en su primer año en Google Play. Plan & Go es, de hecho, la aplicación que más se asemeja a dEventer. Está en primera instancia orientada a los ciudadanos de la comunidad de Madrid y, lo más importante, se centraba en planes sin ánimo de lucro por el organizador, a pesar de que los hubiera con pagos para acceder a los lugares en los que tendría lugar el evento. GeoKeda, por su parte, sigue en activo con, también, más de 50.000 descargas en Play Store y los usuarios continúan usándola a día de hoy. No obstante, creemos que su aspecto está demasiado anclado en el Material Design presentado allá por 2014 y la última actualización que recibió la _app_ móvil fue el 18 de abril de 2017, hace más de tres años, lo cual deja entrever la falta de soporte actual y el añadido de nuevas características y funcionalidades.
 
 Como ya se señaló previamente, esta decisión se tomó en los primeros días de marzo, cuando la coyuntura todavía era propicia y no nos había alcanzado la crisis asociada al COVID-19. Tras el estado de alarma decretado por el Gobierno de España, las restricciónes a la libre circulación y reunión de personas y la lenta recuperación y vuelta a la normalidad que se prevé, especialmente en materia sociocultural, pudiera parecer el momento menos adecuado para un desarrollo de esta naturaleza. No podemos negar la mayor, lo sabemos, no es la situación adecuada para que prospere. No obstante, confiamos en que tras la recuperación, con el paso del tiempo, fuera capaz de erigirse en una opción válida para la realización de actividades con un fuerte componente social y, sobre todo, sin grandes pretensiones; planes sencillos que surgen en el día a día y no cuestan nada o casi nada.
 
@@ -433,6 +435,14 @@ dependencies {
 * [Wikipedia | Eventbrite](https://en.wikipedia.org/wiki/Eventbrite)
 * [Eventbrite](https://www.eventbrite.com)
 * [Fever](https://feverup.com)
+* [dplanes](http://dplanes.es)
+* [Plan & Go](https://www.planandgoapp.com)
+* [Hablemos de Empresas | Plan & Go, la App que cambiará tu forma de disfrutar del tiempo libre](https://hablemosdeempresas.com/autonomos/plan-and-go-app)
+* [El Referente | Plan & Go, la app que permite compartir planes en Madrid, ya disponible en iOS](https://www.elreferente.es/tecnologicos/plan-go-disponible-ios-31978)
+* [El Referente | Plan & Go cierra una ronda de financiación de 150.000 euros](https://www.elreferente.es/mas---/ronda-de-financiacion-plan-and-go-32757)
+* [El País | Sube tu propuesta y conoce gente](https://elpais.com/ccaa/2017/12/30/madrid/1514650159_393417.html)
+* [Applicantes | Plan&go cerrará el próximo 30 de septiembre](https://applicantes.com/plan-and-go-cierra-30-septiembre/)
+* [GeoKeda](https://madrid.geokeda.es)
 * [Wikipedia | Ticketmaster](https://en.wikipedia.org/wiki/Ticketmaster)
 * [Ticketmaster](https://www.ticketmaster.com)
 * [Tutorialspoint | Learn MVC Framework](https://www.tutorialspoint.com/mvc_framework/index.htm)
@@ -444,6 +454,7 @@ dependencies {
 * [Medium | Model View Presenter(MVP) in Android with a simple demo project](https://medium.com/cr8resume/make-you-hand-dirty-with-mvp-model-view-presenter-eab5b5c16e42)
 * [raywenderlich.com | Getting Started with MVP (Model View Presenter) on Android](https://www.raywenderlich.com/7026-getting-started-with-mvp-model-view-presenter-on-android)
 * [Material Design](https://material.io)
+* [Wikipedia | Material Design](https://en.wikipedia.org/wiki/Material_Design)
 * [Firebase Docs | Add Firebase to your Android project](https://firebase.google.com/docs/android/setup)
 * [Material Design The color system](https://material.io/design/color/the-color-system.html)
 * [Material Design Color Tool](https://material.io/resources/color)
