@@ -51,7 +51,7 @@ public class HomeActivity extends AppCompatActivity {
         setSupportActionBar(findViewById(R.id.toolbar));
 
         BottomBar bottomBar = findViewById(R.id.bottom_bar);
-        bottomBar.setOnTabReselectListener(tabId -> {
+        bottomBar.setOnTabSelectListener(tabId -> {
             switch (tabId) {
                 case R.id.events_tab:
                     EventsFragment frgEvents = new EventsFragment();
