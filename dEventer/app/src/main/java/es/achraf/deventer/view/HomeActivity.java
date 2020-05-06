@@ -85,10 +85,8 @@ public class HomeActivity extends AppCompatActivity {
      * Obtiene el Token de Firebase para las notificaciones.
      */
     private void getToken() {
-        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(instanceIdResult -> {
-            String token = instanceIdResult.getToken();
-            RestApiConstants.TOKEN = token;
-        });
+        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(instanceIdResult ->
+                RestApiConstants.TOKEN = instanceIdResult.getToken());
     }
 
     /**
@@ -107,7 +105,7 @@ public class HomeActivity extends AppCompatActivity {
      * Handler que ejecuta la acción requerida según el ítem seleccionado en el menú.
      *
      * @param item es el ítem selecciconado.
-     * @return
+     * @return la opción seleccionada.
      */
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -129,9 +127,7 @@ public class HomeActivity extends AppCompatActivity {
         new MaterialAlertDialogBuilder(this)
                 .setTitle(R.string.sign_out)
                 .setMessage(R.string.confirm_sign_out)
-                .setPositiveButton(R.string.sign_out, (showDialog, which) -> {
-                    vmh.signOut();
-                })
+                .setPositiveButton(R.string.sign_out, (showDialog, which) -> vmh.signOut())
                 .setNegativeButton(R.string.cancel, (dialog, which) -> {
 
                 })
