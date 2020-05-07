@@ -24,22 +24,22 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ProgressBar
-            android:id="@+id/progressbarPlanes"
+            android:id="@+id/pbLoading"
             style="@style/Widget.AppCompat.ProgressBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="#ffff"
+            android:backgroundTint="@color/blanco"
             android:indeterminate="true"
             android:indeterminateTint="@color/errorText"
             android:visibility="gone" />
 
         <TextView
-            android:id="@+id/cargandoPlanes"
+            android:id="@+id/tvLoading"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/proximanovaregular"
             android:gravity="center"
-            android:text="Cargando planes..."
+            android:text="@string/loading_events"
             android:textColor="@color/colorPrincipal"
             android:textStyle="bold"
             android:visibility="gone" />
@@ -48,7 +48,7 @@
 
     <include
         android:id="@+id/include"
-        layout="@layout/container" />
+        layout="@layout/button_create_event" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -78,6 +78,20 @@
     <string name="permission_reminder">Recordatorio de permiso</string>
     <string name="accept_permission">Es necesario aceptar los permisos para poder cambiar su foto de perfil</string>
 
+    <!-- fragment_events -->
+    <string name="loading_events">Cargando planes...</string>
+
+    <!-- dialog_create_event -->
+    <string name="event_presentation">Presenta el plan</string>
+    <string name="put_image_event">(Ponle una imagen al plan)</string>
+    <string name="name_event">¿Cómo se llama el plan?</string>
+    <string name="date">¿Cúando es?</string>
+    <string name="time">¿A qué hora es?</string>
+    <string name="location">¿Dónde es?</string>
+    <string name="price">¿Cúanto cuesta?</string>
+    <string name="description">¿Quieres describir el plan?</string>
+    <string name="create_event">Crear plan</string>
+
     <string name="title_activity_inicio">Inicio</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -111,21 +125,12 @@
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
-    <string name="crear_plan">Crear plan</string>
     <string name="ubicacion">Ubicacion</string>
     <string name="hora_del_plan">Hora del event</string>
     <string name="fecha_del_plan">Fecha del event</string>
     <string name="titulo_del_plan">Titulo del Plan</string>
-    <string name="presenta_el_plan">Presenta el event</string>
-    <string name="c_mo_se_llama_el_plan">¿Cómo se llama el event?</string>
-    <string name="c_ando_es">¿Cúando es?</string>
-    <string name="a_qu_hora_es">¿A qué hora es?</string>
-    <string name="d_nde_es">¿Dónde es?</string>
-    <string name="c_anto_cuesta">¿Cúanto cuesta?</string>
     <string name="crear">Crear event</string>
-    <string name="ponle_una_imagen_al_plan">(Ponle una imagen al event)</string>
     <string name="busca_ciudades_calles_lugares">Busca ciudades, calles, lugares ...</string>
-    <string name="quieres_describir_el_plan">¿Quieres describir el event?</string>
     <string name="fecha">Fecha</string>
     <string name="informaci_n_del_plan">Información del event</string>
     <string name="hora">Hora</string>

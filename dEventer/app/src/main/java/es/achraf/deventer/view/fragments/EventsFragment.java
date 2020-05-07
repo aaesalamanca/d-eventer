@@ -107,14 +107,14 @@ public class EventsFragment extends Fragment implements ItemClickListener {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View v = inflater.inflate(R.layout.fragment_planes, container, false);
+        View v = inflater.inflate(R.layout.fragment_events, container, false);
 
-        progressbarPlanes = v.findViewById(R.id.progressbarPlanes);
-        cargandoPlanes = v.findViewById(R.id.cargandoPlanes);
+        progressbarPlanes = v.findViewById(R.id.pbLoading);
+        cargandoPlanes = v.findViewById(R.id.tvLoading);
 
         recyclerViewPlanes = v.findViewById(R.id.recyclerViewPlanes);
 
-        fbCreaPlan = v.findViewById(R.id.fabCreaPlan);
+        fbCreaPlan = v.findViewById(R.id.efabCreaPlan);
 
         leerDatos();
 
@@ -123,57 +123,36 @@ public class EventsFragment extends Fragment implements ItemClickListener {
             public void onClick(View v) {
 
                 dialog = new Dialog(getContext(), R.style.full_screen_dialog);
-                dialog.setContentView(R.layout.dialog_crea_plan);
+                dialog.setContentView(R.layout.dialog_create_event);
 
                 //Instanciamos los elementos del cuadro de dialogo
-                imgCreaPlan = dialog.findViewById(R.id.imgCreaPlan);
+                imgCreaPlan = dialog.findViewById(R.id.civEvent);
 
-                txtTituloCreaPlan = dialog.findViewById(R.id.txtTituloCreaPlan);
+                txtTituloCreaPlan = dialog.findViewById(R.id.tietName);
 
-                txtFechaCreaPlan = dialog.findViewById(R.id.txtFechaCreaPlan);
+                txtFechaCreaPlan = dialog.findViewById(R.id.tietDate);
                 txtFechaCreaPlan.setOnClickListener(this);
 
-                txtHoraCreaPlan = dialog.findViewById(R.id.txtHoraCreaPlan);
+                txtHoraCreaPlan = dialog.findViewById(R.id.tietTime);
                 txtHoraCreaPlan.setOnClickListener(this);
 
 
                 txtDescripcion = dialog.findViewById(R.id.txtDescripcion);
 
-                txtUbicacionCreaPlan = dialog.findViewById(R.id.txtUbicacionCreaPlan);
+                txtUbicacionCreaPlan = dialog.findViewById(R.id.tietLocation);
                 txtUbicacionCreaPlan.setOnClickListener(this);
 
-                txtPrecioCreaPlan = dialog.findViewById(R.id.txtPrecioCreaPlan);
+                txtPrecioCreaPlan = dialog.findViewById(R.id.tietPrice);
 
-                btnCrearPlan = dialog.findViewById(R.id.btnCrearPlan);
+                btnCrearPlan = dialog.findViewById(R.id.mbtnCreate);
 
 
-                btnSalirDeCrearPlan = dialog.findViewById(R.id.btnSalirDeCrearPlan);
+                btnSalirDeCrearPlan = dialog.findViewById(R.id.mbtnCancel);
 
                 btnSalirDeCrearPlan.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         dialog.dismiss();
-
-                        //FLAT DIALOG
-                        /*    final FlatDialog flatDialog = new FlatDialog(getContext());
-                        flatDialog.setTitle("ejemplo de flat dialog").setSubtitle("ejemplo de subtitulo")
-                                .setFirstTextFieldHint("email_stylized")
-                                .setSecondTextFieldHint("password")
-                                .setFirstButtonText("CONNECT")
-                                .setSecondButtonText("CANCEL")
-                                .withFirstButtonListner(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View view) {
-                                        Toast.makeText(getContext(), flatDialog.getFirstTextField(), Toast.LENGTH_SHORT).show();
-                                    }
-                                })
-                                .withSecondButtonListner(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View view) {
-                                        flatDialog.dismiss();
-                                    }
-                                })
-                                .show();*/
                     }
                 });
 
@@ -212,6 +191,10 @@ public class EventsFragment extends Fragment implements ItemClickListener {
         });
 
         return v;
+    }
+
+    private void init() {
+
     }
 
 
@@ -391,14 +374,14 @@ public class EventsFragment extends Fragment implements ItemClickListener {
     }
 
     /*    public static void mostrarProgressBar() {
-            progressbarPlanes.setVisibility(View.VISIBLE);
-            cargandoPlanes.setVisibility(View.VISIBLE);
+            pbLoading.setVisibility(View.VISIBLE);
+            tvLoading.setVisibility(View.VISIBLE);
         }
 
 
         public static void ocultarProgressBar() {
-            progressbarPlanes.setVisibility(View.GONE);
-            cargandoPlanes.setVisibility(View.GONE);
+            pbLoading.setVisibility(View.GONE);
+            tvLoading.setVisibility(View.GONE);
         }
     */
     //recupero los datos de cloud firestore

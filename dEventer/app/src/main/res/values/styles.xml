@@ -16,7 +16,7 @@
 
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
-        
+
     </style>
 
     <!-- Tema de SignInActivity para cargar el splash screen -->
@@ -51,6 +51,7 @@
 
     </style>
 
+    <!-- Estilo para el diálogo a pantalla completa que permite crear un plan nuevo -->
     <style name="full_screen_dialog">
 
         <item name="android:windowFrame">@null</item>
