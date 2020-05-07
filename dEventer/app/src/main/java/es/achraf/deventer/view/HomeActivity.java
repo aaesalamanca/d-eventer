@@ -14,9 +14,9 @@ import com.google.firebase.iid.FirebaseInstanceId;
 import com.roughike.bottombar.BottomBar;
 
 import es.achraf.deventer.R;
-import es.achraf.deventer.fragments.ChatFragment;
-import es.achraf.deventer.fragments.EventsFragment;
-import es.achraf.deventer.fragments.OwnEventsFragment;
+import es.achraf.deventer.view.fragments.ChatFragment;
+import es.achraf.deventer.view.fragments.EventsFragment;
+import es.achraf.deventer.view.fragments.OwnEventsFragment;
 import es.achraf.deventer.restApi.RestApiConstants;
 import es.achraf.deventer.viewmodel.ViewModelHome;
 

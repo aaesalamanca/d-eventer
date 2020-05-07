@@ -1,4 +1,4 @@
-package es.achraf.deventer.fragments;
+package es.achraf.deventer.view.fragments;
 
 import android.Manifest;
 import android.app.Activity;
@@ -64,7 +64,7 @@ import java.util.Objects;
 import de.hdodenhof.circleimageview.CircleImageView;
 import es.achraf.deventer.MapsActivity;
 import es.achraf.deventer.R;
-import es.achraf.deventer.adaptadores.AdapterRecyclerViewPlanes;
+import es.achraf.deventer.view.adapters.AdapterRecyclerViewPlanes;
 import es.achraf.deventer.interfaces.ItemClickListener;
 import es.achraf.deventer.model.Event;
 import es.achraf.deventer.model.User;

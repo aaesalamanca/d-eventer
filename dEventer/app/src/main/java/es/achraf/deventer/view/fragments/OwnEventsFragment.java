@@ -1,4 +1,4 @@
-package es.achraf.deventer.fragments;
+package es.achraf.deventer.view.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -29,7 +29,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.ArrayList;
 
 import es.achraf.deventer.R;
-import es.achraf.deventer.adaptadores.AdapterRecyclerViewPlanes;
+import es.achraf.deventer.view.adapters.AdapterRecyclerViewPlanes;
 import es.achraf.deventer.interfaces.ItemClickListener;
 import es.achraf.deventer.model.Event;
 

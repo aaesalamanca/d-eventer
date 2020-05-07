@@ -40,7 +40,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-import es.achraf.deventer.adaptadores.AdapterMensajes;
+import es.achraf.deventer.view.adapters.AdapterMensajes;
 import es.achraf.deventer.mensaje.MensajeEnviar;
 import es.achraf.deventer.mensaje.MensajeRecibir;
 import es.achraf.deventer.restApi.RestApiConstants;

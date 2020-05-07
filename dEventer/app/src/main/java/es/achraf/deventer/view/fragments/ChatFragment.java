@@ -1,4 +1,4 @@
-package es.achraf.deventer.fragments;
+package es.achraf.deventer.view.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -31,7 +31,7 @@ import java.util.ArrayList;
 
 import es.achraf.deventer.ChatActivity;
 import es.achraf.deventer.R;
-import es.achraf.deventer.adaptadores.AdapterChatPlan;
+import es.achraf.deventer.view.adapters.AdapterChatPlan;
 import es.achraf.deventer.interfaces.ItemClickListener;
 import es.achraf.deventer.model.Event;
 

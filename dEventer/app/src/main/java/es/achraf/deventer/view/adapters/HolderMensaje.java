@@ -1,4 +1,4 @@
-package es.achraf.deventer.adaptadores;
+package es.achraf.deventer.view.adapters;
 
 import android.view.View;
 import android.widget.ImageView;

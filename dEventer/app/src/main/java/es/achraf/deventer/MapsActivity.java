@@ -22,7 +22,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import java.io.IOException;
 import java.util.List;
 
-import es.achraf.deventer.fragments.EventsFragment;
+import es.achraf.deventer.view.fragments.EventsFragment;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
