@@ -4,5 +4,5 @@ import android.view.View;
 
 public interface ItemClickListener {
 
-    void onItemClick(View view, int posicion);
+    void onItemClick(View view, int pos);
 }

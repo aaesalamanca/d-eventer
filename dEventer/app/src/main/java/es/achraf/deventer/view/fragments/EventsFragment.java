@@ -37,7 +37,6 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
-import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
@@ -64,10 +63,10 @@ import java.util.Objects;
 import de.hdodenhof.circleimageview.CircleImageView;
 import es.achraf.deventer.MapsActivity;
 import es.achraf.deventer.R;
-import es.achraf.deventer.view.adapters.AdapterRecyclerViewPlanes;
 import es.achraf.deventer.interfaces.ItemClickListener;
 import es.achraf.deventer.model.Event;
 import es.achraf.deventer.model.User;
+import es.achraf.deventer.view.adapters.AdapterRecyclerViewPlanes;
 
 public class EventsFragment extends Fragment implements ItemClickListener {
 
@@ -75,25 +74,21 @@ public class EventsFragment extends Fragment implements ItemClickListener {
     private static final int COD_IMAGEN = 4040;
 
     private AdapterRecyclerViewPlanes adapterPlan;
-    private RecyclerView recyclerViewPlanes;
-    private ExtendedFloatingActionButton fbCreaPlan;
-    private CircleImageView imgCreaPlan;
+    private RecyclerView rcvEvents;
     private Uri urlImagen;
     private String rutaImagenDuenoPlan;
-    private Dialog dialog;
+    private Dialog createEventDialog;
 
-    public static TextInputEditText txtUbicacionCreaPlan;
-    private TextInputEditText txtTituloCreaPlan;
-    private TextInputEditText txtFechaCreaPlan;
-    private TextInputEditText txtHoraCreaPlan;
-    private TextInputEditText txtDescripcion;
-    private TextInputEditText txtPrecioCreaPlan;
+    private CircleImageView civEvent;
+    public static TextInputEditText tietLocation;
+    private TextInputEditText tietName;
+    private TextInputEditText tietDate;
+    private TextInputEditText tietTime;
+    private TextInputEditText tietDescription;
+    private TextInputEditText tietPrice;
 
-    private MaterialButton btnCrearPlan;
-    private MaterialButton btnSalirDeCrearPlan;
-
-    private static ProgressBar progressbarPlanes;
-    private static TextView cargandoPlanes;
+    private ProgressBar pbLoading;
+    private TextView tvLoading;
 
     private ArrayList<Event> planes;
 
@@ -105,176 +100,118 @@ public class EventsFragment extends Fragment implements ItemClickListener {
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable final ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
+        super.onCreateView(inflater, container, savedInstanceState);
 
-        View v = inflater.inflate(R.layout.fragment_events, container, false);
+        View view = inflater.inflate(R.layout.fragment_events, container, false);
+        init(view);
 
-        progressbarPlanes = v.findViewById(R.id.pbLoading);
-        cargandoPlanes = v.findViewById(R.id.tvLoading);
-
-        recyclerViewPlanes = v.findViewById(R.id.recyclerViewPlanes);
-
-        fbCreaPlan = v.findViewById(R.id.efabCreaPlan);
-
-        leerDatos();
-
-        fbCreaPlan.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                dialog = new Dialog(getContext(), R.style.full_screen_dialog);
-                dialog.setContentView(R.layout.dialog_create_event);
-
-                //Instanciamos los elementos del cuadro de dialogo
-                imgCreaPlan = dialog.findViewById(R.id.civEvent);
-
-                txtTituloCreaPlan = dialog.findViewById(R.id.tietName);
-
-                txtFechaCreaPlan = dialog.findViewById(R.id.tietDate);
-                txtFechaCreaPlan.setOnClickListener(this);
-
-                txtHoraCreaPlan = dialog.findViewById(R.id.tietTime);
-                txtHoraCreaPlan.setOnClickListener(this);
-
-
-                txtDescripcion = dialog.findViewById(R.id.txtDescripcion);
-
-                txtUbicacionCreaPlan = dialog.findViewById(R.id.tietLocation);
-                txtUbicacionCreaPlan.setOnClickListener(this);
-
-                txtPrecioCreaPlan = dialog.findViewById(R.id.tietPrice);
-
-                btnCrearPlan = dialog.findViewById(R.id.mbtnCreate);
-
-
-                btnSalirDeCrearPlan = dialog.findViewById(R.id.mbtnCancel);
-
-                btnSalirDeCrearPlan.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        dialog.dismiss();
-                    }
-                });
-
-
-                //PONER IMAGEN
-                imgCreaPlan.setOnClickListener(v16 -> cargarImagen());
-
-                //DATE PICKER
-                txtFechaCreaPlan.setOnClickListener(v12 -> {
-                    mostrarDatePicker();
-                });
-
-                //TIME PICKER
-                txtHoraCreaPlan.setOnClickListener(v13 -> {
-                    mostrarTimePicker();
-                });
-
-                //envia a mi mapa creado
-                txtUbicacionCreaPlan.setOnClickListener(v14 -> {
-
-                    if (CheckGooglePlayServices()) {
-                        startActivity(new Intent(getActivity(), MapsActivity.class));
-                    }
-                });
-
-                //guardamos el plan
-                btnCrearPlan.setOnClickListener(v15 -> {
-                    guardarPlan();
-                    getActivity().finish();
-                    startActivity(getActivity().getIntent());
-                });
-
-                //mostrar el dialogo que crea el plan
-                dialog.show();
-            }
-        });
-
-        return v;
+        readEvents();
+        return view;
     }
 
-    private void init() {
+    private void init(View view) {
+        rcvEvents = view.findViewById(R.id.rcvEvents);
 
+        pbLoading = view.findViewById(R.id.pbLoading);
+        tvLoading = view.findViewById(R.id.tvLoading);
+
+        loadCreateEventDialog(view);
     }
 
+    private void loadCreateEventDialog(View view) {
+        view.findViewById(R.id.efabCreateEvent).setOnClickListener(v -> {
+            createEventDialog = new Dialog(getContext(), R.style.full_screen_dialog);
+            createEventDialog.setContentView(R.layout.dialog_create_event);
 
-    public void mostrarDatePicker() {
-        Calendar calendar = Calendar.getInstance();
+            civEvent = createEventDialog.findViewById(R.id.civEvent);
+            civEvent.setOnClickListener(v1 -> loadImage());
 
-        final int ano = calendar.get(Calendar.YEAR);
-        int mes = calendar.get(Calendar.MONTH);
-        final int dia = calendar.get(Calendar.DAY_OF_MONTH);
-
-        @SuppressWarnings("SimpleDateFormat") DatePickerDialog dFecha = new DatePickerDialog(getContext(), R.style.datepicker, (view, year, month, dayOfMonth) -> {
-
-            Date fecha;
-            try {
-                fecha = new SimpleDateFormat("dd/MM/yyyy", Locale.FRANCE).parse(dayOfMonth + "/" + month + 1 + "/" + year);
-                if (fecha != null)
-                    txtFechaCreaPlan.setText(new SimpleDateFormat("dd/MM/yyyy").format(fecha));
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-        }, ano, mes, dia);
-        dFecha.show();
-    }
-
-    public void mostrarTimePicker() {
-        Calendar calendar = Calendar.getInstance();
-
-        final int hora = calendar.get(Calendar.HOUR_OF_DAY);
-        final int minutos = calendar.get(Calendar.MINUTE);
-
-        TimePickerDialog tHora = new TimePickerDialog(getContext(), R.style.timePicker, (view, hourOfDay, minute) -> {
-
-            Date fecha;
-            try {
-                fecha = new SimpleDateFormat("kk:mm", Locale.FRANCE).parse(hourOfDay + ":" + minute);
-                if (fecha != null) {
-                    if (hourOfDay == 0)
-                        txtHoraCreaPlan.setText(new SimpleDateFormat("00:mm").format(fecha));
-                    else
-                        txtHoraCreaPlan.setText(new SimpleDateFormat("kk:mm").format(fecha));
+            tietName = createEventDialog.findViewById(R.id.tietName);
+            tietDate = createEventDialog.findViewById(R.id.tietDate);
+            tietDate.setOnClickListener(v1 -> showDatePicker());
+            tietTime = createEventDialog.findViewById(R.id.tietTime);
+            tietTime.setOnClickListener(v1 -> showTimePicker());
+            createEventDialog.findViewById(R.id.tietLocation).setOnClickListener(v1 -> {
+                if (checkGooglePlay()) {
+                    startActivity(new Intent(getActivity(), MapsActivity.class));
                 }
+            });
+            tietPrice = createEventDialog.findViewById(R.id.tietPrice);
+            tietDescription = createEventDialog.findViewById(R.id.tietDescription);
 
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-        }, hora, minutos, true);
-        tHora.show();
+            createEventDialog.findViewById(R.id.mbtnCreate).setOnClickListener(v1 -> {
+                saveEvent();
+                getActivity().finish();
+                startActivity(getActivity().getIntent());
+            });
+            createEventDialog.findViewById(R.id.mbtnCancel)
+                    .setOnClickListener(v1 -> createEventDialog.dismiss());
+
+            createEventDialog.show();
+        });
     }
 
-    //función que guarda nuestro plan creado
-    public void guardarPlan() {
-        if (!TextUtils.isEmpty(txtTituloCreaPlan.getText().toString()) && !TextUtils.isEmpty(txtFechaCreaPlan.getText().toString()) &&
-                !TextUtils.isEmpty(txtHoraCreaPlan.getText().toString()) && !TextUtils.isEmpty(txtUbicacionCreaPlan.getText().toString()) &&
-                !TextUtils.isEmpty(txtPrecioCreaPlan.getText().toString())) {
+    //carga de la imagen desde galeria
+    private void loadImage() {
+        if (checkPermissionREAD_EXTERNAL_STORAGE(getContext())) {
+            Intent galeria = new Intent(Intent.ACTION_OPEN_DOCUMENT, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+            startActivityForResult(galeria, COD_IMAGEN);
+        }
+    }
 
+    private void showDatePicker() {
+        Calendar calendar = Calendar.getInstance();
 
-            String titulo = txtTituloCreaPlan.getText().toString();
-            String fecha = txtFechaCreaPlan.getText().toString();
-            String hora = txtHoraCreaPlan.getText().toString();
-            String ubicacion = txtUbicacionCreaPlan.getText().toString();
-            String precio = txtPrecioCreaPlan.getText().toString();
-            String descripcion = txtDescripcion.getText().toString();
-            String duenoPlan = "dEventer";
+        int currentYear = calendar.get(Calendar.YEAR);
+        int currentMonth = calendar.get(Calendar.MONTH);
+        int currentDay = calendar.get(Calendar.DAY_OF_MONTH);
 
+        new DatePickerDialog(getContext(), R.style.datepicker, (view, year, month, dayOfMonth) -> {
+            tietDate.setText(dayOfMonth + "/" + (month + 1) + "/" + year);
+        }, currentYear, currentMonth, currentDay).show();
+    }
+
+    private void showTimePicker() {
+        Calendar calendar = Calendar.getInstance();
+
+        final int currentHour = calendar.get(Calendar.HOUR_OF_DAY);
+        final int currentMinute = calendar.get(Calendar.MINUTE);
+
+        new TimePickerDialog(getContext(), R.style.timePicker, (view, hourOfDay, minute) -> {
+            tietTime.setText(String.format("%02d:%02d", hourOfDay, minute));
+        }, currentHour, currentMinute, true).show();
+    }
+
+    private void saveEvent() {
+        String name = tietName.getText().toString();
+        String date = tietDate.getText().toString();
+        String time = tietTime.getText().toString();
+        String location = tietLocation.getText().toString();
+        String price = tietPrice.getText().toString();
+        String description = tietDescription.getText().toString();
+        String owner = "dEventer";
+
+        if (!TextUtils.isEmpty(name) && !TextUtils.isEmpty(date) &&
+                !TextUtils.isEmpty(time) && !TextUtils.isEmpty(location) &&
+                !TextUtils.isEmpty(price)) {
 
             if (mAuth.getCurrentUser() != null) {
-                duenoPlan = mAuth.getCurrentUser().getDisplayName();
+                owner = mAuth.getCurrentUser().getDisplayName();
                 rutaImagenDuenoPlan = mAuth.getCurrentUser().getUid() + "/fotoDePerfil.jpg";
             }
 
             String IMAGEN_SUBIDA = urlImagen.getLastPathSegment() + ".jpg";
 
             HashMap<String, Object> planesMap = new HashMap<>();
-            planesMap.put("titulo", titulo);
-            planesMap.put("fecha", fecha);
-            planesMap.put("hora", hora);
-            planesMap.put("precio", precio);
-            planesMap.put("ubicacion", ubicacion);
-            planesMap.put("descripcion", descripcion);
-            planesMap.put("dueno", duenoPlan);
+            planesMap.put("titulo", name);
+            planesMap.put("fecha", date);
+            planesMap.put("hora", time);
+            planesMap.put("precio", price);
+            planesMap.put("ubicacion", location);
+            planesMap.put("descripcion", description);
+            planesMap.put("dueno", owner);
             planesMap.put("imgDueno", rutaImagenDuenoPlan);
             planesMap.put("imagen", IMAGEN_SUBIDA);
 
@@ -306,9 +243,9 @@ public class EventsFragment extends Fragment implements ItemClickListener {
                     Snackbar.make(getView().getRootView(), "Event en marcha. ¡Buena suerte!", Snackbar.LENGTH_SHORT).show())
                     .addOnFailureListener(e -> Snackbar.make(getView().getRootView(), "Se ha producido un error al guardar los datos", Snackbar.LENGTH_SHORT).show());
 
-            dialog.dismiss();
+            createEventDialog.dismiss();
         } else
-            Snackbar.make(dialog.getWindow().getDecorView().getRootView(), "Debe rellenar todos los campos para continuar", Snackbar.LENGTH_SHORT).show();
+            Snackbar.make(createEventDialog.getWindow().getDecorView().getRootView(), "Debe rellenar todos los campos para continuar", Snackbar.LENGTH_SHORT).show();
 
 
     }
@@ -351,17 +288,8 @@ public class EventsFragment extends Fragment implements ItemClickListener {
         }
     }
 
-    //carga de la imagen desde galeria
-    private void cargarImagen() {
-        if (checkPermissionREAD_EXTERNAL_STORAGE(getContext())) {
-            Intent galeria = new Intent(Intent.ACTION_OPEN_DOCUMENT, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
-            startActivityForResult(galeria, COD_IMAGEN);
-        }
-    }
-
-
     //comprueba gps
-    private boolean CheckGooglePlayServices() {
+    private boolean checkGooglePlay() {
         GoogleApiAvailability googleAPI = GoogleApiAvailability.getInstance();
         int result = googleAPI.isGooglePlayServicesAvailable(getContext());
         if (result != ConnectionResult.SUCCESS) {
@@ -373,19 +301,8 @@ public class EventsFragment extends Fragment implements ItemClickListener {
         return true;
     }
 
-    /*    public static void mostrarProgressBar() {
-            pbLoading.setVisibility(View.VISIBLE);
-            tvLoading.setVisibility(View.VISIBLE);
-        }
 
-
-        public static void ocultarProgressBar() {
-            pbLoading.setVisibility(View.GONE);
-            tvLoading.setVisibility(View.GONE);
-        }
-    */
-    //recupero los datos de cloud firestore
-    private void leerDatos() {
+    private void readEvents() {
         // EventsFragment.mostrarProgressBar();
         planes = new ArrayList<>();
 
@@ -414,9 +331,9 @@ public class EventsFragment extends Fragment implements ItemClickListener {
                             planes.add(new Event(idPlan, titulo, ubicacion, fecha, hora, precio, urlImagen, descripcion, dueno, imgDueno, usuariosApuntados));
                         }
                         adapterPlan = new AdapterRecyclerViewPlanes(getContext(), planes, this, R.layout.item_planes);
-                        recyclerViewPlanes.setAdapter(adapterPlan);
+                        rcvEvents.setAdapter(adapterPlan);
                         adapterPlan.notifyDataSetChanged();
-                        recyclerViewPlanes.setLayoutManager(new LinearLayoutManager(getContext()));
+                        rcvEvents.setLayoutManager(new LinearLayoutManager(getContext()));
 
                         // EventsFragment.ocultarProgressBar();
                     } else {
@@ -437,7 +354,7 @@ public class EventsFragment extends Fragment implements ItemClickListener {
             Glide.with(getActivity().getApplicationContext()).load(urlImagen).error(R.mipmap.logo).dontTransform()
                     .centerCrop()
                     .diskCacheStrategy(DiskCacheStrategy.ALL)//almacene la imagen en cache antes y despues de la carga de la magen, consiguiendo una disminucon del lag
-                    .thumbnail(.5f).into(imgCreaPlan);
+                    .thumbnail(.5f).into(civEvent);
 
         } else
             Snackbar.make(getView().getRootView(), "No se ha encontrado la imagen", Snackbar.LENGTH_SHORT).show();
@@ -445,9 +362,9 @@ public class EventsFragment extends Fragment implements ItemClickListener {
 
 
     @Override
-    public void onItemClick(View view, int posicion) {
+    public void onItemClick(View view, int pos) {
 
-        Event event = (Event) planes.get(posicion);
+        Event event = (Event) planes.get(pos);
 
         final Dialog dialogVistaPlan = new Dialog(getContext(), R.style.full_screen_dialog);
         dialogVistaPlan.setContentView(R.layout.detalle_plan);

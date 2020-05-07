@@ -57,7 +57,7 @@ public class ChatFragment extends Fragment implements ItemClickListener {
         mAuth = FirebaseAuth.getInstance();
         reference = db.getReference();
 
-        this.recyclerViewPlanesChat = v.findViewById(R.id.recyclerViewPlanes);
+        this.recyclerViewPlanesChat = v.findViewById(R.id.rcvEvents);
         this.itemClickListener = this;
 
         leerDatos();
@@ -137,8 +137,8 @@ public class ChatFragment extends Fragment implements ItemClickListener {
     }
 
     @Override
-    public void onItemClick(View view, int posicion) {
-        Event event = planes.get(posicion);
+    public void onItemClick(View view, int pos) {
+        Event event = planes.get(pos);
 
         Intent intentChat = new Intent(getActivity(), ChatActivity.class);
         intentChat.putExtra("id", event.getId());

@@ -66,7 +66,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                             mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
                         }
 
-                        EventsFragment.txtUbicacionCreaPlan.setText(lugar);
+                        EventsFragment.tietLocation.setText(lugar);
 
                     } else
                         Snackbar.make(getWindow().getDecorView().getRootView(), "No se ha encontrado la localización proporcionada", Snackbar.LENGTH_SHORT).show();

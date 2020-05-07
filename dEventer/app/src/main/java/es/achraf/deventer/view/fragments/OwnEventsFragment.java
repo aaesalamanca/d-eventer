@@ -129,7 +129,7 @@ public class OwnEventsFragment extends Fragment implements ItemClickListener {
     }
 
     @Override
-    public void onItemClick(View view, int posicion) {
+    public void onItemClick(View view, int pos) {
 
     }
 }

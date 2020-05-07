@@ -169,7 +169,7 @@
             app:hintAnimationEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/txtDescripcion"
+                android:id="@+id/tietDescription"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/size_200"
                 android:background="@color/colorAccent"

@@ -6,7 +6,7 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-        android:id="@+id/efabCreaPlan"
+        android:id="@+id/efabCreateEvent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="top"
