@@ -4,7 +4,6 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.fragment.app.FragmentActivity;
@@ -13,7 +12,6 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.snackbar.Snackbar;
@@ -27,63 +25,61 @@ import es.achraf.deventer.view.fragments.EventsFragment;
 
 public class MapActivity extends FragmentActivity implements OnMapReadyCallback {
 
-    private GoogleMap mMap;
+    private GoogleMap googleMap;
+    private MarkerOptions markerOptions;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
+
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        TextInputEditText txtBuscarMap = findViewById(R.id.tietSearch);
-        ImageButton imgBuscar = findViewById(R.id.ibtnSearch);
+        markerOptions = new MarkerOptions();
 
-        imgBuscar.setOnClickListener(v -> {
-            if (!TextUtils.isEmpty(txtBuscarMap.getText())) {
-                String lugar = txtBuscarMap.getText().toString();
+        TextInputEditText tietSearch = findViewById(R.id.tietSearch);
+        findViewById(R.id.ibtnSearch).setOnClickListener(v -> {
+            if (!TextUtils.isEmpty(tietSearch.getText())) {
+                String place = tietSearch.getText().toString();
 
-                List<Address> listaLugares = null;
-                MarkerOptions markerOptions = new MarkerOptions();
-
+                List<Address> lAddress;
                 Geocoder geocoder = new Geocoder(getApplicationContext());
 
                 try {
-                    listaLugares = geocoder.getFromLocationName(lugar, 1);
+                    lAddress = geocoder.getFromLocationName(place, 1);
 
-                    if (listaLugares != null) {
-                        for (Address address : listaLugares) {
-                            LatLng coordenadas = new LatLng(address.getLatitude(), address.getLongitude());
-                            markerOptions.position(coordenadas);
-                            markerOptions.title("localización del plan (" + lugar + ")");
-                            markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE));
+                    if (lAddress != null) {
+                        for (Address address : lAddress) {
+                            LatLng latLng = new LatLng(address.getLatitude(),
+                                    address.getLongitude());
+                            markerOptions.position(latLng).title(place);
 
-                            mMap.addMarker(markerOptions);
-                            mMap.moveCamera(CameraUpdateFactory.newLatLng(coordenadas));
-                            mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
+                            googleMap.addMarker(markerOptions);
+                            googleMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+                            googleMap.animateCamera(CameraUpdateFactory.zoomTo(15));
                         }
 
-                        EventsFragment.tietLocation.setText(lugar);
-
+                        EventsFragment.tietLocation.setText(place);
                     } else
-                        Snackbar.make(getWindow().getDecorView().getRootView(), "No se ha encontrado la localización proporcionada", Snackbar.LENGTH_SHORT).show();
+                        Snackbar.make(getWindow().getDecorView().getRootView(),
+                                R.string.no_location, Snackbar.LENGTH_SHORT).show();
                 } catch (IOException e) {
-                    Toast.makeText(MapActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, R.string.error, Toast.LENGTH_SHORT).show();
                 }
             } else
-                Snackbar.make(getWindow().getDecorView().getRootView(), "Por favor introduzca una localización", Snackbar.LENGTH_SHORT).show();
+                Snackbar.make(getWindow().getDecorView().getRootView(), R.string.enter_location, Snackbar.LENGTH_SHORT).show();
         });
     }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
+        this.googleMap = googleMap;
 
-        LatLng coordenadas = new LatLng(40.4636188, -3.7491199);
-        mMap.addMarker(new MarkerOptions().position(coordenadas).title("Madrid"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(coordenadas));
-        googleMap.animateCamera(CameraUpdateFactory.zoomTo(12));
+        LatLng latLng = new LatLng(40.4165000, -3.7025600);
+        this.googleMap.addMarker(markerOptions.position(latLng).title(getString(R.string.madrid)));
+        this.googleMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+        this.googleMap.animateCamera(CameraUpdateFactory.zoomTo(12));
     }
 }

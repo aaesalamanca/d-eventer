@@ -95,6 +95,12 @@
     <!-- activity_map -->
     <string name="places">Busca ciudades, calles, lugares ...</string>
 
+    <!-- MapActivity -->
+    <string name="no_location">No se ha encontrado la localización proporcionada</string>
+    <string name="enter_location">Por favor introduzca una localización</string>
+    <string name="error">Hubo un error</string>
+    <string name="madrid">Madrid</string>
+
     <string name="title_activity_inicio">Inicio</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
