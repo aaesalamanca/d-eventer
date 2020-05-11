@@ -130,7 +130,8 @@ public class EventsFragment extends Fragment implements ItemClickListener {
             tietDate.setOnClickListener(v1 -> showDatePicker());
             tietTime = createEventDialog.findViewById(R.id.tietTime);
             tietTime.setOnClickListener(v1 -> showTimePicker());
-            createEventDialog.findViewById(R.id.tietLocation).setOnClickListener(v1 -> {
+            tietLocation = createEventDialog.findViewById(R.id.tietLocation);
+            tietLocation.setOnClickListener(v1 -> {
                 if (checkGooglePlay()) {
                     startActivity(new Intent(getActivity(), MapActivity.class));
                 }
