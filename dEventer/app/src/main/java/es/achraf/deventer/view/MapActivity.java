@@ -1,4 +1,4 @@
-package es.achraf.deventer;
+package es.achraf.deventer.view;
 
 import android.location.Address;
 import android.location.Geocoder;
@@ -22,6 +22,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import java.io.IOException;
 import java.util.List;
 
+import es.achraf.deventer.R;
 import es.achraf.deventer.view.fragments.EventsFragment;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
