@@ -27,9 +27,9 @@ public class ProfileActivity extends AppCompatActivity {
 
     // Fields
 
-    private static final int RC_IMAGE = 1;
+    private static final int RC_IMAGE = 0;
 
-    private static final int K_PERMISSION = 0;
+    private static final int K_PERMISSION = 1;
 
     private ViewModelProfile vmp;
 
@@ -185,9 +185,9 @@ public class ProfileActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (data != null) {
-            if (requestCode == RC_IMAGE) {
-                if (resultCode == RESULT_OK) {
+        if (requestCode == RC_IMAGE) {
+            if (resultCode == RESULT_OK) {
+                if (data != null) {
                     vmp.uploadImage(data.getData());
                 }
             }

@@ -62,7 +62,8 @@
 
     </style>
 
-    <style name="datepicker" parent="Theme.AppCompat.Light.Dialog">
+    <!-- Estilo para la selección de fecha -->
+    <style name="date_picker" parent="Theme.AppCompat.Light.Dialog">
 
         <item name="colorPrimary">@color/colorPrincipal</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -70,7 +71,8 @@
 
     </style>
 
-    <style name="timePicker" parent="Theme.AppCompat.Light.Dialog">
+    <!-- Estilo para la selección de hora -->
+    <style name="time_picker" parent="Theme.AppCompat.Light.Dialog">
 
         <item name="colorPrimary">@color/colorPrincipal</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>

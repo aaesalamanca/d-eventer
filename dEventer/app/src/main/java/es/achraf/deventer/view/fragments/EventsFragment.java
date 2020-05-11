@@ -66,8 +66,9 @@ import es.achraf.deventer.view.adapters.AdapterRecyclerViewPlanes;
 
 public class EventsFragment extends Fragment implements ItemClickListener {
 
-    private static final int CODIGO_PERMISOS = 123;
-    private static final int COD_IMAGEN = 4040;
+    private static final int RC_IMAGE = 0;
+
+    private static final int K_PERMISSION = 1;
 
     private AdapterRecyclerViewPlanes adapterPlan;
     private RecyclerView rcvEvents;
@@ -153,7 +154,7 @@ public class EventsFragment extends Fragment implements ItemClickListener {
     private void loadImage() {
         if (checkPermissionREAD_EXTERNAL_STORAGE(getContext())) {
             Intent galeria = new Intent(Intent.ACTION_OPEN_DOCUMENT, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
-            startActivityForResult(galeria, COD_IMAGEN);
+            startActivityForResult(galeria, RC_IMAGE);
         }
     }
 
@@ -164,7 +165,7 @@ public class EventsFragment extends Fragment implements ItemClickListener {
         int currentMonth = calendar.get(Calendar.MONTH);
         int currentDay = calendar.get(Calendar.DAY_OF_MONTH);
 
-        new DatePickerDialog(getContext(), R.style.datepicker, (view, year, month, dayOfMonth) -> {
+        new DatePickerDialog(getContext(), R.style.date_picker, (view, year, month, dayOfMonth) -> {
             tietDate.setText(dayOfMonth + "/" + (month + 1) + "/" + year);
         }, currentYear, currentMonth, currentDay).show();
     }
@@ -175,7 +176,7 @@ public class EventsFragment extends Fragment implements ItemClickListener {
         final int currentHour = calendar.get(Calendar.HOUR_OF_DAY);
         final int currentMinute = calendar.get(Calendar.MINUTE);
 
-        new TimePickerDialog(getContext(), R.style.timePicker, (view, hourOfDay, minute) -> {
+        new TimePickerDialog(getContext(), R.style.time_picker, (view, hourOfDay, minute) -> {
             tietTime.setText(String.format("%02d:%02d", hourOfDay, minute));
         }, currentHour, currentMinute, true).show();
     }
@@ -254,7 +255,7 @@ public class EventsFragment extends Fragment implements ItemClickListener {
         alertBuilder.setCancelable(true);
         alertBuilder.setTitle("Recordatorio de permiso");
         alertBuilder.setMessage("Es necesario aceptar los permisos para poder cambiar su foto de perfil");
-        alertBuilder.setPositiveButton(android.R.string.yes, (dialog, which) -> ActivityCompat.requestPermissions(Objects.requireNonNull(getActivity()), permission, CODIGO_PERMISOS));
+        alertBuilder.setPositiveButton(android.R.string.yes, (dialog, which) -> ActivityCompat.requestPermissions(Objects.requireNonNull(getActivity()), permission, K_PERMISSION));
         AlertDialog alert = alertBuilder.create();
         alert.show();
     }
@@ -273,7 +274,7 @@ public class EventsFragment extends Fragment implements ItemClickListener {
                     showDialog(getActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.MANAGE_DOCUMENTS});
 
                 } else {
-                    ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.MANAGE_DOCUMENTS}, CODIGO_PERMISOS);
+                    ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.MANAGE_DOCUMENTS}, K_PERMISSION);
                 }
                 return false;
             } else {
@@ -343,7 +344,7 @@ public class EventsFragment extends Fragment implements ItemClickListener {
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (resultCode == Activity.RESULT_OK && requestCode == COD_IMAGEN && data != null) {
+        if (resultCode == Activity.RESULT_OK && requestCode == RC_IMAGE && data != null) {
 
             urlImagen = data.getData();
 

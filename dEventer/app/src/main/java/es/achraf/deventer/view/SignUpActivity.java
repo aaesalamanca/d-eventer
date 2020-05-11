@@ -138,8 +138,8 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         int currentDay = calendar.get(Calendar.DAY_OF_MONTH);
 
         DatePickerDialog datePickerDialog = new DatePickerDialog(
-                SignUpActivity.this, R.style.datepicker, (view, year, month,
-                                                          dayOfMonth) -> {
+                SignUpActivity.this, R.style.date_picker, (view, year, month,
+                                                           dayOfMonth) -> {
             userAge = currentYear - year;
             if (userAge < AGE_LIMIT) {
                 mbtnSignUp.setEnabled(false);
