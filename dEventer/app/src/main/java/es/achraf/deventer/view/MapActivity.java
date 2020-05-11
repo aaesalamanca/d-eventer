@@ -43,14 +43,12 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
 
         imgBuscar.setOnClickListener(v -> {
             if (!TextUtils.isEmpty(txtBuscarMap.getText())) {
-
                 String lugar = txtBuscarMap.getText().toString();
 
                 List<Address> listaLugares = null;
                 MarkerOptions markerOptions = new MarkerOptions();
 
                 Geocoder geocoder = new Geocoder(getApplicationContext());
-
 
                 try {
                     listaLugares = geocoder.getFromLocationName(lugar, 1);
@@ -71,18 +69,13 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
 
                     } else
                         Snackbar.make(getWindow().getDecorView().getRootView(), "No se ha encontrado la localización proporcionada", Snackbar.LENGTH_SHORT).show();
-
-
                 } catch (IOException e) {
                     Toast.makeText(MapActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             } else
                 Snackbar.make(getWindow().getDecorView().getRootView(), "Por favor introduzca una localización", Snackbar.LENGTH_SHORT).show();
         });
-
-        // cargarPlaces();
     }
-
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
