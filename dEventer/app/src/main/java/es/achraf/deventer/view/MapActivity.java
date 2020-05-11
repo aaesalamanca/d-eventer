@@ -25,21 +25,21 @@ import java.util.List;
 import es.achraf.deventer.R;
 import es.achraf.deventer.view.fragments.EventsFragment;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
+public class MapActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_maps);
+        setContentView(R.layout.activity_map);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        TextInputEditText txtBuscarMap = findViewById(R.id.txtBuscaMap);
-        ImageButton imgBuscar = findViewById(R.id.imgBuscar);
+        TextInputEditText txtBuscarMap = findViewById(R.id.tietSearch);
+        ImageButton imgBuscar = findViewById(R.id.ibtnSearch);
 
         imgBuscar.setOnClickListener(v -> {
             if (!TextUtils.isEmpty(txtBuscarMap.getText())) {
@@ -67,14 +67,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                             mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
                         }
 
-                        EventsFragment.tietLocation.setText(lugar);
+                        //EventsFragment.tietLocation.setText(lugar);
 
                     } else
                         Snackbar.make(getWindow().getDecorView().getRootView(), "No se ha encontrado la localización proporcionada", Snackbar.LENGTH_SHORT).show();
 
 
                 } catch (IOException e) {
-                    Toast.makeText(MapsActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MapActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             } else
                 Snackbar.make(getWindow().getDecorView().getRootView(), "Por favor introduzca una localización", Snackbar.LENGTH_SHORT).show();

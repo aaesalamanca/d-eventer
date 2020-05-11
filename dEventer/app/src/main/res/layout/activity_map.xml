@@ -16,12 +16,12 @@
 
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/size_0"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
+            android:layout_margin="@dimen/margin_16"
             android:layout_weight="2"
             android:background="@color/colorAccent"
-            android:hint="@string/busca_ciudades_calles_lugares"
+            android:hint="@string/places"
             android:textColorHint="@color/colorPrincipal"
             app:endIconMode="clear_text"
             app:hintAnimationEnabled="true"
@@ -29,7 +29,7 @@
 
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/txtBuscaMap"
+                android:id="@+id/tietSearch"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -41,19 +41,19 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <ImageButton
-            android:id="@+id/imgBuscar"
-            android:layout_width="0dp"
+            android:id="@+id/ibtnSearch"
+            android:layout_width="@dimen/size_0"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_margin="10dp"
+            android:layout_margin="@dimen/margin_10"
             android:layout_weight="1"
             android:backgroundTint="@color/colorPrimaryDark"
-            android:contentDescription="@string/busca_ciudades_calles_lugares"
+            android:contentDescription="@string/places"
             android:foregroundGravity="center"
             android:src="@drawable/ic_search_black_24dp"
             android:textColor="@color/colorPrimaryDark"
             android:theme="@style/Widget.MaterialComponents.Button.OutlinedButton"
-            app:cornerRadius="20dp" />
+            app:cornerRadius="@dimen/radius_20" />
 
     </LinearLayout>
 

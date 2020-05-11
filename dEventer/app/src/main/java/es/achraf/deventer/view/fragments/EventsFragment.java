@@ -57,7 +57,7 @@ import java.util.HashMap;
 import java.util.Objects;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-import es.achraf.deventer.MapsActivity;
+import es.achraf.deventer.view.MapActivity;
 import es.achraf.deventer.R;
 import es.achraf.deventer.interfaces.ItemClickListener;
 import es.achraf.deventer.model.Event;
@@ -132,7 +132,7 @@ public class EventsFragment extends Fragment implements ItemClickListener {
             tietTime.setOnClickListener(v1 -> showTimePicker());
             createEventDialog.findViewById(R.id.tietLocation).setOnClickListener(v1 -> {
                 if (checkGooglePlay()) {
-                    startActivity(new Intent(getActivity(), MapsActivity.class));
+                    startActivity(new Intent(getActivity(), MapActivity.class));
                 }
             });
             tietPrice = createEventDialog.findViewById(R.id.tietPrice);
@@ -140,7 +140,9 @@ public class EventsFragment extends Fragment implements ItemClickListener {
 
             createEventDialog.findViewById(R.id.mbtnCreate).setOnClickListener(v1 -> {
                 saveEvent();
+
                 getActivity().finish();
+
                 startActivity(getActivity().getIntent());
             });
             createEventDialog.findViewById(R.id.mbtnCancel)

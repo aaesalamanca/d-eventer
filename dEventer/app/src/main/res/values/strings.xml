@@ -92,6 +92,9 @@
     <string name="description">¿Quieres describir el plan?</string>
     <string name="create_event">Crear plan</string>
 
+    <!-- activity_map -->
+    <string name="places">Busca ciudades, calles, lugares ...</string>
+
     <string name="title_activity_inicio">Inicio</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -130,7 +133,6 @@
     <string name="fecha_del_plan">Fecha del event</string>
     <string name="titulo_del_plan">Titulo del Plan</string>
     <string name="crear">Crear event</string>
-    <string name="busca_ciudades_calles_lugares">Busca ciudades, calles, lugares ...</string>
     <string name="fecha">Fecha</string>
     <string name="informaci_n_del_plan">Información del event</string>
     <string name="hora">Hora</string>
