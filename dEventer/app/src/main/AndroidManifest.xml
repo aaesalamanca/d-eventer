@@ -46,9 +46,11 @@
         <meta-data
             android:name="firebase_messaging_auto_init_enabled"
             android:value="false" />
+        <!-- https://developers.google.com/maps/documentation/android-sdk/config#specify_the_google_play_services_version_number -->
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
+        <!-- https://developers.google.com/maps/documentation/android-sdk/get-api-key#add_key -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyA-QG-6y6XGuv0PVw6H0GGyxSk_frIavCI" />

@@ -25,19 +25,28 @@ import es.achraf.deventer.view.fragments.EventsFragment;
 
 public class MapActivity extends FragmentActivity implements OnMapReadyCallback {
 
+    // Fields
     private GoogleMap googleMap;
-    private MarkerOptions markerOptions;
 
+    // Methods
+
+    /**
+     * Primer método ejecutado por la actividad. Inicializa los elmentos de la actividad.
+     *
+     * @param savedInstanceState es el bundle que almacena los datos del estado de la actividad
+     *                           cuando se produce un cambio como rotaciones.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
 
+        // https://developers.google.com/maps/documentation/android-sdk/start#the_maps_activity_java_file
+        // https://developers.google.com/maps/documentation/android-sdk/map-with-marker#add_a_map
+        // https://developers.google.com/maps/documentation/android-sdk/map#add_map_code
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-
-        markerOptions = new MarkerOptions();
 
         TextInputEditText tietSearch = findViewById(R.id.tietSearch);
         findViewById(R.id.ibtnSearch).setOnClickListener(v -> {
@@ -51,15 +60,18 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
                     lAddress = geocoder.getFromLocationName(place, 1);
 
                     if (lAddress != null) {
-                        for (Address address : lAddress) {
-                            LatLng latLng = new LatLng(address.getLatitude(),
-                                    address.getLongitude());
-                            markerOptions.position(latLng).title(place);
+                        Address address = lAddress.get(0);
 
-                            googleMap.addMarker(markerOptions);
-                            googleMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-                            googleMap.animateCamera(CameraUpdateFactory.zoomTo(15));
-                        }
+                        LatLng latLng = new LatLng(address.getLatitude(),
+                                address.getLongitude());
+
+                        MarkerOptions markerOptions = new MarkerOptions()
+                                .position(latLng).title(place);
+
+                        googleMap.clear();
+                        googleMap.addMarker(markerOptions);
+                        googleMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+                        googleMap.animateCamera(CameraUpdateFactory.zoomTo(15));
 
                         EventsFragment.tietLocation.setText(place);
                     } else
@@ -69,16 +81,29 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
                     Toast.makeText(this, R.string.error, Toast.LENGTH_SHORT).show();
                 }
             } else
-                Snackbar.make(getWindow().getDecorView().getRootView(), R.string.enter_location, Snackbar.LENGTH_SHORT).show();
+                Snackbar.make(getWindow().getDecorView().getRootView(),
+                        R.string.enter_location, Snackbar.LENGTH_SHORT).show();
         });
     }
 
+    /**
+     * Handler que ejecutará la acción necesaria cuando el mapa esté listo.
+     * <p>
+     * https://developers.google.com/maps/documentation/android-sdk/start#the_maps_activity_java_file
+     * https://developers.google.com/maps/documentation/android-sdk/map#add_map_code
+     *
+     * @param googleMap
+     */
     @Override
     public void onMapReady(GoogleMap googleMap) {
         this.googleMap = googleMap;
 
         LatLng latLng = new LatLng(40.4165000, -3.7025600);
-        this.googleMap.addMarker(markerOptions.position(latLng).title(getString(R.string.madrid)));
+
+        MarkerOptions markerOptions = new MarkerOptions().
+                position(latLng).title(getString(R.string.madrid));
+
+        this.googleMap.addMarker(markerOptions);
         this.googleMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
         this.googleMap.animateCamera(CameraUpdateFactory.zoomTo(12));
     }

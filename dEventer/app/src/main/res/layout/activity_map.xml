@@ -55,6 +55,7 @@
 
     </LinearLayout>
 
+    <!-- https://developers.google.com/maps/documentation/android-sdk/map#add_a_fragment -->
     <fragment xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/map"
