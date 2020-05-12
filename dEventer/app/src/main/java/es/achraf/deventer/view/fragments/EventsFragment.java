@@ -9,7 +9,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.TextUtils;
@@ -57,15 +56,16 @@ import java.util.HashMap;
 import java.util.Objects;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-import es.achraf.deventer.view.MapActivity;
 import es.achraf.deventer.R;
 import es.achraf.deventer.interfaces.ItemClickListener;
 import es.achraf.deventer.model.Event;
 import es.achraf.deventer.model.User;
+import es.achraf.deventer.view.MapActivity;
 import es.achraf.deventer.view.adapters.AdapterRecyclerViewPlanes;
 
 public class EventsFragment extends Fragment implements ItemClickListener {
 
+    // Fields
     private static final int RC_IMAGE = 0;
 
     private static final int K_PERMISSION = 1;
@@ -95,6 +95,17 @@ public class EventsFragment extends Fragment implements ItemClickListener {
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
 
+    // Methods
+
+    /**
+     * Primer método ejecutado por el fragmento. Inicializa los elementos del fragmento.
+     *
+     * @param inflater
+     * @param container
+     * @param savedInstanceState es el bundle que almacena los datos del estado del fragmento
+     *                           cuando se produce un cambio como rotaciones de la pantalla.
+     * @return la vista creada.
+     */
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable final ViewGroup container,
@@ -108,6 +119,11 @@ public class EventsFragment extends Fragment implements ItemClickListener {
         return view;
     }
 
+    /**
+     * Inicializa los elemtnos del fragmento.
+     *
+     * @param view es la vista sobre la que se carga el fragmento.
+     */
     private void init(View view) {
         rcvEvents = view.findViewById(R.id.rcvEvents);
 
@@ -117,13 +133,18 @@ public class EventsFragment extends Fragment implements ItemClickListener {
         loadCreateEventDialog(view);
     }
 
+    /**
+     * Carga el diálogo para crear un evento.
+     *
+     * @param view es la vista sobre la que se carga el diálogo.
+     */
     private void loadCreateEventDialog(View view) {
         view.findViewById(R.id.efabCreateEvent).setOnClickListener(v -> {
             createEventDialog = new Dialog(getContext(), R.style.full_screen_dialog);
             createEventDialog.setContentView(R.layout.dialog_create_event);
 
             civEvent = createEventDialog.findViewById(R.id.civEvent);
-            civEvent.setOnClickListener(v1 -> loadImage());
+            civEvent.setOnClickListener(v1 -> startGallery());
 
             tietName = createEventDialog.findViewById(R.id.tietName);
             tietDate = createEventDialog.findViewById(R.id.tietDate);
@@ -153,14 +174,60 @@ public class EventsFragment extends Fragment implements ItemClickListener {
         });
     }
 
-    //carga de la imagen desde galeria
-    private void loadImage() {
-        if (checkPermissionREAD_EXTERNAL_STORAGE(getContext())) {
-            Intent galeria = new Intent(Intent.ACTION_OPEN_DOCUMENT, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
-            startActivityForResult(galeria, RC_IMAGE);
+    /**
+     * Lanza la galería, si la aplicación tiene permisos, para elegir la imagen del plan.
+     */
+    private void startGallery() {
+        if (hasPermission(getContext())) {
+            Intent galleryIntent = new Intent(Intent.ACTION_OPEN_DOCUMENT,
+                    MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+            startActivityForResult(galleryIntent, RC_IMAGE);
         }
     }
 
+    /**
+     * Comprueba si la aplicación tiene permisos para leer archivos almacenados externamente
+     * —imágenes—.
+     *
+     * @param context es el contexto de la actividad en el que está el fragmento.
+     * @return true si tiene permisos, false en caso contrario.
+     */
+    private boolean hasPermission(final Context context) {
+        if (ContextCompat.checkSelfPermission(context, Manifest.permission.READ_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
+                    Manifest.permission.READ_EXTERNAL_STORAGE)) {
+                showPermissionDialog(getActivity(),
+                        new String[]{Manifest.permission.READ_EXTERNAL_STORAGE});
+            } else {
+                ActivityCompat.requestPermissions(getActivity(),
+                        new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, K_PERMISSION);
+            }
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    /**
+     * Muestra el diálogo para pedir permisos.
+     *
+     * @param permission es el array de String con los permisos requeridos.
+     */
+    private void showPermissionDialog(final Context context, final String[] permission) {
+        new AlertDialog.Builder(context)
+                .setCancelable(true)
+                .setTitle(R.string.permission_reminder)
+                .setMessage(R.string.accept_permission)
+                .setPositiveButton(android.R.string.yes, (dialog, which) ->
+                        ActivityCompat.requestPermissions(getActivity(),
+                                permission, K_PERMISSION))
+                .create().show();
+    }
+
+    /**
+     * Muestra el diálogo para la obtención de la fecha en la que tendrá lugar el evento.
+     */
     private void showDatePicker() {
         Calendar calendar = Calendar.getInstance();
 
@@ -173,6 +240,9 @@ public class EventsFragment extends Fragment implements ItemClickListener {
         }, currentYear, currentMonth, currentDay).show();
     }
 
+    /**
+     * Muestra el diálogo para la obtención de la hora en la que tendrá lugar el evento.
+     */
     private void showTimePicker() {
         Calendar calendar = Calendar.getInstance();
 
@@ -184,6 +254,9 @@ public class EventsFragment extends Fragment implements ItemClickListener {
         }, currentHour, currentMinute, true).show();
     }
 
+    /**
+     * Guarda el evento en la base de datos.
+     */
     private void saveEvent() {
         String name = tietName.getText().toString();
         String date = tietDate.getText().toString();
@@ -250,45 +323,11 @@ public class EventsFragment extends Fragment implements ItemClickListener {
 
     }
 
-
-    //función que muestra la alerta por si se ignoran los mensajes, éste los vuelve a pedir si no se ha aceptado el permiso
-    private void showDialog(final Context context, final String[] permission) {
-
-        AlertDialog.Builder alertBuilder = new AlertDialog.Builder(context);
-        alertBuilder.setCancelable(true);
-        alertBuilder.setTitle("Recordatorio de permiso");
-        alertBuilder.setMessage("Es necesario aceptar los permisos para poder cambiar su foto de perfil");
-        alertBuilder.setPositiveButton(android.R.string.yes, (dialog, which) -> ActivityCompat.requestPermissions(Objects.requireNonNull(getActivity()), permission, K_PERMISSION));
-        AlertDialog alert = alertBuilder.create();
-        alert.show();
-    }
-
-    //función para pedir los permisos
-    private boolean checkPermissionREAD_EXTERNAL_STORAGE(final Context context) {
-
-        int currentAPIVersion = Build.VERSION.SDK_INT;
-
-        if (currentAPIVersion >= android.os.Build.VERSION_CODES.M) {
-
-            if (ContextCompat.checkSelfPermission(context, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-
-                if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE)) {
-
-                    showDialog(getActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.MANAGE_DOCUMENTS});
-
-                } else {
-                    ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.MANAGE_DOCUMENTS}, K_PERMISSION);
-                }
-                return false;
-            } else {
-                return true;
-            }
-        } else {
-            return true;
-        }
-    }
-
-    //comprueba gps
+    /**
+     * Comprueba si están disponibles los servicios de Google Play, para Maps y Places.
+     *
+     * @return true si los servicios de Google Play están disponibles, false en caso contrario.
+     */
     private boolean checkGooglePlay() {
         GoogleApiAvailability googleAPI = GoogleApiAvailability.getInstance();
         int result = googleAPI.isGooglePlayServicesAvailable(getContext());
@@ -301,7 +340,9 @@ public class EventsFragment extends Fragment implements ItemClickListener {
         return true;
     }
 
-
+    /**
+     * Lee los eventos de la base de datos.
+     */
     private void readEvents() {
         // EventsFragment.mostrarProgressBar();
         planes = new ArrayList<>();
@@ -342,7 +383,11 @@ public class EventsFragment extends Fragment implements ItemClickListener {
                 });
     }
 
-
+    /**
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -360,7 +405,10 @@ public class EventsFragment extends Fragment implements ItemClickListener {
             Snackbar.make(getView().getRootView(), "No se ha encontrado la imagen", Snackbar.LENGTH_SHORT).show();
     }
 
-
+    /**
+     * @param view
+     * @param pos
+     */
     @Override
     public void onItemClick(View view, int pos) {
 
@@ -500,6 +548,5 @@ public class EventsFragment extends Fragment implements ItemClickListener {
         });
 
         dialogVistaPlan.show();
-
     }
 }

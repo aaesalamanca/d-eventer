@@ -111,7 +111,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tietBirth:
-                showBirthDialog();
+                showDatePicker();
                 break;
             case R.id.mbtnSignUp:
                 emailSignUp();
@@ -128,7 +128,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
      * Comprueba que el user es mayor de age —muestra un Snackbar en caso contrario— y muestra
      * esa fecha en el TextInputEditText de la fecha de nacimiento.
      */
-    private void showBirthDialog() {
+    private void showDatePicker() {
         // Obtención de la fecha actual para comparar con la fecha de nacimiento del user.
         // Además, se utilizan para establecer la fecha inicial con la que se muestra el
         // DatePickerDialog.

@@ -4,7 +4,6 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.widget.TextView;
@@ -107,7 +106,7 @@ public class ProfileActivity extends AppCompatActivity {
                 Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             if (ActivityCompat.shouldShowRequestPermissionRationale(this,
                     Manifest.permission.READ_EXTERNAL_STORAGE)) {
-                showDialog(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE});
+                showPermissionDialog(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE});
             } else {
                 ActivityCompat.requestPermissions(this,
                         new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
@@ -124,14 +123,15 @@ public class ProfileActivity extends AppCompatActivity {
      *
      * @param permission es el array de String con los permisos requeridos.
      */
-    private void showDialog(String[] permission) {
+    private void showPermissionDialog(String[] permission) {
         new AlertDialog.Builder(this)
                 .setCancelable(true)
                 .setTitle(R.string.permission_reminder)
                 .setMessage(R.string.accept_permission)
                 .setPositiveButton(android.R.string.yes, (dialog, which) ->
                         ActivityCompat.requestPermissions(this, permission,
-                                K_PERMISSION)).create().show();
+                                K_PERMISSION))
+                .create().show();
     }
 
     /**
