@@ -53,7 +53,6 @@ import com.google.firebase.storage.UploadTask;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
-import java.util.Objects;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import es.achraf.deventer.R;
@@ -62,6 +61,7 @@ import es.achraf.deventer.model.Event;
 import es.achraf.deventer.model.User;
 import es.achraf.deventer.view.MapActivity;
 import es.achraf.deventer.view.adapters.AdapterRecyclerViewPlanes;
+import es.achraf.deventer.viewmodel.ViewModelEvents;
 
 public class EventsFragment extends Fragment implements ItemClickListener {
 
@@ -69,6 +69,8 @@ public class EventsFragment extends Fragment implements ItemClickListener {
     private static final int RC_IMAGE = 0;
 
     private static final int K_PERMISSION = 1;
+
+    private ViewModelEvents vme;
 
     private AdapterRecyclerViewPlanes adapterPlan;
     private RecyclerView rcvEvents;
@@ -175,7 +177,7 @@ public class EventsFragment extends Fragment implements ItemClickListener {
     }
 
     /**
-     * Lanza la galería, si la aplicación tiene permisos, para elegir la imagen del plan.
+     * Lanza la galería, si la aplicación tiene permisos, para elegir la imagen del evento.
      */
     private void startGallery() {
         if (hasPermission(getContext())) {
@@ -255,6 +257,23 @@ public class EventsFragment extends Fragment implements ItemClickListener {
     }
 
     /**
+     * Comprueba si están disponibles los servicios de Google Play, para Maps y Places.
+     *
+     * @return true si los servicios de Google Play están disponibles, false en caso contrario.
+     */
+    private boolean checkGooglePlay() {
+        GoogleApiAvailability googleAPI = GoogleApiAvailability.getInstance();
+        int result = googleAPI.isGooglePlayServicesAvailable(getContext());
+        if (result != ConnectionResult.SUCCESS) {
+            if (googleAPI.isUserResolvableError(result)) {
+                googleAPI.getErrorDialog(getActivity(), result, 0).show();
+            }
+            return false;
+        }
+        return true;
+    }
+
+    /**
      * Guarda el evento en la base de datos.
      */
     private void saveEvent() {
@@ -266,10 +285,7 @@ public class EventsFragment extends Fragment implements ItemClickListener {
         String description = tietDescription.getText().toString();
         String owner = "dEventer";
 
-        if (!TextUtils.isEmpty(name) && !TextUtils.isEmpty(date) &&
-                !TextUtils.isEmpty(time) && !TextUtils.isEmpty(location) &&
-                !TextUtils.isEmpty(price)) {
-
+        if (isValidForm(name, date, time, location, price, description)) {
             if (mAuth.getCurrentUser() != null) {
                 owner = mAuth.getCurrentUser().getDisplayName();
                 rutaImagenDuenoPlan = mAuth.getCurrentUser().getUid() + "/fotoDePerfil.jpg";
@@ -319,25 +335,25 @@ public class EventsFragment extends Fragment implements ItemClickListener {
             createEventDialog.dismiss();
         } else
             Snackbar.make(createEventDialog.getWindow().getDecorView().getRootView(), "Debe rellenar todos los campos para continuar", Snackbar.LENGTH_SHORT).show();
-
-
     }
 
     /**
-     * Comprueba si están disponibles los servicios de Google Play, para Maps y Places.
+     * Comprueba que el formulario es válido, es decir, que los campos nombre, fecha, hora,
+     * ubicación, precio y descripción no están vacíos.
      *
-     * @return true si los servicios de Google Play están disponibles, false en caso contrario.
+     * @param name        es el nombre del plan.
+     * @param date        es la fecha del plan.
+     * @param time        es la hora del plan.
+     * @param location    es la ubicación del plan.
+     * @param price       es el precio del plan.
+     * @param description es la descripción del plan.
+     * @return true si el formulario es válido, false en caso contrario.
      */
-    private boolean checkGooglePlay() {
-        GoogleApiAvailability googleAPI = GoogleApiAvailability.getInstance();
-        int result = googleAPI.isGooglePlayServicesAvailable(getContext());
-        if (result != ConnectionResult.SUCCESS) {
-            if (googleAPI.isUserResolvableError(result)) {
-                googleAPI.getErrorDialog(getActivity(), result, 0).show();
-            }
-            return false;
-        }
-        return true;
+    private boolean isValidForm(String name, String date, String time, String location,
+                                String price, String description) {
+        return !(TextUtils.isEmpty(name) || TextUtils.isEmpty(date) || TextUtils.isEmpty(time)
+                || TextUtils.isEmpty(location) || TextUtils.isEmpty(price)
+                || TextUtils.isEmpty(description));
     }
 
     /**
