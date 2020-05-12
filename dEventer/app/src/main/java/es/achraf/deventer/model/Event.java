@@ -5,121 +5,100 @@ import java.util.ArrayList;
 
 public class Event implements Serializable {
 
-    private String id;
-    private String nombre;
-    private String ubicacion;
-    private String fecha;
-    private String hora;
-    private String precio;
-    private String urlImagen;
-    private String descripcion;
-    private String duenoPlan;
-    private String uriImageDuenoPlan;
-    private ArrayList<String> usuariosApuntadosUID;
+    // Fields
+    private String imageUri;
+    private String name;
+    private String date;
+    private String time;
+    private String location;
+    private String price;
+    private String description;
+    private String ownerId;
+    private int usersNum;
 
+    // Constructors
+
+    /**
+     * Constructor vacío —por defecto—.
+     */
     public Event() {
-        this.usuariosApuntadosUID = new ArrayList<>();
+
     }
 
-    public Event(String id, String nombre, String ubicacion, String fecha, String hora, String precio, String urlImagen, String descripcion, String duenoPlan, String uriImageDuenoPlan, ArrayList<String> usuariosApuntadosUID) {
-        this.id = id;
-        this.nombre = nombre;
-        this.ubicacion = ubicacion;
-        this.fecha = fecha;
-        this.hora = hora;
-        this.precio = precio;
-        this.urlImagen = urlImagen;
-        this.descripcion = descripcion;
-        this.duenoPlan = duenoPlan;
-        this.uriImageDuenoPlan = uriImageDuenoPlan;
-        this.usuariosApuntadosUID = usuariosApuntadosUID;
+    // Getters
+
+    public String getImageUri() {
+        return imageUri;
     }
 
-    public String getId() {
-        return id;
+    public String getName() {
+        return name;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public String getDate() {
+        return date;
     }
 
-    public ArrayList<String> getUsuariosApuntadosUID() {
-        return usuariosApuntadosUID;
+    public String getTime() {
+        return time;
     }
 
-    public void setUsuariosApuntadosUID(ArrayList<String> usuariosApuntadosUID) {
-        this.usuariosApuntadosUID = usuariosApuntadosUID;
+    public String getLocation() {
+        return location;
     }
 
-    public String getUriImageDuenoPlan() {
-        return uriImageDuenoPlan;
+    public String getPrice() {
+        return price;
     }
 
-    public void setUriImageDuenoPlan(String uriImageDuenoPlan) {
-        this.uriImageDuenoPlan = uriImageDuenoPlan;
+    public String getDescription() {
+        return description;
     }
 
-    public String getDuenoPlan() {
-        return duenoPlan;
+    public String getOwnerId() {
+        return ownerId;
     }
 
-    public void setDuenoPlan(String duenoPlan) {
-        this.duenoPlan = duenoPlan;
+    public int getUsersNum() {
+        return usersNum;
     }
 
-    public String getDescripcion() {
-        return descripcion;
+
+    // Setters
+
+    public void setImageUri(String imageUri) {
+        this.imageUri = imageUri;
     }
 
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getNombre() {
-        return nombre;
+    public void setDate(String date) {
+        this.date = date;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setTime(String time) {
+        this.time = time;
     }
 
-    public String getUbicacion() {
-        return ubicacion;
+    public void setLocation(String location) {
+        this.location = location;
     }
 
-    public void setUbicacion(String ubicacion) {
-        this.ubicacion = ubicacion;
+    public void setPrice(String price) {
+        this.price = price;
     }
 
-    public String getFecha() {
-        return fecha;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public void setFecha(String fecha) {
-        this.fecha = fecha;
+    public void setOwnerId(String ownerId) {
+        this.ownerId = ownerId;
     }
 
-    public String getHora() {
-        return hora;
-    }
-
-    public void setHora(String hora) {
-        this.hora = hora;
-    }
-
-    public String getPrecio() {
-        return precio;
-    }
-
-    public void setPrecio(String precio) {
-        this.precio = precio;
-    }
-
-    public String getUrlImagen() {
-        return urlImagen;
-    }
-
-    public void setUrlImagen(String urlImagen) {
-        this.urlImagen = urlImagen;
+    public void setUsersNum(int usersNum) {
+        this.usersNum = usersNum;
     }
 }

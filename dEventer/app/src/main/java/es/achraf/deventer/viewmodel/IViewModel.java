@@ -16,8 +16,12 @@ public interface IViewModel {
     String KSP_PASSWORD = "password";
     // Clave de usuarios en el JSON de Firebase Realtime Database
     String USERS = "users";
+    // Clave de eventos en el JSON de Firebase Realtime Database
+    String EVENTS = "events";
     // Clave de las imágenes de perfil en la estructura de Cloud Storage
     String PROFILE_IMAGES = "profile_images";
+    // Clave de las imágenes de los eventos en la estructura de Cloud Storage
+    String EVENT_IMAGES = "event_images";
     // Separador para las rutas en las bases de datos
     String SEPARATOR = "/";
     // Extensión de las imágenes
@@ -185,6 +189,22 @@ public interface IViewModel {
          * @param localUri es la Uri de la imagen.
          */
         void uploadImage(Uri localUri);
+    }
+
+    interface UploadEvent {
+        /**
+         * Sube el evento a la base de datos.
+         *
+         * @param name        es el nombre del evento.
+         * @param date        es la fecha del evento.
+         * @param time        es la hora del evento.
+         * @param location    es la ubicación del evento.
+         * @param price       es el precio del evento.
+         * @param description es la descripción del evento.
+         * @param localUri    es la uri de la imagen del evento.
+         */
+        void uploadEvent(String name, String date, String time, String location, String price,
+                         String description, Uri localUri);
     }
 
     interface SignOut {

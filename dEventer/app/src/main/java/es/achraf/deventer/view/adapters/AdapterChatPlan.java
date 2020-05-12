@@ -54,15 +54,15 @@ public class AdapterChatPlan extends RecyclerView.Adapter<AdapterChatPlan.ViewHo
 
         Event event = events.get(position);
 
-        holder.txtTituloPlan.setText(event.getNombre());
-        holder.fechaPlan.setText(event.getFecha());
+        holder.txtTituloPlan.setText(event.getName());
+        holder.fechaPlan.setText(event.getDate());
         holder.numPersonas.setText(event.getUsuariosApuntadosUID().size() + "/10");
 
         FirebaseStorage storage = FirebaseStorage.getInstance();
 
         StorageReference storageReference = storage.getReference();
 
-        StorageReference sCreaPlan = storageReference.child("FotosPlanes").child(event.getUrlImagen());
+        StorageReference sCreaPlan = storageReference.child("FotosPlanes").child(event.getImageUri());
 
         Task<Uri> task = sCreaPlan.getDownloadUrl();
 

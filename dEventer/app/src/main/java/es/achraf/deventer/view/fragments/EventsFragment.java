@@ -32,7 +32,6 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
@@ -48,11 +47,9 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.HashMap;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import es.achraf.deventer.R;
@@ -74,17 +71,17 @@ public class EventsFragment extends Fragment implements ItemClickListener {
 
     private AdapterRecyclerViewPlanes adapterPlan;
     private RecyclerView rcvEvents;
-    private Uri urlImagen;
-    private String rutaImagenDuenoPlan;
+    private Uri imageUri;
     private Dialog createEventDialog;
 
     private CircleImageView civEvent;
-    public static TextInputEditText tietLocation;
+
     private TextInputEditText tietName;
     private TextInputEditText tietDate;
     private TextInputEditText tietTime;
-    private TextInputEditText tietDescription;
+    public static TextInputEditText tietLocation;
     private TextInputEditText tietPrice;
+    private TextInputEditText tietDescription;
 
     private ProgressBar pbLoading;
     private TextView tvLoading;
@@ -92,7 +89,6 @@ public class EventsFragment extends Fragment implements ItemClickListener {
     private ArrayList<Event> planes;
 
     private FirebaseStorage storage = FirebaseStorage.getInstance();
-    private StorageReference storageReference = storage.getReference();//referencia de la app
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
@@ -127,6 +123,8 @@ public class EventsFragment extends Fragment implements ItemClickListener {
      * @param view es la vista sobre la que se carga el fragmento.
      */
     private void init(View view) {
+        vme = new ViewModelEvents();
+
         rcvEvents = view.findViewById(R.id.rcvEvents);
 
         pbLoading = view.findViewById(R.id.pbLoading);
@@ -163,7 +161,7 @@ public class EventsFragment extends Fragment implements ItemClickListener {
             tietDescription = createEventDialog.findViewById(R.id.tietDescription);
 
             createEventDialog.findViewById(R.id.mbtnCreate).setOnClickListener(v1 -> {
-                saveEvent();
+                uploadEvent();
 
                 getActivity().finish();
 
@@ -276,65 +274,21 @@ public class EventsFragment extends Fragment implements ItemClickListener {
     /**
      * Guarda el evento en la base de datos.
      */
-    private void saveEvent() {
+    private void uploadEvent() {
         String name = tietName.getText().toString();
         String date = tietDate.getText().toString();
         String time = tietTime.getText().toString();
         String location = tietLocation.getText().toString();
         String price = tietPrice.getText().toString();
         String description = tietDescription.getText().toString();
-        String owner = "dEventer";
 
         if (isValidForm(name, date, time, location, price, description)) {
-            if (mAuth.getCurrentUser() != null) {
-                owner = mAuth.getCurrentUser().getDisplayName();
-                rutaImagenDuenoPlan = mAuth.getCurrentUser().getUid() + "/fotoDePerfil.jpg";
-            }
-
-            String IMAGEN_SUBIDA = urlImagen.getLastPathSegment() + ".jpg";
-
-            HashMap<String, Object> planesMap = new HashMap<>();
-            planesMap.put("titulo", name);
-            planesMap.put("fecha", date);
-            planesMap.put("hora", time);
-            planesMap.put("precio", price);
-            planesMap.put("ubicacion", location);
-            planesMap.put("descripcion", description);
-            planesMap.put("dueno", owner);
-            planesMap.put("imgDueno", rutaImagenDuenoPlan);
-            planesMap.put("imagen", IMAGEN_SUBIDA);
-
-            // arraylist de usuarios apuntados, inicialmente no habrá nadie obviamente al crearse el plan
-            ArrayList<String> usuariosApuntados = new ArrayList<>();
-            planesMap.put("usuariosApuntados", usuariosApuntados);
-
-            //subimos la imagen al storage
-
-            StorageReference sCreaPlan = storageReference.child("FotosPlanes").child(IMAGEN_SUBIDA);
-
-            UploadTask uploadTask = sCreaPlan.putFile(urlImagen);
-
-
-            uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            });
-
-
-            db.collection("tabla_planes").document().set(planesMap).addOnSuccessListener(aVoid ->
-                    Snackbar.make(getView().getRootView(), "Event en marcha. ¡Buena suerte!", Snackbar.LENGTH_SHORT).show())
-                    .addOnFailureListener(e -> Snackbar.make(getView().getRootView(), "Se ha producido un error al guardar los datos", Snackbar.LENGTH_SHORT).show());
+            vme.uploadEvent(name, date, time, location, price, description, imageUri);
 
             createEventDialog.dismiss();
         } else
-            Snackbar.make(createEventDialog.getWindow().getDecorView().getRootView(), "Debe rellenar todos los campos para continuar", Snackbar.LENGTH_SHORT).show();
+            Snackbar.make(createEventDialog.getWindow().getDecorView().getRootView(),
+                    R.string.empty_fields, Snackbar.LENGTH_SHORT).show();
     }
 
     /**
@@ -360,7 +314,6 @@ public class EventsFragment extends Fragment implements ItemClickListener {
      * Lee los eventos de la base de datos.
      */
     private void readEvents() {
-        // EventsFragment.mostrarProgressBar();
         planes = new ArrayList<>();
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -391,8 +344,6 @@ public class EventsFragment extends Fragment implements ItemClickListener {
                         rcvEvents.setAdapter(adapterPlan);
                         adapterPlan.notifyDataSetChanged();
                         rcvEvents.setLayoutManager(new LinearLayoutManager(getContext()));
-
-                        // EventsFragment.ocultarProgressBar();
                     } else {
                         Toast.makeText(getContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                     }
@@ -400,25 +351,50 @@ public class EventsFragment extends Fragment implements ItemClickListener {
     }
 
     /**
-     * @param requestCode
-     * @param resultCode
-     * @param data
+     * Muestra o hace invisibles —GONE— distintos elementos de la actividad relacionados con la
+     * espera e invocación de una nueva actividad.
+     *
+     * @param loading indica si los elementos deben desaparecer o verse.
+     *                <p>
+     *                - True -> Deben verse
+     *                - False -> No deben verse
+     */
+    private void loadingMessage(boolean loading) {
+        if (loading) {
+            pbLoading.setVisibility(View.VISIBLE);
+            tvLoading.setVisibility(View.VISIBLE);
+        } else {
+            pbLoading.setVisibility(View.GONE);
+            tvLoading.setVisibility(View.GONE);
+        }
+    }
+
+    /**
+     * Se ejecuta cuando termina la actividad iniciada por esta y espera un resultado de vuelta.
+     *
+     * @param requestCode es el código que identifica a la actividad invocada.
+     * @param resultCode  es el código del resultado.
+     * @param data        es el Intent con los datos devueltos.
      */
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (resultCode == Activity.RESULT_OK && requestCode == RC_IMAGE && data != null) {
+        if (requestCode == RC_IMAGE) {
+            if (resultCode == Activity.RESULT_OK) {
+                if (data != null) {
+                    imageUri = data.getData();
 
-            urlImagen = data.getData();
-
-            Glide.with(getActivity().getApplicationContext()).load(urlImagen).error(R.mipmap.logo).dontTransform()
-                    .centerCrop()
-                    .diskCacheStrategy(DiskCacheStrategy.ALL)//almacene la imagen en cache antes y despues de la carga de la magen, consiguiendo una disminucon del lag
-                    .thumbnail(.5f).into(civEvent);
-
-        } else
-            Snackbar.make(getView().getRootView(), "No se ha encontrado la imagen", Snackbar.LENGTH_SHORT).show();
+                    Glide.with(getActivity().getApplicationContext()).load(imageUri).error(R.mipmap.logo)
+                            .dontTransform()
+                            .centerCrop()
+                            .diskCacheStrategy(DiskCacheStrategy.ALL)
+                            .thumbnail(.5f).into(civEvent);
+                }
+            }
+        } else {
+            Snackbar.make(getView().getRootView(), R.string.image_not_found, Snackbar.LENGTH_SHORT).show();
+        }
     }
 
     /**
@@ -522,13 +498,13 @@ public class EventsFragment extends Fragment implements ItemClickListener {
         });
 
 
-        txtTituloPlanDetalle.setText(event.getNombre());
-        txtFechaPlanDetalle.setText(event.getFecha());
-        txtHoraPlanDetalle.setText(event.getHora());
-        txtPrecioPlanDetalle.setText(event.getPrecio());
-        txtUbicacionPlanDetalle.setText(event.getUbicacion());
-        txtDescripcionDetalle.setText(event.getDescripcion());
-        txtDueno.setText(event.getDuenoPlan());
+        txtTituloPlanDetalle.setText(event.getName());
+        txtFechaPlanDetalle.setText(event.getDate());
+        txtHoraPlanDetalle.setText(event.getTime());
+        txtPrecioPlanDetalle.setText(event.getPrice());
+        txtUbicacionPlanDetalle.setText(event.getLocation());
+        txtDescripcionDetalle.setText(event.getDescription());
+        txtDueno.setText(event.getOwnerId());
         txtNumApuntado.setText(String.valueOf(event.getUsuariosApuntadosUID().size()));
 
         FirebaseStorage storage = FirebaseStorage.getInstance();
@@ -549,7 +525,7 @@ public class EventsFragment extends Fragment implements ItemClickListener {
             }
         });
 
-        StorageReference sCreaPlan = storageReference.child("FotosPlanes").child(event.getUrlImagen());
+        StorageReference sCreaPlan = storageReference.child("FotosPlanes").child(event.getImageUri());
 
         Task<Uri> taskPlan = sCreaPlan.getDownloadUrl();
 

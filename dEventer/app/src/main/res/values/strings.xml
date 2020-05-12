@@ -81,6 +81,9 @@
     <!-- fragment_events -->
     <string name="loading_events">Cargando planes...</string>
 
+    <!-- EventsFragment -->
+    <string name="image_not_found">No se ha encontrado la imagen</string>
+    
     <!-- dialog_create_event -->
     <string name="event_presentation">Presenta el plan</string>
     <string name="put_image_event">(Ponle una imagen al plan)</string>

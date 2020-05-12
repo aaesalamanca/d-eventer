@@ -142,8 +142,8 @@ public class ChatFragment extends Fragment implements ItemClickListener {
 
         Intent intentChat = new Intent(getActivity(), ChatActivity.class);
         intentChat.putExtra("id", event.getId());
-        intentChat.putExtra("titulo", event.getNombre());
-        intentChat.putExtra("imagen", event.getUrlImagen());
+        intentChat.putExtra("titulo", event.getName());
+        intentChat.putExtra("imagen", event.getImageUri());
         startActivity(intentChat);
     }
 }

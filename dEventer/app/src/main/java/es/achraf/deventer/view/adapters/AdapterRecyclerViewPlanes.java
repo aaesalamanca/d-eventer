@@ -54,18 +54,18 @@ public class AdapterRecyclerViewPlanes extends RecyclerView.Adapter<AdapterRecyc
 
         Event event = events.get(position);
 
-        holder.txtTituloPlan.setText(event.getNombre());
-        holder.txtFechaPlan.setText(event.getFecha());
-        holder.txtHoraPlan.setText(event.getHora());
-        holder.txtUbicacionPlan.setText(event.getUbicacion());
-        holder.txtPrecioPlan.setText(event.getPrecio());
+        holder.txtTituloPlan.setText(event.getName());
+        holder.txtFechaPlan.setText(event.getDate());
+        holder.txtHoraPlan.setText(event.getTime());
+        holder.txtUbicacionPlan.setText(event.getLocation());
+        holder.txtPrecioPlan.setText(event.getPrice());
 
 
         FirebaseStorage storage = FirebaseStorage.getInstance();
 
         StorageReference storageReference = storage.getReference();
 
-        StorageReference sCreaPlan = storageReference.child("FotosPlanes").child(event.getUrlImagen());
+        StorageReference sCreaPlan = storageReference.child("FotosPlanes").child(event.getImageUri());
 
         Task<Uri> task = sCreaPlan.getDownloadUrl();
 

@@ -60,7 +60,7 @@ public interface IView {
          *                 True -> Se ha actualizado
          *                 False -> No se ha actualizado
          */
-        void onGetImageComplete(Uri cloudUri, boolean isChange);
+        void onImageUploaded(Uri cloudUri, boolean isChange);
     }
 
     interface SignOutListener {

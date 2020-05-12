@@ -159,7 +159,8 @@ public class ProfileActivity extends AppCompatActivity {
      * @param cloudUri es la Uri de la imagen en la base ded atos.
      */
     private void getImage(Uri cloudUri) {
-        Glide.with(getApplicationContext()).load(cloudUri).error(R.mipmap.logo).dontTransform()
+        Glide.with(getApplicationContext()).load(cloudUri).error(R.mipmap.logo)
+                .dontTransform()
                 .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .thumbnail(.5f).into(civProfile);

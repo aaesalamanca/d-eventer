@@ -163,6 +163,9 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         datePickerDialog.show();
     }
 
+    /**
+     * Crea la cuenta del usuario.
+     */
     private void emailSignUp() {
         String name = tietName.getText().toString();
         String email = tietEmail.getText().toString();

@@ -102,7 +102,7 @@ public class ViewModelProfile implements IViewModel.GetEmail, IViewModel.GetDisp
         FirebaseStorage.getInstance().getReference().child(IViewModel.PROFILE_IMAGES)
                 .child(FirebaseAuth.getInstance().getCurrentUser().getUid() + IViewModel.IMAGE_EXT)
                 .getDownloadUrl().addOnSuccessListener(uri -> {
-            getImageListener.onGetImageComplete(uri, false);
+            getImageListener.onImageUploaded(uri, false);
         });
     }
 
@@ -179,7 +179,7 @@ public class ViewModelProfile implements IViewModel.GetEmail, IViewModel.GetDisp
         FirebaseStorage.getInstance().getReference().child(IViewModel.PROFILE_IMAGES)
                 .child(FirebaseAuth.getInstance().getCurrentUser().getUid() + IViewModel.IMAGE_EXT)
                 .putFile(localUri).addOnSuccessListener(taskSnapshot -> {
-            getImageListener.onGetImageComplete(localUri, true);
+            getImageListener.onImageUploaded(localUri, true);
         });
     }
 }
