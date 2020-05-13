@@ -60,7 +60,7 @@ import es.achraf.deventer.view.MapActivity;
 import es.achraf.deventer.view.adapters.AdapterRecyclerViewPlanes;
 import es.achraf.deventer.viewmodel.ViewModelEvents;
 
-public class EventsFragment extends Fragment implements ItemClickListener {
+public class EventsFragment extends Fragment /*implements ItemClickListener*/ {
 
     // Fields
     private static final int RC_IMAGE = 0;
@@ -113,7 +113,7 @@ public class EventsFragment extends Fragment implements ItemClickListener {
         View view = inflater.inflate(R.layout.fragment_events, container, false);
         init(view);
 
-        readEvents();
+        //readEvents();
         return view;
     }
 
@@ -313,7 +313,7 @@ public class EventsFragment extends Fragment implements ItemClickListener {
     /**
      * Lee los eventos de la base de datos.
      */
-    private void readEvents() {
+    /*private void readEvents() {
         planes = new ArrayList<>();
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -348,7 +348,7 @@ public class EventsFragment extends Fragment implements ItemClickListener {
                         Toast.makeText(getContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
-    }
+    }*/
 
     /**
      * Muestra o hace invisibles —GONE— distintos elementos de la actividad relacionados con la
@@ -401,7 +401,7 @@ public class EventsFragment extends Fragment implements ItemClickListener {
      * @param view
      * @param pos
      */
-    @Override
+    /*@Override
     public void onItemClick(View view, int pos) {
 
         Event event = (Event) planes.get(pos);
@@ -440,11 +440,11 @@ public class EventsFragment extends Fragment implements ItemClickListener {
                             btnApuntarsePlan.setEnabled(false);
                             btnApuntarsePlan.setText(R.string.apuntado);
                         }*/
-                    }
+                    /*}
 
                 }
 
-                @Override
+                /*@Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
                     Toast.makeText(getContext(), databaseError.getMessage(), Toast.LENGTH_SHORT).show();
                 }
@@ -479,7 +479,7 @@ public class EventsFragment extends Fragment implements ItemClickListener {
                         /*event.getUsuariosApuntados().remove(user);
                         db.collection("tabla_planes").document(event.getId()).update("usuariosApuntados", event.getUsuariosApuntados());*/
 
-                        Toast.makeText(getContext(), "Apuntado al event, que te diviertas", Toast.LENGTH_SHORT).show();
+                        /*Toast.makeText(getContext(), "Apuntado al event, que te diviertas", Toast.LENGTH_SHORT).show();
                         btnApuntarsePlan.setEnabled(false);
                         btnApuntarsePlan.setText(R.string.apuntado);
 
@@ -540,5 +540,5 @@ public class EventsFragment extends Fragment implements ItemClickListener {
         });
 
         dialogVistaPlan.show();
-    }
+    }*/
 }

@@ -101,9 +101,8 @@ public class ViewModelProfile implements IViewModel.GetEmail, IViewModel.GetDisp
     public void getImage() {
         FirebaseStorage.getInstance().getReference().child(IViewModel.PROFILE_IMAGES)
                 .child(FirebaseAuth.getInstance().getCurrentUser().getUid() + IViewModel.IMAGE_EXT)
-                .getDownloadUrl().addOnSuccessListener(uri -> {
-            getImageListener.onImageUploaded(uri, false);
-        });
+                .getDownloadUrl().addOnSuccessListener(uri ->
+                getImageListener.onImageUploaded(uri, false));
     }
 
     // Setters
@@ -178,8 +177,7 @@ public class ViewModelProfile implements IViewModel.GetEmail, IViewModel.GetDisp
     public void uploadImage(Uri localUri) {
         FirebaseStorage.getInstance().getReference().child(IViewModel.PROFILE_IMAGES)
                 .child(FirebaseAuth.getInstance().getCurrentUser().getUid() + IViewModel.IMAGE_EXT)
-                .putFile(localUri).addOnSuccessListener(taskSnapshot -> {
-            getImageListener.onImageUploaded(localUri, true);
-        });
+                .putFile(localUri).addOnSuccessListener(taskSnapshot ->
+                getImageListener.onImageUploaded(localUri, true));
     }
 }

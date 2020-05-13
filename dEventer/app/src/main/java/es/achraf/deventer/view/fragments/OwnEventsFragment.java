@@ -108,7 +108,7 @@ public class OwnEventsFragment extends Fragment implements ItemClickListener {
                     String imgDueno = document.getString("imgDueno");
                     ArrayList<String> usuariosApuntados = (ArrayList<String>) document.get("usuariosApuntados");
 
-                    planes.add(new Event(idPlan, titulo, ubicacion, fecha, hora, precio, urlImagen, descripcion, dueno, imgDueno, usuariosApuntados));
+                    //planes.add(new Event(idPlan, titulo, ubicacion, fecha, hora, precio, urlImagen, descripcion, dueno, imgDueno, usuariosApuntados));
 
 
                 } else {

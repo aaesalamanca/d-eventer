@@ -56,7 +56,7 @@ public class AdapterChatPlan extends RecyclerView.Adapter<AdapterChatPlan.ViewHo
 
         holder.txtTituloPlan.setText(event.getName());
         holder.fechaPlan.setText(event.getDate());
-        holder.numPersonas.setText(event.getUsuariosApuntadosUID().size() + "/10");
+        holder.numPersonas.setText(event.getUsersNum());
 
         FirebaseStorage storage = FirebaseStorage.getInstance();
 

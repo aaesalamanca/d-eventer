@@ -34,12 +34,14 @@ public class ViewModelEvents implements IViewModel.UploadEvent {
         DatabaseReference databaseReference = FirebaseDatabase
                 .getInstance().getReference().child(IViewModel.EVENTS).push();
 
-        FirebaseStorage.getInstance().getReference().child(IViewModel.EVENT_IMAGES)
-                .child(databaseReference.getKey()).putFile(localUri);
-
         Event event = new Event();
 
-        event.setImageUri(localUri.getLastPathSegment());
+        FirebaseStorage.getInstance().getReference().child(IViewModel.EVENT_IMAGES)
+                .child(databaseReference.getKey()).putFile(localUri);
+        FirebaseStorage.getInstance().getReference().child(IViewModel.EVENT_IMAGES)
+                .child(databaseReference.getKey()).getDownloadUrl()
+                .addOnSuccessListener(uri -> event.setImageUri(uri.toString()));
+
         event.setName(name.trim());
         event.setDate(date.trim());
         event.setTime(time.trim());
