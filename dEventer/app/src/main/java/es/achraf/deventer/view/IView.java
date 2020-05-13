@@ -63,6 +63,17 @@ public interface IView {
         void onImageUploaded(Uri cloudUri, boolean isChange);
     }
 
+    interface UploadEventListener {
+        /**
+         * Handler que ejecuta la acción requerida cuando se ha subido el evento a la base de datos.
+         *
+         * @param isUploaded indica si se ha subido el evento a la base de datos:
+         *                   True -> Se ha subido
+         *                   False -> No se ha subido
+         */
+        void onEventUploaded(boolean isUploaded);
+    }
+
     interface SignOutListener {
         /**
          * Handler que ejecuta la acción requerida cuando el user cierra la sesión.

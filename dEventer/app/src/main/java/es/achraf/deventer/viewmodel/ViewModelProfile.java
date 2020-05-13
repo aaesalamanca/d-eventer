@@ -24,7 +24,6 @@ public class ViewModelProfile implements IViewModel.GetEmail, IViewModel.GetDisp
     private IView.GetImageListener getImageListener;
 
     private String email;
-    private String name;
 
     private User user;
 
@@ -56,7 +55,7 @@ public class ViewModelProfile implements IViewModel.GetEmail, IViewModel.GetDisp
      */
     @Override
     public String getName() {
-        return name;
+        return user.getName();
     }
 
     /**
@@ -138,7 +137,6 @@ public class ViewModelProfile implements IViewModel.GetEmail, IViewModel.GetDisp
         // https://firebase.google.com/docs/auth/android/manage-users?authuser=0#get_a_users_profile
         // https://firebase.google.com/docs/auth/android/start?authuser=0#access_user_information
         email = firebaseUser.getEmail();
-        name = firebaseUser.getDisplayName();
 
         // https://firebase.google.com/docs/database/android/start?authuser=0#read_from_your_database
         // https://firebase.google.com/docs/auth/android/manage-users?authuser=0#get_a_users_profile

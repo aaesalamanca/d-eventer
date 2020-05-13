@@ -11,10 +11,6 @@ import es.achraf.deventer.model.Event;
 
 public class ViewModelEvents implements IViewModel.UploadEvent {
 
-    // Fields
-
-    // Constructors
-
     // Methods
 
     /**
@@ -36,12 +32,6 @@ public class ViewModelEvents implements IViewModel.UploadEvent {
 
         Event event = new Event();
 
-        FirebaseStorage.getInstance().getReference().child(IViewModel.EVENT_IMAGES)
-                .child(databaseReference.getKey()).putFile(localUri);
-        FirebaseStorage.getInstance().getReference().child(IViewModel.EVENT_IMAGES)
-                .child(databaseReference.getKey()).getDownloadUrl()
-                .addOnSuccessListener(uri -> event.setImageUri(uri.toString()));
-
         event.setName(name.trim());
         event.setDate(date.trim());
         event.setTime(time.trim());
@@ -50,5 +40,16 @@ public class ViewModelEvents implements IViewModel.UploadEvent {
         event.setDescription(description.trim());
         event.setOwnerId(FirebaseAuth.getInstance().getCurrentUser().getUid());
         event.setUsersNum(0);
+
+        FirebaseStorage.getInstance().getReference().child(IViewModel.EVENT_IMAGES)
+                .child(databaseReference.getKey()).putFile(localUri).addOnSuccessListener(taskSnapshot -> {
+            FirebaseStorage.getInstance().getReference().child(IViewModel.EVENT_IMAGES)
+                    .child(databaseReference.getKey()).getDownloadUrl()
+                    .addOnSuccessListener(uri -> {
+                        event.setImageUri(uri.toString());
+
+                        databaseReference.setValue(event);
+                    });
+        });
     }
 }

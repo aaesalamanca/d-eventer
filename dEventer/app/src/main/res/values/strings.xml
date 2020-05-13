@@ -20,7 +20,6 @@
     <string name="yes">De acuerdo</string>
     <string name="no">No, gracias</string>
     <string name="empty_fields">Por favor, rellene todos los campos para continuar</string>
-    <string name="welcome_again">Bienvenido de nuevo,</string>
     <string name="failed_sign_in">No se ha podido iniciar sesión</string>
     <string name="disabled_biometric">El sensor de huellas no está disponible actualmente</string>
     <string name="no_biometric_hw">Este dispositivo no tiene sensor de huellas</string>
@@ -83,7 +82,9 @@
 
     <!-- EventsFragment -->
     <string name="image_not_found">No se ha encontrado la imagen</string>
-    
+    <string name="event_uploaded">Plan en marcha, ¡diviértete!</string>
+    <string name="event_upload_failed">Se ha producido un error al subir el plan</string>
+
     <!-- dialog_create_event -->
     <string name="event_presentation">Presenta el plan</string>
     <string name="put_image_event">(Ponle una imagen al plan)</string>
