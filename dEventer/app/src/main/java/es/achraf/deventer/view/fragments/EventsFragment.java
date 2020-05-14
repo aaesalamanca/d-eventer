@@ -125,6 +125,8 @@ public class EventsFragment extends Fragment implements ItemClickListener {
             rcvEvent.setAdapter(adptEvent);
             adptEvent.notifyDataSetChanged();
             rcvEvent.setLayoutManager(new LinearLayoutManager(getContext()));
+
+            loadingMessage(false);
         });
         vme.getEvents();
 
@@ -134,6 +136,7 @@ public class EventsFragment extends Fragment implements ItemClickListener {
         tvLoading = view.findViewById(R.id.tvLoading);
 
         loadCreateEventDialog(view);
+        loadingMessage(true);
     }
 
     /**
