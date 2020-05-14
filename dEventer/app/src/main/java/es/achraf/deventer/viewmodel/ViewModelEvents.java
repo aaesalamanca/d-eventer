@@ -2,14 +2,39 @@ package es.achraf.deventer.viewmodel;
 
 import android.net.Uri;
 
+import androidx.annotation.NonNull;
+
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 
-import es.achraf.deventer.model.Event;
+import java.util.ArrayList;
 
-public class ViewModelEvents implements IViewModel.UploadEvent {
+import es.achraf.deventer.model.Event;
+import es.achraf.deventer.view.IView;
+
+public class ViewModelEvents implements IViewModel.UploadEvent, IViewModel.GetEvents {
+
+    // Fields
+    private IView.GetEventsListener getEventsListener;
+
+    // Getters
+
+    /**
+     * Establece el listener que escuchará la petición de leer los eventos de la base de
+     * datos.
+     *
+     * @param getEventsListener es el listener de la petición de lectura de los eventos de la
+     *                          base de datos.
+     */
+    @Override
+    public void setGetEventsListener(IView.GetEventsListener getEventsListener) {
+        this.getEventsListener = getEventsListener;
+    }
 
     // Methods
 
@@ -51,5 +76,31 @@ public class ViewModelEvents implements IViewModel.UploadEvent {
                         databaseReference.setValue(event);
                     });
         });
+    }
+
+    /**
+     * Solicita leer los eventos a la base de datos.
+     */
+    @Override
+    public void getEvents() {
+        FirebaseDatabase.getInstance().getReference().child(IViewModel.EVENTS)
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        ArrayList<String> alKeys = new ArrayList<>();
+                        ArrayList<Event> alEvent = new ArrayList<>();
+                        for (DataSnapshot fDataSnapshot : dataSnapshot.getChildren()) {
+                            alKeys.add(fDataSnapshot.getKey());
+                            alEvent.add(fDataSnapshot.getValue(Event.class));
+                        }
+
+                        getEventsListener.onEventsRead(alKeys, alEvent);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
     }
 }

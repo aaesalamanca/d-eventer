@@ -85,6 +85,13 @@
     <string name="event_uploaded">Plan en marcha, ¡diviértete!</string>
     <string name="event_upload_failed">Se ha producido un error al subir el plan</string>
 
+    <!-- item_event -->
+    <string name="event_title">Titulo del plan</string>
+    <string name="event_date">Fecha del plan</string>
+    <string name="event_time">Hora del plan</string>
+    <string name="event_location">Ubicación</string>
+    <string name="event_price">Precio</string>
+
     <!-- dialog_create_event -->
     <string name="event_presentation">Presenta el plan</string>
     <string name="put_image_event">(Ponle una imagen al plan)</string>
@@ -138,10 +145,6 @@
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
-    <string name="ubicacion">Ubicacion</string>
-    <string name="hora_del_plan">Hora del event</string>
-    <string name="fecha_del_plan">Fecha del event</string>
-    <string name="titulo_del_plan">Titulo del Plan</string>
     <string name="crear">Crear event</string>
     <string name="fecha">Fecha</string>
     <string name="informaci_n_del_plan">Información del event</string>

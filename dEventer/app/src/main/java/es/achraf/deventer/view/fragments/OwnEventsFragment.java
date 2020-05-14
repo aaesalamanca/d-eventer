@@ -29,14 +29,14 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.ArrayList;
 
 import es.achraf.deventer.R;
-import es.achraf.deventer.view.adapters.AdapterRecyclerViewPlanes;
+import es.achraf.deventer.view.adapters.RecyclerViewEventAdapter;
 import es.achraf.deventer.interfaces.ItemClickListener;
 import es.achraf.deventer.model.Event;
 
 public class OwnEventsFragment extends Fragment implements ItemClickListener {
 
     private RecyclerView recyclerViewMisPlanes;
-    private AdapterRecyclerViewPlanes adapterMisPlanes;
+    private RecyclerViewEventAdapter adapterMisPlanes;
     private FirebaseAuth mAuth;
     private FirebaseDatabase mDatabase;
     private DatabaseReference reference;
@@ -101,21 +101,21 @@ public class OwnEventsFragment extends Fragment implements ItemClickListener {
                     String hora = document.getString("hora");
                     String urlImagen = document.getString("imagen");
                     String titulo = document.getString("titulo");
-                    String ubicacion = document.getString("ubicacion");
+                    String ubicacion = document.getString("event_location");
                     String precio = document.getString("precio");
                     String descripcion = document.getString("descripcion");
                     String dueno = document.getString("dueno");
                     String imgDueno = document.getString("imgDueno");
                     ArrayList<String> usuariosApuntados = (ArrayList<String>) document.get("usuariosApuntados");
 
-                    //planes.add(new Event(idPlan, titulo, ubicacion, fecha, hora, precio, urlImagen, descripcion, dueno, imgDueno, usuariosApuntados));
+                    //planes.add(new Event(idPlan, titulo, event_location, fecha, hora, precio, urlImagen, descripcion, dueno, imgDueno, usuariosApuntados));
 
 
                 } else {
                     Toast.makeText(getContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                 }
 
-                adapterMisPlanes = new AdapterRecyclerViewPlanes(getContext(), planes, itemClickListener, R.layout.item_planes);
+                adapterMisPlanes = new RecyclerViewEventAdapter(getContext(), planes, itemClickListener, R.layout.item_event);
                 recyclerViewMisPlanes.setAdapter(adapterMisPlanes);
                 adapterMisPlanes.notifyDataSetChanged();
                 recyclerViewMisPlanes.setLayoutManager(new LinearLayoutManager(getContext()));

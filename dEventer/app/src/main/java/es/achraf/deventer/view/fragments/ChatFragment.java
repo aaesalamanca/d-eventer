@@ -108,14 +108,14 @@ public class ChatFragment extends Fragment implements ItemClickListener {
                     String hora = document.getString("hora");
                     String urlImagen = document.getString("imagen");
                     String titulo = document.getString("titulo");
-                    String ubicacion = document.getString("ubicacion");
+                    String ubicacion = document.getString("event_location");
                     String precio = document.getString("precio");
                     String descripcion = document.getString("descripcion");
                     String dueno = document.getString("dueno");
                     String imgDueno = document.getString("imgDueno");
                     ArrayList<String> usuariosApuntados = (ArrayList<String>) document.get("usuariosApuntados");
 
-                    //planes.add(new Event(idPlan, titulo, ubicacion, fecha, hora, precio, urlImagen, descripcion, dueno, imgDueno, usuariosApuntados));
+                    //planes.add(new Event(idPlan, titulo, event_location, fecha, hora, precio, urlImagen, descripcion, dueno, imgDueno, usuariosApuntados));
 
 
                 } else {

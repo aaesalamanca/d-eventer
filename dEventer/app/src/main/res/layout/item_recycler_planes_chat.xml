@@ -32,7 +32,7 @@
             android:layout_margin="10dp"
             android:fontFamily="@font/proximanovaregular"
             android:gravity="center"
-            android:text="@string/titulo_del_plan"
+            android:text="@string/event_title"
             android:textColor="@color/colorPrincipal"
             android:textSize="20sp"
             android:textStyle="bold" />

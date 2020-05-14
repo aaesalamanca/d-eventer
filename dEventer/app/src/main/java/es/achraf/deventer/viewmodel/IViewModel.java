@@ -92,6 +92,22 @@ public interface IViewModel {
         String getPostalCode();
     }
 
+    interface GetEvents {
+        /**
+         * Establece el listener que escuchará la petición de leer los eventos de la base de
+         * datos.
+         *
+         * @param getEventsListener es el listener de la petición de lectura de los eventos de la
+         *                          base de datos.
+         */
+        void setGetEventsListener(IView.GetEventsListener getEventsListener);
+
+        /**
+         * Solicita leer los eventos a la base de datos.
+         */
+        void getEvents();
+    }
+
     interface SetGetPreferencesListener {
         /**
          * Establece el Listener que escuchará la petición de las SharedPreferences

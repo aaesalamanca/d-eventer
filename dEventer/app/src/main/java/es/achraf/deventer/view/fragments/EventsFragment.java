@@ -17,7 +17,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -32,21 +31,12 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.android.material.button.MaterialButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -55,12 +45,11 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import es.achraf.deventer.R;
 import es.achraf.deventer.interfaces.ItemClickListener;
 import es.achraf.deventer.model.Event;
-import es.achraf.deventer.model.User;
 import es.achraf.deventer.view.MapActivity;
-import es.achraf.deventer.view.adapters.AdapterRecyclerViewPlanes;
+import es.achraf.deventer.view.adapters.RecyclerViewEventAdapter;
 import es.achraf.deventer.viewmodel.ViewModelEvents;
 
-public class EventsFragment extends Fragment /*implements ItemClickListener*/ {
+public class EventsFragment extends Fragment implements ItemClickListener {
 
     // Fields
     private static final int RC_IMAGE = 0;
@@ -69,8 +58,12 @@ public class EventsFragment extends Fragment /*implements ItemClickListener*/ {
 
     private ViewModelEvents vme;
 
-    private AdapterRecyclerViewPlanes adapterPlan;
-    private RecyclerView rcvEvents;
+    private ArrayList<String> alKeys;
+    private ArrayList<Event> alEvent;
+
+    private RecyclerViewEventAdapter adptEvent;
+    private RecyclerView rcvEvent;
+
     private Uri imageUri;
     private Dialog createEventDialog;
 
@@ -113,7 +106,6 @@ public class EventsFragment extends Fragment /*implements ItemClickListener*/ {
         View view = inflater.inflate(R.layout.fragment_events, container, false);
         init(view);
 
-        //readEvents();
         return view;
     }
 
@@ -124,8 +116,19 @@ public class EventsFragment extends Fragment /*implements ItemClickListener*/ {
      */
     private void init(View view) {
         vme = new ViewModelEvents();
+        vme.setGetEventsListener((alKeys, alEvent) -> {
+            this.alKeys = alKeys;
+            this.alEvent = alEvent;
 
-        rcvEvents = view.findViewById(R.id.rcvEvents);
+            adptEvent = new RecyclerViewEventAdapter(getContext(),
+                    alEvent, this, R.layout.item_event);
+            rcvEvent.setAdapter(adptEvent);
+            adptEvent.notifyDataSetChanged();
+            rcvEvent.setLayoutManager(new LinearLayoutManager(getContext()));
+        });
+        vme.getEvents();
+
+        rcvEvent = view.findViewById(R.id.rcvEvents);
 
         pbLoading = view.findViewById(R.id.pbLoading);
         tvLoading = view.findViewById(R.id.tvLoading);
@@ -311,46 +314,6 @@ public class EventsFragment extends Fragment /*implements ItemClickListener*/ {
     }
 
     /**
-     * Lee los eventos de la base de datos.
-     */
-    /*private void readEvents() {
-        planes = new ArrayList<>();
-
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-
-        db.collection("tabla_planes")
-                .get()
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful() && task.getResult() != null) {
-
-
-                        for (QueryDocumentSnapshot document : task.getResult()) {
-
-                            String idPlan = document.getId();
-                            String fecha = document.getString("fecha");
-                            String hora = document.getString("hora");
-                            String urlImagen = document.getString("imagen");
-                            String titulo = document.getString("titulo");
-                            String ubicacion = document.getString("ubicacion");
-                            String precio = document.getString("precio");
-                            String descripcion = document.getString("descripcion");
-                            String dueno = document.getString("dueno");
-                            String imgDueno = document.getString("imgDueno");
-                            ArrayList<String> usuariosApuntados = (ArrayList<String>) document.get("usuariosApuntados");
-
-                            planes.add(new Event(idPlan, titulo, ubicacion, fecha, hora, precio, urlImagen, descripcion, dueno, imgDueno, usuariosApuntados));
-                        }
-                        adapterPlan = new AdapterRecyclerViewPlanes(getContext(), planes, this, R.layout.item_planes);
-                        rcvEvents.setAdapter(adapterPlan);
-                        adapterPlan.notifyDataSetChanged();
-                        rcvEvents.setLayoutManager(new LinearLayoutManager(getContext()));
-                    } else {
-                        Toast.makeText(getContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                });
-    }*/
-
-    /**
      * Muestra o hace invisibles —GONE— distintos elementos de la actividad relacionados con la
      * espera e invocación de una nueva actividad.
      *
@@ -401,10 +364,10 @@ public class EventsFragment extends Fragment /*implements ItemClickListener*/ {
      * @param view
      * @param pos
      */
-    /*@Override
+    @Override
     public void onItemClick(View view, int pos) {
 
-        Event event = (Event) planes.get(pos);
+        /*Event event = (Event) planes.get(pos);
 
         final Dialog dialogVistaPlan = new Dialog(getContext(), R.style.full_screen_dialog);
         dialogVistaPlan.setContentView(R.layout.detalle_plan);
@@ -436,15 +399,15 @@ public class EventsFragment extends Fragment /*implements ItemClickListener*/ {
 
                     ArrayList<String> idsUsuariosApuntados = event.getUsuariosApuntadosUID();
                     for (String id : idsUsuariosApuntados) {
-                        /*if (id.equals(user.getUid())) {
+                        if (id.equals(user.getUid())) {
                             btnApuntarsePlan.setEnabled(false);
                             btnApuntarsePlan.setText(R.string.apuntado);
-                        }*/
-                    /*}
+                        }
+                    }
 
                 }
 
-                /*@Override
+                @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
                     Toast.makeText(getContext(), databaseError.getMessage(), Toast.LENGTH_SHORT).show();
                 }
@@ -476,7 +439,7 @@ public class EventsFragment extends Fragment /*implements ItemClickListener*/ {
 
 
                         //FALTA LA OPCION DE DESAPUNTARSE DEL PLAN
-                        /*event.getUsuariosApuntados().remove(user);
+                        event.getUsuariosApuntados().remove(user);
                         db.collection("tabla_planes").document(event.getId()).update("usuariosApuntados", event.getUsuariosApuntados());*/
 
                         /*Toast.makeText(getContext(), "Apuntado al event, que te diviertas", Toast.LENGTH_SHORT).show();
@@ -539,6 +502,6 @@ public class EventsFragment extends Fragment /*implements ItemClickListener*/ {
             }
         });
 
-        dialogVistaPlan.show();
-    }*/
+        dialogVistaPlan.show();*/
+    }
 }

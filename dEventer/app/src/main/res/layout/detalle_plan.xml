@@ -61,7 +61,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/mifuente"
             android:gravity="center"
-            android:text="@string/titulo_del_plan"
+            android:text="@string/event_title"
             android:textColor="#FF814E"
             android:textSize="15sp"
             android:textStyle="bold" />
@@ -167,7 +167,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
-                    android:drawableStart="@drawable/locaiton_icon"
+                    android:drawableStart="@drawable/location_icon"
                     android:fontFamily="@font/proximanovaregular"
                     android:gravity="center"
                     android:text="@string/ubicaci_n"

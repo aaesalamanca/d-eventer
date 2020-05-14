@@ -3,19 +3,13 @@ package es.achraf.deventer.view;
 import android.content.SharedPreferences;
 import android.net.Uri;
 
+import java.util.ArrayList;
+
+import es.achraf.deventer.model.Event;
+
 public interface IView {
 
     // Interfaces
-
-    interface GetPreferencesListener {
-        /**
-         * Obtiene las SharedPreferences de la Activity.
-         *
-         * @param mode es el modo de acceso a las SharedPreferences.
-         * @return las SharedPreferences según mode.
-         */
-        SharedPreferences getPreferences(int mode);
-    }
 
     interface SignUpCompleteListener {
         /**
@@ -41,6 +35,27 @@ public interface IView {
         void onSignInComplete(boolean signedIn);
     }
 
+    interface GetPreferencesListener {
+        /**
+         * Obtiene las SharedPreferences de la Activity.
+         *
+         * @param mode es el modo de acceso a las SharedPreferences.
+         * @return las SharedPreferences según mode.
+         */
+        SharedPreferences getPreferences(int mode);
+    }
+
+    interface GetEventsListener {
+        /**
+         * Handler que ejecuta la acción requerida cuando se han leído los eventos de la base
+         * de datos.
+         *
+         * @param alKeys  es el ArrayList de claves en el JSON de la base de datos.
+         * @param alEvent es el ArrayList de valores en el JSON de la base de datos.
+         */
+        void onEventsRead(ArrayList<String> alKeys, ArrayList<Event> alEvent);
+    }
+
     interface GetProfileListener {
         /**
          * Handler que ejecuta la acción requerida cuando se han obtenido los datos del usuario
@@ -61,17 +76,6 @@ public interface IView {
          *                 False -> No se ha actualizado
          */
         void onImageUploaded(Uri cloudUri, boolean isChange);
-    }
-
-    interface UploadEventListener {
-        /**
-         * Handler que ejecuta la acción requerida cuando se ha subido el evento a la base de datos.
-         *
-         * @param isUploaded indica si se ha subido el evento a la base de datos:
-         *                   True -> Se ha subido
-         *                   False -> No se ha subido
-         */
-        void onEventUploaded(boolean isUploaded);
     }
 
     interface SignOutListener {
