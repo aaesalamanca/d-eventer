@@ -59,7 +59,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
                 try {
                     lAddress = geocoder.getFromLocationName(place, 1);
 
-                    if (lAddress != null) {
+                    if ((lAddress != null) && !(lAddress.isEmpty())) {
                         Address address = lAddress.get(0);
 
                         LatLng latLng = new LatLng(address.getLatitude(),
