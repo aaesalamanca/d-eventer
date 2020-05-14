@@ -14,24 +14,24 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:background="@drawable/degradado"
+            android:layout_margin="@dimen/margin_5"
+            android:background="@drawable/gradient"
             android:orientation="horizontal">
 
             <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/imgPerfilUsuario"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginEnd="10dp"
-                android:padding="10dp"
+                android:id="@+id/civUser"
+                android:layout_width="@dimen/size_50"
+                android:layout_height="@dimen/size_50"
+                android:layout_marginEnd="@dimen/margin_10"
+                android:padding="@dimen/padding_10"
                 android:src="@mipmap/logo"
                 app:civ_border_color="@color/colorAccent"
                 app:civ_border_overlay="@bool/auto_center_on_marker_click"
-                app:civ_border_width="2dp"
+                app:civ_border_width="@dimen/size_2"
                 tools:ignore="ContentDescription" />
 
             <TextView
-                android:id="@+id/txtDuenoPlan"
+                android:id="@+id/tvUser"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -40,89 +40,85 @@
                 android:textColor="@color/colorAccent"
                 android:textStyle="bold|italic" />
 
-
         </LinearLayout>
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/imgPlanDetalle"
-            android:layout_width="200dp"
-            android:layout_height="150dp"
+            android:id="@+id/civEvent"
+            android:layout_width="@dimen/size_200"
+            android:layout_height="@dimen/size_150"
             android:layout_gravity="center"
-            android:layout_margin="16dp"
+            android:layout_margin="@dimen/margin_16"
             android:foregroundGravity="center"
             android:isScrollContainer="@bool/auto_center_on_marker_click"
-            android:padding="5dp"
+            android:padding="@dimen/padding_5"
             android:scaleType="centerCrop"
             android:src="@mipmap/logo" />
 
         <TextView
-            android:id="@+id/txtTituloPlanDetalle"
+            android:id="@+id/tvName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/mifuente"
             android:gravity="center"
             android:text="@string/event_title"
-            android:textColor="#FF814E"
-            android:textSize="15sp"
+            android:textColor="@color/naranja"
+            android:textSize="@dimen/text_15"
             android:textStyle="bold" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnApuntarsePlan"
+            android:id="@+id/mbtnJoin"
             style="@style/AppTheme"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:background="@color/colorPrincipal"
             android:fontFamily="@font/proximanovaregular"
-            android:padding="5dp"
-            android:text="@string/apuntarse_al_plan"
+            android:padding="@dimen/padding_5"
+            android:text="@string/join_event"
             android:textAlignment="center"
-            android:textColor="#FF814E"
-            android:textSize="20sp"
+            android:textColor="@color/naranja"
+            android:textSize="@dimen/text_20"
             android:textStyle="bold"
-            app:cornerRadius="20dp" />
-
+            app:cornerRadius="@dimen/radius_20" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:layout_margin="@dimen/margin_10"
             android:orientation="vertical"
-            android:padding="10dp"
-            app:cornerRadius="20dp">
+            android:padding="@dimen/padding_10"
+            app:cornerRadius="@dimen/radius_20">
 
             <TextView
-                android:id="@+id/tvPersonalData"
                 style="@style/TextAppearance.AppCompat.Light.SearchResult.Subtitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/proximanovaregular"
-                android:text="@string/informaci_n_del_plan"
+                android:text="@string/info"
                 android:textColor="@color/colorPrincipal"
-                android:textSize="20sp"
+                android:textSize="@dimen/text_20"
                 android:textStyle="bold" />
-
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
+                android:layout_margin="@dimen/margin_10"
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="0dp"
+                    android:layout_width="@dimen/size_0"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:drawableStart="@drawable/date_icon"
                     android:fontFamily="@font/proximanovaregular"
                     android:gravity="center"
-                    android:text="@string/fecha"
+                    android:text="@string/view_date"
                     android:textColor="@color/colorPrincipal"
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/txtFechaPlanDetalle"
-                    android:layout_width="0dp"
+                    android:id="@+id/tvDate"
+                    android:layout_width="@dimen/size_0"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
@@ -133,23 +129,23 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
+                android:layout_margin="@dimen/margin_10"
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="0dp"
+                    android:layout_width="@dimen/size_0"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:drawableStart="@drawable/time_icon"
                     android:fontFamily="@font/proximanovaregular"
                     android:gravity="center"
-                    android:text="@string/hora"
+                    android:text="@string/view_time"
                     android:textColor="@color/colorPrincipal"
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/txtHoraPlanDetalle"
-                    android:layout_width="0dp"
+                    android:id="@+id/tvTime"
+                    android:layout_width="@dimen/size_0"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
@@ -160,52 +156,50 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
+                android:layout_margin="@dimen/margin_10"
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="0dp"
+                    android:layout_width="@dimen/size_0"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
                     android:drawableStart="@drawable/location_icon"
                     android:fontFamily="@font/proximanovaregular"
                     android:gravity="center"
-                    android:text="@string/ubicaci_n"
+                    android:text="@string/event_location"
                     android:textColor="@color/colorPrincipal"
                     android:textStyle="bold" />
 
-
                 <TextView
-                    android:id="@+id/txtUbicacionPlanDetalle"
-                    android:layout_width="0dp"
+                    android:id="@+id/tvLocation"
+                    android:layout_width="@dimen/size_0"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
                     android:gravity="center"
                     android:textColor="@color/colorPrincipal" />
 
-
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
+                android:layout_margin="@dimen/margin_10"
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="0dp"
+                    android:layout_width="@dimen/size_0"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:drawableStart="@drawable/euro_icon"
                     android:fontFamily="@font/proximanovaregular"
                     android:gravity="center"
-                    android:text="@string/precio"
+                    android:text="@string/view_price"
                     android:textColor="@color/colorPrincipal"
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/txtPrecioPlanDetalle"
-                    android:layout_width="0dp"
+                    android:id="@+id/tvPrice"
+                    android:layout_width="@dimen/size_0"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
@@ -217,22 +211,22 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
+                android:layout_margin="@dimen/margin_10"
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="0dp"
+                    android:layout_width="@dimen/size_0"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:drawableStart="@drawable/icono_num_apuntados"
+                    android:drawableStart="@drawable/users_icon"
                     android:fontFamily="@font/proximanovaregular"
                     android:gravity="center"
-                    android:text="@string/apuntados"
+                    android:text="@string/joined"
                     android:textColor="@color/colorPrincipal"
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/txtNumApuntado"
+                    android:id="@+id/tvJoined"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -244,7 +238,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
+                android:layout_margin="@dimen/margin_10"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -252,20 +246,19 @@
                     android:layout_height="wrap_content">
 
                     <TextView
-                        android:layout_width="0dp"
+                        android:layout_width="@dimen/size_0"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_weight="1"
                         android:drawableStart="@drawable/ic_texture_black_24dp"
                         android:fontFamily="@font/proximanovaregular"
                         android:gravity="center"
-                        android:text="@string/descripcion"
+                        android:text="@string/view_description"
                         android:textColor="@color/colorPrincipal"
                         android:textStyle="bold" />
 
-
                     <TextView
-                        android:layout_width="0dp"
+                        android:layout_width="@dimen/size_0"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_weight="1"
@@ -273,18 +266,17 @@
                         android:textColor="@color/colorPrincipal"
                         android:textStyle="bold" />
 
-
                 </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_height="@dimen/size_0"
+                    android:layout_marginTop="@dimen/margin_8"
                     android:layout_weight="0.5"
                     android:textColor="@color/colorPrincipal" />
 
                 <TextView
-                    android:id="@+id/txtDescripcionDetalle"
+                    android:id="@+id/tvDescription"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
@@ -293,7 +285,9 @@
                     android:textColor="@color/colorPrincipal" />
 
             </LinearLayout>
+
         </LinearLayout>
+        
     </LinearLayout>
 
 </ScrollView>

@@ -112,6 +112,15 @@
     <string name="error">Hubo un error</string>
     <string name="madrid">Madrid</string>
 
+    <!-- dialog_view_event -->
+    <string name="join_event">¡Apuntarse al plan!</string>
+    <string name="info">Información del plan</string>
+    <string name="view_date">Fecha</string>
+    <string name="view_time">Hora</string>
+    <string name="view_price">Precio</string>
+    <string name="joined">Apuntados</string>
+    <string name="view_description">Descripcion</string>
+
     <string name="title_activity_inicio">Inicio</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -146,16 +155,8 @@
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="crear">Crear event</string>
-    <string name="fecha">Fecha</string>
-    <string name="informaci_n_del_plan">Información del event</string>
-    <string name="hora">Hora</string>
-    <string name="ubicaci_n">Ubicación</string>
-    <string name="precio">Precio</string>
-    <string name="descripcion">Descripcion</string>
     <string name="ir">IR</string>
-    <string name="apuntarse_al_plan">¡Apuntarse al event!</string>
     <string name="apuntado">Apuntado</string>
-    <string name="apuntados">Apuntados</string>
 
 
     <string name="facebook_app_id" translatable="false">533589277584622</string>

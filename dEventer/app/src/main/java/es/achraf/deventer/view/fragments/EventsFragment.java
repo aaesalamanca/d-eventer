@@ -373,21 +373,21 @@ public class EventsFragment extends Fragment implements ItemClickListener {
         /*Event event = (Event) planes.get(pos);
 
         final Dialog dialogVistaPlan = new Dialog(getContext(), R.style.full_screen_dialog);
-        dialogVistaPlan.setContentView(R.layout.detalle_plan);
+        dialogVistaPlan.setContentView(R.layout.dialog_view_event);
 
-        MaterialButton btnApuntarsePlan = dialogVistaPlan.findViewById(R.id.btnApuntarsePlan);
+        MaterialButton mbtnJoin = dialogVistaPlan.findViewById(R.id.mbtnJoin);
 
-        CircleImageView imgPlanDetalle = dialogVistaPlan.findViewById(R.id.imgPlanDetalle);
-        CircleImageView imgPerfilUsuario = dialogVistaPlan.findViewById(R.id.imgPerfilUsuario);
+        CircleImageView civEvent = dialogVistaPlan.findViewById(R.id.civEvent);
+        CircleImageView civUser = dialogVistaPlan.findViewById(R.id.civUser);
 
-        TextView txtFechaPlanDetalle = dialogVistaPlan.findViewById(R.id.txtFechaPlanDetalle);
-        TextView txtHoraPlanDetalle = dialogVistaPlan.findViewById(R.id.txtHoraPlanDetalle);
-        TextView txtUbicacionPlanDetalle = dialogVistaPlan.findViewById(R.id.txtUbicacionPlanDetalle);
-        TextView txtPrecioPlanDetalle = dialogVistaPlan.findViewById(R.id.txtPrecioPlanDetalle);
+        TextView tvDate = dialogVistaPlan.findViewById(R.id.tvDate);
+        TextView tvTime = dialogVistaPlan.findViewById(R.id.tvTime);
+        TextView tvLocation = dialogVistaPlan.findViewById(R.id.tvLocation);
+        TextView tvPrice = dialogVistaPlan.findViewById(R.id.tvPrice);
         TextView txtTituloPlanDetalle = dialogVistaPlan.findViewById(R.id.txtTituloPlanDetalle);
-        TextView txtDescripcionDetalle = dialogVistaPlan.findViewById(R.id.txtDescripcionDetalle);
+        TextView tvDescription = dialogVistaPlan.findViewById(R.id.tvDescription);
         TextView txtDueno = dialogVistaPlan.findViewById(R.id.txtDuenoPlan);
-        TextView txtNumApuntado = dialogVistaPlan.findViewById(R.id.txtNumApuntado);
+        TextView tvJoined = dialogVistaPlan.findViewById(R.id.tvJoined);
 
         //comprobamos si el user ya está apuntado o no
 
@@ -403,8 +403,8 @@ public class EventsFragment extends Fragment implements ItemClickListener {
                     ArrayList<String> idsUsuariosApuntados = event.getUsuariosApuntadosUID();
                     for (String id : idsUsuariosApuntados) {
                         if (id.equals(user.getUid())) {
-                            btnApuntarsePlan.setEnabled(false);
-                            btnApuntarsePlan.setText(R.string.apuntado);
+                            mbtnJoin.setEnabled(false);
+                            mbtnJoin.setText(R.string.apuntado);
                         }
                     }
 
@@ -418,7 +418,7 @@ public class EventsFragment extends Fragment implements ItemClickListener {
         }
 
         //agregamos el user al event de nuestra base de datos para tener un seguimiento de os usuarios que hay en la base de datos por cada event
-        btnApuntarsePlan.setOnClickListener(v -> {
+        mbtnJoin.setOnClickListener(v -> {
 
             String nombree = mAuth.getCurrentUser().getDisplayName();
             mAuth.getCurrentUser().getUid();
@@ -446,13 +446,13 @@ public class EventsFragment extends Fragment implements ItemClickListener {
                         db.collection("tabla_planes").document(event.getId()).update("usuariosApuntados", event.getUsuariosApuntados());*/
 
                         /*Toast.makeText(getContext(), "Apuntado al event, que te diviertas", Toast.LENGTH_SHORT).show();
-                        btnApuntarsePlan.setEnabled(false);
-                        btnApuntarsePlan.setText(R.string.apuntado);
+                        mbtnJoin.setEnabled(false);
+                        mbtnJoin.setText(R.string.apuntado);
 
                         //agregamos uno al campo de numero de apuntados (dado que es mejor respecto al rendimiento que actualizar)
-                        int num = Integer.parseInt(txtNumApuntado.getText().toString());
+                        int num = Integer.parseInt(tvJoined.getText().toString());
                         num += 1;
-                        txtNumApuntado.setText(String.valueOf(num));
+                        tvJoined.setText(String.valueOf(num));
                     }
 
                     @Override
@@ -465,13 +465,13 @@ public class EventsFragment extends Fragment implements ItemClickListener {
 
 
         txtTituloPlanDetalle.setText(event.getName());
-        txtFechaPlanDetalle.setText(event.getDate());
-        txtHoraPlanDetalle.setText(event.getTime());
-        txtPrecioPlanDetalle.setText(event.getPrice());
-        txtUbicacionPlanDetalle.setText(event.getLocation());
-        txtDescripcionDetalle.setText(event.getDescription());
+        tvDate.setText(event.getDate());
+        tvTime.setText(event.getTime());
+        tvPrice.setText(event.getPrice());
+        tvLocation.setText(event.getLocation());
+        tvDescription.setText(event.getDescription());
         txtDueno.setText(event.getOwnerId());
-        txtNumApuntado.setText(String.valueOf(event.getUsuariosApuntadosUID().size()));
+        tvJoined.setText(String.valueOf(event.getUsuariosApuntadosUID().size()));
 
         FirebaseStorage storage = FirebaseStorage.getInstance();
 
@@ -487,7 +487,7 @@ public class EventsFragment extends Fragment implements ItemClickListener {
                 Glide.with(getContext()).load(uri).error(R.mipmap.logo).dontTransform()
                         .centerCrop()
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
-                        .thumbnail(.5f).into(imgPerfilUsuario);
+                        .thumbnail(.5f).into(civUser);
             }
         });
 
@@ -501,7 +501,7 @@ public class EventsFragment extends Fragment implements ItemClickListener {
                 Glide.with(getContext()).load(uri).error(R.mipmap.logo).dontTransform()
                         .centerCrop()
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
-                        .thumbnail(.5f).into(imgPlanDetalle);
+                        .thumbnail(.5f).into(civEvent);
             }
         });
 
