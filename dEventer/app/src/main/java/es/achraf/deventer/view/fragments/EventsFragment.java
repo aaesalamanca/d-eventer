@@ -15,6 +15,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -31,12 +32,9 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.storage.FirebaseStorage;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -61,6 +59,9 @@ public class EventsFragment extends Fragment implements ItemClickListener {
     private ArrayList<String> alKeys;
     private ArrayList<Event> alEvent;
 
+    private ProgressBar pbLoading;
+    private TextView tvLoading;
+
     private RecyclerViewEventAdapter adptEvent;
     private RecyclerView rcvEvent;
 
@@ -75,16 +76,6 @@ public class EventsFragment extends Fragment implements ItemClickListener {
     public static TextInputEditText tietLocation;
     private TextInputEditText tietPrice;
     private TextInputEditText tietDescription;
-
-    private ProgressBar pbLoading;
-    private TextView tvLoading;
-
-    private ArrayList<Event> planes;
-
-    private FirebaseStorage storage = FirebaseStorage.getInstance();
-    private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private FirebaseAuth mAuth = FirebaseAuth.getInstance();
-    private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
 
     // Methods
 
@@ -135,16 +126,18 @@ public class EventsFragment extends Fragment implements ItemClickListener {
         pbLoading = view.findViewById(R.id.pbLoading);
         tvLoading = view.findViewById(R.id.tvLoading);
 
-        loadCreateEventDialog(view);
+        loadCreateEventDialog();
+        view.findViewById(R.id.efabCreateEvent).setOnClickListener(v -> createEventDialog.show());
+
+        loadViewEventDialog();
+
         loadingMessage(true);
     }
 
     /**
      * Carga el diálogo para crear un evento.
-     *
-     * @param view es la vista sobre la que se carga el diálogo.
      */
-    private void loadCreateEventDialog(View view) {
+    private void loadCreateEventDialog() {
         createEventDialog = new Dialog(getContext(), R.style.full_screen_dialog);
         createEventDialog.setContentView(R.layout.dialog_create_event);
 
@@ -165,15 +158,9 @@ public class EventsFragment extends Fragment implements ItemClickListener {
         tietPrice = createEventDialog.findViewById(R.id.tietPrice);
         tietDescription = createEventDialog.findViewById(R.id.tietDescription);
 
-        createEventDialog.findViewById(R.id.mbtnCreate).setOnClickListener(v1 -> {
-            uploadEvent();
-        });
+        createEventDialog.findViewById(R.id.mbtnCreate).setOnClickListener(v1 -> uploadEvent());
         createEventDialog.findViewById(R.id.mbtnCancel)
                 .setOnClickListener(v1 -> createEventDialog.dismiss());
-
-        view.findViewById(R.id.efabCreateEvent).setOnClickListener(v -> {
-            createEventDialog.show();
-        });
     }
 
     /**
@@ -237,9 +224,10 @@ public class EventsFragment extends Fragment implements ItemClickListener {
         int currentMonth = calendar.get(Calendar.MONTH);
         int currentDay = calendar.get(Calendar.DAY_OF_MONTH);
 
-        new DatePickerDialog(getContext(), R.style.date_picker, (view, year, month, dayOfMonth) -> {
-            tietDate.setText(dayOfMonth + "/" + (month + 1) + "/" + year);
-        }, currentYear, currentMonth, currentDay).show();
+        new DatePickerDialog(getContext(), R.style.date_picker,
+                (view, year, month, dayOfMonth) ->
+                        tietDate.setText(dayOfMonth + "/" + (month + 1) + "/" + year)
+                , currentYear, currentMonth, currentDay).show();
     }
 
     /**
@@ -251,9 +239,10 @@ public class EventsFragment extends Fragment implements ItemClickListener {
         final int currentHour = calendar.get(Calendar.HOUR_OF_DAY);
         final int currentMinute = calendar.get(Calendar.MINUTE);
 
-        new TimePickerDialog(getContext(), R.style.time_picker, (view, hourOfDay, minute) -> {
-            tietTime.setText(String.format("%02d:%02d", hourOfDay, minute));
-        }, currentHour, currentMinute, true).show();
+        new TimePickerDialog(getContext(), R.style.time_picker,
+                (view, hourOfDay, minute) ->
+                        tietTime.setText(String.format("%02d:%02d", hourOfDay, minute))
+                , currentHour, currentMinute, true).show();
     }
 
     /**
@@ -296,7 +285,7 @@ public class EventsFragment extends Fragment implements ItemClickListener {
     }
 
     /**
-     * Comprueba que el formulario es válido, es decir, que los campos nombre, fecha, hora,
+     * Comprueba que el formulario es válido, es decir, que los campos de foto, nombre, fecha, hora,
      * ubicación, precio y descripción no están vacíos.
      *
      * @param name        es el nombre del evento.
@@ -313,6 +302,14 @@ public class EventsFragment extends Fragment implements ItemClickListener {
         return !(TextUtils.isEmpty(name) || TextUtils.isEmpty(date) || TextUtils.isEmpty(time)
                 || TextUtils.isEmpty(location) || TextUtils.isEmpty(price)
                 || TextUtils.isEmpty(description) || uri == null);
+    }
+
+    /**
+     * Carga el diálogo para ver un evento.
+     */
+    private void loadViewEventDialog() {
+        Dialog viewEventDialog = new Dialog(getContext(), R.style.full_screen_dialog);
+        viewEventDialog.setContentView(R.layout.dialog_view_event);
     }
 
     /**
@@ -363,147 +360,40 @@ public class EventsFragment extends Fragment implements ItemClickListener {
     }
 
     /**
-     * @param view
-     * @param pos
+     * Handler que ejecuta la acción requerida cuando se hace click en un ítem del
+     * RecyclerView.
+     *
+     * @param view es la vista en la que se ha hecho click.
+     * @param pos  es la posición del elemento en el que se ha hecho click.
      */
     @Override
     public void onItemClick(View view, int pos) {
-
-        /*Event event = (Event) planes.get(pos);
+        Event event = alEvent.get(pos);
 
         final Dialog dialogVistaPlan = new Dialog(getContext(), R.style.full_screen_dialog);
         dialogVistaPlan.setContentView(R.layout.dialog_view_event);
 
         MaterialButton mbtnJoin = dialogVistaPlan.findViewById(R.id.mbtnJoin);
 
-        CircleImageView civEvent = dialogVistaPlan.findViewById(R.id.civEvent);
         CircleImageView civUser = dialogVistaPlan.findViewById(R.id.civUser);
 
-        TextView tvDate = dialogVistaPlan.findViewById(R.id.tvDate);
-        TextView tvTime = dialogVistaPlan.findViewById(R.id.tvTime);
-        TextView tvLocation = dialogVistaPlan.findViewById(R.id.tvLocation);
-        TextView tvPrice = dialogVistaPlan.findViewById(R.id.tvPrice);
-        TextView txtTituloPlanDetalle = dialogVistaPlan.findViewById(R.id.txtTituloPlanDetalle);
-        TextView tvDescription = dialogVistaPlan.findViewById(R.id.tvDescription);
-        TextView txtDueno = dialogVistaPlan.findViewById(R.id.txtDuenoPlan);
-        TextView tvJoined = dialogVistaPlan.findViewById(R.id.tvJoined);
+        Glide.with(getContext()).load(Uri.parse(event.getImageUri())).error(R.mipmap.logo)
+                .dontTransform()
+                .centerCrop()
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .thumbnail(.5f)
+                .into((ImageView) (dialogVistaPlan.findViewById(R.id.civEvent)));
 
-        //comprobamos si el user ya está apuntado o no
+        ((TextView) dialogVistaPlan.findViewById(R.id.tvName)).setText(event.getName());
+        ((TextView) dialogVistaPlan.findViewById(R.id.tvDate)).setText(event.getDate());
+        ((TextView) dialogVistaPlan.findViewById(R.id.tvTime)).setText(event.getTime());
+        ((TextView) dialogVistaPlan.findViewById(R.id.tvLocation)).setText(event.getLocation());
+        ((TextView) dialogVistaPlan.findViewById(R.id.tvPrice)).setText(event.getPrice());
+        ((TextView) dialogVistaPlan.findViewById(R.id.tvJoined))
+                .setText(String.valueOf(event.getUsersNum()));
+        ((TextView) dialogVistaPlan.findViewById(R.id.tvDescription))
+                .setText(event.getDescription());
 
-        String ID = mAuth.getCurrentUser().getUid();
-        if (ID != null) {
-            DatabaseReference dbReferecnce = firebaseDatabase.getReference().child(ID);
-
-            dbReferecnce.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    User user = dataSnapshot.getValue(User.class);
-
-                    ArrayList<String> idsUsuariosApuntados = event.getUsuariosApuntadosUID();
-                    for (String id : idsUsuariosApuntados) {
-                        if (id.equals(user.getUid())) {
-                            mbtnJoin.setEnabled(false);
-                            mbtnJoin.setText(R.string.apuntado);
-                        }
-                    }
-
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-                    Toast.makeText(getContext(), databaseError.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            });
-        }
-
-        //agregamos el user al event de nuestra base de datos para tener un seguimiento de os usuarios que hay en la base de datos por cada event
-        mbtnJoin.setOnClickListener(v -> {
-
-            String nombree = mAuth.getCurrentUser().getDisplayName();
-            mAuth.getCurrentUser().getUid();
-            if (nombree != null) {
-                DatabaseReference dbReferecnce = firebaseDatabase.getReference().child(mAuth.getCurrentUser().getUid());
-
-                dbReferecnce.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        User user = dataSnapshot.getValue(User.class);
-                        //event.getUsuariosApuntadosUID().add(user.getUid());//si no está, lo agrego
-
-                        db.collection("tabla_planes").document(event.getId()).update("usuariosApuntados", event.getUsuariosApuntadosUID());
-
-                        //Una vez agregamos el user a la lista de usuarios del event, agregamos el event a la lista de planes del user
-
-                        DatabaseReference referenceDb = firebaseDatabase.getReference();
-                        //DatabaseReference crearUsuario = referenceDb.child(user.getUid());
-                        user.getAlEvent().add(event.getId());
-                        //crearUsuario.setValue(user);
-
-
-                        //FALTA LA OPCION DE DESAPUNTARSE DEL PLAN
-                        event.getUsuariosApuntados().remove(user);
-                        db.collection("tabla_planes").document(event.getId()).update("usuariosApuntados", event.getUsuariosApuntados());*/
-
-                        /*Toast.makeText(getContext(), "Apuntado al event, que te diviertas", Toast.LENGTH_SHORT).show();
-                        mbtnJoin.setEnabled(false);
-                        mbtnJoin.setText(R.string.apuntado);
-
-                        //agregamos uno al campo de numero de apuntados (dado que es mejor respecto al rendimiento que actualizar)
-                        int num = Integer.parseInt(tvJoined.getText().toString());
-                        num += 1;
-                        tvJoined.setText(String.valueOf(num));
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-                        Toast.makeText(getContext(), databaseError.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                });
-            }
-        });
-
-
-        txtTituloPlanDetalle.setText(event.getName());
-        tvDate.setText(event.getDate());
-        tvTime.setText(event.getTime());
-        tvPrice.setText(event.getPrice());
-        tvLocation.setText(event.getLocation());
-        tvDescription.setText(event.getDescription());
-        txtDueno.setText(event.getOwnerId());
-        tvJoined.setText(String.valueOf(event.getUsuariosApuntadosUID().size()));
-
-        FirebaseStorage storage = FirebaseStorage.getInstance();
-
-        StorageReference storageReference = storage.getReference();
-
-        StorageReference sDuenoPlan = storageReference.child("ProfileActivity").child(event.getUriImageDuenoPlan());
-
-        Task<Uri> taskDueno = sDuenoPlan.getDownloadUrl();
-
-        taskDueno.addOnSuccessListener(new OnSuccessListener<Uri>() {
-            @Override
-            public void onSuccess(Uri uri) {
-                Glide.with(getContext()).load(uri).error(R.mipmap.logo).dontTransform()
-                        .centerCrop()
-                        .diskCacheStrategy(DiskCacheStrategy.ALL)
-                        .thumbnail(.5f).into(civUser);
-            }
-        });
-
-        StorageReference sCreaPlan = storageReference.child("FotosPlanes").child(event.getImageUri());
-
-        Task<Uri> taskPlan = sCreaPlan.getDownloadUrl();
-
-        taskPlan.addOnSuccessListener(new OnSuccessListener<Uri>() {
-            @Override
-            public void onSuccess(Uri uri) {
-                Glide.with(getContext()).load(uri).error(R.mipmap.logo).dontTransform()
-                        .centerCrop()
-                        .diskCacheStrategy(DiskCacheStrategy.ALL)
-                        .thumbnail(.5f).into(civEvent);
-            }
-        });
-
-        dialogVistaPlan.show();*/
+        dialogVistaPlan.show();
     }
 }
