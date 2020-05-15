@@ -299,12 +299,13 @@ public class EventsFragment extends Fragment implements ItemClickListener {
      * Comprueba que el formulario es válido, es decir, que los campos nombre, fecha, hora,
      * ubicación, precio y descripción no están vacíos.
      *
-     * @param name        es el nombre del plan.
-     * @param date        es la fecha del plan.
-     * @param time        es la hora del plan.
-     * @param location    es la ubicación del plan.
-     * @param price       es el precio del plan.
-     * @param description es la descripción del plan.
+     * @param name        es el nombre del evento.
+     * @param date        es la fecha del evento.
+     * @param time        es la hora del evento.
+     * @param location    es la ubicación del evento.
+     * @param price       es el precio del evento.
+     * @param description es la descripción del evento.
+     * @param uri         es la uri de la imagen del evento.
      * @return true si el formulario es válido, false en caso contrario.
      */
     private boolean isValidForm(String name, String date, String time, String location,
