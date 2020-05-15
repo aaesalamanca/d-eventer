@@ -145,37 +145,33 @@ public class EventsFragment extends Fragment implements ItemClickListener {
      * @param view es la vista sobre la que se carga el diálogo.
      */
     private void loadCreateEventDialog(View view) {
+        createEventDialog = new Dialog(getContext(), R.style.full_screen_dialog);
+        createEventDialog.setContentView(R.layout.dialog_create_event);
+
+        civEvent = createEventDialog.findViewById(R.id.civEvent);
+        civEvent.setOnClickListener(v1 -> startGallery());
+
+        tietName = createEventDialog.findViewById(R.id.tietName);
+        tietDate = createEventDialog.findViewById(R.id.tietDate);
+        tietDate.setOnClickListener(v1 -> showDatePicker());
+        tietTime = createEventDialog.findViewById(R.id.tietTime);
+        tietTime.setOnClickListener(v1 -> showTimePicker());
+        tietLocation = createEventDialog.findViewById(R.id.tietLocation);
+        tietLocation.setOnClickListener(v1 -> {
+            if (checkGooglePlay()) {
+                startActivity(new Intent(getActivity(), MapActivity.class));
+            }
+        });
+        tietPrice = createEventDialog.findViewById(R.id.tietPrice);
+        tietDescription = createEventDialog.findViewById(R.id.tietDescription);
+
+        createEventDialog.findViewById(R.id.mbtnCreate).setOnClickListener(v1 -> {
+            uploadEvent();
+        });
+        createEventDialog.findViewById(R.id.mbtnCancel)
+                .setOnClickListener(v1 -> createEventDialog.dismiss());
+
         view.findViewById(R.id.efabCreateEvent).setOnClickListener(v -> {
-            createEventDialog = new Dialog(getContext(), R.style.full_screen_dialog);
-            createEventDialog.setContentView(R.layout.dialog_create_event);
-
-            civEvent = createEventDialog.findViewById(R.id.civEvent);
-            civEvent.setOnClickListener(v1 -> startGallery());
-
-            tietName = createEventDialog.findViewById(R.id.tietName);
-            tietDate = createEventDialog.findViewById(R.id.tietDate);
-            tietDate.setOnClickListener(v1 -> showDatePicker());
-            tietTime = createEventDialog.findViewById(R.id.tietTime);
-            tietTime.setOnClickListener(v1 -> showTimePicker());
-            tietLocation = createEventDialog.findViewById(R.id.tietLocation);
-            tietLocation.setOnClickListener(v1 -> {
-                if (checkGooglePlay()) {
-                    startActivity(new Intent(getActivity(), MapActivity.class));
-                }
-            });
-            tietPrice = createEventDialog.findViewById(R.id.tietPrice);
-            tietDescription = createEventDialog.findViewById(R.id.tietDescription);
-
-            createEventDialog.findViewById(R.id.mbtnCreate).setOnClickListener(v1 -> {
-                uploadEvent();
-
-                getActivity().finish();
-
-                startActivity(getActivity().getIntent());
-            });
-            createEventDialog.findViewById(R.id.mbtnCancel)
-                    .setOnClickListener(v1 -> createEventDialog.dismiss());
-
             createEventDialog.show();
         });
     }
@@ -288,13 +284,15 @@ public class EventsFragment extends Fragment implements ItemClickListener {
         String price = tietPrice.getText().toString();
         String description = tietDescription.getText().toString();
 
-        if (isValidForm(name, date, time, location, price, description)) {
+        if (isValidForm(name, date, time, location, price, description, imageUri)) {
             vme.uploadEvent(name, date, time, location, price, description, imageUri);
-
             createEventDialog.dismiss();
-        } else
+            getActivity().finish();
+            startActivity(getActivity().getIntent());
+        } else {
             Snackbar.make(createEventDialog.getWindow().getDecorView().getRootView(),
                     R.string.empty_fields, Snackbar.LENGTH_SHORT).show();
+        }
     }
 
     /**
@@ -310,10 +308,10 @@ public class EventsFragment extends Fragment implements ItemClickListener {
      * @return true si el formulario es válido, false en caso contrario.
      */
     private boolean isValidForm(String name, String date, String time, String location,
-                                String price, String description) {
+                                String price, String description, Uri uri) {
         return !(TextUtils.isEmpty(name) || TextUtils.isEmpty(date) || TextUtils.isEmpty(time)
                 || TextUtils.isEmpty(location) || TextUtils.isEmpty(price)
-                || TextUtils.isEmpty(description));
+                || TextUtils.isEmpty(description) || uri == null);
     }
 
     /**
