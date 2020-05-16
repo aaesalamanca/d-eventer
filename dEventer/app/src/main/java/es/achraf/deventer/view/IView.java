@@ -78,6 +78,16 @@ public interface IView {
         void onImageUploaded(Uri cloudUri, boolean isChange);
     }
 
+    interface GetNameListener {
+        /**
+         * Handler que ejecuta la acción requerida cuando se ha obtenido el nombre del usuario
+         * de la base de datos.
+         *
+         * @param name es el nombre del usuario.
+         */
+        void onNameReaded(String name);
+    }
+
     interface SignOutListener {
         /**
          * Handler que ejecuta la acción requerida cuando el user cierra la sesión.

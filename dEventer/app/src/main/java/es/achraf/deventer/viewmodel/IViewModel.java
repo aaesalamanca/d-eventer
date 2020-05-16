@@ -16,6 +16,8 @@ public interface IViewModel {
     String KSP_PASSWORD = "password";
     // Clave de usuarios en el JSON de Firebase Realtime Database
     String USERS = "users";
+    // Clave del nombre de cada usuario en el JSON de Firebase Realtime Database
+    String USERS_NAME = "name";
     // Clave de eventos en el JSON de Firebase Realtime Database
     String EVENTS = "events";
     // Clave de las imágenes de perfil en la estructura de Cloud Storage
@@ -138,6 +140,16 @@ public interface IViewModel {
          * Solicita la obtención del Uri de la imagen en la base de datos.
          */
         void getImage();
+    }
+
+    interface SetGetNameListener {
+        /**
+         * Establece el listener que escuhará la petición del nombre del usuario a la base de datos.
+         *
+         * @param getNameListener es el listener de la petición del nombre de usuario a la base
+         *                        de datos.
+         */
+        void setGetNameListener(IView.GetNameListener getNameListener);
     }
 
     interface SignUp {

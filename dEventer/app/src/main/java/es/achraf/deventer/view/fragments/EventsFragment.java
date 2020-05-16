@@ -65,8 +65,8 @@ public class EventsFragment extends Fragment implements ItemClickListener {
     private RecyclerViewEventAdapter adptEvent;
     private RecyclerView rcvEvent;
 
-    private Uri imageUri;
     private Dialog createEventDialog;
+    private Uri imageUri;
 
     private CircleImageView civEvent;
 
@@ -76,6 +76,8 @@ public class EventsFragment extends Fragment implements ItemClickListener {
     public static TextInputEditText tietLocation;
     private TextInputEditText tietPrice;
     private TextInputEditText tietDescription;
+
+    private Dialog viewEventDialog;
 
     // Methods
 
@@ -120,6 +122,16 @@ public class EventsFragment extends Fragment implements ItemClickListener {
             loadingMessage(false);
         });
         vme.getEvents();
+        vme.setGetImageListener((cloudUri, isChange) -> {
+            Glide.with(getContext()).load(cloudUri).error(R.mipmap.logo)
+                    .dontTransform()
+                    .centerCrop()
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .thumbnail(.5f)
+                    .into((ImageView) (viewEventDialog.findViewById(R.id.civUser)));
+        });
+        vme.setGetNameListener(name ->
+                ((TextView) viewEventDialog.findViewById(R.id.tvUser)).setText(name));
 
         rcvEvent = view.findViewById(R.id.rcvEvents);
 
@@ -308,7 +320,7 @@ public class EventsFragment extends Fragment implements ItemClickListener {
      * Carga el diálogo para ver un evento.
      */
     private void loadViewEventDialog() {
-        Dialog viewEventDialog = new Dialog(getContext(), R.style.full_screen_dialog);
+        viewEventDialog = new Dialog(getContext(), R.style.full_screen_dialog);
         viewEventDialog.setContentView(R.layout.dialog_view_event);
     }
 
@@ -368,32 +380,33 @@ public class EventsFragment extends Fragment implements ItemClickListener {
      */
     @Override
     public void onItemClick(View view, int pos) {
+        String key = alKeys.get(pos);
         Event event = alEvent.get(pos);
 
-        final Dialog dialogVistaPlan = new Dialog(getContext(), R.style.full_screen_dialog);
-        dialogVistaPlan.setContentView(R.layout.dialog_view_event);
+        vme.getImage(event.getOwnerId());
+        vme.getName(event.getOwnerId());
 
-        MaterialButton mbtnJoin = dialogVistaPlan.findViewById(R.id.mbtnJoin);
+        MaterialButton mbtnJoin = viewEventDialog.findViewById(R.id.mbtnJoin);
 
-        CircleImageView civUser = dialogVistaPlan.findViewById(R.id.civUser);
+        CircleImageView civUser = viewEventDialog.findViewById(R.id.civUser);
 
         Glide.with(getContext()).load(Uri.parse(event.getImageUri())).error(R.mipmap.logo)
                 .dontTransform()
                 .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .thumbnail(.5f)
-                .into((ImageView) (dialogVistaPlan.findViewById(R.id.civEvent)));
+                .into((ImageView) (viewEventDialog.findViewById(R.id.civEvent)));
 
-        ((TextView) dialogVistaPlan.findViewById(R.id.tvName)).setText(event.getName());
-        ((TextView) dialogVistaPlan.findViewById(R.id.tvDate)).setText(event.getDate());
-        ((TextView) dialogVistaPlan.findViewById(R.id.tvTime)).setText(event.getTime());
-        ((TextView) dialogVistaPlan.findViewById(R.id.tvLocation)).setText(event.getLocation());
-        ((TextView) dialogVistaPlan.findViewById(R.id.tvPrice)).setText(event.getPrice());
-        ((TextView) dialogVistaPlan.findViewById(R.id.tvJoined))
+        ((TextView) viewEventDialog.findViewById(R.id.tvName)).setText(event.getName());
+        ((TextView) viewEventDialog.findViewById(R.id.tvDate)).setText(event.getDate());
+        ((TextView) viewEventDialog.findViewById(R.id.tvTime)).setText(event.getTime());
+        ((TextView) viewEventDialog.findViewById(R.id.tvLocation)).setText(event.getLocation());
+        ((TextView) viewEventDialog.findViewById(R.id.tvPrice)).setText(event.getPrice());
+        ((TextView) viewEventDialog.findViewById(R.id.tvJoined))
                 .setText(String.valueOf(event.getUsersNum()));
-        ((TextView) dialogVistaPlan.findViewById(R.id.tvDescription))
+        ((TextView) viewEventDialog.findViewById(R.id.tvDescription))
                 .setText(event.getDescription());
 
-        dialogVistaPlan.show();
+        viewEventDialog.show();
     }
 }

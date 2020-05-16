@@ -17,12 +17,105 @@ import java.util.ArrayList;
 import es.achraf.deventer.model.Event;
 import es.achraf.deventer.view.IView;
 
-public class ViewModelEvents implements IViewModel.UploadEvent, IViewModel.GetEvents {
+public class ViewModelEvents implements IViewModel.UploadEvent, IViewModel.GetEvents,
+        IViewModel.SetGetImageListener, IViewModel.GetDisplayName, IViewModel.SetGetNameListener {
 
     // Fields
     private IView.GetEventsListener getEventsListener;
+    private IView.GetImageListener getImageListener;
+    private IView.GetNameListener getNameListener;
 
     // Getters
+
+    /**
+     * Solicita leer los eventos a la base de datos.
+     */
+    @Override
+    public void getEvents() {
+        FirebaseDatabase.getInstance().getReference().child(IViewModel.EVENTS)
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        ArrayList<String> alKeys = new ArrayList<>();
+                        ArrayList<Event> alEvent = new ArrayList<>();
+                        for (DataSnapshot fDataSnapshot : dataSnapshot.getChildren()) {
+                            alKeys.add(fDataSnapshot.getKey());
+                            alEvent.add(fDataSnapshot.getValue(Event.class));
+                        }
+
+                        getEventsListener.onEventsRead(alKeys, alEvent);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+    }
+
+    /**
+     * Solicita la obtención del Uri de la imagen en la base de datos.
+     * <p>
+     * Implementación nula para sobrecargar.
+     */
+    @Override
+    public void getImage() {
+
+    }
+
+    /**
+     * Solicita la obtención del Uri de la imagen en la base de datos en función de la clave
+     * del usuario.
+     *
+     * @param key es la clave del usuario del que se quiere la imagen.
+     */
+    public void getImage(String key) {
+        FirebaseStorage.getInstance().getReference().child(IViewModel.PROFILE_IMAGES)
+                .child(key + IViewModel.IMAGE_EXT)
+                .getDownloadUrl()
+                .addOnSuccessListener(uri -> {
+                    getImageListener.onImageUploaded(uri, false);
+                });
+    }
+
+    /**
+     * Devuelve el nombre del usuario.
+     * <p>
+     * Implementación nula para sobrecargar.
+     *
+     * @return null.
+     */
+    @Override
+    public String getName() {
+        return null;
+    }
+
+    /**
+     * Devuelve el nombre del usuario.
+     *
+     * @param key clave asociada al usuario.
+     * @return null.
+     */
+    public String getName(String key) {
+        FirebaseDatabase.getInstance().getReference()
+                .child(IViewModel.USERS)
+                .child(key).child(IViewModel.USERS_NAME)
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        getNameListener.onNameReaded((String) dataSnapshot.getValue());
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+
+        return null;
+    }
+
+    // Setters
 
     /**
      * Establece el listener que escuchará la petición de leer los eventos de la base de
@@ -34,6 +127,27 @@ public class ViewModelEvents implements IViewModel.UploadEvent, IViewModel.GetEv
     @Override
     public void setGetEventsListener(IView.GetEventsListener getEventsListener) {
         this.getEventsListener = getEventsListener;
+    }
+
+    /**
+     * Establece el Listener que escuchará la petición de una imagen a la base de datos.
+     *
+     * @param getImageListener es el Listener de la petición de la imagen a la base de datos.
+     */
+    @Override
+    public void setGetImageListener(IView.GetImageListener getImageListener) {
+        this.getImageListener = getImageListener;
+    }
+
+    /**
+     * Establece el listener que escuhará la petición del nombre del usuario a la base de datos.
+     *
+     * @param getNameListener es el listener de la petición del nombre de usuario a la base
+     *                        de datos.
+     */
+    @Override
+    public void setGetNameListener(IView.GetNameListener getNameListener) {
+        this.getNameListener = getNameListener;
     }
 
     // Methods
@@ -76,31 +190,5 @@ public class ViewModelEvents implements IViewModel.UploadEvent, IViewModel.GetEv
                         databaseReference.setValue(event);
                     });
         });
-    }
-
-    /**
-     * Solicita leer los eventos a la base de datos.
-     */
-    @Override
-    public void getEvents() {
-        FirebaseDatabase.getInstance().getReference().child(IViewModel.EVENTS)
-                .addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        ArrayList<String> alKeys = new ArrayList<>();
-                        ArrayList<Event> alEvent = new ArrayList<>();
-                        for (DataSnapshot fDataSnapshot : dataSnapshot.getChildren()) {
-                            alKeys.add(fDataSnapshot.getKey());
-                            alEvent.add(fDataSnapshot.getValue(Event.class));
-                        }
-
-                        getEventsListener.onEventsRead(alKeys, alEvent);
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                    }
-                });
     }
 }
