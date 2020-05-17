@@ -65,9 +65,10 @@ public class EventsFragment extends Fragment implements ItemClickListener {
     private RecyclerView rcvEvent;
 
     private Dialog createEventDialog;
+
     private Uri imageUri;
 
-    private CircleImageView civEvent;
+    private CircleImageView civSetEvent;
 
     private TextInputEditText tietName;
     private TextInputEditText tietDate;
@@ -77,6 +78,20 @@ public class EventsFragment extends Fragment implements ItemClickListener {
     private TextInputEditText tietDescription;
 
     private Dialog viewEventDialog;
+
+    private CircleImageView civUser;
+    private TextView tvUser;
+
+    private CircleImageView civViewEvent;
+    private TextView tvName;
+    private MaterialButton mbtnJoin;
+
+    private TextView tvDate;
+    private TextView tvTime;
+    private TextView tvLocation;
+    private TextView tvPrice;
+    private TextView tvJoined;
+    private TextView tvDescription;
 
     // Methods
 
@@ -127,10 +142,9 @@ public class EventsFragment extends Fragment implements ItemClickListener {
                         .centerCrop()
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .thumbnail(.5f)
-                        .into((ImageView) (viewEventDialog.findViewById(R.id.civUser)))
+                        .into(civUser)
         );
-        vme.setGetNameListener(name ->
-                ((TextView) viewEventDialog.findViewById(R.id.tvUser)).setText(name));
+        vme.setGetNameListener(name -> tvUser.setText(name));
 
         rcvEvent = view.findViewById(R.id.rcvEvents);
 
@@ -152,8 +166,8 @@ public class EventsFragment extends Fragment implements ItemClickListener {
         createEventDialog = new Dialog(getContext(), R.style.full_screen_dialog);
         createEventDialog.setContentView(R.layout.dialog_create_event);
 
-        civEvent = createEventDialog.findViewById(R.id.civEvent);
-        civEvent.setOnClickListener(v1 -> startGallery());
+        civSetEvent = createEventDialog.findViewById(R.id.civEvent);
+        civSetEvent.setOnClickListener(v1 -> startGallery());
 
         tietName = createEventDialog.findViewById(R.id.tietName);
         tietDate = createEventDialog.findViewById(R.id.tietDate);
@@ -321,6 +335,20 @@ public class EventsFragment extends Fragment implements ItemClickListener {
     private void loadViewEventDialog() {
         viewEventDialog = new Dialog(getContext(), R.style.full_screen_dialog);
         viewEventDialog.setContentView(R.layout.dialog_view_event);
+
+        civUser = viewEventDialog.findViewById(R.id.civUser);
+        tvUser = viewEventDialog.findViewById(R.id.tvUser);
+
+        civViewEvent = viewEventDialog.findViewById(R.id.civEvent);
+        tvName = viewEventDialog.findViewById(R.id.tvName);
+        mbtnJoin = viewEventDialog.findViewById(R.id.mbtnJoin);
+
+        tvDate = viewEventDialog.findViewById(R.id.tvDate);
+        tvTime = viewEventDialog.findViewById(R.id.tvTime);
+        tvLocation = viewEventDialog.findViewById(R.id.tvLocation);
+        tvPrice = viewEventDialog.findViewById(R.id.tvPrice);
+        tvJoined = viewEventDialog.findViewById(R.id.tvJoined);
+        tvDescription = viewEventDialog.findViewById(R.id.tvDescription);
     }
 
     /**
@@ -362,7 +390,7 @@ public class EventsFragment extends Fragment implements ItemClickListener {
                             .dontTransform()
                             .centerCrop()
                             .diskCacheStrategy(DiskCacheStrategy.ALL)
-                            .thumbnail(.5f).into(civEvent);
+                            .thumbnail(.5f).into(civSetEvent);
                 }
             }
         } else {
@@ -385,26 +413,20 @@ public class EventsFragment extends Fragment implements ItemClickListener {
         vme.getImage(event.getOwnerId());
         vme.getName(event.getOwnerId());
 
-        MaterialButton mbtnJoin = viewEventDialog.findViewById(R.id.mbtnJoin);
-
-        CircleImageView civUser = viewEventDialog.findViewById(R.id.civUser);
-
         Glide.with(getContext()).load(Uri.parse(event.getImageUri())).error(R.mipmap.logo)
                 .dontTransform()
                 .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .thumbnail(.5f)
-                .into((ImageView) (viewEventDialog.findViewById(R.id.civEvent)));
+                .into(civViewEvent);
 
-        ((TextView) viewEventDialog.findViewById(R.id.tvName)).setText(event.getName());
-        ((TextView) viewEventDialog.findViewById(R.id.tvDate)).setText(event.getDate());
-        ((TextView) viewEventDialog.findViewById(R.id.tvTime)).setText(event.getTime());
-        ((TextView) viewEventDialog.findViewById(R.id.tvLocation)).setText(event.getLocation());
-        ((TextView) viewEventDialog.findViewById(R.id.tvPrice)).setText(event.getPrice());
-        ((TextView) viewEventDialog.findViewById(R.id.tvJoined))
-                .setText(String.valueOf(event.getUsersNum()));
-        ((TextView) viewEventDialog.findViewById(R.id.tvDescription))
-                .setText(event.getDescription());
+        tvName.setText(event.getName());
+        tvDate.setText(event.getDate());
+        tvTime.setText(event.getTime());
+        tvLocation.setText(event.getLocation());
+        tvPrice.setText(event.getPrice());
+        tvJoined.setText(String.valueOf(event.getUsersNum()));
+        tvDescription.setText(event.getDescription());
 
         viewEventDialog.show();
     }
