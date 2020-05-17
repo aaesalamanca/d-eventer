@@ -62,7 +62,6 @@ public class EventsFragment extends Fragment implements ItemClickListener {
     private ProgressBar pbLoading;
     private TextView tvLoading;
 
-    private RecyclerViewEventAdapter adptEvent;
     private RecyclerView rcvEvent;
 
     private Dialog createEventDialog;
@@ -113,7 +112,7 @@ public class EventsFragment extends Fragment implements ItemClickListener {
             this.alKeys = alKeys;
             this.alEvent = alEvent;
 
-            adptEvent = new RecyclerViewEventAdapter(getContext(),
+            RecyclerViewEventAdapter adptEvent = new RecyclerViewEventAdapter(getContext(),
                     alEvent, this, R.layout.item_event);
             rcvEvent.setAdapter(adptEvent);
             adptEvent.notifyDataSetChanged();
@@ -122,14 +121,14 @@ public class EventsFragment extends Fragment implements ItemClickListener {
             loadingMessage(false);
         });
         vme.getEvents();
-        vme.setGetImageListener((cloudUri, isChange) -> {
-            Glide.with(getContext()).load(cloudUri).error(R.mipmap.logo)
-                    .dontTransform()
-                    .centerCrop()
-                    .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .thumbnail(.5f)
-                    .into((ImageView) (viewEventDialog.findViewById(R.id.civUser)));
-        });
+        vme.setGetImageListener((cloudUri, isChange) ->
+                Glide.with(getContext()).load(cloudUri).error(R.mipmap.logo)
+                        .dontTransform()
+                        .centerCrop()
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .thumbnail(.5f)
+                        .into((ImageView) (viewEventDialog.findViewById(R.id.civUser)))
+        );
         vme.setGetNameListener(name ->
                 ((TextView) viewEventDialog.findViewById(R.id.tvUser)).setText(name));
 
