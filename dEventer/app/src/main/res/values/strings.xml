@@ -114,21 +114,13 @@
 
     <!-- dialog_view_event -->
     <string name="join_event">¡Apuntarse al plan!</string>
+    <string name="leave_event">Irse del plan</string>
     <string name="info">Información del plan</string>
     <string name="view_date">Fecha</string>
     <string name="view_time">Hora</string>
     <string name="view_price">Precio</string>
     <string name="joined">Apuntados</string>
     <string name="view_description">Descripcion</string>
-
-    <string name="title_activity_inicio">Inicio</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
-    <string name="nav_header_desc">Navigation header</string>
-    <string name="menu_salir">Cerrar sesion</string>
-
 
     <string name="confgiruacion">confgiruacion</string>
     <string name="correo_ejemplo">ejemplo@gmail.com</string>

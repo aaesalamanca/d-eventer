@@ -18,7 +18,7 @@ public class User implements Serializable {
      * Constructor vacío —por defecto—.
      */
     public User() {
-
+        alEvent = new ArrayList<>();
     }
 
     // Getters

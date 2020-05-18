@@ -15,15 +15,17 @@ import com.google.firebase.storage.FirebaseStorage;
 import java.util.ArrayList;
 
 import es.achraf.deventer.model.Event;
+import es.achraf.deventer.model.User;
 import es.achraf.deventer.view.IView;
 
 public class ViewModelEvents implements IViewModel.UploadEvent, IViewModel.GetEvents,
-        IViewModel.SetGetImageListener, IViewModel.GetDisplayName, IViewModel.SetGetNameListener {
+        IViewModel.SetGetImageListener, IViewModel.GetDisplayName, IViewModel.SetGetNameListener, IViewModel.Join {
 
     // Fields
     private IView.GetEventsListener getEventsListener;
     private IView.GetImageListener getImageListener;
     private IView.GetNameListener getNameListener;
+    private IView.JoinListener joinListener;
 
     // Getters
 
@@ -150,6 +152,17 @@ public class ViewModelEvents implements IViewModel.UploadEvent, IViewModel.GetEv
         this.getNameListener = getNameListener;
     }
 
+    /**
+     * Establece el listener que escuchará los eventos accionados para comprobar si el usuario
+     * se ha apuntado al evento y para apuntarse.
+     *
+     * @param joinListener es el listener.
+     */
+    @Override
+    public void setJoinListener(IView.JoinListener joinListener) {
+        this.joinListener = joinListener;
+    }
+
     // Methods
 
     /**
@@ -189,6 +202,124 @@ public class ViewModelEvents implements IViewModel.UploadEvent, IViewModel.GetEv
 
                         databaseReference.setValue(event);
                     });
+        });
+    }
+
+    /**
+     * Comprueba si el usuario ya se ha apuntado al evento.
+     *
+     * @param key es la clave del evento.
+     */
+    @Override
+    public void checkJoined(String key) {
+        FirebaseDatabase.getInstance().getReference()
+                .child(IViewModel.USERS)
+                .child(FirebaseAuth.getInstance().getCurrentUser()
+                        .getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                boolean hasJoined = false;
+                User user = dataSnapshot.getValue(User.class);
+                ArrayList<String> alEvent = user.getAlEvent();
+                for (String fKey : alEvent) {
+                    if (fKey.equals(key)) {
+                        hasJoined = true;
+                        break;
+                    }
+                }
+                joinListener.checkJoinedCompleted(hasJoined);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    /**
+     * Apunta al usuario al evento.
+     *
+     * @param key es la clave del evento.
+     */
+    @Override
+    public void join(String key) {
+        DatabaseReference dbUser = FirebaseDatabase.getInstance().getReference()
+                .child(IViewModel.USERS)
+                .child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+        dbUser.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                User user = dataSnapshot.getValue(User.class);
+                user.getAlEvent().add(key);
+                dbUser.setValue(user);
+                joinListener.joinCompleted();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        DatabaseReference dbEvent = FirebaseDatabase.getInstance().getReference()
+                .child(IViewModel.EVENTS)
+                .child(key);
+        dbEvent.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Event event = dataSnapshot.getValue(Event.class);
+                event.setUsersNum(event.getUsersNum() + 1);
+                dbEvent.setValue(event);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    /**
+     * Da de baja al usuario del evento.
+     *
+     * @param key es la clave del evento.
+     */
+    @Override
+    public void leave(String key) {
+        DatabaseReference dbUser = FirebaseDatabase.getInstance().getReference()
+                .child(IViewModel.USERS)
+                .child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+        dbUser.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                User user = dataSnapshot.getValue(User.class);
+                user.getAlEvent().remove(key);
+                dbUser.setValue(user);
+                joinListener.leaveCompleted();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        DatabaseReference dbEvent = FirebaseDatabase.getInstance().getReference()
+                .child(IViewModel.EVENTS)
+                .child(key);
+        dbEvent.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Event event = dataSnapshot.getValue(Event.class);
+                event.setUsersNum(event.getUsersNum() -1);
+                dbEvent.setValue(event);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
         });
     }
 }

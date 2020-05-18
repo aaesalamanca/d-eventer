@@ -145,7 +145,7 @@ public class ViewModelProfile implements IViewModel.GetEmail, IViewModel.GetDisp
                 .getInstance()
                 .getReference()
                 .child(IViewModel.USERS)
-                .child(firebaseUser.getUid()).addValueEventListener(new ValueEventListener() {
+                .child(firebaseUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
             /**
              * Handler que lleva a cabo la acción requerida cuando cambia cualquier dato del
              * usuario.

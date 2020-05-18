@@ -88,6 +88,29 @@ public interface IView {
         void onNameReaded(String name);
     }
 
+    interface JoinListener {
+        /**
+         * Handler que ejecuta la acción requerida cuando se ha solicitado información sobre si el
+         * usuario está apuntado al evento.
+         *
+         * @param hasJoined indica si el usuario está o no apuntado al evento.
+         *                  <p>
+         *                  True -> Está apuntado.
+         *                  False -> No está apuntado.
+         */
+        void checkJoinedCompleted(boolean hasJoined);
+
+        /**
+         * Handler que ejecuta la acción requerida cuando se ha solicitado la inscripción al evento.
+         */
+        void joinCompleted();
+
+        /**
+         * Handler que ejecuta la acción requerida cuando se ha solicitado abandonar el evento.
+         */
+        void leaveCompleted();
+    }
+
     interface SignOutListener {
         /**
          * Handler que ejecuta la acción requerida cuando el user cierra la sesión.

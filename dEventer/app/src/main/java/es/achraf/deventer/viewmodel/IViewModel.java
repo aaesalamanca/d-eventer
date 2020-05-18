@@ -235,6 +235,37 @@ public interface IViewModel {
                          String description, Uri localUri);
     }
 
+    interface Join {
+        /**
+         * Establece el listener que escuchará los eventos accionados para comprobar si el usuario
+         * se ha apuntado al evento y para apuntarse.
+         *
+         * @param joinListener es el listener.
+         */
+        void setJoinListener(IView.JoinListener joinListener);
+
+        /**
+         * Comprueba si el usuario ya se ha apuntado al evento.
+         *
+         * @param key es la clave del evento.
+         */
+        void checkJoined(String key);
+
+        /**
+         * Apunta al usuario al evento.
+         *
+         * @param key es la clave del evento.
+         */
+        void join(String key);
+
+        /**
+         * Da de baja al usuario del evento.
+         *
+         * @param key es la clave del evento.
+         */
+        void leave(String key);
+    }
+
     interface SignOut {
         /**
          * Establece el Listener que escuchará el intento de cerrar la sesión actual.

@@ -15,7 +15,6 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -43,6 +42,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import es.achraf.deventer.R;
 import es.achraf.deventer.interfaces.ItemClickListener;
 import es.achraf.deventer.model.Event;
+import es.achraf.deventer.view.IView;
 import es.achraf.deventer.view.MapActivity;
 import es.achraf.deventer.view.adapters.RecyclerViewEventAdapter;
 import es.achraf.deventer.viewmodel.ViewModelEvents;
@@ -56,6 +56,7 @@ public class EventsFragment extends Fragment implements ItemClickListener {
 
     private ViewModelEvents vme;
 
+    private String key;
     private ArrayList<String> alKeys;
     private ArrayList<Event> alEvent;
 
@@ -145,6 +146,32 @@ public class EventsFragment extends Fragment implements ItemClickListener {
                         .into(civUser)
         );
         vme.setGetNameListener(name -> tvUser.setText(name));
+        vme.setJoinListener(new IView.JoinListener() {
+            @Override
+            public void checkJoinedCompleted(boolean hasJoined) {
+                if (hasJoined) {
+                    mbtnJoin.setText(R.string.leave_event);
+                } else {
+                    mbtnJoin.setText(R.string.join_event);
+                }
+            }
+
+            @Override
+            public void joinCompleted() {
+                mbtnJoin.setText(R.string.leave_event);
+
+                int joined = Integer.parseInt(tvJoined.getText().toString()) + 1;
+                tvJoined.setText(String.valueOf(joined));
+            }
+
+            @Override
+            public void leaveCompleted() {
+                mbtnJoin.setText(R.string.join_event);
+
+                int joined = Integer.parseInt(tvJoined.getText().toString()) - 1;
+                tvJoined.setText(String.valueOf(joined));
+            }
+        });
 
         rcvEvent = view.findViewById(R.id.rcvEvents);
 
@@ -342,6 +369,13 @@ public class EventsFragment extends Fragment implements ItemClickListener {
         civViewEvent = viewEventDialog.findViewById(R.id.civEvent);
         tvName = viewEventDialog.findViewById(R.id.tvName);
         mbtnJoin = viewEventDialog.findViewById(R.id.mbtnJoin);
+        mbtnJoin.setOnClickListener(v -> {
+            if (mbtnJoin.getText().equals(getString(R.string.join_event))) {
+                vme.join(key);
+            } else {
+                vme.leave(key);
+            }
+        });
 
         tvDate = viewEventDialog.findViewById(R.id.tvDate);
         tvTime = viewEventDialog.findViewById(R.id.tvTime);
@@ -407,11 +441,12 @@ public class EventsFragment extends Fragment implements ItemClickListener {
      */
     @Override
     public void onItemClick(View view, int pos) {
-        String key = alKeys.get(pos);
+        key = alKeys.get(pos);
         Event event = alEvent.get(pos);
 
         vme.getImage(event.getOwnerId());
         vme.getName(event.getOwnerId());
+        vme.checkJoined(key);
 
         Glide.with(getContext()).load(Uri.parse(event.getImageUri())).error(R.mipmap.logo)
                 .dontTransform()
