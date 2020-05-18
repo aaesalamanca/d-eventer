@@ -114,13 +114,15 @@
 
     <!-- dialog_view_event -->
     <string name="join_event">¡Apuntarse al plan!</string>
-    <string name="leave_event">Irse del plan</string>
     <string name="info">Información del plan</string>
     <string name="view_date">Fecha</string>
     <string name="view_time">Hora</string>
     <string name="view_price">Precio</string>
     <string name="joined">Apuntados</string>
     <string name="view_description">Descripcion</string>
+
+    <!-- ViewEventDialog -->
+    <string name="leave_event">Irse del plan</string>
 
     <string name="confgiruacion">confgiruacion</string>
     <string name="correo_ejemplo">ejemplo@gmail.com</string>
