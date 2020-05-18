@@ -4,7 +4,6 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.widget.TextView;
@@ -27,9 +26,9 @@ public class ProfileActivity extends AppCompatActivity {
 
     // Fields
 
-    private static final int RC_IMAGE = 1;
+    private static final int RC_IMAGE = 0;
 
-    private static final int K_PERMISSION = 0;
+    private static final int K_PERMISSION = 1;
 
     private ViewModelProfile vmp;
 
@@ -103,26 +102,17 @@ public class ProfileActivity extends AppCompatActivity {
      * @return true si tiene permisos, false en caso contrario.
      */
     private boolean hasPermission() {
-        int currentAPIVersion = Build.VERSION.SDK_INT;
-        if (currentAPIVersion >= android.os.Build.VERSION_CODES.M) {
-            if (ContextCompat.checkSelfPermission(this,
-                    Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-                        Manifest.permission.READ_EXTERNAL_STORAGE)) {
-                    showDialog(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,
-                            Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                            Manifest.permission.MANAGE_DOCUMENTS});
-                } else {
-                    ActivityCompat.requestPermissions(this,
-                            new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,
-                                    Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                                    Manifest.permission.MANAGE_DOCUMENTS},
-                            K_PERMISSION);
-                }
-                return false;
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    Manifest.permission.READ_EXTERNAL_STORAGE)) {
+                showPermissionDialog(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE});
             } else {
-                return true;
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                        K_PERMISSION);
             }
+            return false;
         } else {
             return true;
         }
@@ -133,14 +123,15 @@ public class ProfileActivity extends AppCompatActivity {
      *
      * @param permission es el array de String con los permisos requeridos.
      */
-    private void showDialog(String[] permission) {
+    private void showPermissionDialog(String[] permission) {
         new AlertDialog.Builder(this)
                 .setCancelable(true)
                 .setTitle(R.string.permission_reminder)
                 .setMessage(R.string.accept_permission)
                 .setPositiveButton(android.R.string.yes, (dialog, which) ->
                         ActivityCompat.requestPermissions(this, permission,
-                                K_PERMISSION)).create().show();
+                                K_PERMISSION))
+                .create().show();
     }
 
     /**
@@ -168,7 +159,8 @@ public class ProfileActivity extends AppCompatActivity {
      * @param cloudUri es la Uri de la imagen en la base ded atos.
      */
     private void getImage(Uri cloudUri) {
-        Glide.with(getApplicationContext()).load(cloudUri).error(R.mipmap.logo).dontTransform()
+        Glide.with(getApplicationContext()).load(cloudUri).error(R.mipmap.logo)
+                .dontTransform()
                 .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .thumbnail(.5f).into(civProfile);
@@ -185,9 +177,9 @@ public class ProfileActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (data != null) {
-            if (requestCode == RC_IMAGE) {
-                if (resultCode == RESULT_OK) {
+        if (requestCode == RC_IMAGE) {
+            if (resultCode == RESULT_OK) {
+                if (data != null) {
                     vmp.uploadImage(data.getData());
                 }
             }

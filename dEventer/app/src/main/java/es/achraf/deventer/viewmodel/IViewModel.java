@@ -16,8 +16,14 @@ public interface IViewModel {
     String KSP_PASSWORD = "password";
     // Clave de usuarios en el JSON de Firebase Realtime Database
     String USERS = "users";
+    // Clave del nombre de cada usuario en el JSON de Firebase Realtime Database
+    String USERS_NAME = "name";
+    // Clave de eventos en el JSON de Firebase Realtime Database
+    String EVENTS = "events";
     // Clave de las imágenes de perfil en la estructura de Cloud Storage
     String PROFILE_IMAGES = "profile_images";
+    // Clave de las imágenes de los eventos en la estructura de Cloud Storage
+    String EVENT_IMAGES = "event_images";
     // Separador para las rutas en las bases de datos
     String SEPARATOR = "/";
     // Extensión de las imágenes
@@ -88,6 +94,22 @@ public interface IViewModel {
         String getPostalCode();
     }
 
+    interface GetEvents {
+        /**
+         * Establece el listener que escuchará la petición de leer los eventos de la base de
+         * datos.
+         *
+         * @param getEventsListener es el listener de la petición de lectura de los eventos de la
+         *                          base de datos.
+         */
+        void setGetEventsListener(IView.GetEventsListener getEventsListener);
+
+        /**
+         * Solicita leer los eventos a la base de datos.
+         */
+        void getEvents();
+    }
+
     interface SetGetPreferencesListener {
         /**
          * Establece el Listener que escuchará la petición de las SharedPreferences
@@ -118,6 +140,16 @@ public interface IViewModel {
          * Solicita la obtención del Uri de la imagen en la base de datos.
          */
         void getImage();
+    }
+
+    interface SetGetNameListener {
+        /**
+         * Establece el listener que escuhará la petición del nombre del usuario a la base de datos.
+         *
+         * @param getNameListener es el listener de la petición del nombre de usuario a la base
+         *                        de datos.
+         */
+        void setGetNameListener(IView.GetNameListener getNameListener);
     }
 
     interface SignUp {
@@ -185,6 +217,53 @@ public interface IViewModel {
          * @param localUri es la Uri de la imagen.
          */
         void uploadImage(Uri localUri);
+    }
+
+    interface UploadEvent {
+        /**
+         * Sube el evento a la base de datos.
+         *
+         * @param name        es el nombre del evento.
+         * @param date        es la fecha del evento.
+         * @param time        es la hora del evento.
+         * @param location    es la ubicación del evento.
+         * @param price       es el precio del evento.
+         * @param description es la descripción del evento.
+         * @param localUri    es la uri de la imagen del evento.
+         */
+        void uploadEvent(String name, String date, String time, String location, String price,
+                         String description, Uri localUri);
+    }
+
+    interface Join {
+        /**
+         * Establece el listener que escuchará los eventos accionados para comprobar si el usuario
+         * se ha apuntado al evento y para apuntarse.
+         *
+         * @param joinListener es el listener.
+         */
+        void setJoinListener(IView.JoinListener joinListener);
+
+        /**
+         * Comprueba si el usuario ya se ha apuntado al evento.
+         *
+         * @param key es la clave del evento.
+         */
+        void checkJoined(String key);
+
+        /**
+         * Apunta al usuario al evento.
+         *
+         * @param key es la clave del evento.
+         */
+        void join(String key);
+
+        /**
+         * Da de baja al usuario del evento.
+         *
+         * @param key es la clave del evento.
+         */
+        void leave(String key);
     }
 
     interface SignOut {

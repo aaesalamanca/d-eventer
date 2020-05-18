@@ -24,7 +24,6 @@ public class ViewModelProfile implements IViewModel.GetEmail, IViewModel.GetDisp
     private IView.GetImageListener getImageListener;
 
     private String email;
-    private String name;
 
     private User user;
 
@@ -56,7 +55,7 @@ public class ViewModelProfile implements IViewModel.GetEmail, IViewModel.GetDisp
      */
     @Override
     public String getName() {
-        return name;
+        return user.getName();
     }
 
     /**
@@ -101,9 +100,8 @@ public class ViewModelProfile implements IViewModel.GetEmail, IViewModel.GetDisp
     public void getImage() {
         FirebaseStorage.getInstance().getReference().child(IViewModel.PROFILE_IMAGES)
                 .child(FirebaseAuth.getInstance().getCurrentUser().getUid() + IViewModel.IMAGE_EXT)
-                .getDownloadUrl().addOnSuccessListener(uri -> {
-            getImageListener.onGetImageComplete(uri, false);
-        });
+                .getDownloadUrl().addOnSuccessListener(uri ->
+                getImageListener.onImageUploaded(uri, false));
     }
 
     // Setters
@@ -139,7 +137,6 @@ public class ViewModelProfile implements IViewModel.GetEmail, IViewModel.GetDisp
         // https://firebase.google.com/docs/auth/android/manage-users?authuser=0#get_a_users_profile
         // https://firebase.google.com/docs/auth/android/start?authuser=0#access_user_information
         email = firebaseUser.getEmail();
-        name = firebaseUser.getDisplayName();
 
         // https://firebase.google.com/docs/database/android/start?authuser=0#read_from_your_database
         // https://firebase.google.com/docs/auth/android/manage-users?authuser=0#get_a_users_profile
@@ -148,7 +145,7 @@ public class ViewModelProfile implements IViewModel.GetEmail, IViewModel.GetDisp
                 .getInstance()
                 .getReference()
                 .child(IViewModel.USERS)
-                .child(firebaseUser.getUid()).addValueEventListener(new ValueEventListener() {
+                .child(firebaseUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
             /**
              * Handler que lleva a cabo la acción requerida cuando cambia cualquier dato del
              * usuario.
@@ -178,8 +175,7 @@ public class ViewModelProfile implements IViewModel.GetEmail, IViewModel.GetDisp
     public void uploadImage(Uri localUri) {
         FirebaseStorage.getInstance().getReference().child(IViewModel.PROFILE_IMAGES)
                 .child(FirebaseAuth.getInstance().getCurrentUser().getUid() + IViewModel.IMAGE_EXT)
-                .putFile(localUri).addOnSuccessListener(taskSnapshot -> {
-            getImageListener.onGetImageComplete(localUri, true);
-        });
+                .putFile(localUri).addOnSuccessListener(taskSnapshot ->
+                getImageListener.onImageUploaded(localUri, true));
     }
 }

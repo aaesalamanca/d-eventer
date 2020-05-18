@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/transparent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".view.MapActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,20 +15,19 @@
 
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/size_0"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
+            android:layout_margin="@dimen/margin_16"
             android:layout_weight="2"
             android:background="@color/colorAccent"
-            android:hint="@string/busca_ciudades_calles_lugares"
+            android:hint="@string/places"
             android:textColorHint="@color/colorPrincipal"
-            app:hintAnimationEnabled="true"
             app:endIconMode="clear_text"
+            app:hintAnimationEnabled="true"
             app:startIconDrawable="@drawable/ic_map_black_24dp">
 
-
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/txtBuscaMap"
+                android:id="@+id/tietSearch"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -39,27 +39,29 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <ImageButton
-            android:id="@+id/imgBuscar"
-            android:layout_width="0dp"
+            android:id="@+id/ibtnSearch"
+            android:layout_width="@dimen/size_0"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_margin="10dp"
+            android:layout_margin="@dimen/margin_10"
             android:layout_weight="1"
             android:backgroundTint="@color/colorPrimaryDark"
-            android:contentDescription="@string/busca_ciudades_calles_lugares"
+            android:contentDescription="@string/places"
             android:foregroundGravity="center"
             android:src="@drawable/ic_search_black_24dp"
             android:textColor="@color/colorPrimaryDark"
             android:theme="@style/Widget.MaterialComponents.Button.OutlinedButton"
-            app:cornerRadius="20dp" />
+            app:cornerRadius="@dimen/radius_20" />
 
     </LinearLayout>
 
-    <androidx.fragment.app.FragmentContainerView xmlns:tools="http://schemas.android.com/tools"
+    <!-- https://developers.google.com/maps/documentation/android-sdk/map#add_a_fragment -->
+    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/map"
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".MapsActivity" />
+        tools:context=".view.MapActivity" />
 
 </LinearLayout>

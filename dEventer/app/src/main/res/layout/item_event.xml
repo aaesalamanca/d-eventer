@@ -8,105 +8,99 @@
     android:orientation="horizontal">
 
     <LinearLayout
-        android:layout_width="0dp"
+        android:layout_width="@dimen/size_0"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
+        android:layout_margin="@dimen/margin_16"
         android:layout_weight="2"
         android:orientation="vertical">
 
-
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/imgPlan"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
+            android:id="@+id/covEvent"
+            android:layout_width="@dimen/size_150"
+            android:layout_height="@dimen/size_150"
             android:layout_gravity="center"
             android:scaleType="centerCrop"
             android:src="@mipmap/logo"
             app:civ_border_color="@color/colorAccent" />
 
-
         <TextView
-            android:id="@+id/txtTituloPlan"
+            android:id="@+id/tvName"
             style="@style/TextAppearance.AppCompat.Light.SearchResult.Subtitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/proximanovaregular"
             android:gravity="center"
-            android:text="@string/titulo_del_plan"
+            android:text="@string/event_title"
             android:textColor="@color/colorPrincipal"
-            android:textSize="20sp"
+            android:textSize="@dimen/text_20"
             android:textStyle="bold" />
 
     </LinearLayout>
 
-
     <LinearLayout
-        android:layout_width="0dp"
+        android:layout_width="@dimen/size_0"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+        android:layout_margin="@dimen/margin_10"
         android:layout_weight="1"
         android:gravity="center"
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/txtFechaPlan"
+            android:id="@+id/tvDate"
             style="@style/TextAppearance.AppCompat.Light.SearchResult.Subtitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:drawableStart="@drawable/icono_fecha"
+            android:drawableStart="@drawable/date_icon"
             android:fontFamily="@font/proximanovaregular"
             android:gravity="center"
-            android:text="@string/fecha_del_plan"
+            android:text="@string/event_date"
             android:textColor="@color/colorPrincipal"
-            android:textSize="15sp"
+            android:textSize="@dimen/text_15"
             android:textStyle="bold" />
 
-
         <TextView
-            android:id="@+id/txtHoraPlan"
+            android:id="@+id/tvTime"
             style="@style/TextAppearance.AppCompat.Light.SearchResult.Subtitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:drawableStart="@drawable/icono_hora"
+            android:drawableStart="@drawable/time_icon"
             android:fontFamily="@font/proximanovaregular"
             android:gravity="center"
-            android:text="@string/hora_del_plan"
+            android:text="@string/event_time"
             android:textColor="@color/colorPrincipal"
-            android:textSize="15sp"
+            android:textSize="@dimen/text_15"
             android:textStyle="bold" />
 
-
         <TextView
-            android:id="@+id/txtUbicacionPlan"
+            android:id="@+id/tvLocation"
             style="@style/TextAppearance.AppCompat.Light.SearchResult.Subtitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:drawableStart="@drawable/icono_location"
+            android:drawableStart="@drawable/location_icon"
             android:fontFamily="@font/proximanovaregular"
             android:gravity="center"
-            android:text="@string/ubicacion"
+            android:text="@string/event_location"
             android:textColor="@color/colorPrincipal"
-            android:textSize="15sp"
+            android:textSize="@dimen/text_15"
             android:textStyle="bold" />
 
-
         <TextView
-            android:id="@+id/txtPrecioPlan"
+            android:id="@+id/tvPrice"
             style="@style/TextAppearance.AppCompat.Light.SearchResult.Subtitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:drawableStart="@drawable/icono_euro"
+            android:drawableStart="@drawable/euro_icon"
             android:fontFamily="@font/proximanovaregular"
             android:gravity="center"
+            android:text="@string/event_price"
             android:textColor="@color/colorPrincipal"
-            android:textSize="15sp"
+            android:textSize="@dimen/text_15"
             android:textStyle="bold" />
 
     </LinearLayout>
-
 
 </LinearLayout>

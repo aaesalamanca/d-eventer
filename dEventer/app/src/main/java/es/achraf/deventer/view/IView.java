@@ -3,19 +3,13 @@ package es.achraf.deventer.view;
 import android.content.SharedPreferences;
 import android.net.Uri;
 
+import java.util.ArrayList;
+
+import es.achraf.deventer.model.Event;
+
 public interface IView {
 
     // Interfaces
-
-    interface GetPreferencesListener {
-        /**
-         * Obtiene las SharedPreferences de la Activity.
-         *
-         * @param mode es el modo de acceso a las SharedPreferences.
-         * @return las SharedPreferences según mode.
-         */
-        SharedPreferences getPreferences(int mode);
-    }
 
     interface SignUpCompleteListener {
         /**
@@ -41,6 +35,27 @@ public interface IView {
         void onSignInComplete(boolean signedIn);
     }
 
+    interface GetPreferencesListener {
+        /**
+         * Obtiene las SharedPreferences de la Activity.
+         *
+         * @param mode es el modo de acceso a las SharedPreferences.
+         * @return las SharedPreferences según mode.
+         */
+        SharedPreferences getPreferences(int mode);
+    }
+
+    interface GetEventsListener {
+        /**
+         * Handler que ejecuta la acción requerida cuando se han leído los eventos de la base
+         * de datos.
+         *
+         * @param alKeys  es el ArrayList de claves en el JSON de la base de datos.
+         * @param alEvent es el ArrayList de valores en el JSON de la base de datos.
+         */
+        void onEventsRead(ArrayList<String> alKeys, ArrayList<Event> alEvent);
+    }
+
     interface GetProfileListener {
         /**
          * Handler que ejecuta la acción requerida cuando se han obtenido los datos del usuario
@@ -60,7 +75,40 @@ public interface IView {
          *                 True -> Se ha actualizado
          *                 False -> No se ha actualizado
          */
-        void onGetImageComplete(Uri cloudUri, boolean isChange);
+        void onImageUploaded(Uri cloudUri, boolean isChange);
+    }
+
+    interface GetNameListener {
+        /**
+         * Handler que ejecuta la acción requerida cuando se ha obtenido el nombre del usuario
+         * de la base de datos.
+         *
+         * @param name es el nombre del usuario.
+         */
+        void onNameReaded(String name);
+    }
+
+    interface JoinListener {
+        /**
+         * Handler que ejecuta la acción requerida cuando se ha solicitado información sobre si el
+         * usuario está apuntado al evento.
+         *
+         * @param hasJoined indica si el usuario está o no apuntado al evento.
+         *                  <p>
+         *                  True -> Está apuntado.
+         *                  False -> No está apuntado.
+         */
+        void checkJoinedCompleted(boolean hasJoined);
+
+        /**
+         * Handler que ejecuta la acción requerida cuando se ha solicitado la inscripción al evento.
+         */
+        void joinCompleted();
+
+        /**
+         * Handler que ejecuta la acción requerida cuando se ha solicitado abandonar el evento.
+         */
+        void leaveCompleted();
     }
 
     interface SignOutListener {

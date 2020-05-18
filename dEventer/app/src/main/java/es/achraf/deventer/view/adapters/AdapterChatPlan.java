@@ -1,4 +1,4 @@
-package es.achraf.deventer.adaptadores;
+package es.achraf.deventer.view.adapters;
 
 import android.content.Context;
 import android.net.Uri;
@@ -23,20 +23,20 @@ import es.achraf.deventer.R;
 import es.achraf.deventer.interfaces.ItemClickListener;
 import es.achraf.deventer.model.Event;
 
-public class AdapterRecyclerViewPlanes extends RecyclerView.Adapter<AdapterRecyclerViewPlanes.ViewHolder> {
+public class AdapterChatPlan extends RecyclerView.Adapter<AdapterChatPlan.ViewHolder> {
+
 
     private ArrayList<Event> events;
     private Context context;
     private ItemClickListener itemClickListener;
     private int resource;
 
-    public AdapterRecyclerViewPlanes(Context context, ArrayList<Event> events, ItemClickListener itemClickListener, int resource) {
+    public AdapterChatPlan(Context context, ArrayList<Event> events, ItemClickListener itemClickListener, int resource) {
         this.events = events;
         this.context = context;
         this.itemClickListener = itemClickListener;
         this.resource = resource;
     }
-
 
     @NonNull
     @Override
@@ -44,7 +44,7 @@ public class AdapterRecyclerViewPlanes extends RecyclerView.Adapter<AdapterRecyc
 
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View item = inflater.inflate(resource, parent, false);
-        ViewHolder holder = new ViewHolder(item);
+        AdapterChatPlan.ViewHolder holder = new AdapterChatPlan.ViewHolder(item);
 
         return holder;
     }
@@ -54,18 +54,15 @@ public class AdapterRecyclerViewPlanes extends RecyclerView.Adapter<AdapterRecyc
 
         Event event = events.get(position);
 
-        holder.txtTituloPlan.setText(event.getNombre());
-        holder.txtFechaPlan.setText(event.getFecha());
-        holder.txtHoraPlan.setText(event.getHora());
-        holder.txtUbicacionPlan.setText(event.getUbicacion());
-        holder.txtPrecioPlan.setText(event.getPrecio());
-
+        holder.txtTituloPlan.setText(event.getName());
+        holder.fechaPlan.setText(event.getDate());
+        holder.numPersonas.setText(event.getUsersNum());
 
         FirebaseStorage storage = FirebaseStorage.getInstance();
 
         StorageReference storageReference = storage.getReference();
 
-        StorageReference sCreaPlan = storageReference.child("FotosPlanes").child(event.getUrlImagen());
+        StorageReference sCreaPlan = storageReference.child("FotosPlanes").child(event.getImageUri());
 
         Task<Uri> task = sCreaPlan.getDownloadUrl();
 
@@ -76,8 +73,9 @@ public class AdapterRecyclerViewPlanes extends RecyclerView.Adapter<AdapterRecyc
             }
         });
 
-
     }
+
+
     @Override
     public int getItemCount() {
         return events.size();
@@ -87,20 +85,17 @@ public class AdapterRecyclerViewPlanes extends RecyclerView.Adapter<AdapterRecyc
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         CircleImageView imgPlan;
         TextView txtTituloPlan;
-        TextView txtFechaPlan;
-        TextView txtHoraPlan;
-        TextView txtUbicacionPlan;
-        TextView txtPrecioPlan;
+        TextView fechaPlan;
+        TextView numPersonas;
+
 
         public ViewHolder(View v) {
             super(v);
 
-            imgPlan = v.findViewById(R.id.imgPlan);
-            txtTituloPlan = v.findViewById(R.id.txtTituloPlan);
-            txtFechaPlan = v.findViewById(R.id.txtFechaPlan);
-            txtHoraPlan = v.findViewById(R.id.txtHoraPlan);
-            txtUbicacionPlan = v.findViewById(R.id.txtUbicacionPlan);
-            txtPrecioPlan = v.findViewById(R.id.txtPrecioPlan);
+            imgPlan = v.findViewById(R.id.imgChatPlan);
+            txtTituloPlan = v.findViewById(R.id.nombrePlan);
+            fechaPlan = v.findViewById(R.id.fechaPlan);
+            numPersonas = v.findViewById(R.id.numeroPersonas);
 
             v.setOnClickListener(this);
         }

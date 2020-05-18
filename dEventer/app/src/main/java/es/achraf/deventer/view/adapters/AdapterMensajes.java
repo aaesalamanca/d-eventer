@@ -1,4 +1,4 @@
-package es.achraf.deventer.adaptadores;
+package es.achraf.deventer.view.adapters;
 
 import android.annotation.SuppressLint;
 import android.app.Notification;

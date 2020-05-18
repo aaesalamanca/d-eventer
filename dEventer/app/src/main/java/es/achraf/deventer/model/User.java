@@ -6,6 +6,7 @@ import java.util.ArrayList;
 public class User implements Serializable {
 
     // Fields
+    private String name;
     private String age;
     private String sex;
     private String postalCode;
@@ -17,10 +18,14 @@ public class User implements Serializable {
      * Constructor vacío —por defecto—.
      */
     public User() {
-
+        alEvent = new ArrayList<>();
     }
 
     // Getters
+
+    public String getName() {
+        return name;
+    }
 
     public String getAge() {
         return age;
@@ -39,6 +44,10 @@ public class User implements Serializable {
     }
 
     // Setters
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public void setAge(String age) {
         this.age = age;

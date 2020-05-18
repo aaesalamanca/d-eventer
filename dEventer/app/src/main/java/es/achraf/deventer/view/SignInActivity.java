@@ -82,8 +82,6 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
             loadingMessage(false);
 
             if (signedIn) {
-                Toast.makeText(this, getString(R.string.welcome_again) + ' ' + vmsi.getName(),
-                        Toast.LENGTH_SHORT).show();
                 startHomeActivity();
             } else {
                 Toast.makeText(this,

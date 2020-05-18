@@ -20,7 +20,6 @@
     <string name="yes">De acuerdo</string>
     <string name="no">No, gracias</string>
     <string name="empty_fields">Por favor, rellene todos los campos para continuar</string>
-    <string name="welcome_again">Bienvenido de nuevo,</string>
     <string name="failed_sign_in">No se ha podido iniciar sesión</string>
     <string name="disabled_biometric">El sensor de huellas no está disponible actualmente</string>
     <string name="no_biometric_hw">Este dispositivo no tiene sensor de huellas</string>
@@ -78,14 +77,52 @@
     <string name="permission_reminder">Recordatorio de permiso</string>
     <string name="accept_permission">Es necesario aceptar los permisos para poder cambiar su foto de perfil</string>
 
-    <string name="title_activity_inicio">Inicio</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
-    <string name="nav_header_desc">Navigation header</string>
-    <string name="menu_salir">Cerrar sesion</string>
+    <!-- fragment_events -->
+    <string name="loading_events">Cargando planes...</string>
 
+    <!-- EventsFragment -->
+    <string name="image_not_found">No se ha encontrado la imagen</string>
+    <string name="event_uploaded">Plan en marcha, ¡diviértete!</string>
+    <string name="event_upload_failed">Se ha producido un error al subir el plan</string>
+
+    <!-- item_event -->
+    <string name="event_title">Titulo del plan</string>
+    <string name="event_date">Fecha del plan</string>
+    <string name="event_time">Hora del plan</string>
+    <string name="event_location">Ubicación</string>
+    <string name="event_price">Precio</string>
+
+    <!-- dialog_create_event -->
+    <string name="event_presentation">Presenta el plan</string>
+    <string name="put_image_event">(Ponle una imagen al plan)</string>
+    <string name="name_event">¿Cómo se llama el plan?</string>
+    <string name="date">¿Cúando es?</string>
+    <string name="time">¿A qué hora es?</string>
+    <string name="location">¿Dónde es?</string>
+    <string name="price">¿Cúanto cuesta?</string>
+    <string name="description">¿Quieres describir el plan?</string>
+    <string name="create_event">Crear plan</string>
+
+    <!-- activity_map -->
+    <string name="places">Busca ciudades, calles, lugares ...</string>
+
+    <!-- MapActivity -->
+    <string name="no_location">No se ha encontrado la localización proporcionada</string>
+    <string name="enter_location">Por favor introduzca una localización</string>
+    <string name="error">Hubo un error</string>
+    <string name="madrid">Madrid</string>
+
+    <!-- dialog_view_event -->
+    <string name="join_event">¡Apuntarse al plan!</string>
+    <string name="info">Información del plan</string>
+    <string name="view_date">Fecha</string>
+    <string name="view_time">Hora</string>
+    <string name="view_price">Precio</string>
+    <string name="joined">Apuntados</string>
+    <string name="view_description">Descripcion</string>
+
+    <!-- ViewEventDialog -->
+    <string name="leave_event">Irse del plan</string>
 
     <string name="confgiruacion">confgiruacion</string>
     <string name="correo_ejemplo">ejemplo@gmail.com</string>
@@ -111,31 +148,9 @@
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
-    <string name="crear_plan">Crear plan</string>
-    <string name="ubicacion">Ubicacion</string>
-    <string name="hora_del_plan">Hora del event</string>
-    <string name="fecha_del_plan">Fecha del event</string>
-    <string name="titulo_del_plan">Titulo del Plan</string>
-    <string name="presenta_el_plan">Presenta el event</string>
-    <string name="c_mo_se_llama_el_plan">¿Cómo se llama el event?</string>
-    <string name="c_ando_es">¿Cúando es?</string>
-    <string name="a_qu_hora_es">¿A qué hora es?</string>
-    <string name="d_nde_es">¿Dónde es?</string>
-    <string name="c_anto_cuesta">¿Cúanto cuesta?</string>
     <string name="crear">Crear event</string>
-    <string name="ponle_una_imagen_al_plan">(Ponle una imagen al event)</string>
-    <string name="busca_ciudades_calles_lugares">Busca ciudades, calles, lugares ...</string>
-    <string name="quieres_describir_el_plan">¿Quieres describir el event?</string>
-    <string name="fecha">Fecha</string>
-    <string name="informaci_n_del_plan">Información del event</string>
-    <string name="hora">Hora</string>
-    <string name="ubicaci_n">Ubicación</string>
-    <string name="precio">Precio</string>
-    <string name="descripcion">Descripcion</string>
     <string name="ir">IR</string>
-    <string name="apuntarse_al_plan">¡Apuntarse al event!</string>
     <string name="apuntado">Apuntado</string>
-    <string name="apuntados">Apuntados</string>
 
 
     <string name="facebook_app_id" translatable="false">533589277584622</string>

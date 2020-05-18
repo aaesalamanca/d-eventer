@@ -6,15 +6,15 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-        android:id="@+id/fabCreaPlan"
+        android:id="@+id/efabCreateEvent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="top"
-        android:layout_margin="@dimen/fab_margin"
+        android:layout_margin="@dimen/margin_16"
         android:backgroundTint="@color/colorPrincipal"
-        android:elevation="@dimen/fab_margin"
+        android:elevation="@dimen/elevation_16"
         android:fontFamily="@font/proximanovaregular"
-        android:text="@string/crear_plan"
+        android:text="@string/create_event"
         android:textColor="@color/blanco"
         android:theme="@style/AppTheme" />
 

@@ -12,7 +12,7 @@ import es.achraf.deventer.view.IView;
 import static android.content.Context.MODE_PRIVATE;
 
 public class ViewModelSignIn implements IViewModel.SetGetPreferencesListener,
-        IViewModel.GetEmail, IViewModel.GetPassword, IViewModel.GetDisplayName, IViewModel.SignIn {
+        IViewModel.GetEmail, IViewModel.GetPassword, IViewModel.SignIn {
 
     // Fields
 
@@ -47,16 +47,6 @@ public class ViewModelSignIn implements IViewModel.SetGetPreferencesListener,
     public String getPassword() {
         return getPreferencesListener.getPreferences(MODE_PRIVATE)
                 .getString(IViewModel.KSP_PASSWORD, "");
-    }
-
-    /**
-     * Devuelve el nombre del user.
-     *
-     * @return el nombre del user.
-     */
-    @Override
-    public String getName() {
-        return FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
     }
 
     // Setters

@@ -7,11 +7,10 @@
     android:orientation="vertical"
     android:theme="@style/AppTheme">
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
+        android:layout_margin="@dimen/margin_16"
         android:orientation="vertical"
         android:theme="@style/AppTheme">
 
@@ -20,56 +19,53 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_margin="5dp"
+            android:layout_margin="@dimen/margin_5"
             android:fontFamily="@font/mifuente"
             android:gravity="center"
-            android:text="@string/presenta_el_plan"
-            android:textColor="#FF814E" />
-
+            android:text="@string/event_presentation"
+            android:textColor="@color/naranja" />
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/imgCreaPlan"
+            android:id="@+id/civEvent"
             style="@style/Widget.AppCompat.Button.Borderless.Colored"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
+            android:layout_width="@dimen/size_150"
+            android:layout_height="@dimen/size_150"
             android:layout_gravity="center"
             android:scaleType="centerCrop"
             android:src="@mipmap/logo"
             app:civ_border_color="@color/colorAccent"
-            app:civ_border_width="2dp" />
+            app:civ_border_width="@dimen/size_2" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_margin="5dp"
+            android:layout_margin="@dimen/margin_5"
             android:fontFamily="@font/proximanovaregular"
             android:gravity="center"
-            android:text="@string/ponle_una_imagen_al_plan"
+            android:text="@string/put_image_event"
             android:textColor="@color/colorAccent" />
-
 
         <com.google.android.material.textfield.TextInputLayout
             style="@style/AppTheme"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
+            android:layout_margin="@dimen/margin_16"
             android:background="@color/colorAccent"
-            android:hint="@string/c_mo_se_llama_el_plan"
+            android:hint="@string/name_event"
             android:textColorHint="@color/colorPrincipal"
             app:hintAnimationEnabled="true"
-            app:startIconDrawable="@drawable/icono_texto">
-
+            app:startIconDrawable="@drawable/text_icon">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/txtTituloCreaPlan"
+                android:id="@+id/tietName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/colorAccent"
                 android:fontFamily="@font/proximanovaregular"
                 android:inputType="text"
                 android:lines="1"
-                app:cornerRadius="20dp" />
+                app:cornerRadius="@dimen/radius_20" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -77,16 +73,15 @@
             style="@style/AppTheme"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
+            android:layout_margin="@dimen/margin_16"
             android:background="@color/colorAccent"
-            android:hint="@string/c_ando_es"
+            android:hint="@string/date"
             android:textColorHint="@color/colorPrincipal"
             app:hintAnimationEnabled="true"
-            app:startIconDrawable="@drawable/icono_fecha">
-
+            app:startIconDrawable="@drawable/date_icon">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/txtFechaCreaPlan"
+                android:id="@+id/tietDate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/colorAccent"
@@ -100,40 +95,15 @@
             style="@style/AppTheme"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
+            android:layout_margin="@dimen/margin_16"
             android:background="@color/colorAccent"
-            android:hint="@string/a_qu_hora_es"
+            android:hint="@string/time"
             android:textColorHint="@color/colorPrincipal"
             app:hintAnimationEnabled="true"
-            app:startIconDrawable="@drawable/icono_hora">
-
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/txtHoraCreaPlan"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/colorAccent"
-                android:focusable="false"
-                android:fontFamily="@font/proximanovaregular"
-                android:inputType="text"
-                android:lines="1" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/AppTheme"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:background="@color/colorAccent"
-            android:hint="@string/d_nde_es"
-            android:textColorHint="@color/colorPrincipal"
-            app:hintAnimationEnabled="true"
-            app:startIconDrawable="@drawable/icono_location">
-
+            app:startIconDrawable="@drawable/time_icon">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/txtUbicacionCreaPlan"
+                android:id="@+id/tietTime"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/colorAccent"
@@ -148,15 +118,38 @@
             style="@style/AppTheme"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
+            android:layout_margin="@dimen/margin_16"
             android:background="@color/colorAccent"
-            android:hint="@string/c_anto_cuesta"
+            android:hint="@string/location"
             android:textColorHint="@color/colorPrincipal"
             app:hintAnimationEnabled="true"
-            app:startIconDrawable="@drawable/icono_euro">
+            app:startIconDrawable="@drawable/location_icon">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/txtPrecioCreaPlan"
+                android:id="@+id/tietLocation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorAccent"
+                android:focusable="false"
+                android:fontFamily="@font/proximanovaregular"
+                android:inputType="text"
+                android:lines="1" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/AppTheme"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_16"
+            android:background="@color/colorAccent"
+            android:hint="@string/price"
+            android:textColorHint="@color/colorPrincipal"
+            app:hintAnimationEnabled="true"
+            app:startIconDrawable="@drawable/euro_icon">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tietPrice"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/colorAccent"
@@ -169,16 +162,16 @@
             style="@style/AppTheme"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
+            android:layout_margin="@dimen/margin_16"
             android:background="@color/colorAccent"
-            android:hint="@string/quieres_describir_el_plan"
+            android:hint="@string/description"
             android:textColorHint="@color/colorPrincipal"
             app:hintAnimationEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/txtDescripcion"
+                android:id="@+id/tietDescription"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="@dimen/size_200"
                 android:background="@color/colorAccent"
                 android:fontFamily="@font/proximanovaregular"
                 android:gravity="top"
@@ -188,44 +181,43 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="@dimen/margin_16"
             android:orientation="horizontal">
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnCrearPlan"
-                android:layout_width="0dp"
+                android:id="@+id/mbtnCreate"
+                android:layout_width="@dimen/size_0"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="16dp"
+                android:layout_marginStart="@dimen/margin_16"
+                android:layout_marginEnd="@dimen/margin_16"
+                android:layout_marginBottom="@dimen/margin_16"
                 android:layout_weight="1"
                 android:backgroundTint="@color/colorAccent"
                 android:fontFamily="@font/proximanovaregular"
-                android:padding="@dimen/fab_margin"
-                android:text="@string/crear_plan"
+                android:padding="@dimen/padding_16"
+                android:text="@string/create_event"
                 android:textColor="@color/colorPrimaryDark"
                 android:textStyle="bold"
-                app:cornerRadius="15dp" />
+                app:cornerRadius="@dimen/radius_15" />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnSalirDeCrearPlan"
-                android:layout_width="0dp"
+                android:id="@+id/mbtnCancel"
+                android:layout_width="@dimen/size_0"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="16dp"
+                android:layout_marginStart="@dimen/margin_16"
+                android:layout_marginEnd="@dimen/margin_16"
+                android:layout_marginBottom="@dimen/margin_16"
                 android:layout_weight="1"
                 android:fontFamily="@font/proximanovaregular"
-                android:padding="@dimen/fab_margin"
+                android:padding="@dimen/padding_16"
                 android:text="@string/cancel"
                 android:textColor="@color/colorAccent"
                 android:textStyle="bold"
                 app:backgroundTint="@color/colorPrincipal"
-                app:cornerRadius="15dp"/>
+                app:cornerRadius="@dimen/radius_15" />
 
         </LinearLayout>
 
