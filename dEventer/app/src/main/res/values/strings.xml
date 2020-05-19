@@ -124,42 +124,12 @@
     <!-- ViewEventDialog -->
     <string name="leave_event">Irse del plan</string>
 
-    <string name="confgiruacion">confgiruacion</string>
-    <string name="correo_ejemplo">ejemplo@gmail.com</string>
-    <string name="inicio">Inicio</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
-    <string name="nombre">Nombre</string>
-    <string name="apellidos">Apellidos</string>
-    <string name="correo_electr_nicoPerfil">Correo electrónico</string>
-    <string name="tel_fono_de_contacto">Teléfono de contacto</string>
-    <string name="nivel_de_estudios">Nivel de estudios</string>
-    <string name="cuenta_algo_m_s_sobre_ti">Cuenta algo más sobre ti…</string>
-    <string name="guardar">Guardar</string>
-    <string name="pa_s_de_residencia">País de residencia</string>
-
-
-    <string name="title_activity_splash_screen">SplashScreen</string>
-    <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
-
-    <string name="hello_first_fragment">Hello first fragment</string>
-    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
-    <string name="crear">Crear event</string>
-    <string name="ir">IR</string>
-    <string name="apuntado">Apuntado</string>
-
-
     <string name="facebook_app_id" translatable="false">533589277584622</string>
     <string name="nombre_canal">Nombre del canal</string>
     <string name="descripcion_canal">Descripcion del canal</string>
 
     <string name="msg_token_fmt" translatable="false">InstanceID Token: %s</string>
     <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
-
 
     <string name="id_fcm">AAAASNGD9Do:APA91bHSAXZXcX70y-sxSYLtEQF_uN57mu8EXLL20MRdRP-QvsOlko8OhAF23HLIxmcH4DIr1_GfMiGmgYmQbDvx8D22K3B1v0pCKgCc6LUF4BSPR2n2GOqjG1wmpx7qB870dtcBPjf4</string>
     <string name="url_fcm">https://fcm.googleapis.com/fcm/send</string>
