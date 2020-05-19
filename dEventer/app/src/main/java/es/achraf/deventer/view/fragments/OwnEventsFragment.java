@@ -4,128 +4,87 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 
 import es.achraf.deventer.R;
-import es.achraf.deventer.view.adapters.RecyclerViewEventAdapter;
 import es.achraf.deventer.interfaces.ItemClickListener;
 import es.achraf.deventer.model.Event;
+import es.achraf.deventer.view.adapters.RecyclerViewEventAdapter;
 
 public class OwnEventsFragment extends Fragment implements ItemClickListener {
 
-    private RecyclerView recyclerViewMisPlanes;
+    // Fields
+    private String key;
+    private ArrayList<String> alKeys;
+    private ArrayList<Event> alEvent = new ArrayList<>();
+
+    private ProgressBar pbLoading;
+    private TextView tvLoading;
+
+    private RecyclerView rcvOwnEvents;
     private RecyclerViewEventAdapter adapterMisPlanes;
-    private FirebaseAuth mAuth;
-    private FirebaseDatabase mDatabase;
-    private DatabaseReference reference;
-    private FirebaseFirestore db;
-    private ItemClickListener itemClickListener;
 
-    private ArrayList<Event> planes = new ArrayList<>();
+    // Methods
 
+    /**
+     * Primer método ejecutado por el fragmento. Inicializa los elementos del fragmento.
+     *
+     * @param inflater
+     * @param container
+     * @param savedInstanceState es el bundle que almacena los datos del estado del fragmento
+     *                           cuando se produce un cambio como rotaciones de la pantalla.
+     * @return la vista creada.
+     */
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_mis_planes, container, false);
-        this.itemClickListener = this;
-        mDatabase = FirebaseDatabase.getInstance();
-        reference = mDatabase.getReference();
-        mAuth = FirebaseAuth.getInstance();
-        db = FirebaseFirestore.getInstance();
+        super.onCreateView(inflater, container, savedInstanceState);
 
-        this.recyclerViewMisPlanes = v.findViewById(R.id.recyclerViewMisPlanes);
-        leerDatosMisPlanes();
-        return v;
+        View view = inflater.inflate(R.layout.fragment_own_events, container, false);
+        init(view);
+
+        return view;
     }
 
-    private void leerDatosMisPlanes() {
-        //recuperamos el id del user
-        FirebaseUser user = mAuth.getCurrentUser();
-        String IDusuario = user.getUid();
+    /**
+     * Inicializa los elemtnos del fragmento.
+     *
+     * @param view es la vista sobre la que se carga el fragmento.
+     */
+    private void init(View view) {
+        rcvOwnEvents = view.findViewById(R.id.rcvOwnEvents);
 
-        DatabaseReference usuario = reference.child(IDusuario);
-        usuario.child("planesApuntados").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                    String IDplan = ds.getValue().toString();
-                    leerPlan(IDplan);
-                }
-            }
+        pbLoading = view.findViewById(R.id.pbLoading);
+        tvLoading = view.findViewById(R.id.tvLoading);
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(getContext(), databaseError.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
-
+        loadingMessage(true);
     }
 
-    public void leerPlan(String id) {
-
-
-        DocumentReference ref = db.collection("tabla_planes").document(id);
-
-        ref.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-
-                if (task.isSuccessful() && task.getResult() != null) {//HAY QUE RECORRER TAMBIEN EL ARRAYLIST QUE DEVUELVE
-
-                    DocumentSnapshot document = task.getResult();
-
-                    String idPlan = document.getId();
-                    String fecha = document.getString("fecha");
-                    String hora = document.getString("hora");
-                    String urlImagen = document.getString("imagen");
-                    String titulo = document.getString("titulo");
-                    String ubicacion = document.getString("event_location");
-                    String precio = document.getString("precio");
-                    String descripcion = document.getString("descripcion");
-                    String dueno = document.getString("dueno");
-                    String imgDueno = document.getString("imgDueno");
-                    ArrayList<String> usuariosApuntados = (ArrayList<String>) document.get("usuariosApuntados");
-
-                    //planes.add(new Event(idPlan, titulo, event_location, fecha, hora, precio, urlImagen, descripcion, dueno, imgDueno, usuariosApuntados));
-
-
-                } else {
-                    Toast.makeText(getContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                }
-
-                adapterMisPlanes = new RecyclerViewEventAdapter(getContext(), planes, itemClickListener, R.layout.item_event);
-                recyclerViewMisPlanes.setAdapter(adapterMisPlanes);
-                adapterMisPlanes.notifyDataSetChanged();
-                recyclerViewMisPlanes.setLayoutManager(new LinearLayoutManager(getContext()));
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
+    /**
+     * Muestra o hace invisibles —GONE— distintos elementos de la actividad relacionados con la
+     * espera e invocación de una nueva actividad.
+     *
+     * @param loading indica si los elementos deben desaparecer o verse.
+     *                <p>
+     *                - True -> Deben verse
+     *                - False -> No deben verse
+     */
+    private void loadingMessage(boolean loading) {
+        if (loading) {
+            pbLoading.setVisibility(View.VISIBLE);
+            tvLoading.setVisibility(View.VISIBLE);
+        } else {
+            pbLoading.setVisibility(View.GONE);
+            tvLoading.setVisibility(View.GONE);
+        }
     }
 
     @Override
