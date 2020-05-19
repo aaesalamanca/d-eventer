@@ -1,7 +1,5 @@
 package es.achraf.deventer.viewmodel;
 
-import android.net.Uri;
-
 import androidx.annotation.NonNull;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -18,8 +16,8 @@ import es.achraf.deventer.model.Event;
 import es.achraf.deventer.model.User;
 import es.achraf.deventer.view.IView;
 
-public class ViewModelEvents implements IViewModel.UploadEvent, IViewModel.GetEvents,
-        IViewModel.SetGetImageListener, IViewModel.GetDisplayName, IViewModel.SetGetNameListener, IViewModel.Join {
+public class ViewModelOwnEvents implements IViewModel.GetEvents, IViewModel.SetGetImageListener,
+        IViewModel.GetDisplayName, IViewModel.SetGetNameListener, IViewModel.Join {
 
     // Fields
     private IView.GetEventsListener getEventsListener;
@@ -34,18 +32,40 @@ public class ViewModelEvents implements IViewModel.UploadEvent, IViewModel.GetEv
      */
     @Override
     public void getEvents() {
-        FirebaseDatabase.getInstance().getReference().child(IViewModel.EVENTS)
+        FirebaseDatabase.getInstance().getReference()
+                .child(IViewModel.USERS)
+                .child((FirebaseAuth.getInstance().getCurrentUser().getUid()))
+                .child(IViewModel.USER_EVENTS)
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         ArrayList<String> alKeys = new ArrayList<>();
                         ArrayList<Event> alEvent = new ArrayList<>();
                         for (DataSnapshot fDataSnapshot : dataSnapshot.getChildren()) {
-                            alKeys.add(fDataSnapshot.getKey());
-                            alEvent.add(fDataSnapshot.getValue(Event.class));
+                            alKeys.add(fDataSnapshot.getValue().toString());
                         }
 
-                        getEventsListener.onEventsRead(alKeys, alEvent);
+                        FirebaseDatabase.getInstance().getReference()
+                                .child(IViewModel.EVENTS)
+                                .addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                        for (DataSnapshot fDataSnapshot : dataSnapshot.getChildren()) {
+                                            for (String fKey : alKeys) {
+                                                if (fKey.equals(fDataSnapshot.getKey())) {
+                                                    alEvent.add(fDataSnapshot.getValue(Event.class));
+                                                }
+                                            }
+                                        }
+
+                                        getEventsListener.onEventsRead(alKeys, alEvent);
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                    }
+                                });
                     }
 
                     @Override
@@ -79,6 +99,7 @@ public class ViewModelEvents implements IViewModel.UploadEvent, IViewModel.GetEv
                     getImageListener.onImageUploaded(uri, false);
                 });
     }
+
 
     /**
      * Devuelve el nombre del usuario.
@@ -166,75 +187,13 @@ public class ViewModelEvents implements IViewModel.UploadEvent, IViewModel.GetEv
     // Methods
 
     /**
-     * Sube el evento a la base de datos.
-     *
-     * @param name        es el nombre del evento.
-     * @param date        es la fecha del evento.
-     * @param time        es la hora del evento.
-     * @param location    es la ubicación del evento.
-     * @param price       es el precio del evento.
-     * @param description es la descripción del evento.
-     * @param localUri    es la uri de la imagen del evento.
-     */
-    @Override
-    public void uploadEvent(String name, String date, String time, String location,
-                            String price, String description, Uri localUri) {
-        DatabaseReference databaseReference = FirebaseDatabase
-                .getInstance().getReference().child(IViewModel.EVENTS).push();
-
-        Event event = new Event();
-
-        event.setName(name.trim());
-        event.setDate(date.trim());
-        event.setTime(time.trim());
-        event.setLocation(location.trim());
-        event.setPrice(price.trim());
-        event.setDescription(description.trim());
-        event.setOwnerId(FirebaseAuth.getInstance().getCurrentUser().getUid());
-        event.setUsersNum(0);
-
-        FirebaseStorage.getInstance().getReference().child(IViewModel.EVENT_IMAGES)
-                .child(databaseReference.getKey()).putFile(localUri).addOnSuccessListener(taskSnapshot -> {
-            FirebaseStorage.getInstance().getReference().child(IViewModel.EVENT_IMAGES)
-                    .child(databaseReference.getKey()).getDownloadUrl()
-                    .addOnSuccessListener(uri -> {
-                        event.setImageUri(uri.toString());
-
-                        databaseReference.setValue(event);
-                    });
-        });
-    }
-
-    /**
      * Comprueba si el usuario ya se ha apuntado al evento.
      *
      * @param key es la clave del evento.
      */
     @Override
     public void checkJoined(String key) {
-        FirebaseDatabase.getInstance().getReference()
-                .child(IViewModel.USERS)
-                .child(FirebaseAuth.getInstance().getCurrentUser()
-                        .getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                boolean hasJoined = false;
-                User user = dataSnapshot.getValue(User.class);
-                ArrayList<String> alEvent = user.getAlEvent();
-                for (String fKey : alEvent) {
-                    if (fKey.equals(key)) {
-                        hasJoined = true;
-                        break;
-                    }
-                }
-                joinListener.checkJoinedCompleted(hasJoined);
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
     }
 
     /**
