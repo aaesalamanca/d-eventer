@@ -17,7 +17,10 @@ public interface IViewModel {
     // Clave de usuarios en el JSON de Firebase Realtime Database
     String USERS = "users";
     // Clave del nombre de cada usuario en el JSON de Firebase Realtime Database
-    String USERS_NAME = "name";
+    String USER_NAME = "name";
+    // Clave del array de String que contiene los ID de los eventos a los que se ha apuntado un
+    // usuario en el JSON de Firebase Realtime Database
+    String USER_EVENTS = "alEvent";
     // Clave de eventos en el JSON de Firebase Realtime Database
     String EVENTS = "events";
     // Clave de las imágenes de perfil en la estructura de Cloud Storage

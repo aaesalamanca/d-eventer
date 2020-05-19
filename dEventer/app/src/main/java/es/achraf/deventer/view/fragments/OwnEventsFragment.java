@@ -12,6 +12,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -24,6 +25,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import es.achraf.deventer.R;
 import es.achraf.deventer.interfaces.ItemClickListener;
 import es.achraf.deventer.model.Event;
+import es.achraf.deventer.view.IView;
 import es.achraf.deventer.view.adapters.RecyclerViewEventAdapter;
 import es.achraf.deventer.viewmodel.ViewModelOwnEvents;
 
@@ -40,7 +42,6 @@ public class OwnEventsFragment extends Fragment implements ItemClickListener {
     private TextView tvLoading;
 
     private RecyclerView rcvOwnEvents;
-    private RecyclerViewEventAdapter adapterMisPlanes;
 
     private Dialog viewEventDialog;
 
@@ -91,7 +92,45 @@ public class OwnEventsFragment extends Fragment implements ItemClickListener {
             this.alKeys = alKeys;
             this.alEvent = alEvent;
 
+            RecyclerViewEventAdapter adptEvent = new RecyclerViewEventAdapter(getContext(),
+                    this.alEvent, this, R.layout.item_event);
+            rcvOwnEvents.setAdapter(adptEvent);
+            adptEvent.notifyDataSetChanged();
+            rcvOwnEvents.setLayoutManager(new LinearLayoutManager(getContext()));
 
+            loadingMessage(false);
+        });
+        vmoe.getEvents();
+        vmoe.setGetImageListener(((cloudUri, isChange) ->
+                Glide.with(getContext()).load(cloudUri).error(R.mipmap.logo)
+                        .dontTransform()
+                        .centerCrop()
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .thumbnail(.5f)
+                        .into(civUser)
+        ));
+        vmoe.setGetNameListener(name -> tvUser.setText(name));
+        vmoe.setJoinListener(new IView.JoinListener() {
+            @Override
+            public void checkJoinedCompleted(boolean hasJoined) {
+
+            }
+
+            @Override
+            public void joinCompleted() {
+                mbtnJoin.setText(R.string.leave_event);
+
+                int joined = Integer.parseInt(tvJoined.getText().toString()) + 1;
+                tvJoined.setText(String.valueOf(joined));
+            }
+
+            @Override
+            public void leaveCompleted() {
+                mbtnJoin.setText(R.string.join_event);
+
+                int joined = Integer.parseInt(tvJoined.getText().toString()) - 1;
+                tvJoined.setText(String.valueOf(joined));
+            }
         });
 
         rcvOwnEvents = view.findViewById(R.id.rcvOwnEvents);
@@ -117,11 +156,12 @@ public class OwnEventsFragment extends Fragment implements ItemClickListener {
         civViewEvent = viewEventDialog.findViewById(R.id.civEvent);
         tvName = viewEventDialog.findViewById(R.id.tvName);
         mbtnJoin = viewEventDialog.findViewById(R.id.mbtnJoin);
+        mbtnJoin.setText(R.string.leave_event);
         mbtnJoin.setOnClickListener(v -> {
             if (mbtnJoin.getText().equals(getString(R.string.join_event))) {
-
+                vmoe.join(key);
             } else {
-
+                vmoe.leave(key);
             }
         });
 
@@ -163,6 +203,9 @@ public class OwnEventsFragment extends Fragment implements ItemClickListener {
     public void onItemClick(View view, int pos) {
         key = alKeys.get(pos);
         Event event = alEvent.get(pos);
+
+        vmoe.getImage(event.getOwnerId());
+        vmoe.getName(event.getOwnerId());
 
         Glide.with(getContext()).load(Uri.parse(event.getImageUri())).error(R.mipmap.logo)
                 .dontTransform()

@@ -101,7 +101,7 @@ public class ViewModelEvents implements IViewModel.UploadEvent, IViewModel.GetEv
     public String getName(String key) {
         FirebaseDatabase.getInstance().getReference()
                 .child(IViewModel.USERS)
-                .child(key).child(IViewModel.USERS_NAME)
+                .child(key).child(IViewModel.USER_NAME)
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

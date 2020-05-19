@@ -129,7 +129,7 @@ public class EventsFragment extends Fragment implements ItemClickListener {
             this.alEvent = alEvent;
 
             RecyclerViewEventAdapter adptEvent = new RecyclerViewEventAdapter(getContext(),
-                    alEvent, this, R.layout.item_event);
+                    this.alEvent, this, R.layout.item_event);
             rcvEvent.setAdapter(adptEvent);
             adptEvent.notifyDataSetChanged();
             rcvEvent.setLayoutManager(new LinearLayoutManager(getContext()));
