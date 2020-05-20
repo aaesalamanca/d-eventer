@@ -32,7 +32,7 @@ public class ViewModelSignIn implements IViewModel.SetGetPreferencesListener,
     @Override
     public String getEmail() {
         return getPreferencesListener.getPreferences(MODE_PRIVATE)
-                .getString(IViewModel.KSP_EMAIL, "");
+                .getString(IViewModel.K_SP_EMAIL, "");
     }
 
     /**
@@ -46,7 +46,7 @@ public class ViewModelSignIn implements IViewModel.SetGetPreferencesListener,
     @Override
     public String getPassword() {
         return getPreferencesListener.getPreferences(MODE_PRIVATE)
-                .getString(IViewModel.KSP_PASSWORD, "");
+                .getString(IViewModel.K_SP_PASSWORD, "");
     }
 
     // Setters
@@ -129,8 +129,8 @@ public class ViewModelSignIn implements IViewModel.SetGetPreferencesListener,
     private void savePreferences(String email, String password) {
         SharedPreferences sharedPreferences = getPreferencesListener.getPreferences(MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(IViewModel.KSP_EMAIL, email);
-        editor.putString(IViewModel.KSP_PASSWORD, password);
+        editor.putString(IViewModel.K_SP_EMAIL, email);
+        editor.putString(IViewModel.K_SP_PASSWORD, password);
         editor.apply();
     }
 

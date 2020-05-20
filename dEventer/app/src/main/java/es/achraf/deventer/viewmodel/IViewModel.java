@@ -11,9 +11,9 @@ public interface IViewModel {
     // Fields
 
     // Clave para la obtención del email en las SharedPreferences
-    String KSP_EMAIL = "email";
+    String K_SP_EMAIL = "email";
     // Clave para la obtención de la contraseña en las SharedPreferences
-    String KSP_PASSWORD = "password";
+    String K_SP_PASSWORD = "password";
     // Clave de usuarios en el JSON de Firebase Realtime Database
     String USERS = "users";
     // Clave del nombre de cada usuario en el JSON de Firebase Realtime Database

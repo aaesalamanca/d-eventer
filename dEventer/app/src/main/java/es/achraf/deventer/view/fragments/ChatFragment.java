@@ -11,6 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
@@ -23,7 +24,10 @@ import es.achraf.deventer.model.Event;
 public class ChatFragment extends Fragment implements ItemClickListener {
 
     // Fields
-    private ArrayList<Event> alEvent = new ArrayList<>();
+    private ArrayList<String> alKeys;
+    private ArrayList<Event> alEvent;
+
+    private RecyclerView rcvOwnEvents;
 
     private ProgressBar pbLoading;
     private TextView tvLoading;
@@ -58,6 +62,8 @@ public class ChatFragment extends Fragment implements ItemClickListener {
      */
     private void init(View view) {
 
+        rcvOwnEvents = view.findViewById(R.id.rcvOwnEvents);
+
         pbLoading = view.findViewById(R.id.pbLoading);
         tvLoading = view.findViewById(R.id.tvLoading);
         loadingMessage(true);
@@ -91,10 +97,12 @@ public class ChatFragment extends Fragment implements ItemClickListener {
      */
     @Override
     public void onItemClick(View view, int pos) {
+        String key = alKeys.get(pos);
         Event event = alEvent.get(pos);
 
         Bundle eventBundle = new Bundle();
-        eventBundle.putParcelable(IView.EVENT, event);
+        eventBundle.putString(IView.K_EVENT_ID, key);
+        eventBundle.putParcelable(IView.K_EVENT, event);
 
         Intent intentChat = new Intent(getActivity(), ChatActivity.class);
         intentChat.putExtras(eventBundle);
