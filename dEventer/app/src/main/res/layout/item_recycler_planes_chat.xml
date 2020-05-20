@@ -8,7 +8,7 @@
 
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/imgChatPlan"
+        android:id="@+id/civEvent"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_gravity="center"
@@ -25,7 +25,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/nombrePlan"
+            android:id="@+id/tvName"
             style="@style/TextAppearance.AppCompat.Light.SearchResult.Subtitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -38,7 +38,7 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/fechaPlan"
+            android:id="@+id/tvDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
@@ -47,7 +47,7 @@
             android:text="fecha del event" />
 
         <TextView
-            android:id="@+id/numeroPersonas"
+            android:id="@+id/tvJoined"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"

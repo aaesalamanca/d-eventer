@@ -21,7 +21,7 @@ import es.achraf.deventer.view.ItemClickListener;
 import es.achraf.deventer.model.Event;
 import es.achraf.deventer.view.IView;
 
-public class RecyclerViewEventAdapter extends RecyclerView.Adapter<RecyclerViewEventAdapter.ViewHolder> {
+public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> {
 
     // Fields
     private ArrayList<Event> alEvent;
@@ -85,13 +85,13 @@ public class RecyclerViewEventAdapter extends RecyclerView.Adapter<RecyclerViewE
     /**
      * Constructor a partir de todos los atributos.
      *
-     * @param context
-     * @param alEvent
-     * @param itemClickListener
-     * @param resource
+     * @param context           es el contexto.
+     * @param alEvent           es el ArrayList de Event.
+     * @param itemClickListener es el listener que escuchará los eventos lanzados por el ítem.
+     * @param resource          es el número del recurso.
      */
-    public RecyclerViewEventAdapter(Context context, ArrayList<Event> alEvent,
-                                    ItemClickListener itemClickListener, int resource) {
+    public EventAdapter(Context context, ArrayList<Event> alEvent,
+                        ItemClickListener itemClickListener, int resource) {
         this.alEvent = alEvent;
         this.context = context;
         this.itemClickListener = itemClickListener;

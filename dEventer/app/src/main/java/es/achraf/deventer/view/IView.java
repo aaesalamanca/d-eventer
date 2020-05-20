@@ -20,6 +20,8 @@ public interface IView {
     String MAPS_COMMA = ",";
     // Codificación de la coma para uris construidas en Google Maps
     String MAPS_COMMA_ENCODED = "%2C";
+    // Clave para el paso de un Event entre actividades
+    String EVENT = "event";
 
     // Interfaces
 

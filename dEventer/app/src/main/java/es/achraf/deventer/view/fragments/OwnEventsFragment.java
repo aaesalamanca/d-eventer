@@ -27,7 +27,7 @@ import es.achraf.deventer.R;
 import es.achraf.deventer.view.ItemClickListener;
 import es.achraf.deventer.model.Event;
 import es.achraf.deventer.view.IView;
-import es.achraf.deventer.view.adapters.RecyclerViewEventAdapter;
+import es.achraf.deventer.view.adapters.EventAdapter;
 import es.achraf.deventer.viewmodel.ViewModelOwnEvents;
 
 public class OwnEventsFragment extends Fragment implements ItemClickListener {
@@ -94,7 +94,7 @@ public class OwnEventsFragment extends Fragment implements ItemClickListener {
             this.alKeys = alKeys;
             this.alEvent = alEvent;
 
-            RecyclerViewEventAdapter adptEvent = new RecyclerViewEventAdapter(getContext(),
+            EventAdapter adptEvent = new EventAdapter(getContext(),
                     this.alEvent, this, R.layout.item_event);
             rcvOwnEvents.setAdapter(adptEvent);
             adptEvent.notifyDataSetChanged();

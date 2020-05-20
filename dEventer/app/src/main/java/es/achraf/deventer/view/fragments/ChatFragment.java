@@ -14,6 +14,7 @@ import java.util.ArrayList;
 
 import es.achraf.deventer.ChatActivity;
 import es.achraf.deventer.R;
+import es.achraf.deventer.view.IView;
 import es.achraf.deventer.view.ItemClickListener;
 import es.achraf.deventer.model.Event;
 
@@ -39,9 +40,19 @@ public class ChatFragment extends Fragment implements ItemClickListener {
                              @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
 
-        View v = inflater.inflate(R.layout.fragment_chat, container, false);
+        View view = inflater.inflate(R.layout.fragment_chat, container, false);
+        init(view);
 
-        return v;
+        return view;
+    }
+
+    /**
+     * Inicializa los elemtnos del fragmento.
+     *
+     * @param view es la vista sobre la que se carga el fragmento.
+     */
+    private void init(View view) {
+
     }
 
     /**
@@ -55,10 +66,11 @@ public class ChatFragment extends Fragment implements ItemClickListener {
     public void onItemClick(View view, int pos) {
         Event event = alEvent.get(pos);
 
+        Bundle eventBundle = new Bundle();
+        eventBundle.putParcelable(IView.EVENT, event);
+
         Intent intentChat = new Intent(getActivity(), ChatActivity.class);
-        //intentChat.putExtra("id", event.getId());
-        intentChat.putExtra("titulo", event.getName());
-        intentChat.putExtra("imagen", event.getImageUri());
+        intentChat.putExtras(eventBundle);
         startActivity(intentChat);
     }
 }
