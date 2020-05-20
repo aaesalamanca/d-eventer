@@ -124,6 +124,9 @@
     <!-- ViewEventDialog -->
     <string name="leave_event">Irse del plan</string>
 
+    <!-- item_chat -->
+    <string name="zero">0</string>
+
     <string name="facebook_app_id" translatable="false">533589277584622</string>
     <string name="nombre_canal">Nombre del canal</string>
     <string name="descripcion_canal">Descripcion del canal</string>

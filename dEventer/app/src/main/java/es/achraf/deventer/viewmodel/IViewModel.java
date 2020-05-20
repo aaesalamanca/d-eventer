@@ -33,15 +33,6 @@ public interface IViewModel {
     String IMAGE_EXT = ".jpg";
 
     // Interfaces
-    interface GetUid {
-        /**
-         * Devuelve el id del usuario.
-         *
-         * @return
-         */
-        String getUid();
-    }
-
     interface GetEmail {
         /**
          * Devuelve el email del usuario.

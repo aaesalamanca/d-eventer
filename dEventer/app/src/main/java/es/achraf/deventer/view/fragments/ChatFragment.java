@@ -11,15 +11,18 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
 import es.achraf.deventer.ChatActivity;
 import es.achraf.deventer.R;
+import es.achraf.deventer.model.Event;
 import es.achraf.deventer.view.IView;
 import es.achraf.deventer.view.ItemClickListener;
-import es.achraf.deventer.model.Event;
+import es.achraf.deventer.view.adapters.ChatAdapter;
+import es.achraf.deventer.viewmodel.ViewModelChat;
 
 public class ChatFragment extends Fragment implements ItemClickListener {
 
@@ -61,6 +64,20 @@ public class ChatFragment extends Fragment implements ItemClickListener {
      * @param view es la vista sobre la que se carga el fragmento.
      */
     private void init(View view) {
+        ViewModelChat vmc = new ViewModelChat();
+        vmc.setGetEventsListener((alKeys, alEvent) -> {
+            this.alKeys = alKeys;
+            this.alEvent = alEvent;
+
+            ChatAdapter adptChat = new ChatAdapter(getContext(), this.alEvent,
+                    this, R.layout.item_chat);
+            rcvOwnEvents.setAdapter(adptChat);
+            adptChat.notifyDataSetChanged();
+            rcvOwnEvents.setLayoutManager(new LinearLayoutManager(getContext()));
+
+            loadingMessage(false);
+        });
+        vmc.getEvents();
 
         rcvOwnEvents = view.findViewById(R.id.rcvOwnEvents);
 

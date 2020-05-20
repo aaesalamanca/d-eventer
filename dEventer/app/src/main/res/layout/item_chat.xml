@@ -1,80 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:baselineAligned="false"
+    android:gravity="center">
 
-    <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:cardview="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/cardMensaje"
-        android:layout_width="300dp"
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/civEvent"
+        android:layout_width="@dimen/size_100"
+        android:layout_height="@dimen/size_100"
+        android:layout_gravity="center"
+        android:layout_marginStart="@dimen/margin_10"
+        android:layout_marginTop="@dimen/margin_10"
+        android:layout_marginBottom="@dimen/margin_10"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/logo"
+        app:civ_border_color="@color/colorAccent" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:orientation="vertical"
-        cardview:cardCornerRadius="15dp">
+        android:orientation="vertical">
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/tvName"
+            style="@style/TextAppearance.AppCompat.Light.SearchResult.Subtitle"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="10dp">
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_10"
+            android:fontFamily="@font/proximanovaregular"
+            android:gravity="center"
+            android:text="@string/event_title"
+            android:textColor="@color/colorPrincipal"
+            android:textSize="@dimen/text_20"
+            android:textStyle="bold" />
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tvDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin_10"
+            android:drawableEnd="@drawable/calendar"
+            android:gravity="right"
+            android:text="@string/event_date" />
 
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/fotoPerfilMensaje"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:src="@mipmap/logo" />
-            </LinearLayout>
+        <TextView
+            android:id="@+id/tvJoined"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin_10"
+            android:drawableEnd="@drawable/user"
+            android:gravity="right"
+            android:text="@string/zero" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:orientation="vertical">
+    </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:id="@+id/nombreMensaje"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="3"
-                        android:fontFamily="@font/proximanovaregular"
-                        android:text="Usuario"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/horaMensaje"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:fontFamily="@font/proximanovaregular"
-                        android:text="00:00" />
-                </LinearLayout>
-
-                <TextView
-                    android:id="@+id/mensajeMensaje"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/proximanovaregular"
-                    android:text="Hola bienvenido"
-                    android:visibility="gone" />
-
-
-                <ImageView
-                    android:id="@+id/mensajeFoto"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:visibility="gone" />
-            </LinearLayout>
-        </LinearLayout>
-
-    </androidx.cardview.widget.CardView>
-
-
-</RelativeLayout>
+</LinearLayout>

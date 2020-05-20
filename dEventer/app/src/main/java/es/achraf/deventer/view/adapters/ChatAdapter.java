@@ -120,7 +120,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
 
         holder.tvName.setText(event.getName());
         holder.tvDate.setText(event.getDate());
-        holder.tvJoined.setText(event.getUsersNum());
+        holder.tvJoined.setText(String.valueOf(event.getUsersNum()));
     }
 
     /**
