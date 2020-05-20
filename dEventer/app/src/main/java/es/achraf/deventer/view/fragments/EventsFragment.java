@@ -15,7 +15,6 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -91,7 +90,6 @@ public class EventsFragment extends Fragment implements ItemClickListener {
     private TextView tvDate;
     private TextView tvTime;
 
-    private LinearLayout llLocation;
     private TextView tvLocation;
 
     private TextView tvPrice;
@@ -384,11 +382,12 @@ public class EventsFragment extends Fragment implements ItemClickListener {
         tvDate = viewEventDialog.findViewById(R.id.tvDate);
         tvTime = viewEventDialog.findViewById(R.id.tvTime);
 
-        llLocation = viewEventDialog.findViewById(R.id.llLocation);
-        llLocation.setOnClickListener(v -> {
-            Uri uri = Uri.parse("https://www.google.com/maps/search/?api=1&query=centurylink+field");
+        viewEventDialog.findViewById(R.id.llLocation).setOnClickListener(v -> {
+            String encodedPlace = tvLocation.getText().toString();
+            encodedPlace = encodedPlace.replace(IView.MAPS_SPACE, IView.MAPS_SPACE_ENCODED);
+            encodedPlace = encodedPlace.replace(IView.MAPS_COMMA, IView.MAPS_COMMA_ENCODED);
+            Uri uri = Uri.parse(IView.MAPS_QUERY + encodedPlace);
             Intent mapsIntent = new Intent(Intent.ACTION_VIEW, uri);
-            //mapsIntent.setPackage("com.google.android.apps.maps");
             startActivity(mapsIntent);
         });
         tvLocation = viewEventDialog.findViewById(R.id.tvLocation);
