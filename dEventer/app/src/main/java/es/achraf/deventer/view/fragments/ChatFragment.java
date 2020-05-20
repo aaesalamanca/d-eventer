@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -22,6 +24,9 @@ public class ChatFragment extends Fragment implements ItemClickListener {
 
     // Fields
     private ArrayList<Event> alEvent = new ArrayList<>();
+
+    private ProgressBar pbLoading;
+    private TextView tvLoading;
 
     // Methods
 
@@ -53,6 +58,28 @@ public class ChatFragment extends Fragment implements ItemClickListener {
      */
     private void init(View view) {
 
+        pbLoading = view.findViewById(R.id.pbLoading);
+        tvLoading = view.findViewById(R.id.tvLoading);
+        loadingMessage(true);
+    }
+
+    /**
+     * Muestra o hace invisibles —GONE— distintos elementos de la actividad relacionados con la
+     * espera e invocación de una nueva actividad.
+     *
+     * @param loading indica si los elementos deben desaparecer o verse.
+     *                <p>
+     *                - True -> Deben verse
+     *                - False -> No deben verse
+     */
+    private void loadingMessage(boolean loading) {
+        if (loading) {
+            pbLoading.setVisibility(View.VISIBLE);
+            tvLoading.setVisibility(View.VISIBLE);
+        } else {
+            pbLoading.setVisibility(View.GONE);
+            tvLoading.setVisibility(View.GONE);
+        }
     }
 
     /**
