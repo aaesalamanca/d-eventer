@@ -123,7 +123,11 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
         holder.tvJoined.setText(event.getUsersNum());
     }
 
-
+    /**
+     * Obtiene el número de elementos.
+     *
+     * @return el número de elementos.
+     */
     @Override
     public int getItemCount() {
         return alEvent.size();
