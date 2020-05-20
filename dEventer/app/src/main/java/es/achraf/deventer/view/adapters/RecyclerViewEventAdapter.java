@@ -1,6 +1,7 @@
 package es.achraf.deventer.view.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +19,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import es.achraf.deventer.R;
 import es.achraf.deventer.interfaces.ItemClickListener;
 import es.achraf.deventer.model.Event;
+import es.achraf.deventer.view.IView;
 
 public class RecyclerViewEventAdapter extends RecyclerView.Adapter<RecyclerViewEventAdapter.ViewHolder> {
 
@@ -54,6 +56,14 @@ public class RecyclerViewEventAdapter extends RecyclerView.Adapter<RecyclerViewE
             tvDate = v.findViewById(R.id.tvDate);
             tvTime = v.findViewById(R.id.tvTime);
             tvLocation = v.findViewById(R.id.tvLocation);
+            tvLocation.setOnClickListener(v1 -> {
+                String encodedPlace = tvLocation.getText().toString();
+                encodedPlace = encodedPlace.replace(IView.MAPS_SPACE, IView.MAPS_SPACE_ENCODED);
+                encodedPlace = encodedPlace.replace(IView.MAPS_COMMA, IView.MAPS_COMMA_ENCODED);
+                Uri uri = Uri.parse(IView.MAPS_QUERY + encodedPlace);
+                Intent mapsIntent = new Intent(Intent.ACTION_VIEW, uri);
+                context.startActivity(mapsIntent);
+            });
             tvPrice = v.findViewById(R.id.tvPrice);
 
             v.setOnClickListener(this);

@@ -89,7 +89,9 @@ public class EventsFragment extends Fragment implements ItemClickListener {
 
     private TextView tvDate;
     private TextView tvTime;
+
     private TextView tvLocation;
+
     private TextView tvPrice;
     private TextView tvJoined;
     private TextView tvDescription;
@@ -379,7 +381,17 @@ public class EventsFragment extends Fragment implements ItemClickListener {
 
         tvDate = viewEventDialog.findViewById(R.id.tvDate);
         tvTime = viewEventDialog.findViewById(R.id.tvTime);
+
+        viewEventDialog.findViewById(R.id.llLocation).setOnClickListener(v -> {
+            String encodedPlace = tvLocation.getText().toString();
+            encodedPlace = encodedPlace.replace(IView.MAPS_SPACE, IView.MAPS_SPACE_ENCODED);
+            encodedPlace = encodedPlace.replace(IView.MAPS_COMMA, IView.MAPS_COMMA_ENCODED);
+            Uri uri = Uri.parse(IView.MAPS_QUERY + encodedPlace);
+            Intent mapsIntent = new Intent(Intent.ACTION_VIEW, uri);
+            startActivity(mapsIntent);
+        });
         tvLocation = viewEventDialog.findViewById(R.id.tvLocation);
+
         tvPrice = viewEventDialog.findViewById(R.id.tvPrice);
         tvJoined = viewEventDialog.findViewById(R.id.tvJoined);
         tvDescription = viewEventDialog.findViewById(R.id.tvDescription);

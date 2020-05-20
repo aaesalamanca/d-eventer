@@ -9,6 +9,18 @@ import es.achraf.deventer.model.Event;
 
 public interface IView {
 
+    // Fields
+    // Comienzo de la consulta para construir urls que buscan un lugar por su nombre en Google Maps
+    String MAPS_QUERY = "https://www.google.com/maps/search/?api=1&query=";
+    // Espacio que debe ser codificado
+    String MAPS_SPACE = " ";
+    // Codificación del espacio para uris construidas en Google Maps
+    String MAPS_SPACE_ENCODED = "+";
+    // Coma que debe ser codificada
+    String MAPS_COMMA = ",";
+    // Codificación de la coma para uris construidas en Google Maps
+    String MAPS_COMMA_ENCODED = "%2C";
+
     // Interfaces
 
     interface SignUpCompleteListener {
