@@ -32,7 +32,7 @@ import java.util.ArrayList;
 import es.achraf.deventer.ChatActivity;
 import es.achraf.deventer.R;
 import es.achraf.deventer.view.adapters.AdapterChatPlan;
-import es.achraf.deventer.interfaces.ItemClickListener;
+import es.achraf.deventer.view.ItemClickListener;
 import es.achraf.deventer.model.Event;
 
 public class ChatFragment extends Fragment implements ItemClickListener {

@@ -20,7 +20,7 @@ import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import es.achraf.deventer.R;
-import es.achraf.deventer.interfaces.ItemClickListener;
+import es.achraf.deventer.view.ItemClickListener;
 import es.achraf.deventer.model.Event;
 
 public class AdapterChatPlan extends RecyclerView.Adapter<AdapterChatPlan.ViewHolder> {
