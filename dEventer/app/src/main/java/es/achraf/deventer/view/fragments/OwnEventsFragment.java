@@ -224,9 +224,10 @@ public class OwnEventsFragment extends Fragment implements ItemClickListener {
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .thumbnail(.5f)
                 .into(civViewEvent);
-        mbtnJoin.setText(R.string.leave_event);
 
         tvName.setText(event.getName());
+        mbtnJoin.setText(R.string.leave_event);
+        
         tvDate.setText(event.getDate());
         tvTime.setText(event.getTime());
         tvLocation.setText(event.getLocation());
