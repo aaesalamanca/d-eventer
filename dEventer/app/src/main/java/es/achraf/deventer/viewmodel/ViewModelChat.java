@@ -43,8 +43,8 @@ public class ViewModelChat implements IViewModel.GetEvents {
                                 .addListenerForSingleValueEvent(new ValueEventListener() {
                                     @Override
                                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                        for (DataSnapshot fDataSnapshot : dataSnapshot.getChildren()) {
-                                            for (String fKey : alKeys) {
+                                        for (String fKey : alKeys) {
+                                            for (DataSnapshot fDataSnapshot : dataSnapshot.getChildren()) {
                                                 if (fKey.equals(fDataSnapshot.getKey())) {
                                                     alEvent.add(fDataSnapshot.getValue(Event.class));
                                                 }
