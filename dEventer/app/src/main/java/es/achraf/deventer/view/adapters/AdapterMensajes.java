@@ -39,7 +39,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
-import es.achraf.deventer.ChatActivity;
+import es.achraf.deventer.view.ChatActivity;
 import es.achraf.deventer.R;
 import es.achraf.deventer.mensaje.MensajeRecibir;
 import es.achraf.deventer.restApi.RestApiConstants;

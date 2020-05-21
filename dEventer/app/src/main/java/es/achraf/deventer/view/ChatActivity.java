@@ -1,4 +1,4 @@
-package es.achraf.deventer;
+package es.achraf.deventer.view;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -40,6 +40,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import es.achraf.deventer.R;
 import es.achraf.deventer.view.adapters.AdapterMensajes;
 import es.achraf.deventer.mensaje.MensajeEnviar;
 import es.achraf.deventer.mensaje.MensajeRecibir;

@@ -17,7 +17,7 @@ import androidx.work.WorkManager;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
-import es.achraf.deventer.ChatActivity;
+import es.achraf.deventer.view.ChatActivity;
 import es.achraf.deventer.R;
 
 public class MyFirebaseMessagingService extends FirebaseMessagingService {

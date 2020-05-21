@@ -64,7 +64,7 @@
 
         <!-- Activities -->
         <activity
-            android:name=".ChatActivity"
+            android:name=".view.ChatActivity"
             android:screenOrientation="fullSensor"
             android:theme="@style/AppTheme" />
         <activity
