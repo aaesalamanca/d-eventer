@@ -22,6 +22,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -60,8 +61,18 @@ public class ChatActivity extends AppCompatActivity {
 
     private String key;
 
+    private RecyclerView rcvMessage;
+
+    private TextInputEditText tietMessage;
+
     // Methods
 
+    /**
+     * Primer método ejecutado por la actividad. Inicializa los elmentos de la actividad.
+     *
+     * @param savedInstanceState es el bundle que almacena los datos del estado de la actividad
+     *                           cuando se produce un cambio como rotaciones de la pantalla.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,6 +81,9 @@ public class ChatActivity extends AppCompatActivity {
         init();
     }
 
+    /**
+     * Inicializa los elementos de la actividad.
+     */
     private void init() {
         Bundle bundle = getIntent().getExtras();
 
@@ -82,12 +96,29 @@ public class ChatActivity extends AppCompatActivity {
                 .into((CircleImageView) findViewById(R.id.civEvent));
 
         ((TextView) findViewById(R.id.tvName)).setText(event.getName());
+
+        rcvMessage = findViewById(R.id.rcvMessage);
+
+        findViewById(R.id.ibtnPhoto).setOnClickListener(v -> {
+
+        });
+        tietMessage = findViewById(R.id.tietMessage);
+        findViewById(R.id.fabSend).setOnClickListener(v -> {
+
+        });
     }
 
     private void scrollDown() {
 
     }
 
+    /**
+     * Se ejecuta cuando termina la actividad iniciada por esta y espera un resultado de vuelta.
+     *
+     * @param requestCode es el código que identifica a la actividad invocada.
+     * @param resultCode  es el código del resultado.
+     * @param data        es el Intent con los datos devueltos.
+     */
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
