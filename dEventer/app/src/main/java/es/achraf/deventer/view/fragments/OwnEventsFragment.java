@@ -158,7 +158,6 @@ public class OwnEventsFragment extends Fragment implements ItemClickListener {
         civViewEvent = viewEventDialog.findViewById(R.id.civEvent);
         tvName = viewEventDialog.findViewById(R.id.tvName);
         mbtnJoin = viewEventDialog.findViewById(R.id.mbtnJoin);
-        mbtnJoin.setText(R.string.leave_event);
         mbtnJoin.setOnClickListener(v -> {
             if (mbtnJoin.getText().equals(getString(R.string.join_event))) {
                 vmoe.join(key);
@@ -225,6 +224,7 @@ public class OwnEventsFragment extends Fragment implements ItemClickListener {
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .thumbnail(.5f)
                 .into(civViewEvent);
+        mbtnJoin.setText(R.string.leave_event);
 
         tvName.setText(event.getName());
         tvDate.setText(event.getDate());
