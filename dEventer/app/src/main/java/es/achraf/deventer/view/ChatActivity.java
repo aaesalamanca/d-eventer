@@ -82,13 +82,13 @@ public class ChatActivity extends AppCompatActivity {
         setContentView(R.layout.activity_chat);
 
 
-        fotoPlanChat = findViewById(R.id.fotoPlanChat);
+        fotoPlanChat = findViewById(R.id.civEvent);
 
-        tituloPlanChat = findViewById(R.id.tituloPlanChat);
-        recyclerViewMensaje = findViewById(R.id.recyclerViewMensaje);
-        txtMensaje = findViewById(R.id.txtMensaje);
-        btnEnviar = findViewById(R.id.btnEnviar);
-        btnEnviarFoto = findViewById(R.id.btnEnviarFoto);
+        tituloPlanChat = findViewById(R.id.tvName);
+        recyclerViewMensaje = findViewById(R.id.rcvMessage);
+        txtMensaje = findViewById(R.id.tietMessage);
+        btnEnviar = findViewById(R.id.fabSend);
+        btnEnviarFoto = findViewById(R.id.ibtnPhoto);
         fotoPerfilCadena = null;
 
         storage = FirebaseStorage.getInstance();
