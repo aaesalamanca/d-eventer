@@ -46,6 +46,7 @@
         android:orientation="horizontal">
 
         <ImageButton
+            android:layout_margin="@dimen/margin_4"
             android:id="@+id/ibtnPhoto"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -61,10 +62,10 @@
             android:layout_gravity="center"
             android:layout_weight="1"
             android:background="@drawable/blue_background"
-            android:backgroundTint="#219C9A9A"
+            android:backgroundTint="@color/gris_message"
             android:fontFamily="@font/proximanovaregular"
-            android:hint="Escribe un mensaje..."
-            android:padding="10dp"
+            android:hint="@string/write"
+            android:padding="@dimen/padding_10"
             android:textColor="@color/colorPrincipal"
             android:textColorHint="@color/colorPrincipal" />
 

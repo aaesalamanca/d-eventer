@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">dEventer</string>
 
-    <!-- activity_sign_in -->
+    <!-- activity_sign_in.xml -->
     <string name="logo">Logo</string>
     <string name="welcome">Bienvenido a dEventer</string>
     <string name="email">Email</string>
@@ -14,7 +14,7 @@
     <string name="sign_in_fb">Entrar con Facebook</string>
     <string name="sign_in_google">Entrar con Google</string>
 
-    <!-- SignInActivity -->
+    <!-- SignInActivity.java -->
     <string name="fast_start">Inicio rápido</string>
     <string name="fingertip_start">¿Desea acceder la próxima vez mediante su huella?</string>
     <string name="yes">De acuerdo</string>
@@ -29,7 +29,7 @@
     <string name="cancel">Cancelar</string>
     <string name="previous_access_fingertip">Debe acceder almenos una vez para poder guardar sus datos de acceso.</string>
 
-    <!-- activity_sign_up -->
+    <!-- activity_sign_up.xml -->
     <string name="name_surname">Nombre y apellidos</string>
     <string name="repeat_password">Confirmar contraseña</string>
     <string name="postal_code">Código postal</string>
@@ -41,7 +41,7 @@
     <string name="sign_up">Registrarse</string>
     <string name="go_back">Volver</string>
 
-    <!-- SignUpActivity -->
+    <!-- SignUpActivity.java -->
     <string name="under_age">Lo sentimos, pero la aplicación requiere que seas mayor de edad</string>
     <string name="agree">Entendido</string>
     <string name="see_you">Gracias por entendernos, ¡HASTA PRONTO!</string>
@@ -50,7 +50,7 @@
     <string name="no_password_match">Las contraseñas no coinciden</string>
     <string name="succeeded_sign_up">Registrado con éxito</string>
 
-    <!-- activity_home -->
+    <!-- activity_home.xml -->
     <string name="settings">Ajustes</string>
     <string name="profile">Mi perfil</string>
     <string name="sign_out">Cerrar sesión</string>
@@ -59,7 +59,7 @@
     <string name="own_events">Mis planes</string>
     <string name="chat">Chat</string>
 
-    <!-- activity_profile -->
+    <!-- activity_profile.xml -->
     <string name="user">Usuario</string>
     <string name="change_photo">(pulsa para escoger la foto de perfil)</string>
     <string name="personal_data">Datos personales</string>
@@ -72,27 +72,27 @@
     <string name="email_stylized">• Email:</string>
     <string name="confirm">Ok</string>
 
-    <!-- ProfileActivity -->
+    <!-- ProfileActivity.java -->
     <string name="succeded_image_change">Imagen cambiada con éxito</string>
     <string name="permission_reminder">Recordatorio de permiso</string>
     <string name="accept_permission">Es necesario aceptar los permisos para poder cambiar su foto de perfil</string>
 
-    <!-- fragment_events -->
+    <!-- fragment_events.xml -->
     <string name="loading_events">Cargando planes...</string>
 
-    <!-- EventsFragment -->
+    <!-- EventsFragment.java -->
     <string name="image_not_found">No se ha encontrado la imagen</string>
     <string name="event_uploaded">Plan en marcha, ¡diviértete!</string>
     <string name="event_upload_failed">Se ha producido un error al subir el plan</string>
 
-    <!-- item_event -->
+    <!-- item_event.xml -->
     <string name="event_title">Titulo del plan</string>
     <string name="event_date">Fecha del plan</string>
     <string name="event_time">Hora del plan</string>
     <string name="event_location">Ubicación</string>
     <string name="event_price">Precio</string>
 
-    <!-- dialog_create_event -->
+    <!-- dialog_create_event.xml -->
     <string name="event_presentation">Presenta el plan</string>
     <string name="put_image_event">(Ponle una imagen al plan)</string>
     <string name="name_event">¿Cómo se llama el plan?</string>
@@ -103,16 +103,16 @@
     <string name="description">¿Quieres describir el plan?</string>
     <string name="create_event">Crear plan</string>
 
-    <!-- activity_map -->
+    <!-- activity_map.xml -->
     <string name="places">Busca ciudades, calles, lugares ...</string>
 
-    <!-- MapActivity -->
+    <!-- MapActivity.java -->
     <string name="no_location">No se ha encontrado la localización proporcionada</string>
     <string name="enter_location">Por favor introduzca una localización</string>
     <string name="error">Hubo un error</string>
     <string name="madrid">Madrid</string>
 
-    <!-- dialog_view_event -->
+    <!-- dialog_view_event.xml -->
     <string name="join_event">¡Apuntarse al plan!</string>
     <string name="info">Información del plan</string>
     <string name="view_date">Fecha</string>
@@ -121,11 +121,14 @@
     <string name="joined">Apuntados</string>
     <string name="view_description">Descripcion</string>
 
-    <!-- ViewEventDialog -->
+    <!-- ViewEventDialog.java -->
     <string name="leave_event">Irse del plan</string>
 
-    <!-- item_chat -->
+    <!-- item_chat.xml -->
     <string name="zero">0</string>
+
+    <!-- activity_chat.xml -->
+    <string name="write">Escribe un mensaje...</string>
 
     <string name="facebook_app_id" translatable="false">533589277584622</string>
     <string name="nombre_canal">Nombre del canal</string>
