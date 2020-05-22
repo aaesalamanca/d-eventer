@@ -24,6 +24,10 @@ public interface IView {
     String K_EVENT_ID = "event_id";
     // Clave para el paso de un Event entre actividades
     String K_EVENT = "event";
+    // Tipo para los Intent de galería
+    String GALLERY_INTENT_TYPE = "image/jpeg";
+    // Título para los Intent de galería
+    String GALLERY_INTENT_TITLE = "Seleccione una imagen";
 
     // Interfaces
 
