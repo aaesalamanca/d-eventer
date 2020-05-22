@@ -45,7 +45,7 @@ import es.achraf.deventer.mensaje.MensajeRecibir;
 import es.achraf.deventer.restApi.RestApiConstants;
 
 
-public class AdapterMensajes extends RecyclerView.Adapter<HolderMensaje> {
+public class MessageAdapter extends RecyclerView.Adapter<HolderMensaje> {
 
     private List<MensajeRecibir> listMensaje = new ArrayList<>();
     private Context c;
@@ -60,7 +60,7 @@ public class AdapterMensajes extends RecyclerView.Adapter<HolderMensaje> {
     private FirebaseUser user = mAuth.getCurrentUser();
     private static String nombreId = "";
 
-    public AdapterMensajes(Context c) {
+    public MessageAdapter(Context c) {
         this.c = c;
         nombreId = user.getDisplayName();
 

@@ -14,6 +14,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import de.hdodenhof.circleimageview.CircleImageView;
 import es.achraf.deventer.R;
 import es.achraf.deventer.model.Event;
+import es.achraf.deventer.view.adapters.MessageAdapter;
 
 public class ChatActivity extends AppCompatActivity {
 
@@ -25,6 +26,7 @@ public class ChatActivity extends AppCompatActivity {
     private Uri imageSendUri;
 
     private RecyclerView rcvMessage;
+    private MessageAdapter adptMessage;
 
     private TextInputEditText tietMessage;
 
@@ -73,10 +75,16 @@ public class ChatActivity extends AppCompatActivity {
         findViewById(R.id.fabSend).setOnClickListener(v -> {
 
         });
+
+        rcvMessage = findViewById(R.id.rcvMessage);
+        adptMessage = new MessageAdapter(this);
     }
 
+    /**
+     * Hace scroll hacia abajo hasta el último elemento.
+     */
     private void scrollDown() {
-
+        rcvMessage.scrollToPosition(adptMessage.getItemCount() - 1);
     }
 
     /**
