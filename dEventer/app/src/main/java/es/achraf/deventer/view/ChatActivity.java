@@ -56,6 +56,7 @@ public class ChatActivity extends AppCompatActivity {
 
         key = bundle.getString(IView.K_EVENT_ID);
         Event event = bundle.getParcelable(IView.K_EVENT);
+        imageSendUri = null;
 
         ViewModelMessage vmm = new ViewModelMessage();
         vmm.setChatListener(message -> {
@@ -81,10 +82,11 @@ public class ChatActivity extends AppCompatActivity {
         tietMessage = findViewById(R.id.tietMessage);
         findViewById(R.id.fabSend).setOnClickListener(v -> {
             String text = tietMessage.getText().toString();
-            if (!TextUtils.isEmpty(text)) {
+            if (!(TextUtils.isEmpty(text) && (imageSendUri == null))) {
                 vmm.sendMessage(key, text, imageSendUri);
             }
             tietMessage.getText().clear();
+            imageSendUri = null;
         });
 
         rcvMessage = findViewById(R.id.rcvMessage);
