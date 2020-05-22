@@ -3,6 +3,8 @@ package es.achraf.deventer.viewmodel;
 import android.net.Uri;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
 
 import es.achraf.deventer.model.Message;
 import es.achraf.deventer.view.IView;
@@ -36,8 +38,30 @@ public class ViewModelMessage implements IViewModel.Chat {
     public void sendMessage(String key, String text, Uri imageUri) {
         Message message = new Message();
         message.setOwnerId(FirebaseAuth.getInstance().getCurrentUser().getUid());
-        message.setText(text);
-        message.setImageUri(imageUri.toString());
+        message.setText(text.trim());
         message.setDate(System.currentTimeMillis());
+        if (imageUri != null) {
+            FirebaseStorage.getInstance().getReference()
+                    .child(IViewModel.CHAT_IMAGES)
+                    .child(key)
+                    .child(imageUri.getLastPathSegment())
+                    .putFile(imageUri).addOnSuccessListener(taskSnapshot -> {
+                FirebaseStorage.getInstance().getReference()
+                        .child(IViewModel.CHAT_IMAGES)
+                        .child(key)
+                        .child(imageUri.getLastPathSegment()).getDownloadUrl().addOnSuccessListener(uri -> {
+                    message.setImageUri(uri.toString());
+                    FirebaseDatabase.getInstance().getReference()
+                            .child(IViewModel.CHATS)
+                            .child(key)
+                            .push().setValue(message);
+                });
+            });
+        } else {
+            FirebaseDatabase.getInstance().getReference()
+                    .child(IViewModel.CHATS)
+                    .child(key)
+                    .push().setValue(message);
+        }
     }
 }

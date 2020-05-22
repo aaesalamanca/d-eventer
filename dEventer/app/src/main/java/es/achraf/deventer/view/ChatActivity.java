@@ -3,6 +3,7 @@ package es.achraf.deventer.view;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,6 +16,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import es.achraf.deventer.R;
 import es.achraf.deventer.model.Event;
 import es.achraf.deventer.view.adapters.MessageAdapter;
+import es.achraf.deventer.viewmodel.ViewModelMessage;
 
 public class ChatActivity extends AppCompatActivity {
 
@@ -55,6 +57,11 @@ public class ChatActivity extends AppCompatActivity {
         key = bundle.getString(IView.K_EVENT_ID);
         Event event = bundle.getParcelable(IView.K_EVENT);
 
+        ViewModelMessage vmm = new ViewModelMessage();
+        vmm.setChatListener(message -> {
+
+        });
+
         Glide.with(ChatActivity.this).load(event.getImageUri())
                 .error(R.mipmap.logo)
                 .fitCenter()
@@ -73,7 +80,11 @@ public class ChatActivity extends AppCompatActivity {
         });
         tietMessage = findViewById(R.id.tietMessage);
         findViewById(R.id.fabSend).setOnClickListener(v -> {
-
+            String text = tietMessage.getText().toString();
+            if (!TextUtils.isEmpty(text)) {
+                vmm.sendMessage(key, text, imageSendUri);
+            }
+            tietMessage.getText().clear();
         });
 
         rcvMessage = findViewById(R.id.rcvMessage);
