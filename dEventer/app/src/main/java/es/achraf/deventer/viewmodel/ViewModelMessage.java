@@ -39,7 +39,5 @@ public class ViewModelMessage implements IViewModel.Chat {
         message.setText(text);
         message.setImageUri(imageUri.toString());
         message.setDate(System.currentTimeMillis());
-
-        
     }
 }
