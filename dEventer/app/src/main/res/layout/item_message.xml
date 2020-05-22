@@ -3,35 +3,35 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:cardview="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/cardMensaje"
-        android:layout_width="300dp"
+    <androidx.cardview.widget.CardView xmlns:cardview="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/cvMessage"
+        android:layout_width="@dimen/size_300"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
+        android:layout_margin="@dimen/margin_5"
         android:orientation="vertical"
-        cardview:cardCornerRadius="15dp">
+        cardview:cardCornerRadius="@dimen/radius_15">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="10dp">
+            android:layout_margin="@dimen/margin_10">
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
                 <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/fotoPerfilMensaje"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
+                    android:id="@+id/civProfile"
+                    android:layout_width="@dimen/size_25"
+                    android:layout_height="@dimen/size_25"
                     android:src="@mipmap/logo" />
+
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
+                android:layout_marginStart="@dimen/margin_10"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -39,42 +39,42 @@
                     android:layout_height="wrap_content">
 
                     <TextView
-                        android:id="@+id/nombreMensaje"
-                        android:layout_width="0dp"
+                        android:id="@+id/tvName"
+                        android:layout_width="@dimen/size_0"
                         android:layout_height="wrap_content"
                         android:layout_weight="3"
                         android:fontFamily="@font/proximanovaregular"
-                        android:text="Usuario"
-                        android:textSize="16sp"
+                        android:text="@string/user"
+                        android:textSize="@dimen/text_16"
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/horaMensaje"
-                        android:layout_width="0dp"
+                        android:id="@+id/tvDate"
+                        android:layout_width="@dimen/size_0"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:fontFamily="@font/proximanovaregular"
-                        android:text="00:00" />
+                        android:text="@string/zero_time" />
+
                 </LinearLayout>
 
                 <TextView
-                    android:id="@+id/mensajeMensaje"
+                    android:id="@+id/tvText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/proximanovaregular"
-                    android:text="Hola bienvenido"
                     android:visibility="gone" />
 
-
                 <ImageView
-                    android:id="@+id/mensajeFoto"
+                    android:id="@+id/ivMessage"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:visibility="gone" />
+
             </LinearLayout>
+
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
-
 
 </RelativeLayout>

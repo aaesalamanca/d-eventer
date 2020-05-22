@@ -2,7 +2,13 @@ package es.achraf.deventer.viewmodel;
 
 import android.net.Uri;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 
@@ -25,6 +31,46 @@ public class ViewModelMessage implements IViewModel.Chat {
     @Override
     public void setChatListener(IView.ChatListener chatListener) {
         this.chatListener = chatListener;
+    }
+
+    // Methods
+
+    /**
+     * Solicita al ViewModel que comience a escuchar nuevos mensajes desde la base de datos.
+     *
+     * @param key es la clave cel evento.
+     */
+    @Override
+    public void startListening(String key) {
+        FirebaseDatabase.getInstance().getReference()
+                .child(IViewModel.CHATS)
+                .child(key).addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                Message message = dataSnapshot.getValue(Message.class);
+                chatListener.onNewMessage(message);
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     /**

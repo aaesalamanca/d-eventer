@@ -1,25 +1,25 @@
 package es.achraf.deventer.mensaje;
 
-public class MensajeRecibir extends Mensaje {
+public class Message extends Mensaje {
 
     private Long hora;
     private String token;
     private boolean visto;
 
-    public MensajeRecibir() {
+    public Message() {
     }
 
-    public MensajeRecibir(Long hora) {
+    public Message(Long hora) {
         this.hora = hora;
     }
 
-    public MensajeRecibir(String mensaje, String urlFoto, String nombre, String fotoPerfil, String type_mensaje, Long hora) {
+    public Message(String mensaje, String urlFoto, String nombre, String fotoPerfil, String type_mensaje, Long hora) {
         super(mensaje, urlFoto, nombre, fotoPerfil, type_mensaje);
         this.hora = hora;
         this.visto = isVisto();
     }
 
-    public MensajeRecibir(String mensaje, String urlFoto, String nombre, String fotoPerfil, String type_mensaje, Long hora, String token, boolean visto) {
+    public Message(String mensaje, String urlFoto, String nombre, String fotoPerfil, String type_mensaje, Long hora, String token, boolean visto) {
         super(mensaje, urlFoto, nombre, fotoPerfil, type_mensaje);
         this.hora = hora;
         this.token = token;

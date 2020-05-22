@@ -227,6 +227,13 @@ public interface IViewModel {
         void setChatListener(IView.ChatListener chatListener);
 
         /**
+         * Solicita al ViewModel que comience a escuchar nuevos mensajes desde la base de datos.
+         *
+         * @param key es la clave cel evento.
+         */
+        void startListening(String key);
+
+        /**
          * Envía un nuevo mensaje al chat y, por tanto, a la base de datos.
          *
          * @param key      es la clave del evento.

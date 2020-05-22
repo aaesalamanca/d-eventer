@@ -130,6 +130,9 @@
     <!-- activity_chat.xml -->
     <string name="write">Escribe un mensaje...</string>
 
+    <!-- item_message.xml -->
+    <string name="zero_time">00:00</string>
+
     <string name="facebook_app_id" translatable="false">533589277584622</string>
     <string name="nombre_canal">Nombre del canal</string>
     <string name="descripcion_canal">Descripcion del canal</string>
