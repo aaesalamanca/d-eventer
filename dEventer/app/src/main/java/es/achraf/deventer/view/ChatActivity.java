@@ -78,6 +78,13 @@ public class ChatActivity extends AppCompatActivity {
 
         rcvMessage = findViewById(R.id.rcvMessage);
         adptMessage = new MessageAdapter(this);
+        adptMessage.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
+            @Override
+            public void onItemRangeInserted(int positionStart, int itemCount) {
+                super.onItemRangeInserted(positionStart, itemCount);
+                scrollDown();
+            }
+        });
     }
 
     /**

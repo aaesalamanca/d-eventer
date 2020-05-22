@@ -23,10 +23,14 @@ public interface IViewModel {
     String USER_EVENTS = "alEvent";
     // Clave de eventos en el JSON de Firebase Realtime Database
     String EVENTS = "events";
+    // Clave de chats en el JSON de Firebase Realtime Database
+    String CHATS = "chats";
     // Clave de las imágenes de perfil en la estructura de Cloud Storage
     String PROFILE_IMAGES = "profile_images";
     // Clave de las imágenes de los eventos en la estructura de Cloud Storage
     String EVENT_IMAGES = "event_images";
+    // Clave de las imágenes de los chats en la estructura de Cloud Storage
+    String CHAT_IMAGES = "chat_images";
     // Separador para las rutas en las bases de datos
     String SEPARATOR = "/";
     // Extensión de las imágenes
@@ -211,6 +215,25 @@ public interface IViewModel {
          * @param localUri es la Uri de la imagen.
          */
         void uploadImage(Uri localUri);
+    }
+
+    interface Chat {
+        /**
+         * Establece el listener que escuchará la recepción de nuevos mensajes desde la base de
+         * datos.
+         *
+         * @param chatListener es el listener que escucha la recepción de nuevos mensajes.
+         */
+        void setChatListener(IView.ChatListener chatListener);
+
+        /**
+         * Envía un nuevo mensaje al chat y, por tanto, a la base de datos.
+         *
+         * @param key      es la clave del evento.
+         * @param text     es el texto del mensaje.
+         * @param imageUri es la uri de la imagen, si el usuario envía una. Puede ser null.
+         */
+        void sendMessage(String key, String text, Uri imageUri);
     }
 
     interface UploadEvent {

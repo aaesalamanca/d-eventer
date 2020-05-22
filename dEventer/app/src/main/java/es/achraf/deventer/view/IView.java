@@ -6,6 +6,7 @@ import android.net.Uri;
 import java.util.ArrayList;
 
 import es.achraf.deventer.model.Event;
+import es.achraf.deventer.model.Message;
 
 public interface IView {
 
@@ -129,6 +130,15 @@ public interface IView {
          * Handler que ejecuta la acción requerida cuando se ha solicitado abandonar el evento.
          */
         void leaveCompleted();
+    }
+
+    interface ChatListener {
+        /**
+         * Handler que ejecuta la acción requerida cuando se ha recibido un nuevo mensaje.
+         *
+         * @param message es el nuevo mensaje recibido.
+         */
+        void onNewMessage(Message message);
     }
 
     interface SignOutListener {
