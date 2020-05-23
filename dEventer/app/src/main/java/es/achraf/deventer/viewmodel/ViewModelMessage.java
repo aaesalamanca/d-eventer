@@ -43,34 +43,34 @@ public class ViewModelMessage implements IViewModel.Chat {
     @Override
     public void startListening(String key) {
         FirebaseDatabase.getInstance().getReference()
-                .child(IViewModel.CHATS)
-                .child(key).addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                Message message = dataSnapshot.getValue(Message.class);
-                chatListener.onNewMessage(message);
-            }
+                .child(IViewModel.CHATS).child(key)
+                .addChildEventListener(new ChildEventListener() {
+                    @Override
+                    public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                        Message message = dataSnapshot.getValue(Message.class);
+                        chatListener.onNewMessage(message);
+                    }
 
-            @Override
-            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                    @Override
+                    public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
 
-            }
+                    }
 
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+                    @Override
+                    public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
 
-            }
+                    }
 
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                    @Override
+                    public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
 
-            }
+                    }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
 
-            }
-        });
+                    }
+                });
     }
 
     /**
@@ -88,25 +88,21 @@ public class ViewModelMessage implements IViewModel.Chat {
         message.setDate(System.currentTimeMillis());
         if (imageUri != null) {
             FirebaseStorage.getInstance().getReference()
-                    .child(IViewModel.CHAT_IMAGES)
-                    .child(key)
-                    .child(imageUri.getLastPathSegment())
+                    .child(IViewModel.CHAT_IMAGES).child(key).child(imageUri.getLastPathSegment())
                     .putFile(imageUri).addOnSuccessListener(taskSnapshot -> {
                 FirebaseStorage.getInstance().getReference()
-                        .child(IViewModel.CHAT_IMAGES)
-                        .child(key)
-                        .child(imageUri.getLastPathSegment()).getDownloadUrl().addOnSuccessListener(uri -> {
-                    message.setImageUri(uri.toString());
-                    FirebaseDatabase.getInstance().getReference()
-                            .child(IViewModel.CHATS)
-                            .child(key)
-                            .push().setValue(message);
-                });
+                        .child(IViewModel.CHAT_IMAGES).child(key)
+                        .child(imageUri.getLastPathSegment()).getDownloadUrl()
+                        .addOnSuccessListener(uri -> {
+                            message.setImageUri(uri.toString());
+                            FirebaseDatabase.getInstance().getReference()
+                                    .child(IViewModel.CHATS).child(key)
+                                    .push().setValue(message);
+                        });
             });
         } else {
             FirebaseDatabase.getInstance().getReference()
-                    .child(IViewModel.CHATS)
-                    .child(key)
+                    .child(IViewModel.CHATS).child(key)
                     .push().setValue(message);
         }
     }

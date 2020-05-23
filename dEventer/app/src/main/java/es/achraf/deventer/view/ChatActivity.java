@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -59,9 +60,8 @@ public class ChatActivity extends AppCompatActivity {
         imageSendUri = null;
 
         ViewModelMessage vmm = new ViewModelMessage();
-        vmm.setChatListener(message -> {
-
-        });
+        vmm.setChatListener(message -> adptMessage.addMessage(message));
+        vmm.startListening(key);
 
         Glide.with(ChatActivity.this).load(event.getImageUri())
                 .error(R.mipmap.logo)
@@ -69,8 +69,6 @@ public class ChatActivity extends AppCompatActivity {
                 .into((CircleImageView) findViewById(R.id.civEvent));
 
         ((TextView) findViewById(R.id.tvName)).setText(event.getName());
-
-        rcvMessage = findViewById(R.id.rcvMessage);
 
         findViewById(R.id.ibtnPhoto).setOnClickListener(v -> {
             Intent galleryIntent = new Intent(Intent.ACTION_GET_CONTENT);
@@ -90,7 +88,9 @@ public class ChatActivity extends AppCompatActivity {
         });
 
         rcvMessage = findViewById(R.id.rcvMessage);
+        rcvMessage.setLayoutManager(new LinearLayoutManager(this));
         adptMessage = new MessageAdapter(this);
+        rcvMessage.setAdapter(adptMessage);
         adptMessage.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
             @Override
             public void onItemRangeInserted(int positionStart, int itemCount) {
@@ -124,5 +124,4 @@ public class ChatActivity extends AppCompatActivity {
             }
         }
     }
-
 }
