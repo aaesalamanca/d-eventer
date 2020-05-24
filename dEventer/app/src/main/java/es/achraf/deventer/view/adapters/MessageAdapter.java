@@ -26,12 +26,10 @@ import java.util.Random;
 import de.hdodenhof.circleimageview.CircleImageView;
 import es.achraf.deventer.R;
 import es.achraf.deventer.model.Message;
-import es.achraf.deventer.viewmodel.ViewModelMessageAdapter;
 
 public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.HolderMessage> {
 
     // Fields
-    private ViewModelMessageAdapter vmma;
     private List<Message> lMessage = new ArrayList<>();
     private Context context;
     private CardView cvMessage;
@@ -71,7 +69,6 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.HolderMe
      */
     public MessageAdapter(Context context) {
         this.context = context;
-        vmma = new ViewModelMessageAdapter();
     }
 
     // Methods
