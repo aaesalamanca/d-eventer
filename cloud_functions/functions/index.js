@@ -1,8 +1,11 @@
 const functions = require('firebase-functions');
 
-// // Create and Deploy Your First Cloud Functions
-// // https://firebase.google.com/docs/functions/write-firebase-functions
-//
-// exports.helloWorld = functions.https.onRequest((request, response) => {
-//  response.send("Hello from Firebase!");
-// });
+const admin = require('firebase-admin');
+admin.initializeApp();
+
+exports.sendNotification = functions.https.onCall(async (data, context) => {
+    const name = data.name;
+    const text = data.text;
+    console.log("Name: " + name);
+    console.log("Text: " + text);
+});

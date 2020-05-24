@@ -11,7 +11,11 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.functions.FirebaseFunctions;
 import com.google.firebase.storage.FirebaseStorage;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import es.achraf.deventer.model.Message;
 import es.achraf.deventer.view.IView;
@@ -120,6 +124,12 @@ public class ViewModelMessage implements IViewModel.Chat {
                                         .push().setValue(message);
                             }
                         });
+
+                Map<String, String> mData = new HashMap<>();
+                mData.put("name", message.getName());
+                mData.put("text", message.getText());
+                FirebaseFunctions.getInstance().getHttpsCallable("sendNotification")
+                        .call(mData);
             }
 
             @Override
