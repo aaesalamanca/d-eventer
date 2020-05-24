@@ -2,6 +2,7 @@ package es.achraf.deventer.view.adapters;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -106,20 +107,18 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.HolderMe
         params.setMargins(10, 10, 10, 10);
         cvMessage.setLayoutParams(params);
 
-        vmma.setGetImageListener((cloudUri, isChange) ->
-                Glide.with(context).load(cloudUri).error(R.mipmap.logo).dontAnimate()
-                        .centerCrop()
-                        .diskCacheStrategy(DiskCacheStrategy.ALL)
-                        .thumbnail(.5f)
-                        .into(holder.civProfile));
-        vmma.getImage(message.getOwnerId());
-        vmma.setGetNameListener(name -> holder.tvName.setText(name));
-        vmma.getName(message.getOwnerId());
+        Glide.with(context).load(Uri.parse(message.getProfileImageUri()))
+                .error(R.mipmap.logo).dontAnimate()
+                .centerCrop()
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .thumbnail(.5f)
+                .into(holder.civProfile);
+        holder.tvName.setText(message.getName());
+        holder.tvName.setTextColor(setColor(message.getName()));
 
         Date date = new Date(message.getDate());
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm");
         holder.tvDate.setText(simpleDateFormat.format(date));
-        holder.tvText.setTextColor(setColor(message.getOwnerId()));
         holder.tvText.setText(message.getText());
         if (message.getImageUri() != null) {
             holder.ivImage.setVisibility(View.VISIBLE);

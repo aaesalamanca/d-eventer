@@ -10,6 +10,7 @@ import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 
 import es.achraf.deventer.model.Message;
@@ -83,27 +84,48 @@ public class ViewModelMessage implements IViewModel.Chat {
     @Override
     public void sendMessage(String key, String text, Uri imageUri) {
         Message message = new Message();
-        message.setOwnerId(FirebaseAuth.getInstance().getCurrentUser().getUid());
         message.setText(text.trim());
         message.setDate(System.currentTimeMillis());
-        if (imageUri != null) {
-            FirebaseStorage.getInstance().getReference()
-                    .child(IViewModel.CHAT_IMAGES).child(key).child(imageUri.getLastPathSegment())
-                    .putFile(imageUri).addOnSuccessListener(taskSnapshot -> {
+        FirebaseDatabase.getInstance().getReference()
+                .child(IViewModel.USERS)
+                .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                .child(IViewModel.USER_NAME).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                message.setName((String) dataSnapshot.getValue());
                 FirebaseStorage.getInstance().getReference()
-                        .child(IViewModel.CHAT_IMAGES).child(key)
-                        .child(imageUri.getLastPathSegment()).getDownloadUrl()
+                        .child(IViewModel.PROFILE_IMAGES)
+                        .child(FirebaseAuth.getInstance().getCurrentUser().getUid()
+                                + IViewModel.IMAGE_EXT).getDownloadUrl()
                         .addOnSuccessListener(uri -> {
-                            message.setImageUri(uri.toString());
-                            FirebaseDatabase.getInstance().getReference()
-                                    .child(IViewModel.CHATS).child(key)
-                                    .push().setValue(message);
+                            message.setProfileImageUri(uri.toString());
+                            if (imageUri != null) {
+                                FirebaseStorage.getInstance().getReference()
+                                        .child(IViewModel.CHAT_IMAGES).child(key)
+                                        .child(imageUri.getLastPathSegment())
+                                        .putFile(imageUri).addOnSuccessListener(taskSnapshot -> {
+                                    FirebaseStorage.getInstance().getReference()
+                                            .child(IViewModel.CHAT_IMAGES).child(key)
+                                            .child(imageUri.getLastPathSegment()).getDownloadUrl()
+                                            .addOnSuccessListener(uri1 -> {
+                                                message.setImageUri(uri1.toString());
+                                                FirebaseDatabase.getInstance().getReference()
+                                                        .child(IViewModel.CHATS).child(key)
+                                                        .push().setValue(message);
+                                            });
+                                });
+                            } else {
+                                FirebaseDatabase.getInstance().getReference()
+                                        .child(IViewModel.CHATS).child(key)
+                                        .push().setValue(message);
+                            }
                         });
-            });
-        } else {
-            FirebaseDatabase.getInstance().getReference()
-                    .child(IViewModel.CHATS).child(key)
-                    .push().setValue(message);
-        }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 }

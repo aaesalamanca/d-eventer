@@ -3,15 +3,20 @@ package es.achraf.deventer.model;
 public class Message {
 
     // Fields
-    private String ownerId;
+    private String name;
+    private String profileImageUri;
     private String text;
     private String imageUri;
     private long date;
 
     // Getters
 
-    public String getOwnerId() {
-        return ownerId;
+    public String getName() {
+        return name;
+    }
+
+    public String getProfileImageUri() {
+        return profileImageUri;
     }
 
     public String getText() {
@@ -28,8 +33,12 @@ public class Message {
 
     // Setters
 
-    public void setOwnerId(String ownerId) {
-        this.ownerId = ownerId;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setProfileImageUri(String profileImageUri) {
+        this.profileImageUri = profileImageUri;
     }
 
     public void setText(String text) {
