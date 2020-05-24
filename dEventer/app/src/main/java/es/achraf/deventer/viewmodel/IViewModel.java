@@ -217,32 +217,6 @@ public interface IViewModel {
         void uploadImage(Uri localUri);
     }
 
-    interface Chat {
-        /**
-         * Establece el listener que escuchará la recepción de nuevos mensajes desde la base de
-         * datos.
-         *
-         * @param chatListener es el listener que escucha la recepción de nuevos mensajes.
-         */
-        void setChatListener(IView.ChatListener chatListener);
-
-        /**
-         * Solicita al ViewModel que comience a escuchar nuevos mensajes desde la base de datos.
-         *
-         * @param key es la clave cel evento.
-         */
-        void startListening(String key);
-
-        /**
-         * Envía un nuevo mensaje al chat y, por tanto, a la base de datos.
-         *
-         * @param key      es la clave del evento.
-         * @param text     es el texto del mensaje.
-         * @param imageUri es la uri de la imagen, si el usuario envía una. Puede ser null.
-         */
-        void sendMessage(String key, String text, Uri imageUri);
-    }
-
     interface UploadEvent {
         /**
          * Sube el evento a la base de datos.
@@ -288,6 +262,32 @@ public interface IViewModel {
          * @param key es la clave del evento.
          */
         void leave(String key);
+    }
+
+    interface Chat {
+        /**
+         * Establece el listener que escuchará la recepción de nuevos mensajes desde la base de
+         * datos.
+         *
+         * @param chatListener es el listener que escucha la recepción de nuevos mensajes.
+         */
+        void setChatListener(IView.ChatListener chatListener);
+
+        /**
+         * Solicita al ViewModel que comience a escuchar nuevos mensajes desde la base de datos.
+         *
+         * @param key es la clave cel evento.
+         */
+        void startListening(String key);
+
+        /**
+         * Envía un nuevo mensaje al chat y, por tanto, a la base de datos.
+         *
+         * @param key      es la clave del evento.
+         * @param text     es el texto del mensaje.
+         * @param imageUri es la uri de la imagen, si el usuario envía una. Puede ser null.
+         */
+        void sendMessage(String key, String text, Uri imageUri);
     }
 
     interface SignOut {
