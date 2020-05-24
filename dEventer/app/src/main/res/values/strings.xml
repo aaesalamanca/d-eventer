@@ -134,13 +134,4 @@
     <string name="zero_time">00:00</string>
 
     <string name="facebook_app_id" translatable="false">533589277584622</string>
-    <string name="nombre_canal">Nombre del canal</string>
-    <string name="descripcion_canal">Descripcion del canal</string>
-
-    <string name="msg_token_fmt" translatable="false">InstanceID Token: %s</string>
-    <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
-
-    <string name="id_fcm">AAAASNGD9Do:APA91bHSAXZXcX70y-sxSYLtEQF_uN57mu8EXLL20MRdRP-QvsOlko8OhAF23HLIxmcH4DIr1_GfMiGmgYmQbDvx8D22K3B1v0pCKgCc6LUF4BSPR2n2GOqjG1wmpx7qB870dtcBPjf4</string>
-    <string name="url_fcm">https://fcm.googleapis.com/fcm/send</string>
-    <string name="fcm_message">Titulo de la notificación</string>
 </resources>
