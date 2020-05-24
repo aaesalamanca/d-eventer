@@ -1,9 +1,9 @@
 package es.achraf.deventer.model;
 
-import java.io.Serializable;
-import java.util.ArrayList;
+import android.os.Parcel;
+import android.os.Parcelable;
 
-public class Event implements Serializable {
+public class Event implements Parcelable {
 
     // Fields
     private String imageUri;
@@ -100,5 +100,49 @@ public class Event implements Serializable {
 
     public void setUsersNum(int usersNum) {
         this.usersNum = usersNum;
+    }
+
+    // Parcelable implementation
+
+    protected Event(Parcel in) {
+        imageUri = in.readString();
+        name = in.readString();
+        date = in.readString();
+        time = in.readString();
+        location = in.readString();
+        price = in.readString();
+        description = in.readString();
+        ownerId = in.readString();
+        usersNum = in.readInt();
+    }
+
+    public static final Creator<Event> CREATOR = new Creator<Event>() {
+        @Override
+        public Event createFromParcel(Parcel in) {
+            return new Event(in);
+        }
+
+        @Override
+        public Event[] newArray(int size) {
+            return new Event[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(imageUri);
+        dest.writeString(name);
+        dest.writeString(date);
+        dest.writeString(time);
+        dest.writeString(location);
+        dest.writeString(price);
+        dest.writeString(description);
+        dest.writeString(ownerId);
+        dest.writeInt(usersNum);
     }
 }

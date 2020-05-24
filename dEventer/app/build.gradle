@@ -104,10 +104,9 @@ dependencies {
     // número de cada librería que utilizamos de Firebase. Así solo hay que actualizar el número
     // de BoM sin especificar el de las librerías; estas recurren a la última versión disponible
     // en el lanzamiento de BoM.
-    implementation platform('com.google.firebase:firebase-bom:25.3.1') // Plataforma de BoM
+    implementation platform('com.google.firebase:firebase-bom:25.4.0') // Plataforma de BoM
     implementation 'com.google.firebase:firebase-analytics' // SDK de Firebase para Google Analytics
     implementation 'com.google.firebase:firebase-auth' // SDK de Firebase para Authentication
-    implementation 'com.google.firebase:firebase-firestore' // SDK de Firebase Firestore
     implementation 'com.google.firebase:firebase-database' // SDK de Firebase Realtime Database
     implementation 'com.google.firebase:firebase-storage' // SDK de Firebase Cloud Storage
     implementation 'com.google.firebase:firebase-messaging' // SDK de Firebase Messaging
@@ -137,19 +136,6 @@ dependencies {
     // https://github.com/rtchagas/pingplacepicker#download
     // Release notes: https://github.com/rtchagas/pingplacepicker/releases
     implementation 'com.github.rtchagas:pingplacepicker:2.0.6'
-
-    // Dependencia de Retrofit para HTTP
-    // https://square.github.io/retrofit/
-    // Release notes: https://github.com/square/retrofit/releases
-    implementation 'com.squareup.retrofit2:retrofit:2.8.1'
-
-    // Dependencia de Retrofit para conversiones GSON
-    // https://github.com/square/retrofit/tree/master/retrofit-converters/gson#download
-    // Release notes: https://search.maven.org/artifact/com.squareup.retrofit2/converter-gson/2.8.1/jar
-    implementation 'com.squareup.retrofit2:converter-gson:2.8.1'
-
-    // Dependencias para notificaciones
-    implementation 'com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava'
 
     // Dependencia de WorkManager para tareas asíncronas
     // https://developer.android.com/jetpack/androidx/releases/work#declaring_dependencies

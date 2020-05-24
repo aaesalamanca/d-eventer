@@ -40,11 +40,11 @@ import java.util.Calendar;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import es.achraf.deventer.R;
-import es.achraf.deventer.interfaces.ItemClickListener;
+import es.achraf.deventer.view.ItemClickListener;
 import es.achraf.deventer.model.Event;
 import es.achraf.deventer.view.IView;
 import es.achraf.deventer.view.MapActivity;
-import es.achraf.deventer.view.adapters.RecyclerViewEventAdapter;
+import es.achraf.deventer.view.adapters.EventAdapter;
 import es.achraf.deventer.viewmodel.ViewModelEvents;
 
 public class EventsFragment extends Fragment implements ItemClickListener {
@@ -130,7 +130,7 @@ public class EventsFragment extends Fragment implements ItemClickListener {
             this.alKeys = alKeys;
             this.alEvent = alEvent;
 
-            RecyclerViewEventAdapter adptEvent = new RecyclerViewEventAdapter(getContext(),
+            EventAdapter adptEvent = new EventAdapter(getContext(),
                     this.alEvent, this, R.layout.item_event);
             rcvEvent.setAdapter(adptEvent);
             adptEvent.notifyDataSetChanged();

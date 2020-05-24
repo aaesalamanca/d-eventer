@@ -10,14 +10,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.google.firebase.iid.FirebaseInstanceId;
 import com.roughike.bottombar.BottomBar;
 
 import es.achraf.deventer.R;
 import es.achraf.deventer.view.fragments.ChatFragment;
 import es.achraf.deventer.view.fragments.EventsFragment;
 import es.achraf.deventer.view.fragments.OwnEventsFragment;
-import es.achraf.deventer.restApi.RestApiConstants;
 import es.achraf.deventer.viewmodel.ViewModelHome;
 
 
@@ -78,15 +76,6 @@ public class HomeActivity extends AppCompatActivity {
      */
     private void loadFragment(Fragment fragment) {
         getSupportFragmentManager().beginTransaction().replace(R.id.frgContainer, fragment).commit();
-        getToken();
-    }
-
-    /**
-     * Obtiene el Token de Firebase para las notificaciones.
-     */
-    private void getToken() {
-        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(instanceIdResult ->
-                RestApiConstants.TOKEN = instanceIdResult.getToken());
     }
 
     /**

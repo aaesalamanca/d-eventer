@@ -6,6 +6,7 @@ import android.net.Uri;
 import java.util.ArrayList;
 
 import es.achraf.deventer.model.Event;
+import es.achraf.deventer.model.Message;
 
 public interface IView {
 
@@ -20,6 +21,14 @@ public interface IView {
     String MAPS_COMMA = ",";
     // Codificación de la coma para uris construidas en Google Maps
     String MAPS_COMMA_ENCODED = "%2C";
+    // Clave para el paso del id del evento entre actividades
+    String K_EVENT_ID = "event_id";
+    // Clave para el paso de un Event entre actividades
+    String K_EVENT = "event";
+    // Tipo para los Intent de galería
+    String GALLERY_INTENT_TYPE = "image/jpeg";
+    // Título para los Intent de galería
+    String GALLERY_INTENT_TITLE = "Seleccione una imagen";
 
     // Interfaces
 
@@ -121,6 +130,15 @@ public interface IView {
          * Handler que ejecuta la acción requerida cuando se ha solicitado abandonar el evento.
          */
         void leaveCompleted();
+    }
+
+    interface ChatListener {
+        /**
+         * Handler que ejecuta la acción requerida cuando se ha recibido un nuevo mensaje.
+         *
+         * @param message es el nuevo mensaje recibido.
+         */
+        void onNewMessage(Message message);
     }
 
     interface SignOutListener {

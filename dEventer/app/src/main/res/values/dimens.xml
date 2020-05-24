@@ -3,12 +3,14 @@
     <dimen name="size_0">0dp</dimen>
     <dimen name="size_1">1dp</dimen>
     <dimen name="size_2">2dp</dimen>
+    <dimen name="size_25">25dp</dimen>
     <dimen name="size_48">48dp</dimen>
     <dimen name="size_50">50dp</dimen>
     <dimen name="size_56">56dp</dimen>
     <dimen name="size_100">100dp</dimen>
     <dimen name="size_150">150dp</dimen>
     <dimen name="size_200">200dp</dimen>
+    <dimen name="size_300">300dp</dimen>
     <dimen name="size_550">550dp</dimen>
 
     <dimen name="margin_4">4dp</dimen>
@@ -22,7 +24,9 @@
 
     <dimen name="text_12">12sp</dimen>
     <dimen name="text_15">15sp</dimen>
+    <dimen name="text_16">16sp</dimen>
     <dimen name="text_20">20sp</dimen>
+    <dimen name="text_25">25sp</dimen>
 
     <dimen name="radius_15">15dp</dimen>
     <dimen name="radius_20">20dp</dimen>

@@ -11,9 +11,9 @@ public interface IViewModel {
     // Fields
 
     // Clave para la obtención del email en las SharedPreferences
-    String KSP_EMAIL = "email";
+    String K_SP_EMAIL = "email";
     // Clave para la obtención de la contraseña en las SharedPreferences
-    String KSP_PASSWORD = "password";
+    String K_SP_PASSWORD = "password";
     // Clave de usuarios en el JSON de Firebase Realtime Database
     String USERS = "users";
     // Clave del nombre de cada usuario en el JSON de Firebase Realtime Database
@@ -23,25 +23,20 @@ public interface IViewModel {
     String USER_EVENTS = "alEvent";
     // Clave de eventos en el JSON de Firebase Realtime Database
     String EVENTS = "events";
+    // Clave de chats en el JSON de Firebase Realtime Database
+    String CHATS = "chats";
     // Clave de las imágenes de perfil en la estructura de Cloud Storage
     String PROFILE_IMAGES = "profile_images";
     // Clave de las imágenes de los eventos en la estructura de Cloud Storage
     String EVENT_IMAGES = "event_images";
+    // Clave de las imágenes de los chats en la estructura de Cloud Storage
+    String CHAT_IMAGES = "chat_images";
     // Separador para las rutas en las bases de datos
     String SEPARATOR = "/";
     // Extensión de las imágenes
     String IMAGE_EXT = ".jpg";
 
     // Interfaces
-    interface GetUid {
-        /**
-         * Devuelve el id del usuario.
-         *
-         * @return
-         */
-        String getUid();
-    }
-
     interface GetEmail {
         /**
          * Devuelve el email del usuario.
@@ -267,6 +262,32 @@ public interface IViewModel {
          * @param key es la clave del evento.
          */
         void leave(String key);
+    }
+
+    interface Chat {
+        /**
+         * Establece el listener que escuchará la recepción de nuevos mensajes desde la base de
+         * datos.
+         *
+         * @param chatListener es el listener que escucha la recepción de nuevos mensajes.
+         */
+        void setChatListener(IView.ChatListener chatListener);
+
+        /**
+         * Solicita al ViewModel que comience a escuchar nuevos mensajes desde la base de datos.
+         *
+         * @param key es la clave cel evento.
+         */
+        void startListening(String key);
+
+        /**
+         * Envía un nuevo mensaje al chat y, por tanto, a la base de datos.
+         *
+         * @param key      es la clave del evento.
+         * @param text     es el texto del mensaje.
+         * @param imageUri es la uri de la imagen, si el usuario envía una. Puede ser null.
+         */
+        void sendMessage(String key, String text, Uri imageUri);
     }
 
     interface SignOut {

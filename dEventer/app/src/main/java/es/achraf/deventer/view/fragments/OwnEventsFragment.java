@@ -24,10 +24,10 @@ import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import es.achraf.deventer.R;
-import es.achraf.deventer.interfaces.ItemClickListener;
+import es.achraf.deventer.view.ItemClickListener;
 import es.achraf.deventer.model.Event;
 import es.achraf.deventer.view.IView;
-import es.achraf.deventer.view.adapters.RecyclerViewEventAdapter;
+import es.achraf.deventer.view.adapters.EventAdapter;
 import es.achraf.deventer.viewmodel.ViewModelOwnEvents;
 
 public class OwnEventsFragment extends Fragment implements ItemClickListener {
@@ -73,7 +73,8 @@ public class OwnEventsFragment extends Fragment implements ItemClickListener {
      */
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
 
         View view = inflater.inflate(R.layout.fragment_own_events, container, false);
@@ -93,7 +94,7 @@ public class OwnEventsFragment extends Fragment implements ItemClickListener {
             this.alKeys = alKeys;
             this.alEvent = alEvent;
 
-            RecyclerViewEventAdapter adptEvent = new RecyclerViewEventAdapter(getContext(),
+            EventAdapter adptEvent = new EventAdapter(getContext(),
                     this.alEvent, this, R.layout.item_event);
             rcvOwnEvents.setAdapter(adptEvent);
             adptEvent.notifyDataSetChanged();
@@ -157,7 +158,6 @@ public class OwnEventsFragment extends Fragment implements ItemClickListener {
         civViewEvent = viewEventDialog.findViewById(R.id.civEvent);
         tvName = viewEventDialog.findViewById(R.id.tvName);
         mbtnJoin = viewEventDialog.findViewById(R.id.mbtnJoin);
-        mbtnJoin.setText(R.string.leave_event);
         mbtnJoin.setOnClickListener(v -> {
             if (mbtnJoin.getText().equals(getString(R.string.join_event))) {
                 vmoe.join(key);
@@ -226,6 +226,8 @@ public class OwnEventsFragment extends Fragment implements ItemClickListener {
                 .into(civViewEvent);
 
         tvName.setText(event.getName());
+        mbtnJoin.setText(R.string.leave_event);
+        
         tvDate.setText(event.getDate());
         tvTime.setText(event.getTime());
         tvLocation.setText(event.getLocation());

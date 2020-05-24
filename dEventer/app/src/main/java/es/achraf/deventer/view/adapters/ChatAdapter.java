@@ -1,7 +1,6 @@
 package es.achraf.deventer.view.adapters;
 
 import android.content.Context;
-import android.content.Intent;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,11 +16,10 @@ import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import es.achraf.deventer.R;
-import es.achraf.deventer.interfaces.ItemClickListener;
 import es.achraf.deventer.model.Event;
-import es.achraf.deventer.view.IView;
+import es.achraf.deventer.view.ItemClickListener;
 
-public class RecyclerViewEventAdapter extends RecyclerView.Adapter<RecyclerViewEventAdapter.ViewHolder> {
+public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
 
     // Fields
     private ArrayList<Event> alEvent;
@@ -32,13 +30,11 @@ public class RecyclerViewEventAdapter extends RecyclerView.Adapter<RecyclerViewE
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         // Fields
-        private CircleImageView civEvent;
+        CircleImageView civEvent;
 
-        private TextView tvName;
-        private TextView tvDate;
-        private TextView tvTime;
-        private TextView tvLocation;
-        private TextView tvPrice;
+        TextView tvName;
+        TextView tvDate;
+        TextView tvJoined;
 
         // Constructors
 
@@ -50,21 +46,11 @@ public class RecyclerViewEventAdapter extends RecyclerView.Adapter<RecyclerViewE
         public ViewHolder(View v) {
             super(v);
 
-            civEvent = v.findViewById(R.id.covEvent);
+            civEvent = v.findViewById(R.id.civEvent);
 
             tvName = v.findViewById(R.id.tvName);
             tvDate = v.findViewById(R.id.tvDate);
-            tvTime = v.findViewById(R.id.tvTime);
-            tvLocation = v.findViewById(R.id.tvLocation);
-            tvLocation.setOnClickListener(v1 -> {
-                String encodedPlace = tvLocation.getText().toString();
-                encodedPlace = encodedPlace.replace(IView.MAPS_SPACE, IView.MAPS_SPACE_ENCODED);
-                encodedPlace = encodedPlace.replace(IView.MAPS_COMMA, IView.MAPS_COMMA_ENCODED);
-                Uri uri = Uri.parse(IView.MAPS_QUERY + encodedPlace);
-                Intent mapsIntent = new Intent(Intent.ACTION_VIEW, uri);
-                context.startActivity(mapsIntent);
-            });
-            tvPrice = v.findViewById(R.id.tvPrice);
+            tvJoined = v.findViewById(R.id.tvJoined);
 
             v.setOnClickListener(this);
         }
@@ -85,13 +71,13 @@ public class RecyclerViewEventAdapter extends RecyclerView.Adapter<RecyclerViewE
     /**
      * Constructor a partir de todos los atributos.
      *
-     * @param context
-     * @param alEvent
-     * @param itemClickListener
-     * @param resource
+     * @param context           es el contexto.
+     * @param alEvent           es el ArrayList de Event.
+     * @param itemClickListener es el listener que escuchará los eventos lanzados por el ítem.
+     * @param resource          es el número del recurso.
      */
-    public RecyclerViewEventAdapter(Context context, ArrayList<Event> alEvent,
-                                    ItemClickListener itemClickListener, int resource) {
+    public ChatAdapter(Context context, ArrayList<Event> alEvent,
+                       ItemClickListener itemClickListener, int resource) {
         this.alEvent = alEvent;
         this.context = context;
         this.itemClickListener = itemClickListener;
@@ -112,9 +98,9 @@ public class RecyclerViewEventAdapter extends RecyclerView.Adapter<RecyclerViewE
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         View item = layoutInflater.inflate(resource, parent, false);
-        ViewHolder viewHolder = new ViewHolder(item);
+        ViewHolder holder = new ViewHolder(item);
 
-        return viewHolder;
+        return holder;
     }
 
     /**
@@ -134,9 +120,7 @@ public class RecyclerViewEventAdapter extends RecyclerView.Adapter<RecyclerViewE
 
         holder.tvName.setText(event.getName());
         holder.tvDate.setText(event.getDate());
-        holder.tvTime.setText(event.getTime());
-        holder.tvLocation.setText(event.getLocation());
-        holder.tvPrice.setText(event.getPrice());
+        holder.tvJoined.setText(String.valueOf(event.getUsersNum()));
     }
 
     /**
