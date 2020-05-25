@@ -18,6 +18,9 @@ exports.sendNotification = functions.https.onCall(async (data, context) => {
         notification: {
             title: name,
             body: text
+        },
+        data: {
+            key: key
         }
     }
     admin.messaging().send(message);
