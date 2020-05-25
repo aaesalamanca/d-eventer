@@ -16,9 +16,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-import es.achraf.deventer.view.ChatActivity;
 import es.achraf.deventer.R;
 import es.achraf.deventer.model.Event;
+import es.achraf.deventer.view.ChatActivity;
 import es.achraf.deventer.view.IView;
 import es.achraf.deventer.view.ItemClickListener;
 import es.achraf.deventer.view.adapters.ChatAdapter;

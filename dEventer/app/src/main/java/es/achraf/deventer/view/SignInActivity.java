@@ -28,7 +28,6 @@ import com.google.android.material.textfield.TextInputEditText;
 import java.util.concurrent.Executor;
 
 import es.achraf.deventer.R;
-import es.achraf.deventer.viewmodel.IViewModel;
 import es.achraf.deventer.viewmodel.ViewModelSignIn;
 
 public class SignInActivity extends AppCompatActivity implements View.OnClickListener {

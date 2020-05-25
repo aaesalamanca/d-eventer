@@ -13,7 +13,6 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.roughike.bottombar.BottomBar;
 
 import es.achraf.deventer.R;
-import es.achraf.deventer.model.Event;
 import es.achraf.deventer.view.fragments.ChatFragment;
 import es.achraf.deventer.view.fragments.EventsFragment;
 import es.achraf.deventer.view.fragments.OwnEventsFragment;
