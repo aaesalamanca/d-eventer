@@ -6,21 +6,21 @@ admin.initializeApp({
 });
 
 exports.sendNotification = functions.https.onCall(async (data, context) => {
-    const key = data.key;
+    const event_id = data.event_id;
     const name = data.name;
     const text = data.text;
-    console.log("Key: " + key);
-    console.log("Name: " + name);
-    console.log("Text: " + text);
+    console.log("event_id: " + event_id);
+    console.log("name: " + name);
+    console.log("text: " + text);
 
     var message = {
-        topic: key,
+        topic: event_id,
         notification: {
             title: name,
             body: text
         },
         data: {
-            key: key
+            event_id: event_id
         }
     }
     admin.messaging().send(message);

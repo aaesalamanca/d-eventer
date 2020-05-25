@@ -141,6 +141,16 @@ public interface IView {
         void onNewMessage(Message message);
     }
 
+    interface NotificationListener {
+        /**
+         * Handler que ejecuta la acción requerida cuando se ha recibido un evento de la base de
+         * datos.
+         *
+         * @param event es el evento recibido.
+         */
+        void onEventRead(Event event);
+    }
+
     interface SignOutListener {
         /**
          * Handler que ejecuta la acción requerida cuando el user cierra la sesión.

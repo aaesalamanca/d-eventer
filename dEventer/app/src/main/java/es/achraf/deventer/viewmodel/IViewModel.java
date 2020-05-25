@@ -35,6 +35,8 @@ public interface IViewModel {
     String SEPARATOR = "/";
     // Extensión de las imágenes
     String IMAGE_EXT = ".jpg";
+    // Nombre de la función de Cloud Functions para enviar notificaciones
+    String SEND_NOTIFICATION_FUNCTION = "sendNotification";
 
     // Interfaces
     interface GetEmail {
@@ -288,6 +290,24 @@ public interface IViewModel {
          * @param imageUri es la uri de la imagen, si el usuario envía una. Puede ser null.
          */
         void sendMessage(String key, String text, Uri imageUri);
+    }
+
+    interface Notification {
+        /**
+         * Obtiene un evento según la clave proporcionadao.
+         *
+         * @param key es la clave del evento que se desea obtener.
+         */
+        void getEvent(String key);
+
+        /**
+         * Establece el listener que escuchará la petición de lectura de un evento de la base de
+         * datos.
+         *
+         * @param notificationListener es el listener que escucha la petición de lectura de un
+         *                             evento de la base de datos.
+         */
+        void setGetEventListener(IView.NotificationListener notificationListener);
     }
 
     interface SignOut {

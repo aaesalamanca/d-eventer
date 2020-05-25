@@ -23,6 +23,8 @@ import es.achraf.deventer.view.IView;
 public class ViewModelMessage implements IViewModel.Chat {
 
     // Fields
+    private static final String K_TEXT = "text";
+
     private IView.ChatListener chatListener;
 
     // Setters
@@ -126,11 +128,11 @@ public class ViewModelMessage implements IViewModel.Chat {
                         });
 
                 Map<String, String> mData = new HashMap<>();
-                mData.put("key", key);
-                mData.put("name", message.getName());
-                mData.put("text", message.getText());
-                FirebaseFunctions.getInstance().getHttpsCallable("sendNotification")
-                        .call(mData);
+                mData.put(IView.K_EVENT_ID, key);
+                mData.put(IViewModel.USER_NAME, message.getName());
+                mData.put(K_TEXT, message.getText());
+                FirebaseFunctions.getInstance()
+                        .getHttpsCallable(IViewModel.SEND_NOTIFICATION_FUNCTION).call(mData);
             }
 
             @Override

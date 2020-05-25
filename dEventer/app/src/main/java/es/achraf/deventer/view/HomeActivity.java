@@ -13,6 +13,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.roughike.bottombar.BottomBar;
 
 import es.achraf.deventer.R;
+import es.achraf.deventer.model.Event;
 import es.achraf.deventer.view.fragments.ChatFragment;
 import es.achraf.deventer.view.fragments.EventsFragment;
 import es.achraf.deventer.view.fragments.OwnEventsFragment;
@@ -23,6 +24,7 @@ public class HomeActivity extends AppCompatActivity {
 
     // Fields
     private ViewModelHome vmh;
+    private String key;
 
     // Methods
 
@@ -44,7 +46,21 @@ public class HomeActivity extends AppCompatActivity {
      */
     private void init() {
         vmh = new ViewModelHome();
+        vmh.setGetEventListener(event -> {
+            Bundle eventBundle = new Bundle();
+            eventBundle.putString(IView.K_EVENT_ID, key);
+            eventBundle.putParcelable(IView.K_EVENT, event);
+
+            Intent chatIntent = new Intent(this, ChatActivity.class);
+            chatIntent.putExtras(eventBundle);
+            startActivity(chatIntent);
+        });
         vmh.setSignOutListener(this::startSignInActivity);
+
+        key = getIntent().getStringExtra(IView.K_EVENT_ID);
+        if (key != null) {
+            vmh.getEvent(key);
+        }
 
         setSupportActionBar(findViewById(R.id.toolbar));
 
