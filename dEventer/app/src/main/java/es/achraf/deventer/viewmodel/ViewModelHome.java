@@ -7,6 +7,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import es.achraf.deventer.model.Event;
 import es.achraf.deventer.view.IView;
@@ -16,6 +17,34 @@ public class ViewModelHome implements IViewModel.SignOut, IViewModel.Notificatio
     // Fields
     private IView.SignOutListener signOutListener;
     private IView.NotificationListener notificationListener;
+
+    // Constructors
+
+    /**
+     * Constructor vacío —por defecto—.
+     * <p>
+     * Suscribe inicialmente a todos los eventos a los que el usuario está apuntado.
+     */
+    public ViewModelHome() {
+        FirebaseDatabase.getInstance().getReference()
+                .child(IViewModel.USERS)
+                .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                .child((IViewModel.USER_EVENTS))
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        for (DataSnapshot fDataSnapshot : dataSnapshot.getChildren()) {
+                            FirebaseMessaging.getInstance()
+                                    .subscribeToTopic(fDataSnapshot.getValue().toString());
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+    }
 
     // Getters
 
