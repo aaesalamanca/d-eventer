@@ -126,6 +126,7 @@ public class ViewModelMessage implements IViewModel.Chat {
                         });
 
                 Map<String, String> mData = new HashMap<>();
+                mData.put("key", key);
                 mData.put("name", message.getName());
                 mData.put("text", message.getText());
                 FirebaseFunctions.getInstance().getHttpsCallable("sendNotification")
