@@ -20,9 +20,10 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="@dimen/margin_5"
-            android:fontFamily="@font/mifuente"
+            android:fontFamily="@font/proximanovaregular"
             android:gravity="center"
             android:text="@string/event_presentation"
+            android:textSize="@dimen/text_35"
             android:textColor="@color/naranja" />
 
         <de.hdodenhof.circleimageview.CircleImageView
