@@ -11,7 +11,11 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.functions.FirebaseFunctions;
 import com.google.firebase.storage.FirebaseStorage;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import es.achraf.deventer.model.Message;
 import es.achraf.deventer.view.IView;
@@ -19,6 +23,8 @@ import es.achraf.deventer.view.IView;
 public class ViewModelMessage implements IViewModel.Chat {
 
     // Fields
+    private static final String K_TEXT = "text";
+
     private IView.ChatListener chatListener;
 
     // Setters
@@ -120,6 +126,14 @@ public class ViewModelMessage implements IViewModel.Chat {
                                         .push().setValue(message);
                             }
                         });
+
+                Map<String, String> mData = new HashMap<>();
+                mData.put(IView.K_EVENT_ID, key);
+                mData.put(IViewModel.USER_ID, FirebaseAuth.getInstance().getCurrentUser().getUid());
+                mData.put(IViewModel.USER_NAME, message.getName());
+                mData.put(K_TEXT, message.getText());
+                FirebaseFunctions.getInstance()
+                        .getHttpsCallable(IViewModel.SEND_NOTIFICATION_FUNCTION).call(mData);
             }
 
             @Override

@@ -124,4 +124,17 @@ public class ChatActivity extends AppCompatActivity {
             }
         }
     }
+
+    /**
+     * Método llamado cuando hay un nuevo Intent en la actividad porque se la ha invocado con
+     * afinidad single_top.
+     *
+     * @param intent es el nuevo intent.
+     */
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        setIntent(intent);
+        init();
+    }
 }

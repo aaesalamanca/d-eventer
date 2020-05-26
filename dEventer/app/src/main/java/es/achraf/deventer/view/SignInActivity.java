@@ -363,6 +363,12 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
      */
     private void startHomeActivity() {
         Intent homeIntent = new Intent(this, HomeActivity.class);
+
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
+            homeIntent.putExtra(IView.K_EVENT_ID, bundle.getString(IView.K_EVENT_ID));
+        }
+
         startActivity(homeIntent);
 
         overridePendingTransition(R.anim.anim, R.anim.zoom_back);

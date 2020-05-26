@@ -10,6 +10,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.functions.FirebaseFunctions;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.storage.FirebaseStorage;
 
 import java.util.ArrayList;
@@ -278,6 +280,8 @@ public class ViewModelEvents implements IViewModel.UploadEvent, IViewModel.GetEv
 
             }
         });
+
+        FirebaseMessaging.getInstance().subscribeToTopic(key);
     }
 
     /**
@@ -321,5 +325,7 @@ public class ViewModelEvents implements IViewModel.UploadEvent, IViewModel.GetEv
 
             }
         });
+
+        FirebaseMessaging.getInstance().unsubscribeFromTopic(key);
     }
 }

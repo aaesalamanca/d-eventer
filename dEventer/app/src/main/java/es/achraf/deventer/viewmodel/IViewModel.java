@@ -16,6 +16,8 @@ public interface IViewModel {
     String K_SP_PASSWORD = "password";
     // Clave de usuarios en el JSON de Firebase Realtime Database
     String USERS = "users";
+    // Clave del usuario en el JSON de Firebase Realtime Database
+    String USER_ID = "user_id";
     // Clave del nombre de cada usuario en el JSON de Firebase Realtime Database
     String USER_NAME = "name";
     // Clave del array de String que contiene los ID de los eventos a los que se ha apuntado un
@@ -35,8 +37,19 @@ public interface IViewModel {
     String SEPARATOR = "/";
     // Extensión de las imágenes
     String IMAGE_EXT = ".jpg";
+    // Nombre de la función de Cloud Functions para enviar notificaciones
+    String SEND_NOTIFICATION_FUNCTION = "sendNotification";
 
     // Interfaces
+    interface GetUserId {
+        /**
+         * Obtiene el id del usuario en Firebase Authentication.
+         *
+         * @return el id del usuario en Firebase Authentication.
+         */
+        String getUserId();
+    }
+
     interface GetEmail {
         /**
          * Devuelve el email del usuario.
@@ -288,6 +301,24 @@ public interface IViewModel {
          * @param imageUri es la uri de la imagen, si el usuario envía una. Puede ser null.
          */
         void sendMessage(String key, String text, Uri imageUri);
+    }
+
+    interface Notification {
+        /**
+         * Obtiene un evento según la clave proporcionadao.
+         *
+         * @param key es la clave del evento que se desea obtener.
+         */
+        void getEvent(String key);
+
+        /**
+         * Establece el listener que escuchará la petición de lectura de un evento de la base de
+         * datos.
+         *
+         * @param notificationListener es el listener que escucha la petición de lectura de un
+         *                             evento de la base de datos.
+         */
+        void setGetEventListener(IView.NotificationListener notificationListener);
     }
 
     interface SignOut {

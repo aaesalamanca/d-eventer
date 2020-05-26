@@ -109,6 +109,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth' // SDK de Firebase para Authentication
     implementation 'com.google.firebase:firebase-database' // SDK de Firebase Realtime Database
     implementation 'com.google.firebase:firebase-storage' // SDK de Firebase Cloud Storage
+    implementation 'com.google.firebase:firebase-functions' // SDK de Firebase Cloud Functions
     implementation 'com.google.firebase:firebase-messaging' // SDK de Firebase Messaging
 
     // Dependencia de Google Sign-In for Android
