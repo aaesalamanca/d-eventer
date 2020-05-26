@@ -7,9 +7,11 @@ admin.initializeApp({
 
 exports.sendNotification = functions.https.onCall(async (data, context) => {
     const event_id = data.event_id;
+    const user_id = data.user_id;
     const name = data.name;
     const text = data.text;
     console.log("event_id: " + event_id);
+    console.log("user_id" + user_id);
     console.log("name: " + name);
     console.log("text: " + text);
 
@@ -20,7 +22,8 @@ exports.sendNotification = functions.https.onCall(async (data, context) => {
             body: text
         },
         data: {
-            event_id: event_id
+            event_id: event_id,
+            user_id: user_id
         }
     }
     admin.messaging().send(message);

@@ -16,6 +16,8 @@ public interface IViewModel {
     String K_SP_PASSWORD = "password";
     // Clave de usuarios en el JSON de Firebase Realtime Database
     String USERS = "users";
+    // Clave del usuario en el JSON de Firebase Realtime Database
+    String USER_ID = "user_id";
     // Clave del nombre de cada usuario en el JSON de Firebase Realtime Database
     String USER_NAME = "name";
     // Clave del array de String que contiene los ID de los eventos a los que se ha apuntado un
@@ -39,6 +41,15 @@ public interface IViewModel {
     String SEND_NOTIFICATION_FUNCTION = "sendNotification";
 
     // Interfaces
+    interface GetUserId {
+        /**
+         * Obtiene el id del usuario en Firebase Authentication.
+         *
+         * @return el id del usuario en Firebase Authentication.
+         */
+        String getUserId();
+    }
+
     interface GetEmail {
         /**
          * Devuelve el email del usuario.

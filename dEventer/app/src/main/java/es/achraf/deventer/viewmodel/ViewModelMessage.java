@@ -129,6 +129,7 @@ public class ViewModelMessage implements IViewModel.Chat {
 
                 Map<String, String> mData = new HashMap<>();
                 mData.put(IView.K_EVENT_ID, key);
+                mData.put(IViewModel.USER_ID, FirebaseAuth.getInstance().getCurrentUser().getUid());
                 mData.put(IViewModel.USER_NAME, message.getName());
                 mData.put(K_TEXT, message.getText());
                 FirebaseFunctions.getInstance()
