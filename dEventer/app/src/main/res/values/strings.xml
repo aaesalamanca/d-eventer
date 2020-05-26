@@ -134,4 +134,8 @@
     <string name="zero_time">00:00</string>
 
     <string name="facebook_app_id" translatable="false">533589277584622</string>
+
+    <!-- Notification Channel -->
+    <string name="channel_id">d_eventer_channel</string>
+    <string name="channel_description">Canal para las notificaciones del chat</string>
 </resources>
