@@ -13,7 +13,7 @@
         android:layout_margin="@dimen/margin_16"
         android:backgroundTint="@color/colorPrincipal"
         android:elevation="@dimen/elevation_16"
-        android:fontFamily="@font/proximanovaregular"
+        android:fontFamily="@font/proxima_nova_regular"
         android:text="@string/create_event"
         android:textColor="@color/blanco"
         android:theme="@style/AppTheme" />

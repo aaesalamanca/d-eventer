@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="@dimen/margin_5"
-            android:fontFamily="@font/proximanovaregular"
+            android:fontFamily="@font/baloo_chettan_2_bold"
             android:gravity="center"
             android:text="@string/event_presentation"
             android:textSize="@dimen/text_35"
@@ -42,7 +42,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="@dimen/margin_5"
-            android:fontFamily="@font/proximanovaregular"
+            android:fontFamily="@font/proxima_nova_regular"
             android:gravity="center"
             android:text="@string/put_image_event"
             android:textColor="@color/colorAccent" />
@@ -63,7 +63,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/colorAccent"
-                android:fontFamily="@font/proximanovaregular"
+                android:fontFamily="@font/proxima_nova_regular"
                 android:inputType="text"
                 android:lines="1"
                 app:cornerRadius="@dimen/radius_20" />
@@ -87,7 +87,7 @@
                 android:layout_height="wrap_content"
                 android:background="@color/colorAccent"
                 android:focusable="false"
-                android:fontFamily="@font/proximanovaregular"
+                android:fontFamily="@font/proxima_nova_regular"
                 android:lines="1" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -109,7 +109,7 @@
                 android:layout_height="wrap_content"
                 android:background="@color/colorAccent"
                 android:focusable="false"
-                android:fontFamily="@font/proximanovaregular"
+                android:fontFamily="@font/proxima_nova_regular"
                 android:inputType="text"
                 android:lines="1" />
 
@@ -132,7 +132,7 @@
                 android:layout_height="wrap_content"
                 android:background="@color/colorAccent"
                 android:focusable="false"
-                android:fontFamily="@font/proximanovaregular"
+                android:fontFamily="@font/proxima_nova_regular"
                 android:inputType="text"
                 android:lines="1" />
 
@@ -154,7 +154,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/colorAccent"
-                android:fontFamily="@font/proximanovaregular"
+                android:fontFamily="@font/proxima_nova_regular"
                 android:inputType="numberDecimal" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -174,7 +174,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/size_200"
                 android:background="@color/colorAccent"
-                android:fontFamily="@font/proximanovaregular"
+                android:fontFamily="@font/proxima_nova_regular"
                 android:gravity="top"
                 android:inputType="textMultiLine"
                 android:lines="40"
@@ -197,7 +197,7 @@
                 android:layout_marginBottom="@dimen/margin_16"
                 android:layout_weight="1"
                 android:backgroundTint="@color/colorAccent"
-                android:fontFamily="@font/proximanovaregular"
+                android:fontFamily="@font/proxima_nova_regular"
                 android:padding="@dimen/padding_16"
                 android:text="@string/create_event"
                 android:textColor="@color/colorPrimaryDark"
@@ -212,7 +212,7 @@
                 android:layout_marginEnd="@dimen/margin_16"
                 android:layout_marginBottom="@dimen/margin_16"
                 android:layout_weight="1"
-                android:fontFamily="@font/proximanovaregular"
+                android:fontFamily="@font/proxima_nova_regular"
                 android:padding="@dimen/padding_16"
                 android:text="@string/cancel"
                 android:textColor="@color/colorAccent"

@@ -32,7 +32,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:background="@color/colorAccent"
-                android:fontFamily="@font/proximanovaregular"
+                android:fontFamily="@font/proxima_nova_regular"
                 android:inputType="text"
                 android:lines="1" />
 

@@ -43,7 +43,7 @@
                         android:layout_width="@dimen/size_0"
                         android:layout_height="wrap_content"
                         android:layout_weight="3"
-                        android:fontFamily="@font/proximanovaregular"
+                        android:fontFamily="@font/proxima_nova_regular"
                         android:text="@string/user"
                         android:textSize="@dimen/text_16"
                         android:textStyle="bold" />
@@ -53,7 +53,7 @@
                         android:layout_width="@dimen/size_0"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:fontFamily="@font/proximanovaregular"
+                        android:fontFamily="@font/proxima_nova_regular"
                         android:text="@string/zero_time" />
 
                 </LinearLayout>
@@ -68,7 +68,7 @@
                     android:id="@+id/tvText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/proximanovaregular"
+                    android:fontFamily="@font/proxima_nova_regular"
                     android:visibility="visible" />
 
             </LinearLayout>
