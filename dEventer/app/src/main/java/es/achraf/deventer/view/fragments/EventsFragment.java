@@ -40,9 +40,9 @@ import java.util.Calendar;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import es.achraf.deventer.R;
-import es.achraf.deventer.view.ItemClickListener;
 import es.achraf.deventer.model.Event;
 import es.achraf.deventer.view.IView;
+import es.achraf.deventer.view.ItemClickListener;
 import es.achraf.deventer.view.MapActivity;
 import es.achraf.deventer.view.adapters.EventAdapter;
 import es.achraf.deventer.viewmodel.ViewModelEvents;
@@ -62,6 +62,8 @@ public class EventsFragment extends Fragment implements ItemClickListener {
 
     private ProgressBar pbLoading;
     private TextView tvLoading;
+    private TextView tvEmptyText;
+    private TextView tvEmptyEmoji;
 
     private RecyclerView rcvEvent;
 
@@ -137,6 +139,7 @@ public class EventsFragment extends Fragment implements ItemClickListener {
             rcvEvent.setLayoutManager(new LinearLayoutManager(getContext()));
 
             loadingMessage(false);
+            loadingEmpty(this.alEvent.isEmpty());
         });
         vme.getEvents();
         vme.setGetImageListener((cloudUri, isChange) ->
@@ -179,6 +182,9 @@ public class EventsFragment extends Fragment implements ItemClickListener {
 
         pbLoading = view.findViewById(R.id.pbLoading);
         tvLoading = view.findViewById(R.id.tvLoading);
+        tvEmptyText = view.findViewById(R.id.tvEmptyText);
+        tvEmptyEmoji = view.findViewById(R.id.tvEmptyEmoji);
+
 
         loadCreateEventDialog();
         view.findViewById(R.id.efabCreateEvent).setOnClickListener(v -> createEventDialog.show());
@@ -413,6 +419,23 @@ public class EventsFragment extends Fragment implements ItemClickListener {
         } else {
             pbLoading.setVisibility(View.GONE);
             tvLoading.setVisibility(View.GONE);
+        }
+    }
+
+    /**
+     * Muestra o hace invisibles —GONE— los textos que indican que no hay ningún evento disponible.
+     *
+     * @param empty indica si hay o no eventos:
+     *              True -> No hay eventos.
+     *              False -> Hay eventos.
+     */
+    private void loadingEmpty(boolean empty) {
+        if (empty) {
+            tvEmptyText.setVisibility(View.VISIBLE);
+            tvEmptyEmoji.setVisibility(View.VISIBLE);
+        } else {
+            tvEmptyText.setVisibility(View.GONE);
+            tvEmptyEmoji.setVisibility(View.GONE);
         }
     }
 

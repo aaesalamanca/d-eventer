@@ -24,9 +24,9 @@ import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import es.achraf.deventer.R;
-import es.achraf.deventer.view.ItemClickListener;
 import es.achraf.deventer.model.Event;
 import es.achraf.deventer.view.IView;
+import es.achraf.deventer.view.ItemClickListener;
 import es.achraf.deventer.view.adapters.EventAdapter;
 import es.achraf.deventer.viewmodel.ViewModelOwnEvents;
 
@@ -41,6 +41,8 @@ public class OwnEventsFragment extends Fragment implements ItemClickListener {
 
     private ProgressBar pbLoading;
     private TextView tvLoading;
+    private TextView tvEmptyText;
+    private TextView tvEmptyEmoji;
 
     private RecyclerView rcvOwnEvents;
 
@@ -101,6 +103,7 @@ public class OwnEventsFragment extends Fragment implements ItemClickListener {
             rcvOwnEvents.setLayoutManager(new LinearLayoutManager(getContext()));
 
             loadingMessage(false);
+            loadingEmpty(this.alEvent.isEmpty());
         });
         vmoe.getEvents();
         vmoe.setGetImageListener(((cloudUri, isChange) ->
@@ -139,6 +142,8 @@ public class OwnEventsFragment extends Fragment implements ItemClickListener {
 
         pbLoading = view.findViewById(R.id.pbLoading);
         tvLoading = view.findViewById(R.id.tvLoading);
+        tvEmptyText = view.findViewById(R.id.tvEmptyText);
+        tvEmptyEmoji = view.findViewById(R.id.tvEmptyEmoji);
 
         loadViewEventDialog();
 
@@ -204,6 +209,23 @@ public class OwnEventsFragment extends Fragment implements ItemClickListener {
     }
 
     /**
+     * Muestra o hace invisibles —GONE— los textos que indican que no hay ningún evento disponible.
+     *
+     * @param empty indica si hay o no eventos:
+     *              True -> No hay eventos.
+     *              False -> Hay eventos.
+     */
+    private void loadingEmpty(boolean empty) {
+        if (empty) {
+            tvEmptyText.setVisibility(View.VISIBLE);
+            tvEmptyEmoji.setVisibility(View.VISIBLE);
+        } else {
+            tvEmptyText.setVisibility(View.GONE);
+            tvEmptyEmoji.setVisibility(View.GONE);
+        }
+    }
+
+    /**
      * Handler que ejecuta la acción requerida cuando se hace click en un ítem del
      * RecyclerView.
      *
@@ -227,7 +249,7 @@ public class OwnEventsFragment extends Fragment implements ItemClickListener {
 
         tvName.setText(event.getName());
         mbtnJoin.setText(R.string.leave_event);
-        
+
         tvDate.setText(event.getDate());
         tvTime.setText(event.getTime());
         tvLocation.setText(event.getLocation());
