@@ -79,6 +79,8 @@
 
     <!-- fragment_events.xml -->
     <string name="loading_events">Cargando planes...</string>
+    <string name="empty_events">Vaya, parece que todavía no hay ningún plan... ¡Crea uno!</string>
+    <string name="empty_events_emoji">🤩</string>
 
     <!-- EventsFragment.java -->
     <string name="image_not_found">No se ha encontrado la imagen</string>
@@ -111,6 +113,10 @@
     <string name="enter_location">Por favor introduzca una localización</string>
     <string name="error">Hubo un error</string>
     <string name="madrid">Madrid</string>
+
+    <!-- fragment_own_events.xml -->
+    <string name="empty_own_events">Todavía no te has apuntado a ningún plan...</string>
+    <string name="empty_own_events_emoji">😢</string>
 
     <!-- dialog_view_event.xml -->
     <string name="join_event">¡Apuntarse al plan!</string>

@@ -34,6 +34,8 @@ public class ChatFragment extends Fragment implements ItemClickListener {
 
     private ProgressBar pbLoading;
     private TextView tvLoading;
+    private TextView tvEmptyText;
+    private TextView tvEmptyEmoji;
 
     // Methods
 
@@ -76,6 +78,7 @@ public class ChatFragment extends Fragment implements ItemClickListener {
             rcvOwnEvents.setLayoutManager(new LinearLayoutManager(getContext()));
 
             loadingMessage(false);
+            loadingEmpty(this.alEvent.isEmpty());
         });
         vmc.getEvents();
 
@@ -83,6 +86,8 @@ public class ChatFragment extends Fragment implements ItemClickListener {
 
         pbLoading = view.findViewById(R.id.pbLoading);
         tvLoading = view.findViewById(R.id.tvLoading);
+        tvEmptyText = view.findViewById(R.id.tvEmptyText);
+        tvEmptyEmoji = view.findViewById(R.id.tvEmptyEmoji);
         loadingMessage(true);
     }
 
@@ -102,6 +107,23 @@ public class ChatFragment extends Fragment implements ItemClickListener {
         } else {
             pbLoading.setVisibility(View.GONE);
             tvLoading.setVisibility(View.GONE);
+        }
+    }
+
+    /**
+     * Muestra o hace invisibles —GONE— los textos que indican que no hay ningún evento disponible.
+     *
+     * @param empty indica si hay o no eventos:
+     *              True -> No hay eventos.
+     *              False -> Hay eventos.
+     */
+    private void loadingEmpty(boolean empty) {
+        if (empty) {
+            tvEmptyText.setVisibility(View.VISIBLE);
+            tvEmptyEmoji.setVisibility(View.VISIBLE);
+        } else {
+            tvEmptyText.setVisibility(View.GONE);
+            tvEmptyEmoji.setVisibility(View.GONE);
         }
     }
 

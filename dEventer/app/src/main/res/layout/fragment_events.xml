@@ -42,6 +42,35 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/pbLoading" />
 
+    <TextView
+        android:id="@+id/tvEmptyText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_200"
+        android:fontFamily="@font/proxima_nova_regular"
+        android:text="@string/empty_events"
+        android:textColor="@color/gris_profile_activity"
+        android:textSize="@dimen/text_20"
+        android:textStyle="bold"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvEmptyEmoji"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/empty_events_emoji"
+        android:textColor="@color/gris_profile_activity"
+        android:textSize="@dimen/text_35"
+        android:textStyle="bold"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvEmptyText" />
+
     <include
         android:id="@+id/include"
         layout="@layout/button_create_event" />
