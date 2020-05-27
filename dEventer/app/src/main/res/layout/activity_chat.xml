@@ -65,6 +65,8 @@
             android:backgroundTint="@color/gris_message"
             android:fontFamily="@font/proxima_nova_regular"
             android:hint="@string/write"
+            android:layout_marginTop="@dimen/margin_4"
+            android:layout_marginBottom="@dimen/margin_4"
             android:padding="@dimen/padding_10"
             android:textColor="@color/colorPrincipal"
             android:textColorHint="@color/colorPrincipal" />
