@@ -17,7 +17,7 @@
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             android:layout_width="@dimen/size_0"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_16"
+            android:layout_margin="@dimen/margin_8"
             android:layout_weight="2"
             android:background="@color/colorAccent"
             android:hint="@string/places"
@@ -32,7 +32,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:background="@color/colorAccent"
-                android:fontFamily="@font/proximanovaregular"
+                android:fontFamily="@font/proxima_nova_regular"
                 android:inputType="text"
                 android:lines="1" />
 

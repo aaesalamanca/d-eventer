@@ -86,7 +86,7 @@
     <string name="event_upload_failed">Se ha producido un error al subir el plan</string>
 
     <!-- item_event.xml -->
-    <string name="event_title">Titulo del plan</string>
+    <string name="event_title">Título del plan</string>
     <string name="event_date">Fecha del plan</string>
     <string name="event_time">Hora del plan</string>
     <string name="event_location">Ubicación</string>

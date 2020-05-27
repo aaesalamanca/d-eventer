@@ -21,14 +21,14 @@
             android:layout_gravity="center"
             android:layout_margin="@dimen/margin_10"
             android:contentDescription="@string/logo"
-            android:src="@mipmap/logo" />
+            android:src="@drawable/logo" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginBottom="@dimen/margin_10"
-            android:fontFamily="@font/proximanovaregular"
+            android:fontFamily="@font/proxima_nova_regular"
             android:gravity="center"
             android:text="@string/welcome"
             android:textColor="@color/colorAccent"
@@ -40,7 +40,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_16"
             android:layout_marginEnd="@dimen/margin_16"
-            android:fontFamily="@font/proximanovaregular"
+            android:fontFamily="@font/proxima_nova_regular"
             android:hint="@string/name_surname"
             android:textColorHint="@color/colorAccent"
             app:counterEnabled="true"
@@ -54,7 +54,7 @@
                 android:id="@+id/tietName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/proximanovaregular"
+                android:fontFamily="@font/proxima_nova_regular"
                 android:inputType="textPersonName"
                 android:textColor="@color/blanco" />
 
@@ -66,7 +66,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_16"
             android:layout_marginEnd="@dimen/margin_16"
-            android:fontFamily="@font/proximanovaregular"
+            android:fontFamily="@font/proxima_nova_regular"
             android:hint="@string/email"
             android:textColorHint="@color/colorAccent"
             app:counterEnabled="true"
@@ -79,7 +79,7 @@
                 android:id="@+id/tietEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/proximanovaregular"
+                android:fontFamily="@font/proxima_nova_regular"
                 android:inputType="textEmailAddress"
                 android:textColor="@color/blanco"
                 app:endIconMode="clear_text"
@@ -94,7 +94,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_16"
             android:layout_marginEnd="@dimen/margin_16"
-            android:fontFamily="@font/proximanovaregular"
+            android:fontFamily="@font/proxima_nova_regular"
             android:hint="@string/password"
             android:textColorHint="@color/colorAccent"
             app:endIconMode="password_toggle"
@@ -104,7 +104,7 @@
                 android:id="@+id/tietPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/proximanovaregular"
+                android:fontFamily="@font/proxima_nova_regular"
                 android:inputType="textPassword"
                 android:textColor="@color/blanco" />
 
@@ -116,7 +116,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_16"
             android:layout_marginEnd="@dimen/margin_16"
-            android:fontFamily="@font/proximanovaregular"
+            android:fontFamily="@font/proxima_nova_regular"
             android:hint="@string/repeat_password"
             android:textColorHint="@color/colorAccent"
             app:endIconMode="password_toggle"
@@ -126,7 +126,7 @@
                 android:id="@+id/tietRepeatPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/proximanovaregular"
+                android:fontFamily="@font/proxima_nova_regular"
                 android:inputType="textPassword"
                 android:textColor="@color/blanco" />
 
@@ -138,7 +138,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_16"
             android:layout_marginEnd="@dimen/margin_16"
-            android:fontFamily="@font/proximanovaregular"
+            android:fontFamily="@font/proxima_nova_regular"
             android:hint="@string/postal_code"
             android:textColorHint="@color/colorAccent"
             app:counterEnabled="true"
@@ -151,7 +151,7 @@
                 android:id="@+id/tietPostalCode"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/proximanovaregular"
+                android:fontFamily="@font/proxima_nova_regular"
                 android:inputType="number"
                 android:textColor="@color/blanco" />
 
@@ -163,7 +163,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_16"
             android:layout_marginEnd="@dimen/margin_16"
-            android:fontFamily="@font/proximanovaregular"
+            android:fontFamily="@font/proxima_nova_regular"
             android:hint="@string/birth"
             android:textColorHint="@color/colorAccent"
             app:endIconMode="custom"
@@ -176,7 +176,7 @@
                 android:drawableEnd="@drawable/ic_date_range_black_24dp"
                 android:focusable="false"
                 android:focusableInTouchMode="false"
-                android:fontFamily="@font/proximanovaregular"
+                android:fontFamily="@font/proxima_nova_regular"
                 android:inputType="number"
                 android:textColor="@color/blanco" />
 
@@ -189,7 +189,7 @@
             android:layout_marginTop="@dimen/margin_16"
             android:layout_marginBottom="@dimen/margin_4"
             android:background="@color/colorPrincipal"
-            android:fontFamily="@font/proximanovaregular"
+            android:fontFamily="@font/proxima_nova_regular"
             android:text="@string/sex_preference"
             android:textColor="@color/colorAccent" />
 
@@ -211,7 +211,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:buttonTint="@color/colorAccent"
-                android:fontFamily="@font/proximanovaregular"
+                android:fontFamily="@font/proxima_nova_regular"
                 android:padding="@dimen/padding_10"
                 android:text="@string/man"
                 android:textColor="@color/gris_sign_up" />
@@ -224,7 +224,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:buttonTint="@color/colorAccent"
-                android:fontFamily="@font/proximanovaregular"
+                android:fontFamily="@font/proxima_nova_regular"
                 android:padding="@dimen/padding_10"
                 android:text="@string/woman"
                 android:textColor="@color/gris_sign_up" />
@@ -236,7 +236,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:buttonTint="@color/colorAccent"
-                android:fontFamily="@font/proximanovaregular"
+                android:fontFamily="@font/proxima_nova_regular"
                 android:padding="@dimen/padding_10"
                 android:text="@string/any"
                 android:textColor="@color/gris_sign_up" />
@@ -258,7 +258,7 @@
             android:id="@+id/tvLoading"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/proximanovaregular"
+            android:fontFamily="@font/proxima_nova_regular"
             android:gravity="center"
             android:text="@string/loading"
             android:textColor="@color/blanco"
@@ -272,7 +272,7 @@
             android:layout_gravity="bottom"
             android:layout_marginStart="@dimen/margin_16"
             android:layout_marginEnd="@dimen/margin_16"
-            android:fontFamily="@font/proximanovaregular"
+            android:fontFamily="@font/proxima_nova_regular"
             android:tag="custom_login_button"
             android:text="@string/sign_up"
             android:textColor="@color/colorPrimaryDark"
@@ -287,7 +287,7 @@
             android:layout_height="@dimen/size_56"
             android:layout_marginStart="@dimen/margin_16"
             android:layout_marginEnd="@dimen/margin_16"
-            android:fontFamily="@font/proximanovaregular"
+            android:fontFamily="@font/proxima_nova_regular"
             android:tag="custom_login_button"
             android:text="@string/go_back"
             android:textColor="@color/blanco"
