@@ -41,7 +41,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/margin_10"
-            android:drawableEnd="@drawable/calendar"
+            android:drawableEnd="@drawable/date_icon"
             android:gravity="right"
             android:text="@string/event_date" />
 
@@ -50,7 +50,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/margin_10"
-            android:drawableEnd="@drawable/user"
+            android:drawableEnd="@drawable/users_icon"
             android:gravity="right"
             android:text="@string/zero" />
 
