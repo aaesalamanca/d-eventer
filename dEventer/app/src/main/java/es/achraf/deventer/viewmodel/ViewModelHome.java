@@ -98,12 +98,31 @@ public class ViewModelHome implements IViewModel.SignOut, IViewModel.Notificatio
     // Methods
 
     /**
-     * Cierra la sesión actual.
+     * Cierra la sesión actual y desuscribe a lus usuarios de los eventos para no seguir
+     * recibiendo notificaciones.
      */
     @Override
     public void signOut() {
-        FirebaseAuth.getInstance().signOut();
+        FirebaseDatabase.getInstance().getReference()
+                .child(IViewModel.USERS)
+                .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                .child((IViewModel.USER_EVENTS))
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        for (DataSnapshot fDataSnapshot : dataSnapshot.getChildren()) {
+                            FirebaseMessaging.getInstance()
+                                    .unsubscribeFromTopic(fDataSnapshot.getValue().toString());
+                        }
+                    }
 
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+
+        FirebaseAuth.getInstance().signOut();
         signOutListener.onSignOutComplete();
     }
 }
