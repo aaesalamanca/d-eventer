@@ -243,6 +243,7 @@ Requisitos:
 Usamos el flujo de trabajo recomendado con la consola de Firebase; la otra opción recurre al asistente de Firebase para Android Studio y necesita pasos adicionales para su puesta en marcha.
 
 #### Crear el proyecto en Firebase
+
 ![Crear el proyecto en Firebase: Parte 1](../images/create-firebase-1.png)
 
 ![Crear el proyecto en Firebase: Parte 2.1](../images/create-firebase-2-1.png)
