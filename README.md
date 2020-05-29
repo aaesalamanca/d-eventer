@@ -1,19 +1,17 @@
 <p align="center">
 	<img src="images/logo.png" alt="dEventer"/><br>
 </p>
-<p align="center">[Features](#features)</p>
+<p align="center">
+	<a href="#features">Features</a> •
+	<a href="#instalación">Instalación</a> •
+	<a href="#roadmap">Roadmap</a> •
+	<a href="#colaborar">Colaborar</a> •
+	<a href="#license">License</a>
+</p>
 
 Queda con amigos o conoce gente nueva haciendo los planes que más te gustan. Cañas, cenas, copas, quedadas, partidos de fútbol... Todo plan es bienvenido, ¡crea uno o únete a los que más te gusten!
 
 dEventer es una aplicación Android que estamos desarrollando para el módulo de Proyecto del Ciclo Formativo de Grado Superior en Desarrollo de Aplicaciones Multiplataforma.
-
-## Índice
-
-1. [Features](#features)
-2. [Instalación](#instalación)
-3. [Roadmap](#roadmap)
-4. [Colaborar](#colaborar)
-5. [License](#license)
 
 ## Features
 
