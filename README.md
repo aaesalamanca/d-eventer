@@ -16,6 +16,31 @@ dEventer es una aplicación Android que estamos desarrollando para el módulo de
 
 ## Features
 
+<p align="center">
+	<table>
+		<tr>
+			<td><p align="center"><b>Inicia sesión</b></p>
+			<td><p align="center"><b>Mira los planes disponibles</b></p>
+			<td><p align="center"><b>Mira tus planes</b></p>
+		</tr>
+		<tr>
+			<td><img src="images/1_sign_in.png"></td>
+			<td><img src="images/2_view_events.png"></td>
+			<td><img src="images/3_view_own_events.png"></td>
+		</tr>
+		<tr>
+			<td><p align="center"><b>Mira los <i>chats</b></p>
+			<td><p align="center"><b><i>Chatea</i></b></p>
+			<td><p align="center"><b>Cambia tu imagen de perfil</b></p>
+		</tr>
+		<tr>
+			<td><img src="images/4_view_chats.png"></td>
+			<td><img src="images/5_view_chat.png"></td>
+			<td><img src="images/6_view_profile.png"></td>
+		</tr>
+	</table>
+</p>
+
 ## Instalación
 
 Actualmente, al encontrarse al comienzo del desarrollo, la _app_ no está disponible para su descarga en ninguna _store_.
