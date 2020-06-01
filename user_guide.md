@@ -43,10 +43,10 @@
 			<td><img src="video/12_foreground_notification.gif"></td>
 		</tr>
 		<tr>
-			<td><p align="center"><b>Enviar imágenes</b></p></td>
+			<td colspan="3"><p align="center"><b>Enviar imágenes</b></p></td>
 		</tr>
 		<tr>
-			<td><img src="video/13_chat_with_image.gif"></td>
+			<td colspan="3"><img src="video/13_chat_with_image.gif"></td>
 		</tr>
 	</table>
 </p>
