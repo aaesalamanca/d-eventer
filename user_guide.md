@@ -46,7 +46,7 @@
 			<td colspan="3"><p align="center"><b>Enviar imágenes</b></p></td>
 		</tr>
 		<tr>
-			<td colspan="3"><img src="video/13_chat_with_image.gif"></td>
+			<td colspan="3"><p align="center"><img src="video/13_chat_with_image.gif"></p></td>
 		</tr>
 	</table>
 </p>
