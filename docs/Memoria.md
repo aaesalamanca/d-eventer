@@ -71,7 +71,7 @@ En otro orden, dado que, como ha de suponerse, nos centraremos en el sistema ope
 
 El panel de distribución oficial suministrado por el canal de Android Developers data del 7 de mayo de 2019 y, aunque útil, no coincide con la situación real en marzo de 2020 —momento en el que comenzamos con el proyecto—. Con todo, los datos, como primera toma de contacto, pueden servir de impresión inicial. Es ahí donde se observa lo siguiente:
 
-![Distribution dashboard](../images/android-version.png)
+<p align="center"><img src="../images/android-version.png" /></p>
 
 | Version | Codename | API | Distribution |
 | ------- | -------- | --- | ------------ |
@@ -155,15 +155,10 @@ Dadas las aclaraciones pertinentes, el usuario debe poder en relación a:
 
 * Su perfil:
   * Crear el perfil.
-  * Borrar el perfil.
-  * Cambiar el correo electrónico.
-  * Cambiar la contraseña.
   * Añadir una foto.
   * Modificar la foto.
-  * Eliminar la foto.
 * Las actividades:
   * Crear una actividad.
-  * Borrar una actividad.
   * Ver las actividades disponibles.
   * Ver las actividades a las que se ha inscrito.
   * Apuntarse a una actividad.
@@ -172,6 +167,8 @@ Dadas las aclaraciones pertinentes, el usuario debe poder en relación a:
   * Ver los _chats_ disponibles.
   * Enviar mensajes en los _chats_.
   * Recibir mensajes de los _chats_.
+  * Recibir notificaciones _push_ por la entrada de nuevos mensajes.
+  * Enviar imágenes.
 
 A lo anterior, nosotros como desarrolladores, establecimos un par de puntos o pautas que nos marcamos. Trateremos de seguirlas lo máximo posible:
 
@@ -188,6 +185,8 @@ Tan solo un apunte; adelantamos ya que el patrón de _software_ escogido es MVVM
 ## Tecnologías utilizadas
 
 ### Firebase
+
+Firebase 
 
 #### Firebase Authentication
 
@@ -397,11 +396,28 @@ dependencies {
 
 ### Mejoras
 
-* Notificaciones de chats.
-* Buscador de actividades.
-* Recomendación personalizada de planes en base a gustos, preferencias, geolocalización...
-* Cifrado de contraseñas e información personal.
+En relación a los perfiles:
+
+* Borrar el perfil.
+* Cambiar el correo electrónico.
+* Cambiar la contraseña.
+* Eliminar la foto.
+
+En relación a los planes:
+
+* Buscador simple y avanzado: con filtros como categorías, localización, proximidad, etc.
+* Recomendador automático y personalizado de planes en base a gustos, preferencias, geolocalización...
 * Valoración del resto de usuarios.
+* Borrar una actividad.
+
+En relación a la seguridad de los datos tratados:
+
+* Cifrado de contraseñas, información personal y _chats_.
+
+En relación al _backend_:
+
+* Unificar _backends_ de las aplicaciones móvil y _web_.
+* Mejorar la implementación MVVM.
 
 ## Bibliografía
 
