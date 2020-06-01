@@ -186,7 +186,22 @@ Tan solo un apunte; adelantamos ya que el patrón de _software_ escogido es MVVM
 
 ### Firebase
 
-Firebase 
+Antes de entrar en detalle a explicar los servicios o productos específicos a los que hemos recurrido dentro de Firebase, es menester dar una somera pincelada de lo que ofrece y por qué se ajusta perfectamente a las necesidades del proyecto.
+
+En resumidas cuentas, Firebase es una plataforma de _backend_ para el desarrollo de aplicaciones móviles y _web_, entre otras. Podría afirmarse, en última instancia, que es multiplataforma pues proporciona las herramientas y SDK para:
+
+* Android: Java.
+* iOS: Swift y Objective-C.
+* _Web_: Node.js con JavaScript o TypeScript.
+* Motor de videojuegos Unity: JavaScript o C#.
+* Desarrollo de Java nativo.
+* Desarrollo en C++.
+
+Su fortaleza radica, principalmente, en las facilidades que nos proporciona como desarrolladores a través de los diversos SDK para el acceso a sus servicios sin vernos obligados al lanzamiento, mantenimiento y escala —según demanda— de diversas instancias que nos provean de servidores para inicios de sesión, bases de datos, almacenamiento de imágenes, recopilación de estadísticas.
+
+Además, dada su compra por parte de Google en 2014, se encuentra integrado por completo en la nube del gigante: Google Cloud. Por tanto, contamos con los servicios de Firebase y, gracias a esta integración, bajo el mismo plan es posible acceder a API como Maps y Places que utilizaremos en la _app_ para ofrecer funcionalidades de geolocalización a los usuarios.
+
+Por último, previo paso a profundizar...
 
 #### Firebase Authentication
 
@@ -472,6 +487,12 @@ En relación al _backend_:
 * [raywenderlich.com | Getting Started with MVP (Model View Presenter) on Android](https://www.raywenderlich.com/7026-getting-started-with-mvp-model-view-presenter-on-android)
 * [Material Design](https://material.io)
 * [Wikipedia | Material Design](https://en.wikipedia.org/wiki/Material_Design)
+* [Firebase](https://firebase.google.com)
+* [Wikipedia | Firebase](https://en.wikipedia.org/wiki/Firebase)
+* [TechCrunch | Google Acquires Firebase To Help Developers Build Better Real-Time Apps](https://techcrunch.com/2014/10/21/google-acquires-firebase-to-help-developers-build-better-realtime-apps)
+* [Google Cloud Platform](https://cloud.google.com)
+* [Wikipedia | Google Cloud Platform](https://en.wikipedia.org/wiki/Google_Cloud_Platform)
+* [Firebase Pricin Plans](https://firebase.google.com/pricing)
 * [Firebase Docs | Add Firebase to your Android project](https://firebase.google.com/docs/android/setup)
 * [Material Design The color system](https://material.io/design/color/the-color-system.html)
 * [Material Design Color Tool](https://material.io/resources/color)
