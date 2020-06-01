@@ -1,20 +1,45 @@
-<h1 align="center">
-	<img src="images/logo.png" alt="dEventer"/>
-</h1>
+<p align="center">
+	<img src="images/logo.png" alt="dEventer"/><br>
+</p>
+<p align="center">
+	<a href="#features">Features</a> •
+		<a href="/docs">Docs</a> •
+	<a href="#instalación">Instalación</a> •
+	<a href="user_guide.md">User Guide</a> •
+	<a href="#roadmap">Roadmap</a> •
+	<a href="#license">License</a>
+</p>
 
 Queda con amigos o conoce gente nueva haciendo los planes que más te gustan. Cañas, cenas, copas, quedadas, partidos de fútbol... Todo plan es bienvenido, ¡crea uno o únete a los que más te gusten!
 
 dEventer es una aplicación Android que estamos desarrollando para el módulo de Proyecto del Ciclo Formativo de Grado Superior en Desarrollo de Aplicaciones Multiplataforma.
 
-## Índice
-
-1. [Features](#features)
-2. [Instalación](#instalación)
-3. [Roadmap](#roadmap)
-4. [Colaborar](#colaborar)
-5. [License](#license)
-
 ## Features
+
+<p align="center">
+	<table>
+		<tr>
+			<td><p align="center"><b>Inicia sesión</b></p>
+			<td><p align="center"><b>Mira los planes disponibles</b></p>
+			<td><p align="center"><b>Mira tus planes</b></p>
+		</tr>
+		<tr>
+			<td><img src="images/1_sign_in.png"></td>
+			<td><img src="images/2_view_events.png"></td>
+			<td><img src="images/3_view_own_events.png"></td>
+		</tr>
+		<tr>
+			<td><p align="center"><b>Mira los <i>chats</b></p>
+			<td><p align="center"><b><i>Chatea</i></b></p>
+			<td><p align="center"><b>Cambia tu imagen de perfil</b></p>
+		</tr>
+		<tr>
+			<td><img src="images/4_view_chats.png"></td>
+			<td><img src="images/5_view_chat.png"></td>
+			<td><img src="images/6_view_profile.png"></td>
+		</tr>
+	</table>
+</p>
 
 ## Instalación
 
