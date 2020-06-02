@@ -45,7 +45,6 @@
    2. [Configuración de Firebase Authentication](#configuración-de-firebase-authentication)
    3. [Configuración de Cloud Firestore](#configuración-de-cloud-firestore)
    4. [Configuración de Cloud Storage](#configuración-de-cloud-storage)
-
 9. [Aplicación móvil](#aplicación-móvil)
     1. [Introducción](#introducción)
     2. [Breve estudio visual](#breve-estudio-visual)
