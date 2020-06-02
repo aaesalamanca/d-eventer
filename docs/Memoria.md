@@ -2,7 +2,7 @@
 	<img src="../images/logo.png" alt="dEventer"/>
 </h1>
 
-**Realizado por:**	
+**Realizado por:**
 
 * Martín Escamilla, José Ignacio
 * Ahamad, Achraf
@@ -250,7 +250,7 @@ Por último, previo paso a profundizar, conviene un apunte relativo al plan grat
        * Operaciones de descarga: 50.000 al día
       * Test Lab
         * Pruebas en dispositivos virtuales: 10 al día
-        * Pruebas en dispositivos físocos: 5 al día	
+        * Pruebas en dispositivos físicos: 5 al día
 
 #### Firebase Authentication
 
@@ -302,7 +302,7 @@ Requisitos:
 * La API objetivo es Jelly Bean —número de versión 16— o superior.
 * Gradle 4.1 o superior.
 * Jetpack —AndroidX— cumpliendo:
-  * `com.androir.tools.build:gradle` v3.2.1 o más reciente.
+  * `com.android.tools.build:gradle` v3.2.1 o más reciente.
   * `compileSdkVersion` 28 o posterior.
 * Configurar un dispositivo físico o un emulador en el que ejecutar la aplicación.
 * Iniciar sesión en Firebase.
@@ -343,12 +343,12 @@ android {
 ```
 
 `SHA-1`
-```
+```bat
 $ keytool -list -v -alias androiddebugkey -keystore %USERPROFILE%\.android\debug.keystore
 ```
 
 `SHA-1`
-```
+```bat
 Nombre de Alias: androiddebugkey
 Fecha de Creación: 23-mar-2020
 Tipo de Entrada: PrivateKeyEntry
