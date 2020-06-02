@@ -1,5 +1,5 @@
 <h1 align="center">
-	<img src="../images/logo.png" alt="dEventer"/>
+	<img alt="logo" src="../images/logo.png" alt="dEventer"/>
 </h1>
 
 **Realizado por:**
@@ -185,7 +185,13 @@ Tan solo un apunte; adelantamos ya que el patrón de _software_ escogido es MVVM
 
 ### Casos de uso
 
-![Caso de uso: Inicio](../images/use_case_1_start.png)
+<p align="center"><img alt="Caso de uso: Inicio" src="../images/use_case_1_start.png"></p>
+<p align="center"><img alt="Caso de uso: Menú" src="../images/use_case_2_home.png"></p>
+<p align="center"><img alt="Caso de uso: Perfil" src="../images/use_case_3_profile.png"></p>
+<p align="center"><img alt="Caso de uso: Planes" src="../images/use_case_4_events.png"></p>
+<p align="center"><img alt="Caso de uso: Crear plan" src="../images/use_case_5_create_event.png"></p>
+<p align="center"><img alt="Caso de uso: Mis planes" src="../images/use_case_6_own_events.png"></p>
+<p align="center"><img alt="Caso de uso: Chat" src="../images/use_case_7_chat.png"></p>
 
 ## Tecnologías utilizadas
 
