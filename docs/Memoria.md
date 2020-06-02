@@ -343,12 +343,12 @@ android {
 ```
 
 `SHA-1`
-```bat
+```
 $ keytool -list -v -alias androiddebugkey -keystore %USERPROFILE%\.android\debug.keystore
 ```
 
 `SHA-1`
-```bat
+```
 Nombre de Alias: androiddebugkey
 Fecha de Creación: 23-mar-2020
 Tipo de Entrada: PrivateKeyEntry
