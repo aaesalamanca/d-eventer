@@ -17,8 +17,10 @@
 4. [Tecnologías utilizadas](#tecnologías-utilizadas)
    1. [Firebase](#firebase)
       1. [Firebase Authentication](#firebase-authentication)
-      2. [Cloud Firestore](#cloud-firestore)
+      2. [Firebase Realtime Database](#firebase-realtime-database)
       3. [Cloud Storage](#cloud-storage)
+      4. [Firebase Cloud Messaging](#firebase-cloud-messaging)
+      5. [Cloud Functions](#cloud-functions)
    2. [Java](#java)
    3. [Android](#android)
    4. [Material Design](#material-design)
@@ -197,17 +199,68 @@ En resumidas cuentas, Firebase es una plataforma de _backend_ para el desarrollo
 * Desarrollo de Java nativo.
 * Desarrollo en C++.
 
-Su fortaleza radica, principalmente, en las facilidades que nos proporciona como desarrolladores a través de los diversos SDK para el acceso a sus servicios sin vernos obligados al lanzamiento, mantenimiento y escala —según demanda— de diversas instancias que nos provean de servidores para inicios de sesión, bases de datos, almacenamiento de imágenes, recopilación de estadísticas.
+Su fortaleza radica, principalmente, en las facilidades que nos brinda como desarrolladores a través de los diversos SDK para el acceso a sus servicios sin vernos obligados al lanzamiento, mantenimiento y escala —según demanda— de diversas instancias que nos provean de servidores para inicios de sesión, bases de datos, almacenamiento de imágenes, recopilación de estadísticas... Se trata de un conjunto de tecnologías en la nube _serverless_ o sin servidor. No porque no se ejecute sobre una máquina que actúa de servidor, sino porque la nube lo provee y automática y, lo que es más importante, dinámicamente  administra los recursos de esta máquina, ofuscando, normalmente, al desarrollador las operaciones relacionadas con la capacidad, el mantenimiento y la escala de estas.
+
+Esta naturaleza _serverless_ de Firebase nos permite, por ejemplo, subir código a producción simplificando todo el proceso y el precio a pagar depende únicamente del número de recursos consumidos por la aplicación en tiempo real, durante el tiempo que son usados o activados y no es necesario contar con un servidor activo 24/7. No obstante, cada producto del _framework_ tiene sus peculiaridades en las que entraremos más adelante.
 
 Además, dada su compra por parte de Google en 2014, se encuentra integrado por completo en la nube del gigante: Google Cloud. Por tanto, contamos con los servicios de Firebase y, gracias a esta integración, bajo el mismo plan es posible acceder a API como Maps y Places que utilizaremos en la _app_ para ofrecer funcionalidades de geolocalización a los usuarios.
 
-Por último, previo paso a profundizar...
+Por último, previo paso a profundizar, conviene un apunte relativo al plan gratuito, denominado Spark Plan. Los límites del plan son lo suficientemente elevados como para poder utilizarlo con total normalidad, al menos mientras realizamos las pruebas en el desarrollo de la aplicación y para las demostraciones de uso. Véase:
+
+* Las siguientes herramientas son totalmente gratis y no tienen límites asociados para su utilización:
+  * A/B Testing
+  * Analytics
+  * App Distribution
+  * App Indexing
+  * Firebase Cloud Messaging
+  * Crashlytics
+  * Dynamic Links
+  * In-App Messaging
+  * Performance Monitoring
+  * Predictions
+  * Remote Config
+* Para el resto, los límites varían:
+  * Firebase Authentication: todas las verificaciones son gratuitas excepto las que se realizan a través del teléfono —llamada o SMS—, que tienen un límitie de 10.000 mensuales.
+  * Cloud Firestore:
+    * Almacenamiento total: 1 GB
+    * Descargas: 10 GB al mes
+    * Escrituras: 20.000 al día
+    * Lecturas: 50.000 al día
+    * Eliminaciones: 20.000 al día
+  * Cloud Functions:
+    * Llamadas a funciones: 125.000 al mes
+    * GB/segundos: 40.000 al mes
+    * CPU/segundos: 40.000 al mes
+  * Hosting:
+    * Almacenamiento total: 10 GB
+    * Trasferencias: 10 GB al mes
+    * Permite múltiples sitios _web_ por proyecto y el uso de dominios personalizados y certificados SSL sin coste.
+    * ML Kit:
+      * Las API cliente son gratuitas, así como un modelo personalizado de Hosting/Serving
+      * El conjunto de imágenes utilizado para entrenar la IA debe ser, máximo, de 1.000 por proyecto
+      * Cada proyecto cuenta con 3 horas de entrenamiento de la IA
+    * Firebase Realtime Database:
+      * Conexiones simultáneas: 100
+      * Almacenamiento total: 1 GB
+      * Descargas: 10 GB al mes
+     * Cloud Storage:
+       * Almacenamiento total: 5 GB
+       * Descargas: 1GB al día
+       * Operaciones de subida: 20.000 al día
+       * Operaciones de descarga: 50.000 al día
+      * Test Lab
+        * Pruebas en dispositivos virtuales: 10 al día
+        * Pruebas en dispositivos físocos: 5 al día	
 
 #### Firebase Authentication
 
-#### Cloud Firestore
+#### Firebase Realtime Database
 
 #### Cloud Storage
+
+#### Firebase Cloud Messaging
+
+#### Cloud Functions
 
 ### Java
 
@@ -246,9 +299,9 @@ Por último, previo paso a profundizar...
 Requisitos:
 
 * Android Studio
-* La API objetivo es Jelly Bean —número d versión16— o superior.
+* La API objetivo es Jelly Bean —número de versión 16— o superior.
 * Gradle 4.1 o superior.
-* Jetpack (AndroidX) cumpliendo:
+* Jetpack —AndroidX— cumpliendo:
   * `com.androir.tools.build:gradle` v3.2.1 o más reciente.
   * `compileSdkVersion` 28 o posterior.
 * Configurar un dispositivo físico o un emulador en el que ejecutar la aplicación.
@@ -490,6 +543,7 @@ En relación al _backend_:
 * [Firebase](https://firebase.google.com)
 * [Wikipedia | Firebase](https://en.wikipedia.org/wiki/Firebase)
 * [TechCrunch | Google Acquires Firebase To Help Developers Build Better Real-Time Apps](https://techcrunch.com/2014/10/21/google-acquires-firebase-to-help-developers-build-better-realtime-apps)
+* [Wikipedia | Serverless computing](https://en.wikipedia.org/wiki/Serverless_computing)
 * [Google Cloud Platform](https://cloud.google.com)
 * [Wikipedia | Google Cloud Platform](https://en.wikipedia.org/wiki/Google_Cloud_Platform)
 * [Firebase Pricin Plans](https://firebase.google.com/pricing)
