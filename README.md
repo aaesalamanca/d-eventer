@@ -1,9 +1,10 @@
 <p align="center">
-	<img src="images/logo.png" alt="dEventer"/><br>
+	<img alt="Logo" src="images/logo.png" alt="dEventer"/><br>
 </p>
+
 <p align="center">
 	<a href="#features">Features</a> •
-		<a href="/docs">Docs</a> •
+	<a href="/docs">Docs</a> •
 	<a href="#instalación">Instalación</a> •
 	<a href="user_guide.md">User Guide</a> •
 	<a href="#roadmap">Roadmap</a> •
@@ -24,9 +25,9 @@ dEventer es una aplicación Android que estamos desarrollando para el módulo de
 			<td><p align="center"><b>Mira tus planes</b></p>
 		</tr>
 		<tr>
-			<td><img src="images/1_sign_in.png"></td>
-			<td><img src="images/2_view_events.png"></td>
-			<td><img src="images/3_view_own_events.png"></td>
+			<td><img alt="Inicia sesión" src="images/1_sign_in.png"></td>
+			<td><img alt="Mira los planes disponibles" src="images/2_view_events.png"></td>
+			<td><img alt="Mira tus planes" src="images/3_view_own_events.png"></td>
 		</tr>
 		<tr>
 			<td><p align="center"><b>Mira los <i>chats</b></p>
@@ -34,9 +35,9 @@ dEventer es una aplicación Android que estamos desarrollando para el módulo de
 			<td><p align="center"><b>Cambia tu imagen de perfil</b></p>
 		</tr>
 		<tr>
-			<td><img src="images/4_view_chats.png"></td>
-			<td><img src="images/5_view_chat.png"></td>
-			<td><img src="images/6_view_profile.png"></td>
+			<td><img alt="Mira los chats" src="images/4_view_chats.png"></td>
+			<td><img alt="Chatea" src="images/5_view_chat.png"></td>
+			<td><img alt="Cambia tu imagen de perfil" src="images/6_view_profile.png"></td>
 		</tr>
 	</table>
 </p>
