@@ -45,6 +45,7 @@
    2. [Configuración de Firebase Authentication](#configuración-de-firebase-authentication)
    3. [Configuración de Cloud Firestore](#configuración-de-cloud-firestore)
    4. [Configuración de Cloud Storage](#configuración-de-cloud-storage)
+
 9. [Aplicación móvil](#aplicación-móvil)
     1. [Introducción](#introducción)
     2. [Breve estudio visual](#breve-estudio-visual)
@@ -183,6 +184,8 @@ A lo anterior, nosotros como desarrolladores, establecimos un par de puntos o pa
 Tan solo un apunte; adelantamos ya que el patrón de _software_ escogido es MVVM o _model_-_view_-_viewmodel_. Obviamente, se estudiaron los tres y en base a ventajas, desventajas y facilidades fue este el que nos pareció más adecuado.
 
 ### Casos de uso
+
+![Caso de uso: Inicio](../images/use_case_1_start.png)
 
 ## Tecnologías utilizadas
 
