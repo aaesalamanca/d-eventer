@@ -218,6 +218,8 @@ Finalmente, a aquellos inscritos en una misma quedada se les ofrece la posibilid
 
 <p align="center"><img alt="Caso de uso: Chat" src="../images/use_case_7_chat.png"></p>
 
+En apartados futuros se verá cómo se plasman visualmente y a nivel de funcionalidad los diagramas mostrados.
+
 ## Tecnologías utilizadas
 
 ### Firebase
@@ -286,11 +288,27 @@ Por último, previo paso a profundizar, conviene un apunte relativo al plan grat
         * Pruebas en dispositivos virtuales: 10 al día
         * Pruebas en dispositivos físicos: 5 al día
 
+Todo lo que supere estas cuotas pasa a formar parte del plan Blaze, donde  el precio se calcula por el número de recursos consumidos y, cuando aplique, el tiempo que estos recursos permanecen activos.
+
 #### Firebase Authentication
+
+Por norma general, toda aplicación —móvil o _web_— necesita identificar a los usuarios, máxime cuando estos tendrán permisos de lectura y escritura en la base de datos, ya se trate de ver y crear eventos o de _chatear_.
+
+Firebase Authentication es el servicio proporcionado por Firebase que viene a suplir esta necesidad. Gracias a sus SDK, encapsula todo el flujo de registro e inicio de sesión y lo gestiona automáticamente. Desde el uso de credenciales clásicas como el correo electrónico y la contraseña hasta números de teléfono y proveedores externos como Google, Facebook y Twitter mediante OAuth 2.0 y OpenID Connect.
+
+Para la aplicación, a pesar de que inicialmente se decidió contar con _login_ a través de _email_ y contraseña, Google y Facebook, finalmente solo es 100 % funcional la primera de las opciones. Por cuestiones de tiempo y obtención de las claves necesarias para firmar los _tokens_, decidimos rápidamente prescindir de servicios externos y centrarnos en las características principales. En el aspecto visual de la _app_ queda reflejada la intención de desarrollar por completo esta funcionalidad, pero se plantea como mejora posterior a la presentación del proyecto.
+
+Debido a su integración dentro del ecosistema de Firebase y Google Cloud, permite la gestión de permisos y reglas de seguridad en el resto de servicios que estos proveen.
 
 #### Firebase Realtime Database
 
 #### Cloud Storage
+
+Cloud Storage es un servicio que, en principio, no pertenecía a la _suite_ de Firebase. Con todo, tras la compra de Google, entró a formar parte por la integración de ambas nubes.
+
+Lo que Cloud Storage permite es el almacenamiento de cualquier tipo de objeto —entendiendo por objeto un archivo— en la nube. Este proyecto recurre a él para la subida de las imágenes de los perfiles, los planes y aquellas que son enviadas en los _chats_; pero nada impide que también pueda utilizarse para audio, vídeo o cualquier otro tipo de contenido.
+
+Aunque ya se explicará con más detenimiento, su estructura es similar a la de un árbol de directorios, partiendo de la raíz; paraliza las transferencias —subidas o descargas— cuando el cliente pierde la conectividad para reanudarse al recuperar la conexión y los permisos se gestionan con reglas de seguridad integradas en Firebase Authentication.
 
 #### Firebase Cloud Messaging
 
@@ -302,15 +320,23 @@ Por último, previo paso a profundizar, conviene un apunte relativo al plan grat
 
 ### Material Design
 
-### Google Maps Platform
-
 ### Otros
 
-#### Android Studio
+#### Google Maps Platform
+
+#### Node.js
+
+#### Markdown
+
+#### Pandoc y wkhtmltopdf
 
 #### Git y GitHub
 
 #### Diagrams
+
+#### Android Studio
+
+#### Visual Studio Code
 
 ## Modelo de datos
 
@@ -582,7 +608,11 @@ En relación al _backend_:
 * [Google Cloud Platform](https://cloud.google.com)
 * [Wikipedia | Google Cloud Platform](https://en.wikipedia.org/wiki/Google_Cloud_Platform)
 * [Firebase Pricin Plans](https://firebase.google.com/pricing)
+* [Firebase Authentication](https://firebase.google.com/products/auth)
+* [Firebase Cloud Storage](https://firebase.google.com/products/storage)
 * [Firebase Docs | Add Firebase to your Android project](https://firebase.google.com/docs/android/setup)
+* [Firebase Docs | Firebase Authentication](https://firebase.google.com/docs/auth)
+* [Firebase Docs | Cloud Storage](https://firebase.google.com/docs/storage)
 * [Material Design The color system](https://material.io/design/color/the-color-system.html)
 * [Material Design Color Tool](https://material.io/resources/color)
 * [Material Design Applying color to UI](https://material.io/design/color/applying-color-to-ui.html)
