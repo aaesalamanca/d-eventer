@@ -639,7 +639,7 @@ En relación al _backend_:
 * [Firebase Realtime Database](https://firebase.google.com/products/realtime-database)
 * [GitHub | Gson](https://github.com/google/gson)
 * [Wikipedia | Marshalling](https://en.wikipedia.org/wiki/Marshalling_(computer_science))
-* [Wikipedia | Object-relational mapping](https://en.wikipedia.org/wiki/Object-relational_mapping	)
+* [Wikipedia | Object-relational mapping](https://en.wikipedia.org/wiki/Object-relational_mapping)
 * [Firebase Cloud Storage](https://firebase.google.com/products/storage)
 * [Firebase Cloud Messaging](https://firebase.google.com/products/cloud-messaging)
 * [Firebase Docs | Add Firebase to your Android project](https://firebase.google.com/docs/android/setup)
