@@ -184,12 +184,38 @@ Tan solo un apunte; adelantamos ya que el patrón de _software_ escogido es MVVM
 
 ### Casos de uso
 
+Una vez tomados los requisitos anteriores como referencia, llega el momendo de diseñar los modelos UML de los casos de uso. Como se verá en este y más ejemplos posteriores, siempre que podemos apostamos por la sencillez, tomando como referencia la expresión: menos es más.
+
+Este primer UML se identifica con el acceso a la aplicación. Es necesario disponer de perfil; el primer paso es crearlo y, después, iniciar sesión. El registro presenta, asimismo, varios requisitos: que todos los campos estén completos, que el correo electrónico esté formado correctamente y que el usuario sea mayor de edad.
+
+Por su parte, con el perfil ya creado, el inicio de sesión toma por credenciales el correo electrónico y la contraseña.
+
 <p align="center"><img alt="Caso de uso: Inicio" src="../images/use_case_1_start.png"></p>
+
+Tras el inicio de sesión, aparece el menú principal, desde el cual pueden verse todos los planes —creados por otros y a los que el usuario se ha apuntado—. Del mismo modo, se encuentra el acceso al perfil y a los _chats_, cada uno asociado a un evento.
+
 <p align="center"><img alt="Caso de uso: Menú" src="../images/use_case_2_home.png"></p>
+
+Si el usuario decide acceder al perfil, lo que verá son los datos con los que se registró, podrá añadir una foto, si es que no tenía una, o cambiar la que ya había subido previamente. Además, en todo momento cuenta con la posibilidad de cerrar la sesión. En este punto nos parece interesante también que la sesión permanezca entre cierres y lanzamientos de la aplicación; de tal modo, no debe introducir el _email_ y la contraseña cada vez que abre la _app_ desde el lanzador de Android.
+
 <p align="center"><img alt="Caso de uso: Perfil" src="../images/use_case_3_profile.png"></p>
+
+En principio, el _core_ de la aplicación es el que se aparece en las tres imágenes siguientes: ver los eventos que han creado otros, crear nuevos eventos para que otros puedan apuntarse y contar con una lista de los planes a los que uno se ha inscrito.
+
+Siguiendo las indicaciones, la primera imagen hace referencia a las quedadas ya disponibles y visibles por todos.
+
 <p align="center"><img alt="Caso de uso: Planes" src="../images/use_case_4_events.png"></p>
+
+Esta segunda imagen, por un lado, informa sobre la necesidad de una serie de datos para crear un evento —no puede quedar ninguno vacío— y la relación de este con el resto de usuarios después de haber sido subido a la base de datos.
+
 <p align="center"><img alt="Caso de uso: Crear plan" src="../images/use_case_5_create_event.png"></p>
+
+Completa la tríada el panel desde el que cada uno de los usuarios puede ver los planes a los que se ha apuntado, planes que lo relacionan con otros usuarios que, a su vez, han hecho lo mismo.
+
 <p align="center"><img alt="Caso de uso: Mis planes" src="../images/use_case_6_own_events.png"></p>
+
+Finalmente, a aquellos inscritos en una misma quedada se les ofrece la posibilidad de mantener una conversación o _chat_ con objeto de que todos participen, se conozcan y puedan preparar la actividad sin depender de servicios de mensajería externos.
+
 <p align="center"><img alt="Caso de uso: Chat" src="../images/use_case_7_chat.png"></p>
 
 ## Tecnologías utilizadas
@@ -478,6 +504,7 @@ En relación a los perfiles:
 * Cambiar el correo electrónico.
 * Cambiar la contraseña.
 * Eliminar la foto.
+* Implementar correctamente el registro e inicio de sesión con otros proveedores como Google, Facebook, etc.
 
 En relación a los planes:
 
