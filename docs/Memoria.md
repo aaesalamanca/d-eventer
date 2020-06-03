@@ -302,11 +302,28 @@ Debido a su integración dentro del ecosistema de Firebase y Google Cloud, permi
 
 #### Firebase Realtime Database
 
+Considerando la naturaleza de los requisitos y objetivos planteados inicialmente, pronto surge uno de los mayores desafíos a la hora de afrontar el desarrollo; parece evidente que, para la creación y visualización de los planes, lo recomendable era disponer de una base de datos sincronizada en tiempo real que actualizara lo más rápido posible la información disponible en los clientes móviles. Esta evidencia es todavía más palpable si cabe cuando se decidió apostar por la inclusión del _chat_ para que los usuarios que habían decidido asistir al mismo evento pudieran enviarse mensajes entre ellos; y Firebase Realtime Database se ajusta a la perfección.
+
+Firebase Realtime Database es, como su propio nombre indica, una base de datos NoSQL _hosteada_ en la nube de Google que almacena y sincroniza los datos utilizados por los usuarios de la _app_ en tiempo real. Esta sincronización es, por supuesto, multiplataforma, lo que deriva en un posible desarrollo de la misma naturaleza donde poder ver la misma información desde una aplicación para Android, iOS o _web_.
+
+Asimismo, y como se repite en numerosas ocasiones a lo largo del documento, es _serverless_: no se debe administrar un servidor, esta función es llevada a cabo de manera automática. Lo mismo ocurre con la gestión de permisos para el acceso a los datos y la escritura de estos, las reglas de seguridad se benefician de Firebase Authentication.
+
+Aunque ya se verá en epígrafes posteriores, hay que entender que Firebae Realtime Database almacena la información como un único y gran documento de naturaleza similar, por no decir idéntica, a JSON, en la forma de pares clave-valor, donde ambos pueden tomar diversos tipos. Queda patente su gran diferencia con las bases de datos relacionales y ahí radican sus beneficios y, si las hay, desventajas:
+
+* Las escrituras y lecturas de datos son sensiblemente más rápidas.
+* La atomicidad de las transacciones u operaciones se garantiza a nivel de subrama del árbol. Este punto es importante, ya que no todas las bases de datos NoSQL garantizan la atomicidad de las transacciones, lo que supondría una clara desventaja frente a las bases de datos relacionales.
+* Su caracter descentralizado permite la distribución de los datos y la escala a nivel horizontal.
+* Es, comparativamente, mucho más flexible en el tipo y modelo de datos que se presta a almacenar. Dicha característica puede ser, según se mire, una desventaja o un inconveniente al no garantizar la integridad de los datos que contiene y, si se quiere, debe ser una implementación propia. Para este proyecto fue, sin duda, una ventaja: parte del desarrollo, al tener que investigar sobre el funcionamiento, por un lado, de estructuras de almacenamiento NoSQL como JSON y, por el otro, del SDK en el que esta estructura funcionaba, fue a ciegas, haciendo numerosas pruebas hasta dar con el resultado correcto y esperado; de lo que puede deducirse que no se partía de un modelo ni esquema totalmente claro y esta flexibilidad permitía probar diferentes tipos y objetos almacenados en la base de datos sin todos los inconvenientes asociados que se habrían dado al elegir una base de datos relacional. Sin embargo, siempre es recomendable estructurar los datos siguiendo las recomendaciones indicadas por la documentación oficial y su normalización, esto es, evitar duplicidades innecesarias.
+
+Como colofón, el SDK de Firebase Realtime Database está optimizado para la pérdida de conexión del dispositivo: si se encuentra _offline_, la información se _cachea_ o persiste localmente hasta que vuelve la conexión y la información pendiente de enviar o recibir es sincronizada automáticamente.
+
 #### Cloud Storage
 
 Cloud Storage es un servicio que, en principio, no pertenecía a la _suite_ de Firebase. Con todo, tras la compra de Google, entró a formar parte por la integración de ambas nubes.
 
 Lo que Cloud Storage permite es el almacenamiento de cualquier tipo de objeto —entendiendo por objeto un archivo— en la nube. Este proyecto recurre a él para la subida de las imágenes de los perfiles, los planes y aquellas que son enviadas en los _chats_; pero nada impide que también pueda utilizarse para audio, vídeo o cualquier otro tipo de contenido.
+
+Al igual que el resto herramientas de Firebase, escala automáticamente en función de la demanda, sin necesidad de levantar, administrar y mantener servidores por parte de los desarrolladores.
 
 Aunque ya se explicará con más detenimiento, su estructura es similar a la de un árbol de directorios, partiendo de la raíz; paraliza las transferencias —subidas o descargas— cuando el cliente pierde la conectividad para reanudarse al recuperar la conexión y los permisos se gestionan con reglas de seguridad integradas en Firebase Authentication.
 
@@ -602,6 +619,7 @@ En relación al _backend_:
 * [Material Design](https://material.io)
 * [Wikipedia | Material Design](https://en.wikipedia.org/wiki/Material_Design)
 * [Firebase](https://firebase.google.com)
+* [Firebase Products](https://firebase.google.com/products)
 * [Wikipedia | Firebase](https://en.wikipedia.org/wiki/Firebase)
 * [TechCrunch | Google Acquires Firebase To Help Developers Build Better Real-Time Apps](https://techcrunch.com/2014/10/21/google-acquires-firebase-to-help-developers-build-better-realtime-apps)
 * [Wikipedia | Serverless computing](https://en.wikipedia.org/wiki/Serverless_computing)
@@ -609,6 +627,7 @@ En relación al _backend_:
 * [Wikipedia | Google Cloud Platform](https://en.wikipedia.org/wiki/Google_Cloud_Platform)
 * [Firebase Pricin Plans](https://firebase.google.com/pricing)
 * [Firebase Authentication](https://firebase.google.com/products/auth)
+* [Firebase Realtime Database](https://firebase.google.com/products/realtime-database)
 * [Firebase Cloud Storage](https://firebase.google.com/products/storage)
 * [Firebase Docs | Add Firebase to your Android project](https://firebase.google.com/docs/android/setup)
 * [Firebase Docs | Firebase Authentication](https://firebase.google.com/docs/auth)
