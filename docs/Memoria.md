@@ -314,6 +314,7 @@ Aunque ya se verá en epígrafes posteriores, hay que entender que Firebae Realt
 * La atomicidad de las transacciones u operaciones se garantiza a nivel de subrama del árbol. Este punto es importante, ya que no todas las bases de datos NoSQL garantizan la atomicidad de las transacciones, lo que supondría una clara desventaja frente a las bases de datos relacionales.
 * Su caracter descentralizado permite la distribución de los datos y la escala a nivel horizontal.
 * Es, comparativamente, mucho más flexible en el tipo y modelo de datos que se presta a almacenar. Dicha característica puede ser, según se mire, una desventaja o un inconveniente al no garantizar la integridad de los datos que contiene y, si se quiere, debe ser una implementación propia. Para este proyecto fue, sin duda, una ventaja: parte del desarrollo, al tener que investigar sobre el funcionamiento, por un lado, de estructuras de almacenamiento NoSQL como JSON y, por el otro, del SDK en el que esta estructura funcionaba, fue a ciegas, haciendo numerosas pruebas hasta dar con el resultado correcto y esperado; de lo que puede deducirse que no se partía de un modelo ni esquema totalmente claro y esta flexibilidad permitía probar diferentes tipos y objetos almacenados en la base de datos sin todos los inconvenientes asociados que se habrían dado al elegir una base de datos relacional. Sin embargo, siempre es recomendable estructurar los datos siguiendo las recomendaciones indicadas por la documentación oficial y su normalización, esto es, evitar duplicidades innecesarias.
+* El árbol de Firebase Realtime Database se apoya en Gson, una librería de Java desarrollada por Google para convertir objetos de Java en su representación en JSON facilitando enormemente el _parseo_, proceso de _marshalling_ o _mapeo_.
 
 Como colofón, el SDK de Firebase Realtime Database está optimizado para la pérdida de conexión del dispositivo: si se encuentra _offline_, la información se _cachea_ o persiste localmente hasta que vuelve la conexión y la información pendiente de enviar o recibir es sincronizada automáticamente.
 
@@ -328,6 +329,14 @@ Al igual que el resto herramientas de Firebase, escala automáticamente en funci
 Aunque ya se explicará con más detenimiento, su estructura es similar a la de un árbol de directorios, partiendo de la raíz; paraliza las transferencias —subidas o descargas— cuando el cliente pierde la conectividad para reanudarse al recuperar la conexión y los permisos se gestionan con reglas de seguridad integradas en Firebase Authentication.
 
 #### Firebase Cloud Messaging
+
+La decisión de incorporar el _chat_ trajo consigo un desafío añadido, especialmente si se quería desarrollar un sistema completo y adaptado a lo que los usuarios esperan y están acostumbrados por el uso de otras aplicaciones: no solo es el _chat_, son las notificaciones.
+
+Tal es el objetivo de Firebase Cloud Messaging: enviar notificaciones entre plataformas y dispositivos.
+
+El modo de funcionamiento es básico e intuitivo gracias a la consola o panel desde el que enviar mensajes/notificaciones a los dispositivos de los usuarios. Empero, esto solo es útil para el típico envío masivo de campañas tradicionalmente asociadas al márquetin que se orienta a grandes masas; la dificultad aumenta cuando el objetivo es que en el momento en el que un usuario envía un mensaje a través de un _chat_ concreto, salte una notificación _push_ solo, y esto es importante, en los dispositivos del resto de usuarios apuntados al evento, y no en todos aquellos que usan la plataforma con independencia de si se han inscrito o no.
+
+Es esta particularidad la que incrementa la dificultad de su puesta en marcha; ya no basta con el panel visual —con interfaz gráfica— proporcionado por Firebase desde la consola. De hecho, es innecesario, y hay que recurrir al servicio que viene a continuación: Cloud Functions.
 
 #### Cloud Functions
 
@@ -628,10 +637,15 @@ En relación al _backend_:
 * [Firebase Pricin Plans](https://firebase.google.com/pricing)
 * [Firebase Authentication](https://firebase.google.com/products/auth)
 * [Firebase Realtime Database](https://firebase.google.com/products/realtime-database)
+* [GitHub | Gson](https://github.com/google/gson)
+* [Wikipedia | Marshalling](https://en.wikipedia.org/wiki/Marshalling_(computer_science))
+* [Wikipedia | Object-relational mapping](https://en.wikipedia.org/wiki/Object-relational_mapping	)
 * [Firebase Cloud Storage](https://firebase.google.com/products/storage)
+* [Firebase Cloud Messaging](https://firebase.google.com/products/cloud-messaging)
 * [Firebase Docs | Add Firebase to your Android project](https://firebase.google.com/docs/android/setup)
 * [Firebase Docs | Firebase Authentication](https://firebase.google.com/docs/auth)
 * [Firebase Docs | Cloud Storage](https://firebase.google.com/docs/storage)
+* [Firebase Docs | Firebase Cloud Messaging](https://firebase.google.com/docs/cloud-messaging)
 * [Material Design The color system](https://material.io/design/color/the-color-system.html)
 * [Material Design Color Tool](https://material.io/resources/color)
 * [Material Design Applying color to UI](https://material.io/design/color/applying-color-to-ui.html)
