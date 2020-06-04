@@ -389,7 +389,7 @@ Se utiliza en el proyecto para escribir la base de la documentación —como est
 ---
 Un ejemplo básico sería el siguiente bloque de código o texto:
 
-```markdown
+```
 Esto es texto en **negrita** y _cursiva_.
 
 - [ ] Tarea 1
