@@ -20,7 +20,7 @@ buildscript {
     }
     dependencies {
         // Dependencias por defecto de Android Studio
-        classpath 'com.android.tools.build:gradle:3.6.3' // Dependencia de Gradle
+        classpath 'com.android.tools.build:gradle:4.0.0' // Dependencia de Gradle
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files

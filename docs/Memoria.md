@@ -359,6 +359,8 @@ Estas funciones deben estar escritas en JavaScript o TypeScript sobre el entorno
 
 ### Java
 
+En la medida en que este proyecto pretende ajustarse a un desarrollo real adaptado a las particularidades de su tiempo y el modo en que se llevan a cabo en el mundo empresarial, hay que destacar el empeño que se ha tenido a la hora de utilizar Java, en concreto
+
 ### Android
 
 ### Material Design
@@ -394,7 +396,6 @@ Esto es texto en **negrita* y _cursiva_.
   - [ ] Subtarea 1
   - [x] Subtarea 2
 - [x] Tarea 2
-
 ```
 
 Que se visualizaría así:
@@ -412,11 +413,45 @@ El número de opciones es mayor de lo que se muestra en el ejemplo anterior, com
 
 #### Pandoc y wkhtmltopdf
 
+Pandoc y wkhtmltopdf son dos programas en principio independientes, pero que, en conjunto, generan automáticamente la documentación a partir de los archivos en los que esta es encuentra y que están escritos en texto plano con etiquetas propias de Markdown.
+
+El primero se encarga de convertir esta documentación escrita en Markdown a HTML. Tiene muchas más opciones de conversión y todas están disponibles en la documentación oficial: desde y hacia documentos `.docx`, LaTeX, ConTeXt, `.odt`... Sin embargo, no es capaz de realizar la conversión hacia PDF, por lo que aparece wkhtmltopdf, que tiene por entrada ese documento HTML intermedio y lo transforma en un documento PDF listo para entregar al que se le puede cambiar el aspecto a través de hojas de estilos en cascada CSS indicadas en las opciones del comando.
+
+En Windows, tras la correspodiente instalación de ambos programas y la adición de la ruta de sus ejecutables al `PATH`, el comando básico para convertir un documento Markdown en PDF es:
+
+```
+$ pandoc documento.html -o documento.pdf --pdf-engine=wkhtmltopdf
+```
+
+Hay alternativas a wkhtmltopdf para obtener PDF desde un documento `.md` que pueden combinarse a la perfección con Pandoc: prince, pdfroff, weasyprint, etc.
+
 #### Git y GitHub
 
 #### Diagrams
 
+Diagrams.net es un _software_ libre con cliente _web_ y para escritorio para el diseño de, como el nombre hace sospechar, diagramas. Gran parte de los diseños que ilustran el presente documento y el resto distribuido en el repositorio están hechos con este programa.
+
+Las posibilidades son innumerables; aparte del gran número de iconos y gráficos que incorpora de serie, pueden añadirse otros tantos personalizados para: diagramas UML, modelos relacionales, modelos entidad-relación, _mockups_ para borradores del diseño de aplicaciones, arquitecturas _cloud_, modelos de negocio, diagramas de flujo, etc.
+
 #### Android Studio
+
+Android Studio es el entorno de desarrollo oficial para la creación de aplicaciones móviles para Android. Cuenta con herramientas de análisis y monitorización del rendimiento, autocompletado de texto, Gradle para la automatización de los procesos de _build_, herramientas de _debugging_, emuladores y mucho más.
+
+En el momento actual se encuentra en la versión 4.0 que añade múltiples mejoras como una mejor compatibilidad con las API y características de Java 8 —expresiones _lambda_ o _try_ con recursos—, un editor de animaciones...
+
+Para hacer uso de las características avanzadas de Java 8 que aprovechan la programación funcional y las expresiones _lambda_ hay que escribir lo siguiente en el archivo `app/build.gradle`:
+
+```gradle
+// ...
+android {
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    // ...	
+}
+
+```
 
 #### Visual Studio Code
 
@@ -705,6 +740,18 @@ En relación al _backend_:
 * [GitHub | Markdown Cheatsheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)
 * [Daring Fireball | Markdown Syntax](https://daringfireball.net/projects/markdown/syntax)
 * [GitHub Flavored Markdown Spec](https://github.github.com/gfm)
+* [Pandoc](https://pandoc.org)
+* [Pandoc Getting Started](https://pandoc.org/getting-started.html)
+* [Pandoc User's Guide](https://pandoc.org/MANUAL.html)
+* [Wikipedia | Pandoc](https://en.wikipedia.org/wiki/Pandoc)
+* [wkhtmltopdf](https://wkhtmltopdf.org)
+* [wkhtmltopdf | Docs](https://wkhtmltopdf.org/usage/wkhtmltopdf.txt)
+* [Diagrams.net](https://www.diagrams.net)
+* [Android Studio](https://developer.android.com/studio)
+* [Android Studio | Releases](https://developer.android.com/studio/releases)
+* [Android Studio | Use Java 8 Language Features](https://developer.android.com/studio/write/java8-support)
+* [Android Studio | Java 8 Language Support Table](https://developer.android.com/studio/write/java8-support-table)
+* 
 * [Firebase Docs | Add Firebase to your Android project](https://firebase.google.com/docs/android/setup)
 * [Firebase Docs | Firebase Authentication](https://firebase.google.com/docs/auth)
 * [Firebase Docs | Cloud Storage](https://firebase.google.com/docs/storage)
