@@ -459,13 +459,21 @@ android {
 
 ## Arquitectura de _software_
 
+![Cloud Architecture](../images/cloud_architecture.png)
+
 ## Patrones de diseño
 
 ### Patrón MVC
 
+<p align="center"><img alt="mvc" src="../images/mvc.png"></p>
+
 ### Patrón MVP
 
+<p align="center"><img alt="mvp" src="../images/mvp.png"></p>
+
 ### Patrón MVVM
+
+<p align="center"><img alt="mvvm" src="../images/mvvm.png"></p>
 
 ### Elección del patrón
 
