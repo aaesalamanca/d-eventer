@@ -355,7 +355,7 @@ Se ha dicho en el apartado anterior, Cloud Functions es necesario para trabajar 
 
 Básicamente supone una traslación de ese código _backend_ a las funciones de Cloud Functions, de ahí su nombre. Ahora no se consumen recursos inutilizados —CPU y memoria a la espera de recibir peticiones— sino que solo se recurre a ellos cuando se invoca a la función: invocación directa como una llamada HTTP o HTTPS desde la aplicación o _triggers_ —disparadores— que son lanzados por los productos de Firebase, Google Cloud u otros asociados: Firebase Realtime Database, Firebase Firestore, Firebase Authentication, Google Analytics...
 
-Estas funciones deben estar escritas en JavaScript o TypeScript sobre el entorno de Node.js para poder ejecutarlas localmente en las mismas condiciones que sobre la nube de Firebase.
+Estas funciones deben estar escritas en JavaScript o TypeScript sobre el entorno de Node.js para poder ejecutarlas localmente en las mismas condiciones que sobre la nube de Firebase. Para el proyecto, por cierto, el lenguaje fue JavaScript; requería menor configuración inicial y tampoco íbamos a hacer uso de las mejoras incorporadas por TypeScript.
 
 ### Java
 
@@ -367,11 +367,48 @@ Estas funciones deben estar escritas en JavaScript o TypeScript sobre el entorno
 
 #### Google Maps Platform
 
+Google Maps Platform es el _framework_ que Google proporciona desde Google Cloud para utilizar características similares a las de la aplicación Google Maps dentro de nuestra _app_.
+
+Se distinguen dos SDK:
+
+* Maps: permite utilizar el mapa como tal dentro de la aplicación, visualizarlo y desplazarse sobre este.
+* Places: integrado con el anterior, es utilizado, entre sus numerosas funciones, para convertir direcciones a coordenadas y viceversa. Coordenadas que luego serán convertidas al clásico marcador de posición dentro del mapa renderizado por Maps.
+
 #### Node.js
 
 #### JavaScript
 
 #### Markdown
+
+Markdown es un lenguaje de marcado ligero sobre texto plano construido con el propósito de darle formato bajo el mantra WYSIWYT —_What You See Is What You Type_—. En su concepción original, este pequeño conjunto de etiquetas para formatear texto plano eran convertidas a HTML, pero con el paso de los años aparecieron numerosas utilidades —pandoc y wkhtmltopdf— que recurrían a ese HTML como paso intermedio para construir documentos de Microsoft `.docx`, `.pdf`, documentos abiertos `.odt`...
+
+Se utiliza en el proyecto para escribir la base de la documentación —como este documento—, así como los README.md —`.md` es la extensión de los documentos escritos en Markdown, y puede ser también `.txt` o no tenerla; sigue siendo texto plano junto a una serie de etiquetas— y demás documentos que aparecen en GitHub —que los renderiza correctamente para su visualización con el formato definitivo que indican las etiquetas—.
+
+---
+Un ejemplo básico sería el siguiente bloque de código o texto:
+
+```markdown
+Esto es texto en **negrita* y _cursiva_.
+
+- [ ] Tarea 1
+  - [ ] Subtarea 1
+  - [x] Subtarea 2
+- [x] Tarea 2
+
+```
+
+Que se visualizaría así:
+
+Esto es texto en **negrita** y _cursiva_.
+
+- [ ] Tarea 1
+  - [ ] Subtarea 1
+  - [x] Subtarea 2
+- [x] Tarea 2
+
+---
+
+El número de opciones es mayor de lo que se muestra en el ejemplo anterior, como bloques de código, tablas, enlaces, imágenes, etc. Además, no es la especificación pura de Markdown determinada por Daring Fireball, sino el subconjunto propio de GitHub: GitHub Flavored Markdown, que introduce algunas etiquetas más como las listas de tareas o el resaltado sintáctico de los bloques de código cuando se indica el lenguaje utilizado dentro de estos.
 
 #### Pandoc y wkhtmltopdf
 
@@ -648,7 +685,7 @@ En relación al _backend_:
 * [Wikipedia | Firebase](https://en.wikipedia.org/wiki/Firebase)
 * [TechCrunch | Google Acquires Firebase To Help Developers Build Better Real-Time Apps](https://techcrunch.com/2014/10/21/google-acquires-firebase-to-help-developers-build-better-realtime-apps)
 * [Wikipedia | Serverless computing](https://en.wikipedia.org/wiki/Serverless_computing)
-* [Google Cloud Platform](https://cloud.google.com)
+* [Google Cloud](https://cloud.google.com)
 * [Wikipedia | Google Cloud Platform](https://en.wikipedia.org/wiki/Google_Cloud_Platform)
 * [Firebase Pricin Plans](https://firebase.google.com/pricing)
 * [Firebase Authentication](https://firebase.google.com/products/auth)
@@ -660,11 +697,21 @@ En relación al _backend_:
 * [Firebase Cloud Storage](https://firebase.google.com/products/storage)
 * [Firebase Cloud Messaging](https://firebase.google.com/products/cloud-messaging)
 * [Firebase Cloud Functions](https://firebase.google.com/products/functions)
+* [Google Cloud | Google MAps Platform](https://cloud.google.com/maps-platform)
+* [Google Cloud | Maps](https://cloud.google.com/maps-platform/maps)
+* [Google Cloud | Places](https://cloud.google.com/maps-platform/places)
+* [Daring Fireball | Markdown](https://daringfireball.net/projects/markdown)
+* [Wikipedia | Markdown](https://en.wikipedia.org/wiki/Markdown)
+* [GitHub | Markdown Cheatsheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)
+* [Daring Fireball | Markdown Syntax](https://daringfireball.net/projects/markdown/syntax)
+* [GitHub Flavored Markdown Spec](https://github.github.com/gfm)
 * [Firebase Docs | Add Firebase to your Android project](https://firebase.google.com/docs/android/setup)
 * [Firebase Docs | Firebase Authentication](https://firebase.google.com/docs/auth)
 * [Firebase Docs | Cloud Storage](https://firebase.google.com/docs/storage)
 * [Firebase Docs | Firebase Cloud Messaging](https://firebase.google.com/docs/cloud-messaging)
 * [Firebase Docs | Cloud Functions](https://firebase.google.com/docs/functions)
+* [Google Cloud Docs | Maps SDK for Android](https://developers.google.com/maps/documentation/android-sdk/intro)
+* [Google Cloud Docs | Places SDK for Android](https://developers.google.com/places/android-sdk/intro)
 * [Material Design The color system](https://material.io/design/color/the-color-system.html)
 * [Material Design Color Tool](https://material.io/resources/color)
 * [Material Design Applying color to UI](https://material.io/design/color/applying-color-to-ui.html)
