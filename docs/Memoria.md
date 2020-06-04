@@ -316,6 +316,10 @@ Aunque ya se verá en epígrafes posteriores, hay que entender que Firebae Realt
 * Es, comparativamente, mucho más flexible en el tipo y modelo de datos que se presta a almacenar. Dicha característica puede ser, según se mire, una desventaja o un inconveniente al no garantizar la integridad de los datos que contiene y, si se quiere, debe ser una implementación propia. Para este proyecto fue, sin duda, una ventaja: parte del desarrollo, al tener que investigar sobre el funcionamiento, por un lado, de estructuras de almacenamiento NoSQL como JSON y, por el otro, del SDK en el que esta estructura funcionaba, fue a ciegas, haciendo numerosas pruebas hasta dar con el resultado correcto y esperado; de lo que puede deducirse que no se partía de un modelo ni esquema totalmente claro y esta flexibilidad permitía probar diferentes tipos y objetos almacenados en la base de datos sin todos los inconvenientes asociados que se habrían dado al elegir una base de datos relacional. Sin embargo, siempre es recomendable estructurar los datos siguiendo las recomendaciones indicadas por la documentación oficial y su normalización, esto es, evitar duplicidades innecesarias.
 * El árbol de Firebase Realtime Database se apoya en Gson, una librería de Java desarrollada por Google para convertir objetos de Java en su representación en JSON facilitando enormemente el _parseo_, proceso de _marshalling_ o _mapeo_.
 
+Una de las mejoras que se plantean al final del documento es la migración de la base de datos a Cloud Firestore, el otro servicio para bases de datos NoSQL de Firebase. Su funcionamiento es similar con el siguiente matiz: ya no hay un único documento JSON, esta base de datos se organiza en colecciones y documentos, partiendo, en la raíz, siempre de una colección. Las colecciones son conjuntos de documentos y estos documentos sí tienen una estructura y escritura idéntica a JSON. Además, cada documento puede contener subcolecciones —colecciones igualmente— que, a su vez, están compuestas por conjuntos de documentos.
+
+¿Por qué no acabó siendo Cloud Firestore la elegida cuando ofrecía los mismos beneficios con una estructura más jerárquica acompañada de mayor rendimiento —escrituras y lecturas más rápidas, con menor latencia—? En el momento de comenzar el desarrollo se encontraba todavía en fase beta y, lo más determinante, el _mapeo_ entre objetos en memoria y su almacenamiento en la base de datos no era gestionado por esta, había que implementarlo.
+
 Como colofón, el SDK de Firebase Realtime Database está optimizado para la pérdida de conexión del dispositivo: si se encuentra _offline_, la información se _cachea_ o persiste localmente hasta que vuelve la conexión y la información pendiente de enviar o recibir es sincronizada automáticamente.
 
 #### Cloud Storage
@@ -334,11 +338,19 @@ La decisión de incorporar el _chat_ trajo consigo un desafío añadido, especia
 
 Tal es el objetivo de Firebase Cloud Messaging: enviar notificaciones entre plataformas y dispositivos.
 
-El modo de funcionamiento es básico e intuitivo gracias a la consola o panel desde el que enviar mensajes/notificaciones a los dispositivos de los usuarios. Empero, esto solo es útil para el típico envío masivo de campañas tradicionalmente asociadas al márquetin que se orienta a grandes masas; la dificultad aumenta cuando el objetivo es que en el momento en el que un usuario envía un mensaje a través de un _chat_ concreto, salte una notificación _push_ solo, y esto es importante, en los dispositivos del resto de usuarios apuntados al evento, y no en todos aquellos que usan la plataforma con independencia de si se han inscrito o no.
+El modo de funcionamiento es básico e intuitivo gracias a la consola o panel desde el que enviar mensajes/notificaciones a los dispositivos de los usuarios. Empero, esto solo es útil para el típico envío masivo de campañas tradicionalmente asociadas al márquetin dirigido a grandes masas; la dificultad aumenta cuando el objetivo es que en el momento en el que un usuario envía un mensaje a través de un _chat_ concreto, salte una notificación _push_ solo, y esto es importante, en los dispositivos del resto de usuarios apuntados al evento, y no en todos aquellos que usan la plataforma con independencia de si se han inscrito o no.
 
-Es esta particularidad la que incrementa la dificultad de su puesta en marcha; ya no basta con el panel visual —con interfaz gráfica— proporcionado por Firebase desde la consola. De hecho, es innecesario, y hay que recurrir al servicio que viene a continuación: Cloud Functions.
+Es esta particularidad la que incrementa la dificultad de su puesta en marcha; ya no basta con el panel visual —con interfaz gráfica— proporcionado por Firebase desde la consola. De hecho, es innecesario, y hay que recurrir al servicio que viene a continuación: Cloud Functions funcionando conjuntamente con Firebase Cloud Messaging.
 
 #### Cloud Functions
+
+Se ha dicho en el apartado anterior, Cloud Functions es necesario para trabajar junto a Firebase Cloud Messaging, lo que permite el envío de notificaciones.
+
+¿Y qué es Cloud Functions? La definición de modo sencillo es la que sigue: un servicio de Firebase, traído desde Google Cloud, con la que podemos ejecutar código de _backend_ como si de un servidor se tratara, pero, y aquí radica la gran diferencia, sin la obligación de administrar ni escalar un conjunto de servidores propios. No hemos de levantar, por ejemplo, un servidor —máquina virtual o física— que esté ejecutándose las veinticuatro horas del día, los siete días de la semana, para ejecutar código _backend_ encargado de resolver determinadas peticiones contra la base de datos y su debida respuesta.
+
+Básicamente supone una traslación de ese código _backend_ a las funciones de Cloud Functions, de ahí su nombre. Ahora no se consumen recursos inutilizados —CPU y memoria a la espera de recibir peticiones— sino que solo se recurre a ellos cuando se invoca a la función: invocación directa como una llamada HTTP o HTTPS desde la aplicación o _triggers_ —disparadores— que son lanzados por los productos de Firebase, Google Cloud u otros asociados: Firebase Realtime Database, Firebase Firestore, Firebase Authentication, Google Analytics...
+
+Estas funciones deben estar escritas en JavaScript o TypeScript sobre el entorno de Node.js para poder ejecutarlas localmente en las mismas condiciones que sobre la nube de Firebase.
 
 ### Java
 
@@ -351,6 +363,8 @@ Es esta particularidad la que incrementa la dificultad de su puesta en marcha; y
 #### Google Maps Platform
 
 #### Node.js
+
+#### JavaScript
 
 #### Markdown
 
@@ -551,7 +565,6 @@ dependencies {
 ### Mejoras
 
 En relación a los perfiles:
-
 * Borrar el perfil.
 * Cambiar el correo electrónico.
 * Cambiar la contraseña.
@@ -559,20 +572,18 @@ En relación a los perfiles:
 * Implementar correctamente el registro e inicio de sesión con otros proveedores como Google, Facebook, etc.
 
 En relación a los planes:
-
 * Buscador simple y avanzado: con filtros como categorías, localización, proximidad, etc.
 * Recomendador automático y personalizado de planes en base a gustos, preferencias, geolocalización...
 * Valoración del resto de usuarios.
 * Borrar una actividad.
 
 En relación a la seguridad de los datos tratados:
-
 * Cifrado de contraseñas, información personal y _chats_.
 
 En relación al _backend_:
-
 * Unificar _backends_ de las aplicaciones móvil y _web_.
 * Mejorar la implementación MVVM.
+* Migrar la base de datos de Firebase Realtime Database a Cloud Firestore.
 
 ## Bibliografía
 
@@ -640,12 +651,15 @@ En relación al _backend_:
 * [GitHub | Gson](https://github.com/google/gson)
 * [Wikipedia | Marshalling](https://en.wikipedia.org/wiki/Marshalling_(computer_science))
 * [Wikipedia | Object-relational mapping](https://en.wikipedia.org/wiki/Object-relational_mapping)
+* [Firebase Docs | Choose a Database](https://firebase.google.com/docs/database/rtdb-vs-firestore)
 * [Firebase Cloud Storage](https://firebase.google.com/products/storage)
 * [Firebase Cloud Messaging](https://firebase.google.com/products/cloud-messaging)
+* [Firebase Cloud Functions](https://firebase.google.com/products/functions)
 * [Firebase Docs | Add Firebase to your Android project](https://firebase.google.com/docs/android/setup)
 * [Firebase Docs | Firebase Authentication](https://firebase.google.com/docs/auth)
 * [Firebase Docs | Cloud Storage](https://firebase.google.com/docs/storage)
 * [Firebase Docs | Firebase Cloud Messaging](https://firebase.google.com/docs/cloud-messaging)
+* [Firebase Docs | Cloud Functions](https://firebase.google.com/docs/functions)
 * [Material Design The color system](https://material.io/design/color/the-color-system.html)
 * [Material Design Color Tool](https://material.io/resources/color)
 * [Material Design Applying color to UI](https://material.io/design/color/applying-color-to-ui.html)
