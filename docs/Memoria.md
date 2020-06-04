@@ -24,11 +24,16 @@
    2. [Java](#java)
    3. [Android](#android)
    4. [Material Design](#material-design)
-   6. [Google Maps Platform](#google-maps-platform)
    5. [Otros](#otros)
-      1. [Android Studio](#android-studio)
-      2. [Git y GitHub](#git-y-github)
-      3. [Diagrams](#diagrams)
+      1. [Google Maps Platform](#google-maps-platform)
+      2. [Node.js](#nodejs)
+      3. [JavaScript](#javascript)
+      4. [Markdown](#markdown)
+      5. [Pandoc y wkhtmltopdf](#pandoc-y-wkhtmltopdf)
+      6. [Git y GitHub](#git-y-github)
+      7. [Diagrams](#diagrams)
+      8. [Android Studio](#android-studio)
+      9. [Visual Studio Code](#visual-studio-code)
 5. [Modelo de datos](#modelo-de-datos)
 6. [Arquitectura de _software_](#arquitectura-de-software)
 7. [Patrones de diseño](#patrones-de-diseño)
@@ -572,18 +577,15 @@ En relación a los perfiles:
 * Implementar correctamente el registro e inicio de sesión con otros proveedores como Google, Facebook, etc.
 
 En relación a los planes:
-
 * Buscador simple y avanzado: con filtros como categorías, localización, proximidad, etc.
 * Recomendador automático y personalizado de planes en base a gustos, preferencias, geolocalización...
 * Valoración del resto de usuarios.
 * Borrar una actividad.
 
 En relación a la seguridad de los datos tratados:
-
 * Cifrado de contraseñas, información personal y _chats_.
 
 En relación al _backend_:
-
 * Unificar _backends_ de las aplicaciones móvil y _web_.
 * Mejorar la implementación MVVM.
 * Migrar la base de datos de Firebase Realtime Database a Cloud Firestore.
