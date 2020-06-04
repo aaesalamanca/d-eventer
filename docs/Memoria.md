@@ -408,7 +408,7 @@ Esto es texto en **negrita** y _cursiva_.
 
 ---
 
-El número de opciones es mayor de lo que se muestra en el ejemplo anterior, como bloques de código, tablas, enlaces, imágenes, etc. Además, no es la especificación pura de Markdown determinada por Daring Fireball, sino el subconjunto propio de GitHub: GitHub Flavored Markdown, que introduce algunas etiquetas más como las listas de tareas o el resaltado sintáctico de los bloques de código cuando se indica el lenguaje utilizado dentro de estos.
+El número de opciones es mayor de lo que se muestra en el ejemplo anterior, como bloques de código, tablas, enlaces, imágenes, etc. Además, no es la especificación pura de Markdown determinada por Daring Fireball, sino el subconjunto propio de GitHub: GitHub Flavored Markdown, que introduce algunas etiquetas más como las listas de tareas o el resaltado sintáctico de los bloques de código cuando se indica el lenguaje de programación utilizado dentro de estos.
 
 #### Pandoc y wkhtmltopdf
 
