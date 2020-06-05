@@ -430,9 +430,92 @@ Estas funciones deben estar escritas en JavaScript o TypeScript sobre el entorno
 
 ### Java
 
+Java, a pesar de lo que suela creerse, no es solo un lenguaje de programación; se trata de un conjunto de _software_, especificaciones y directrices desarrollados por James Gosling en 1995 que proporcionan un sistema o plataforma para el desarrollo y despliegue de aplicaciones multiplataforma.
 
+Una de las herramientas más importantes que provee es el lenguaje de programación que recibe su mismo nombre: Java. Este es orientado a objetos —basados en clases—, con recolector de basura y, originalmente, interpretado, esto es, el código fuente era _precompilado_ a _bytecode_ —un lenguaje intermedio que todas las máquinas virtuales de Java entienden, lo que hace posible su propósito multiplataforma— y era en tiempo de ejecución cuando estas instrucciones se convertían directamente a código máquina. Este paradigma fue evolucionando hasta incorporar las mejoras en rendimiento de compilación JIT (_just-int-time_): no se compila todo el código antes de su ejecución, sin embargo, mientras tiene lugar esta, el compilador analiza partes del código que se está ejecutando o prevé que lo hará repetidas veces aumentando el rendimiento hasta acercarse a niveles de programas compilados AOT (_ahead-of-time_) con la flexibilidad de ser, al mismo tiempo, interpretado.
 
-En la medida en que este proyecto pretende ajustarse a un desarrollo real adaptado a las particularidades de su tiempo y el modo en que se llevan a cabo en el mundo empresarial, hay que destacar el empeño que se ha tenido a la hora de utilizar Java, en concreto
+Su sintaxis es heredera de C y C++ con un enfoque totalmente orientado a objetos; asentando el nuevo paradigma y llegando a convertirse en uno de los lenguajes de programación más populares y utilizados.
+
+El otro pilar sobre el que se asienta la plataforma es la máquina virtual  que ejecuta este código Java o, mejor dicho, el _bytecode_ que se genera a partir del código fuente. La implementación oficial es HotSpot —libre y de código abierto— que Oracle impulsa y mejora con su alternativa privativa. Otras máquinas virtuales son: Azul Zulu, Eclipse OpenJ9, JamaicaVM...
+
+Desde el lanzamiento de la beta del JDK en 1995, Java no ha dejado de incorporar novedades y actualizaciones; adaptándose a los nuevos paradigmas de programación y _frameworks_ que iban a pareciendo con el paso del tiempo. La última versión lanzada al mercado es Java SE 14 —marzo de 2020— y la última con soporte técnico a largo plazo —garantizado hasta agosto de 2024— fue Java SE 11 (LTS). El siguiente lanzamiento, Java SE 15, se prevé para septiembre de 2020.
+
+En la medida en que este proyecto pretende ajustarse a un desarrollo real adaptado a las particularidades de su tiempo y el modo en que se llevan a cabo en el mundo empresarial, hay que destacar el empeño que se ha tenido a la hora de utilizar Java, en concreto características de la versión 8 —se desplegó en marzo de 2014— que supusieron un gran avance y puesta al día de la plataforma. El uso al que se refiere este documento es el de las expresiones _lambda_ o funciones anónimas, que fueron incorporadas en esta iteración y añaden métodos de programación funcional, reduciendo el número de líneas de código redundante e innecesario.
+
+Los siguientes bloques de código Java suponen una pequeña demostración de cómo es el funcionamiento de estas expresiones _lambda_ y cuáles sus ventajas.
+
+```java
+// Este bloque de código contiene el fuente de Java resultante si no
+// se utilizaran las funciones anónimas.
+
+// Interfaz con un único método
+public interface InterfaceA {
+	void methodA(int parameterA);
+}
+
+// Clase que contiene una referencia a la interfaz
+public class ClassB {
+	private InterfaceA interfaceA;
+	
+	public void setInterfaceA(InterfaceA interfaceA) {
+		this.interfaceA = interfaceA;
+	}
+}
+
+public class ClassC {
+	// Contiene un objeto local de ClassB y debe implementarse
+	// el único método de InterfaceA.
+	public static void main(String[] args) {
+		ClassB classB = new ClassB();
+		// Implementación de methodA de InterfaceA mediante una clase
+		// anónima.
+		classB.setInterfaceA(new InterfaceA(){
+			@Override
+			public void methodA(int parameterA) {
+				// Implementación propia del método
+				// ...
+			}
+		});
+	}
+}
+```
+
+El mismo código, utilizando expresiones _lambda_, podría escribirse:
+
+```java
+// Este bloque de código contiene el fuente de Java resultante de
+// utilizar las funciones anónimas.
+
+// Interfaz con un único método
+public interface InterfaceA {
+	void methodA(int parameterA);
+}
+
+// Clase que contiene una referencia a la interfaz
+public class ClassB {
+	private InterfaceA interfaceA;
+	
+	public void setInterfaceA(InterfaceA interfaceA) {
+		this.interfaceA = interfaceA;
+	}
+}
+
+public class ClassC {
+	// Contiene un objeto local de ClassB y debe implementarse
+	// el único método de InterfaceA.
+	public static void main(String[] args) {
+		ClassB classB = new ClassB();
+		// Implementación de methodA de InterfaceA con una función
+		// anónima.
+		classB.setInterfaceA(parameterA -> {
+			// Implementación propia del método
+			// ...
+		});
+	}
+}
+```
+
+Esta es una de las posibilidades del uso de expresiones _lambda_; como ya se había señalado, reduce considerablemente el código repetitivo que resultaba de implementar clases anónimas que solo contaban con un método —condición necesaria para poder llevar a cabo la sustitución de clases anónimas por este tipo de notación— y es muy útil para la programación orientada a eventos.
 
 ### Android
 
@@ -884,6 +967,20 @@ En relación al _backend_:
 * [Firebase Cloud Storage](https://firebase.google.com/products/storage)
 * [Firebase Cloud Messaging](https://firebase.google.com/products/cloud-messaging)
 * [Firebase Cloud Functions](https://firebase.google.com/products/functions)
+* [OpenJDK](http://openjdk.java.net)
+* [AdoptOpenJDK](https://adoptopenjdk.net)
+* [Oracle | Java](https://www.oracle.com/es/java)
+* [The Java Tutorials | Lambda Expressions](https://docs.oracle.com/javase/tutorial/java/javaOO/lambdaexpressions.html)
+* [Wikipedia | Java Platform](https://en.wikipedia.org/wiki/Java_(software_platform))
+* [Wikipedia | Java Programming Language](https://en.wikipedia.org/wiki/Java_(programming_language))
+* [Wikipedia | Java Version History](https://en.wikipedia.org/wiki/Java_version_history)
+* [Wikipedia | Just-in-time Compilation](https://en.wikipedia.org/wiki/Just-in-time_compilation)
+* [Wikipedia | Ahead-of-time Compilation](https://en.wikipedia.org/wiki/Ahead-of-time_compilation)
+* [Wikipedia | Java Virtual Machine](https://en.wikipedia.org/wiki/Java_virtual_machine)
+* [Wikipedia | List of Java Virtual Machines](https://en.wikipedia.org/wiki/List_of_Java_virtual_machines)
+* [Wikipedia | Comparison of Java Virtual Machines](https://en.wikipedia.org/wiki/Comparison_of_Java_virtual_machines)
+* [OpenJDK | HotSpot](http://openjdk.java.net/groups/hotspot)
+* [Wikipedia | HotSpot](https://en.wikipedia.org/wiki/HotSpot)
 * [Google Cloud | Google Maps Platform](https://cloud.google.com/maps-platform)
 * [Google Cloud | Maps](https://cloud.google.com/maps-platform/maps)
 * [Google Cloud | Places](https://cloud.google.com/maps-platform/places)
