@@ -547,6 +547,8 @@ Material Design no solo proporciona indicaciones acerca del aspecto que han de s
 
 Material Design se asienta sobre dos principios fundamentales: uso de luz y sombra e identifación clara y jerárquica de los elementos que aparecen. El primero ya los distribuye por niveles; si hay sombras, el cerebro entiende que el que recibe la sombra está por debajo. El segundo no solo tiene que ver con la posición, también con el tamaño, el uso de colores complementarios, fondos más claros, transparentes u opacos...
 
+Paralelamente a Material Design se utilizan otras librerías UX que esta no proporciona —de momento— como el marco circular para las imágenes, estilos personalizados para los botones de Material Design, fuentes, iconos y más.
+
 ### Otros
 
 #### Google Maps Platform
@@ -1012,6 +1014,7 @@ En relación al _backend_:
 * [Wikipedia | Dalvik](https://en.wikipedia.org/wiki/Dalvik_(software))
 * [Wikipedia | Android Runtime](https://en.wikipedia.org/wiki/Android_Runtime)
 * [Kotlin](https://kotlinlang.org)
+* [Circle Image View](https://github.com/hdodenhof/CircleImageView)
 * [Google Cloud | Google Maps Platform](https://cloud.google.com/maps-platform)
 * [Google Cloud | Maps](https://cloud.google.com/maps-platform/maps)
 * [Google Cloud | Places](https://cloud.google.com/maps-platform/places)
