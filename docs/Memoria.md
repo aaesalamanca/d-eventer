@@ -529,13 +529,15 @@ En primer lugar, la arquitectura interna de Android funciona como una pila de te
 
 En segundo lugar, de este _stack_ son interesantes de cara al desarrollo de aplicaciones: las librerías nativas en C y C++ para implementaciones nativas de carácter menor a bajo nivel o _bare metal_ a través del Android NDK —Native Development Kit—, que suelen proporcionar mejor rendimiento; y el _framework_ de Java que incluye las API básicas del sistema y son las más utilizadas para la creación de aplicaciones en este lenguaje.
 
-Para finalizar, en tercer lugar, hay que destacar el papel de Android Runtime o ART, la máquina virtual sobre la que se ejecutan las aplicaciones Java que reemplazó a Dalvik —la antigua máquina virtual de Android— Android 5.0. Las mejoras de ART sobre Dalvik son significativas en rendimiento:
+En tercer lugar, hay que destacar el papel de Android Runtime o ART, la máquina virtual sobre la que se ejecutan las aplicaciones Java que reemplazó a Dalvik —la antigua máquina virtual de Android— Android 5.0. Las mejoras de ART sobre Dalvik son significativas en rendimiento:
 
 * Compilación JIT mejorada.
 * Recolector de basura optimizado.
 * Adición de compilación AOT.
 * Reducción del tamaño de los archivos `.dex`.
 * Mejor soporte para _debugging_ con diagnósticos de excepciones, _crasheos_, rendimiento, etc.
+
+Un último apunte, antes de finalizar, es la importancia que ha ido adquiriendo Kotlin paulatinamente hasta convertirse en lenguaje oficial y aceptado por Google para programar _apps_ en Android. Con Kotlin se escribe código más sencillo y simple, que reduce la redundancia y se ejecuta sobre las máquinas virtuales de Java —_backend_ clásico como HotSpot o de Android: ART— posibilitando, incluso, la interoperabilidad de código escrito en Java y Kotlin. Kotlin además puede ser compilado para iOS, entornos que ejecutan JavaScript, C y C++.
 
 ### Material Design
 
@@ -1003,6 +1005,7 @@ En relación al _backend_:
 * [Android Developers | Android NDK](https://developer.android.com/ndk)
 * [Wikipedia | Dalvik](https://en.wikipedia.org/wiki/Dalvik_(software))
 * [Wikipedia | Android Runtime](https://en.wikipedia.org/wiki/Android_Runtime)
+* [Kotlin](https://kotlinlang.org)
 * [Google Cloud | Google Maps Platform](https://cloud.google.com/maps-platform)
 * [Google Cloud | Maps](https://cloud.google.com/maps-platform/maps)
 * [Google Cloud | Places](https://cloud.google.com/maps-platform/places)
