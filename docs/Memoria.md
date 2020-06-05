@@ -80,22 +80,98 @@ El panel de distribución oficial suministrado por el canal de Android Developer
 
 <p align="center"><img src="../images/android-version.png" /></p>
 
-| Version | Codename | API | Distribution |
-| ------- | -------- | --- | ------------ |
-| 2.3.3 - 2.3.7 | Gingerbread | 10 | 0.3 % |
-| 4.0.3 - 4.0.4	| Ice Cream Sandwich | 15 | 0.3 % |
-| 4.1.x	| Jelly Bean | 16 | 1.2 % |
-| 4.2.x	|   | 17 | 1.5 % |
-| 4.3 |   | 18 | 0.5 % |
-| 4.4 | KitKat | 19 | 6.9 % |
-| 5.0 | Lollipop | 21 | 3.0 % |
-| 5.1 |   | 22 | 11.5 % |
-| 6.0 | Marshmallow | 23 | 16.9 % |
-| 7.0 | Nougat |24 | 11.4 % |
-| 7.1 |   | 25 | 7.8 % |
-| 8.0 | Oreo | 26 | 12.9 % |
-| 8.1 |   | 27 | 15.4 % |
-| 9 | Pie | 28 | 10.4 % |
+<table style="margin-left: auto; margin-right:auto">
+	<tr>
+		<th>Version</th>
+		<th>Codename</th>
+		<th>API</th>
+		<th>Distribution</th>
+	</tr>
+	<tr>
+		<td>2.3.3 - 2.3.7</td>
+		<td>Gingerbread</td>
+		<td>10</td>
+		<td>0.3 %</td>
+	</td>
+	<tr>
+		<td>4.0.3 - 4.0.4</td>
+		<td>Ice Cream Sandwich</td>
+		<td>15</td>
+		<td>0.3 %</td>
+	</tr>
+	<tr>
+		<td>4.1.x</td>
+		<td>Jelly Bean</td>
+		<td>16</td>
+		<td>1.2 %</td>
+	</tr>
+	<tr>
+		<td>4.2.x</td>
+		<td></td>
+		<td>17</td>
+		<td>1.5 %</td>
+	</tr>
+	<tr>
+		<td>4.3</td>
+		<td></td>
+		<td>18</td>
+		<td>0.5 %</td>
+	</tr>
+	<tr>
+		<td>4.4</td>
+		<td>KitKat</td>
+		<td>19</td>
+		<td>6.9 %</td>
+	</tr>
+	<tr>
+		<td>5.0</td>
+		<td>Lollipop</td>
+		<td>21</td>
+		<td>3.0 %</td>
+	</tr>
+	<tr>
+		<td>5.1</td>
+		<td></td>
+		<td>22</td>
+		<td>11.5 %</td>
+	</tr>
+	<tr>
+		<td>6.0</td>
+		<td>Marshmallow</td>
+		<td>23</td>
+		<td>16.9 %</td>
+	</tr>
+	<tr>
+		<td>7.0</td>
+		<td>Nougat</td>
+		<td>24</td>
+		<td>11.4 %</td>
+	</tr>
+	<tr>
+		<td>7.1</td>
+		<td></td>
+		<td>25</td>
+		<td>7.8 %</td>
+	</tr>
+	<tr>
+		<td>8.0</td>
+		<td>Oreo</td>
+		<td>26</td>
+		<td>12.9 %</td>
+	</tr>
+	<tr>
+		<td>8.1</td>
+		<td></td>
+		<td>27</td>
+		<td>15.4%</td>
+	</tr>
+	<tr>
+		<td>9</td>
+		<td>Pie</td>
+		<td>28</td>
+		<td>10.4 %</td>
+	</tr>
+</table>
 
 El problema de la tabla superior es su falta de actualización. Es por ello que para conocer mejor el _estado real de las cosas_ debemos recurrir a otras herramientas de visualización de datos en _tiempo real_ —mensualidad entendida como tiempo real—. Ya la hemos utilizado previamente, en la comparación de cuotas de mercado. Se trata de StatCounter, una plataforma de análisis de tráfico _web_ —entre otros— que nos proporciona justo la información que necesitamos actualmente sobre la distribución de Android a nivel mundial. La siguiente imagen, sacada de esta herramienta, vislumbra un panorama bastante distinto:
 
@@ -358,6 +434,8 @@ Básicamente supone una traslación de ese código _backend_ a las funciones de 
 Estas funciones deben estar escritas en JavaScript o TypeScript sobre el entorno de Node.js para poder ejecutarlas localmente en las mismas condiciones que sobre la nube de Firebase. Para el proyecto, por cierto, el lenguaje fue JavaScript; requería menor configuración inicial y tampoco íbamos a hacer uso de las mejoras incorporadas por TypeScript.
 
 ### Java
+
+
 
 En la medida en que este proyecto pretende ajustarse a un desarrollo real adaptado a las particularidades de su tiempo y el modo en que se llevan a cabo en el mundo empresarial, hay que destacar el empeño que se ha tenido a la hora de utilizar Java, en concreto
 
