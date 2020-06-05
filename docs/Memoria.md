@@ -101,7 +101,7 @@ El panel de distribución oficial suministrado por el canal de Android Developer
 	</tr>
 	<tr>
 		<td>4.1.x</td>
-		<td>Jelly Bean</td>
+		<td rowspan="3">Jelly Bean</td>
 		<td>16</td>
 		<td>1.2 %</td>
 	</tr>
