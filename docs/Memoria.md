@@ -386,7 +386,11 @@ El uso de JavaScript en el proyecto queda reservado en exclusiva para las funcio
 
 #### Node.js
 
-La pequeña introducción de JavaScript ya adelantó qué es Node.js. A grandes rasgos, Node.js es un entorno de ejecución asíncrono, orientado a eventos, de JavaScript que toma como base el motor JavaScript V8 desarrollado para Google Chrome.
+La pequeña introducción de JavaScript ya adelantó qué es Node.js. A grandes rasgos, Node.js es un entorno de ejecución asíncrono, orientado a eventos, de JavaScript, que toma como base el motor JavaScript V8 desarrollado para Google Chrome.
+
+En consecuencia permite la ejecución de código JavaScript fuera de una navegador _web_ como Google Chrome, Microsoft Edge, Mozilla Firefox, Opera, Vivaldi... lo que lo hace apto para ejercer funciones de _backend_.
+
+Trae consigo el gestor de paquetes npm con el que instalar Firebase CLI —consola de comandos de Firebase— desde la que preparar y lanzar Cloud Functions, que recurre a la versión 8 —una de las dos soportadas, la otra es la 10— por defecto de Node.js.
 
 #### Markdown
 
@@ -818,6 +822,8 @@ En relación al _backend_:
 * [Node.js | About](https://nodejs.org/en/about)
 * [Wikipedia | Node.js](https://en.wikipedia.org/wiki/Node.js)
 * [Wikipedia | List of server-side JavaScript implementations](https://en.wikipedia.org/wiki/List_of_server-side_JavaScript_implementations)
+* [npm](https://www.npmjs.com)
+* [Wikipedia | npm](https://en.wikipedia.org/wiki/Npm_(software))
 * [Daring Fireball | Markdown](https://daringfireball.net/projects/markdown)
 * [Wikipedia | Markdown](https://en.wikipedia.org/wiki/Markdown)
 * [GitHub | Markdown Cheatsheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)
@@ -851,6 +857,8 @@ En relación al _backend_:
 * [Firebase Docs | Cloud Storage](https://firebase.google.com/docs/storage)
 * [Firebase Docs | Firebase Cloud Messaging](https://firebase.google.com/docs/cloud-messaging)
 * [Firebase Docs | Cloud Functions](https://firebase.google.com/docs/functions)
+* [Firebase Docs | Cloud Functions Get Started](https://firebase.google.com/docs/functions/get-started)
+* [Firebase Docs| Cloud Functions Manage Deployment and Runtime Options](https://firebase.google.com/docs/functions/manage-functions#set_nodejs_version)
 * [Google Cloud Docs | Maps SDK for Android](https://developers.google.com/maps/documentation/android-sdk/intro)
 * [Google Cloud Docs | Places SDK for Android](https://developers.google.com/places/android-sdk/intro)
 * [Material Design The color system](https://material.io/design/color/the-color-system.html)
