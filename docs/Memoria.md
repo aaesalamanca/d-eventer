@@ -107,13 +107,11 @@ El panel de distribución oficial suministrado por el canal de Android Developer
 	</tr>
 	<tr>
 		<td>4.2.x</td>
-		<td></td>
 		<td>17</td>
 		<td>1.5 %</td>
 	</tr>
 	<tr>
 		<td>4.3</td>
-		<td></td>
 		<td>18</td>
 		<td>0.5 %</td>
 	</tr>
