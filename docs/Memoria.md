@@ -427,6 +427,55 @@ Hay alternativas a wkhtmltopdf para obtener PDF desde un documento `.md` que pue
 
 #### Git y GitHub
 
+Antes de nada, hay que señalar la diferencia entre git y GitHub. Habitualmente son utilizados como sinónimos cuando para nada es así y no tienen por qué aparecer juntos.
+
+Git es un sistema de control de versiones —de _software_ cuya utilidad es, en resumidas cuentas, esa: administrar las diferentes ramas y versiones que surgen durante el desarrollo de cualquier tipo de programa. Dicho de otro modo, un sistema de control de versiones lleva un registro de todos los cambios que se han llevado a cabo en los documentos de un proyecto.
+
+Hay otras herramientas como Subversion, CVS, Perforce, ClearCase, pero Git es, sin lugar a dudas, la más utilizada. Este control de versiones trabaja con repositorios, similares a directorios o carpetas.
+
+En otro orden, GitHub es un servicio de almacenamiento de repositorios en la nube que tan solo trabaja con Git y usados en conjunto facilitan enormemente el trabajo en equipo: _issues_, _pull requests_, documentos específicos para el repositorio, plantillas personalizadas, páginas _web_ del proyecto , etc.
+
+Su funcionamiento para empezar, siguiendo el flujo de trabajo propuesto por GitHub es bastante sencillo. En primer lugar se crea el repositorio en GitHub y después se hace una copia en local:
+
+```
+$ git clone https://github.com/aaesalamanca/d-eventer.git
+```
+
+Ahora hay dos repositorios, el que se ha _clonado_ en local y el que está almacenado en la nube de GitHub. Cuando se quiere añadir una característica, no hay que trabajar sobre la rama principal o _master_, sino que se crea una rama local para hacer los cambios en esa rama —sin modificar la principal— y se sube a GitHub:
+
+```
+$ git branch nueva-rama // Crea la rama
+$ git switch nueva-rama // Se cambia el contexto a la rama creada
+$ git push --set-upstream origin nueva-rama // Sube la rama a GitHub
+```
+
+Ahora que tenemos la nueva rama —en local y en la nube—, estas pueden, y lo harán, trabajar de forma asíncrona. Así, cualquier cambio que se haga en el repositorio local debe pasar por un _commit_:
+
+```
+$ git add -A // Añade todos los cambios al índice
+// Confirma los cambios del índice con un comentario de commit.
+$ git commit -m "Esto es un comentario del commit"
+```
+
+Para que estos cambios se vean reflejados también en la rama almacenada en la nube, hay que ejecutar el siguiente comando:
+
+```
+$ git push origin nueva-rama
+```
+
+Finalmente, cuando se ha finalizado la característica que se quería añadir, debe solicitarse el _pull request_ en GitHub que, una vez aprobado, combinará el código de `nueva-rama` con la rama principal —sin cambios desde se creó `nueva-rama`. Para que esos cambios tengan lugar también en local:
+
+```
+$ git switch master // Cambia el contexto a la rama principal
+$ git merge nueva-rama // Combina nueva-rama con master
+$ git branch -d nueva-rama // Elimina nueva-rama
+$ git fetch -p // Elimina las referencias en la nube de nueva-rama
+```
+
+Este flujo básico y sencillo es el propuesto por GitHub para empezar a entender su funcionamiento junto a Git y cómo se trabaja con estos programas. La siguiente imagen es una representación gráfica, a grandes rasgos, de lo que sucede tras ejecutar los comandos anteriores.
+
+![GitHub Workflow](../images/github_workflow.png)
+
 #### Diagrams
 
 Diagrams.net es un _software_ libre con cliente _web_ y para escritorio para el diseño de, como el nombre hace sospechar, diagramas. Gran parte de los diseños que ilustran el presente documento y el resto distribuido en el repositorio están hechos con este programa.
@@ -454,6 +503,14 @@ android {
 ```
 
 #### Visual Studio Code
+
+Visual Studio Code es un editor de texto con _features_ avanzadas como autocompletado por medio de IntelliSense, herramientas de _debugging_, integración nativa con _software_ de control de versiones —Git, TFS, Hg, Azure Repos— y un sin fin de otras más.
+
+La instalación inicial deja un programa más básico y sencillo que cualquier IDE —normalmente enfocados a un ámbito o área concretos como Android Studio—; esta es su fortaleza, pueden instalarse extensiones que amplían y añaden nuevas características hasta dejar un editor de texto totalmente personalizado al gusto del desarrollador y su flujo de trabajo.
+
+Para el proyecto, se ha utilizado dada su compatibilidad con JavaScript, TypeScript, Node.js y Markdown sin tener que instalar nada, están incluidos por defecto en la instalación básica.
+
+JavaScript es el lenguaje en el que están escritas las funciones de Cloud Functions y para Markdown incluye una _preview_ o previsualización del aspecto final del documento antes de generar el `.pdf` o hacer un _commit_ de los cambios.
 
 ## Modelo de datos
 
@@ -546,6 +603,7 @@ Válido desde: Mon Mar 23 20:46:00 CET 2020 hasta: Wed Mar 16 20:46:00 CET 2050
 Huellas digitales del certificado:
          MD5: DB:E6:70:E9:AF:7D:6E:A4:0C:6E:A9:B4:92:58:35:8C
          SHA1: CB:0D:20:6D:58:0D:55:95:85:FA:CA:BE:77:FF:CE:42:82:DC:F3:63
+
          SHA256: C8:C2:65:F9:79:F5:63:B8:7B:41:1A:AF:5C:27:36:11:1A:21:1C:6C:CB:95:EA:85:29:21:59:74:85:EB:B5:6D
 Nombre del algoritmo de firma: SHA1withRSA
 Algoritmo de clave pública de asunto: Clave RSA de 2048 bits
@@ -620,6 +678,7 @@ dependencies {
 
   // When using a BoM, dependencies don't require a specified version
   // If you do specify a version, it overrides the library version specified in the BoM
+
   implementation 'com.google.firebase:firebase-auth'
   implementation 'com.google.firebase:firebase-firestore'
 }
@@ -754,12 +813,23 @@ En relación al _backend_:
 * [Wikipedia | Pandoc](https://en.wikipedia.org/wiki/Pandoc)
 * [wkhtmltopdf](https://wkhtmltopdf.org)
 * [wkhtmltopdf | Docs](https://wkhtmltopdf.org/usage/wkhtmltopdf.txt)
+* [Git](https://git-scm.com)
+* [Git Documentation | Official Git Tutorial](https://git-scm.com/docs/gittutorial)
+* [Wikipedia | Version Control](https://en.wikipedia.org/wiki/Version_control)
+* [GitHub](https://github.com)
+* [GitHub Guides | Hello World](https://guides.github.com/activities/hello-world)
+* [GitHub Guides | Understanding the GitHub Flow](https://guides.github.com/introduction/flow)
 * [Diagrams.net](https://www.diagrams.net)
 * [Android Studio](https://developer.android.com/studio)
 * [Android Studio | Releases](https://developer.android.com/studio/releases)
 * [Android Studio | Use Java 8 Language Features](https://developer.android.com/studio/write/java8-support)
 * [Android Studio | Java 8 Language Support Table](https://developer.android.com/studio/write/java8-support-table)
-* 
+* [Visual Studio Code](https://code.visualstudio.com)
+* [Visual Studio Code Docs | Getting Started](https://code.visualstudio.com/docs)
+* [Visual Studio Code Docs | Working with JavaScript](https://code.visualstudio.com/docs/nodejs/working-with-javascript)
+* [Visual Studio Code Docs | Markdown](https://code.visualstudio.com/docs/languages/markdown)
+* [Visual Studio Code Docs | Version Control](https://code.visualstudio.com/docs/editor/versioncontrol)
+* [Visual Studio Code Docs | Extension Marketplace](https://code.visualstudio.com/docs/editor/extension-galler)
 * [Firebase Docs | Add Firebase to your Android project](https://firebase.google.com/docs/android/setup)
 * [Firebase Docs | Firebase Authentication](https://firebase.google.com/docs/auth)
 * [Firebase Docs | Cloud Storage](https://firebase.google.com/docs/storage)
