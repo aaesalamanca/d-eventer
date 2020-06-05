@@ -254,7 +254,7 @@ A lo anterior, nosotros como desarrolladores, establecimos un par de puntos o pa
    1. Modelo-vista-controlador.
    2. Modelo-vista-presentador.
    3. Modelo-vista-modelo de vista.
-2. El apartado visual tiene por objeto la búsqueda de un diseño limpio y agradable a la vista —a pesar de lo subjetivo que puede llegar a ser este punto—. Para ello contamos con las pautas marcadsa por la guía de diseño —más bien _framework_— oficial de Google para Android: Material Design.
+2. El apartado visual tiene por objeto la búsqueda de un diseño limpio y agradable a la vista —a pesar de lo subjetivo que puede llegar a ser este punto—. Para ello contamos con las pautas marcadas por la guía de diseño —más bien _framework_— oficial de Google para Android: Material Design.
 
 Tan solo un apunte; adelantamos ya que el patrón de _software_ escogido es MVVM o _model_-_view_-_viewmodel_. Obviamente, se estudiaron los tres y en base a ventajas, desventajas y facilidades fue este el que nos pareció más adecuado.
 
@@ -540,6 +540,12 @@ En tercer lugar, hay que destacar el papel de Android Runtime o ART, la máquina
 Un último apunte, antes de finalizar, es la importancia que ha ido adquiriendo Kotlin paulatinamente hasta convertirse en lenguaje oficial y aceptado por Google para programar _apps_ en Android. Con Kotlin se escribe código más sencillo y simple, que reduce la redundancia y se ejecuta sobre las máquinas virtuales de Java —_backend_ clásico como HotSpot o de Android: ART— posibilitando, incluso, la interoperabilidad de código escrito en Java y Kotlin. Kotlin además puede ser compilado para iOS, entornos que ejecutan JavaScript, C y C++.
 
 ### Material Design
+
+La intención ya explícita previamente a nivel de diseño era conseguir un aspecto limpio y agradable a la vista. Esas son, precisamente, las pautas marcadas por Material Design, un lenguaje de diseño visual desarrollado por Google en 2014.
+
+Material Design no solo proporciona indicaciones acerca del aspecto que han de seguir los elementos visuales que aparecen y se desplazan por la pantalla —cartas, botones, menús, desplegables, calendarios, selectores de hora, transiciones, animaciones—, sino que cuenta con un SDK para añadir estos objetos y personalizarlos en desarrollos propios como punto de partida.
+
+Material Design se asienta sobre dos principios fundamentales: uso de luz y sombra e identifación clara y jerárquica de los elementos que aparecen. El primero ya los distribuye por niveles; si hay sombras, el cerebro entiende que el que recibe la sombra está por debajo. El segundo no solo tiene que ver con la posición, también con el tamaño, el uso de colores complementarios, fondos más claros, transparentes u opacos...
 
 ### Otros
 
