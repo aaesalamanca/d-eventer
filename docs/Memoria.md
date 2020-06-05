@@ -519,6 +519,24 @@ Esta es una de las posibilidades del uso de expresiones _lambda_; como ya se hab
 
 ### Android
 
+La introducción contenida al principio del documento pretende ser una carta de presentación sobre el sistema operativo para móviles —y cada vez más dispositivos de tipología distinta como _Smart TV_, _TV boxex_ o _smartbands_. Por tanto, no queda añadir mucho más a su situación en el mercado: cuota y números de versión.
+
+Tan solo un par de puntualizaciones acerca del funcionamiento interno de Android y las aproximaciones a la programación para este tipo de dispositivos.
+
+En primer lugar, la arquitectura interna de Android funciona como una pila de tecnologías cuya integración puede verse en la siguiente imagen:
+
+<p align="center"><img src="../images/android_stack.png"></p>
+
+En segundo lugar, de este _stack_ son interesantes de cara al desarrollo de aplicaciones: las librerías nativas en C y C++ para implementaciones nativas de carácter menor a bajo nivel o _bare metal_ a través del Android NDK —Native Development Kit—, que suelen proporcionar mejor rendimiento; y el _framework_ de Java que incluye las API básicas del sistema y son las más utilizadas para la creación de aplicaciones en este lenguaje.
+
+Para finalizar, en tercer lugar, hay que destacar el papel de Android Runtime o ART, la máquina virtual sobre la que se ejecutan las aplicaciones Java que reemplazó a Dalvik —la antigua máquina virtual de Android— Android 5.0. Las mejoras de ART sobre Dalvik son significativas en rendimiento:
+
+* Compilación JIT mejorada.
+* Recolector de basura optimizado.
+* Adición de compilación AOT.
+* Reducción del tamaño de los archivos `.dex`.
+* Mejor soporte para _debugging_ con diagnósticos de excepciones, _crasheos_, rendimiento, etc.
+
 ### Material Design
 
 ### Otros
@@ -899,7 +917,7 @@ En relación al _backend_:
 
 ## Bibliografía
 
-* [Wikipedia | Android (operating system) History](https://en.wikipedia.org/wiki/Android_(operating_system)#History)
+* [Wikipedia | Android (operating system) History](https://en.wikipedia.org/wiki/Android_(operating_system)#History)	
 * [Open Handset Alliance | Industry Leaders Announce Open Platform for Mobile Devices](http://www.openhandsetalliance.com/press_110507.html)
 * [TechCrunch | Breaking: Google Announces Android and Open Handset Alliance](https://techcrunch.com/2007/11/05/breaking-google-announces-android-and-open-handset-alliance)
 * [Google Official Blog | Where's my Gphone?](https://googleblog.blogspot.com/2007/11/wheres-my-gphone.html)
@@ -981,6 +999,10 @@ En relación al _backend_:
 * [Wikipedia | Comparison of Java Virtual Machines](https://en.wikipedia.org/wiki/Comparison_of_Java_virtual_machines)
 * [OpenJDK | HotSpot](http://openjdk.java.net/groups/hotspot)
 * [Wikipedia | HotSpot](https://en.wikipedia.org/wiki/HotSpot)
+* [Android Developers | Platform Architecture](https://developer.android.com/guide/platform)
+* [Android Developers | Android NDK](https://developer.android.com/ndk)
+* [Wikipedia | Dalvik](https://en.wikipedia.org/wiki/Dalvik_(software))
+* [Wikipedia | Android Runtime](https://en.wikipedia.org/wiki/Android_Runtime)
 * [Google Cloud | Google Maps Platform](https://cloud.google.com/maps-platform)
 * [Google Cloud | Maps](https://cloud.google.com/maps-platform/maps)
 * [Google Cloud | Places](https://cloud.google.com/maps-platform/places)
