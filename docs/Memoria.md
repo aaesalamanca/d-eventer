@@ -26,8 +26,8 @@
    4. [Material Design](#material-design)
    5. [Otros](#otros)
       1. [Google Maps Platform](#google-maps-platform)
-      2. [Node.js](#nodejs)
-      3. [JavaScript](#javascript)
+      2. [JavaScript](#javascript)
+      3. [Node.js](#nodejs)
       4. [Markdown](#markdown)
       5. [Pandoc y wkhtmltopdf](#pandoc-y-wkhtmltopdf)
       6. [Git y GitHub](#git-y-github)
@@ -376,9 +376,17 @@ Se distinguen dos SDK:
 * Maps: permite utilizar el mapa como tal dentro de la aplicación, visualizarlo y desplazarse sobre este.
 * Places: integrado con el anterior, es utilizado, entre sus numerosas funciones, para convertir direcciones a coordenadas y viceversa. Coordenadas que luego serán convertidas al clásico marcador de posición dentro del mapa renderizado por Maps.
 
+#### JavaScript
+
+JavaScript es un lenguaje de programación de alto nivel, interpretado, a veces compilado en tiempo de ejecución o JIT (_just-in-time compilation_), multipropósito, orientado a objetos y tipado débilmente —dinámico— muy utilizado con HTML y CSS para el desarrollo de páginas _web_ que incorporan elementos animados e interactivos.
+
+Inicialmente, los motores o entornos de ejecución de JavaScript estaban embebidos en los navegadores _web_; con el paso del tiempo, aparecieron entornos externos —Node.js, Apache CouchDB, Adobe Acrobat, Rhino, MongoDB— a los navegadores que permitían su ejecución fuera de estos hasta ofrecer alternativas _backend_ desarrolladas íntegramente en JavaScript o su alternativa fuertemente tipada, TypeScript.
+
+El uso de JavaScript en el proyecto queda reservado en exclusiva para las funciones de Cloud Functions.
+
 #### Node.js
 
-#### JavaScript
+La pequeña introducción de JavaScript ya adelantó qué es Node.js. A grandes rasgos, Node.js es un entorno de ejecución asíncrono, orientado a eventos, de JavaScript que toma como base el motor JavaScript V8 desarrollado para Google Chrome.
 
 #### Markdown
 
@@ -799,9 +807,17 @@ En relación al _backend_:
 * [Firebase Cloud Storage](https://firebase.google.com/products/storage)
 * [Firebase Cloud Messaging](https://firebase.google.com/products/cloud-messaging)
 * [Firebase Cloud Functions](https://firebase.google.com/products/functions)
-* [Google Cloud | Google MAps Platform](https://cloud.google.com/maps-platform)
+* [Google Cloud | Google Maps Platform](https://cloud.google.com/maps-platform)
 * [Google Cloud | Maps](https://cloud.google.com/maps-platform/maps)
 * [Google Cloud | Places](https://cloud.google.com/maps-platform/places)
+* [MDN web docs | JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
+* [MDN web docs | What is JavaScript](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/First_steps/What_is_JavaScript)
+* [Wikipedia | Just-in-time compilation](https://en.wikipedia.org/wiki/Just-in-time_compilation)
+* [Wikipedia | JavaScript](https://en.wikipedia.org/wiki/JavaScript)
+* [Node.js](https://nodejs.org/en)
+* [Node.js | About](https://nodejs.org/en/about)
+* [Wikipedia | Node.js](https://en.wikipedia.org/wiki/Node.js)
+* [Wikipedia | List of server-side JavaScript implementations](https://en.wikipedia.org/wiki/List_of_server-side_JavaScript_implementations)
 * [Daring Fireball | Markdown](https://daringfireball.net/projects/markdown)
 * [Wikipedia | Markdown](https://en.wikipedia.org/wiki/Markdown)
 * [GitHub | Markdown Cheatsheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)
