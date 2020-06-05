@@ -123,13 +123,12 @@ El panel de distribución oficial suministrado por el canal de Android Developer
 	</tr>
 	<tr>
 		<td>5.0</td>
-		<td>Lollipop</td>
+		<td rowspan="2">Lollipop</td>
 		<td>21</td>
 		<td>3.0 %</td>
 	</tr>
 	<tr>
 		<td>5.1</td>
-		<td></td>
 		<td>22</td>
 		<td>11.5 %</td>
 	</tr>
@@ -141,25 +140,23 @@ El panel de distribución oficial suministrado por el canal de Android Developer
 	</tr>
 	<tr>
 		<td>7.0</td>
-		<td>Nougat</td>
+		<td rowspan="2">Nougat</td>
 		<td>24</td>
 		<td>11.4 %</td>
 	</tr>
 	<tr>
 		<td>7.1</td>
-		<td></td>
 		<td>25</td>
 		<td>7.8 %</td>
 	</tr>
 	<tr>
 		<td>8.0</td>
-		<td>Oreo</td>
+		<td rowspan="2">Oreo</td>
 		<td>26</td>
 		<td>12.9 %</td>
 	</tr>
 	<tr>
 		<td>8.1</td>
-		<td></td>
 		<td>27</td>
 		<td>15.4%</td>
 	</tr>
