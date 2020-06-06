@@ -48,8 +48,10 @@
       3. [Añadir el archivo de configuración de Firebase](#añadir-el-archivo-de-configuración-de-firebase)
       4. [Añadir el SDK de Firebase a la _app_](#añadir-el-sdk-de-firebase-a-la-app)
    2. [Configuración de Firebase Authentication](#configuración-de-firebase-authentication)
-   3. [Configuración de Cloud Firestore](#configuración-de-cloud-firestore)
+   3. [Configuración de Firebase Realtime Database](#configuración-de-firebase-realtime-database)
    4. [Configuración de Cloud Storage](#configuración-de-cloud-storage)
+   5. [Configuración de Firebase Cloud Messaging](#configuración-de-firebase-cloud-messaging)
+   6. [Configuración de Cloud Functions](#configuración-de-cloud-functions)
 9. [Aplicación móvil](#aplicación-móvil)
     1. [Introducción](#introducción)
     2. [Breve estudio visual](#breve-estudio-visual)
@@ -710,6 +712,18 @@ JavaScript es el lenguaje en el que están escritas las funciones de Cloud Funct
 
 ## Modelo de datos
 
+```
+/
+|
+|———— chats/
+|
+|———— events/
+|
+|———— users/
+|
+
+```
+
 ## Arquitectura de _software_
 
 ![Cloud Architecture](../images/cloud_architecture.png)
@@ -769,6 +783,7 @@ Usamos el flujo de trabajo recomendado con la consola de Firebase; la otra opci�
 
 `app/build.gradle`
 ```gradle
+
 // ...
 android {
 	// ...
@@ -852,6 +867,7 @@ android {
 `app/build.gradle`
 ```gradle
 dependencies {
+
   // ...
 
   // Add the Firebase SDK for Google Analytics
@@ -882,9 +898,51 @@ dependencies {
 
 ### Configuración de Firebase Authentication
 
-### Configuración de Cloud Firestore
+```java
+FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password)
+	.addOnCompleteListener(task -> {
+		// Acciones a realizar cuando el registro se ha completado
+		// ...
+		if (task.isSuccessfull()) {
+			// Si el registro ha sido exitoso
+			// ...
+		} else {
+			// Si el registro ha fallado
+			// ...
+		}
+	});
+```
+
+```java
+FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password)
+	.addOnCompleteListener(task -> {
+		// Acciones a realizar cuando se ha completado el inicio de sesión
+		// ...
+		if (task.isSuccessfull()) {
+			// Si el inicio de sesión ha sido exitoso
+			// ...
+		} else {
+			// Si el inicio de sesión ha fracasado
+			// ...
+		}
+	});
+```
+
+```java
+FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+```
+
+```java
+FirebaseAuth.getInstance.signOut();
+```
+
+### Configuración de Firebase Realtime Database
 
 ### Configuración de Cloud Storage
+
+### Configuración de Firebase Cloud Messaging
+
+### Configuración de Cloud Functions	
 
 ## Aplicación móvil
 
