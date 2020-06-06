@@ -725,6 +725,7 @@ JavaScript es el lenguaje en el que están escritas las funciones de Cloud Funct
 |       |         |— idMensajeN/
 |       |— ...
 |       |— idChatN/
+|
 |— eventos/
 |         |— idEvento0/
 |         |           |— fecha: string
