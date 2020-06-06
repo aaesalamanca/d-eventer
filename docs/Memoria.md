@@ -968,6 +968,29 @@ FirebaseAuth.getInstance.signOut();
 
 ### Configuración de Firebase Realtime Database
 
+```java
+// Petición de todos los eventos disponibles en la base de datos, concretamente
+// en la ruta /eventos
+FirebaseDatabase.getInstance().getReference.child("eventos")
+	.addValueEventListener(new ValueEventListener() {
+	// El listener lee todos los datos la primera vez que se adjunta/añade
+	// y cada vez que cambia algún dato en la subrama que obtiene.
+		@Override
+		public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+			for (DataSnapshot fDataSnapshot : dataSnapshot.getChildren()) {
+				// La conversión es automática a través de Gson
+				Evento evento = fDataSnapshot.getValue(Evento.class);
+			}
+		}
+		
+		// Se invoca cuando hay un error en la lectura de datos
+		@Override
+		public void onCancelled(@NonNull DatabaseError databaseError) {
+			
+		}
+	});
+```
+
 ### Configuración de Cloud Storage
 
 ### Configuración de Firebase Cloud Messaging
