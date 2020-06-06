@@ -976,7 +976,6 @@ exports.enviarNotificacion = functions.https.onCall(async (data, context) => {
 	const nombreUsuario = data.nombreUsuario;
 	const mensaje = data.mensaje;
 	
-	
 	var notificacion = {
 		topic: event_id,
 		notification: {
