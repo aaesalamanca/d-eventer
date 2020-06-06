@@ -969,6 +969,8 @@ FirebaseAuth.getInstance.signOut();
 ### Configuración de Firebase Realtime Database
 
 ```java
+// Sube un evento a la base de datos en la ruta /eventos con un id generado
+// automáticamente que toma como base el tiempo actual
 FirebaseDatabase.getInstance().getReference.child("eventos")
 	.setValue(evento);
 ```
