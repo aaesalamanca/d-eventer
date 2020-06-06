@@ -942,7 +942,56 @@ FirebaseAuth.getInstance.signOut();
 
 ### Configuración de Firebase Cloud Messaging
 
-### Configuración de Cloud Functions	
+```java
+FirebaseMessaging.getInstance().subscribeToTopic(idEvento);
+```
+
+```java
+FirebaseMessaging.getInstance().unsubscribeFromTopic(idEvento);
+```
+
+### Configuración de Cloud Functions
+
+```javascript
+const functions = require('firebase-functions');
+
+const admin = require('firebase-admin');
+admin.initializeApp({
+	credential: admin.credential.applicationDefault(),
+});
+
+exports.enviarNotificacion = functions.https.onCall(async (data, context) => {
+	const idEvento = data.idEvento;
+	const idUsuario = data.idUsuario;
+	const nombreUsuario = data.nombreUsuario;
+	const mensaje = data.mensaje;
+	
+	
+	var notificacion = {
+		topic: event_id,
+		notification: {
+			title: nombreUsuario,
+			body: mensaje
+		},
+		data: {
+			idEvento: idEvento,
+			idUsuario: idUsuario
+		}
+	}
+    
+	admin.messaging().send(notificacion);
+});
+```
+
+```java
+Map<String, String> data = new HashMap<>();
+data.put("idEvento", idEvento);
+data.put("idUsuario", idUsuario);
+data.put("nombreUsuario", nombreUsuario);
+data.put("mensaje", mensaje);
+FirebaseFunctions.getInstance()
+	.getHttpsCallable("enviarNotificacion").call(data);
+```
 
 ## Aplicación móvil
 
