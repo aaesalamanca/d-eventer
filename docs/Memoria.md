@@ -1056,6 +1056,41 @@ exports.enviarNotificacion = functions.https.onCall(async (data, context) => {
 
 ### Introducción
 
+```java
+public class Model {
+	// Lógica de negocio
+	// ...
+}
+
+public class ViewModel {
+	// Interacción con el modelo
+	// ...
+	
+	public BindedData getBindedData() {
+		// Obtención y tratamiento de los datos del modelo y la base de datos para
+		// servirlos a la vista
+		// ...
+		
+		return bindedData;
+	}
+}
+
+public class MyActivity extends View, AppCompatActivity {
+	private ViewModel viewModel;
+	
+	// ...
+	
+	// Obtiene los datos del modelo de vista con el formato que necesita la vista
+	// y los muestra, por ejemplo, al usuario por la pantalla del dispositivo
+	private void getBindedData() {
+		BindedData bindedData = viewModel.getBindedData();
+		
+		// Uso de los datos para que el usuario los visualice
+		// ...
+	}
+}
+```
+
 ### Breve estudio visual
 
 ![Paleta de color](../images/color-palette.png)
