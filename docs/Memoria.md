@@ -952,6 +952,16 @@ FirebaseMessaging.getInstance().unsubscribeFromTopic(idEvento);
 
 ### Configuración de Cloud Functions
 
+```java
+Map<String, String> data = new HashMap<>();
+data.put("idEvento", idEvento);
+data.put("idUsuario", idUsuario);
+data.put("nombreUsuario", nombreUsuario);
+data.put("mensaje", mensaje);
+FirebaseFunctions.getInstance()
+	.getHttpsCallable("enviarNotificacion").call(data);
+```
+
 ```javascript
 const functions = require('firebase-functions');
 
@@ -981,16 +991,6 @@ exports.enviarNotificacion = functions.https.onCall(async (data, context) => {
     
 	admin.messaging().send(notificacion);
 });
-```
-
-```java
-Map<String, String> data = new HashMap<>();
-data.put("idEvento", idEvento);
-data.put("idUsuario", idUsuario);
-data.put("nombreUsuario", nombreUsuario);
-data.put("mensaje", mensaje);
-FirebaseFunctions.getInstance()
-	.getHttpsCallable("enviarNotificacion").call(data);
 ```
 
 ## Aplicación móvil
