@@ -714,14 +714,43 @@ JavaScript es el lenguaje en el que están escritas las funciones de Cloud Funct
 
 ```
 /
+|— chats/
+|       |— idChat0/
+|       |         |— idMensaje0/
+|       |         |            |— fecha: long
+|       |         |            |— nombre: string
+|       |         |            |— uriImagenPerfil: string
+|       |         |            |— texto: string
+|       |         |— ...
+|       |         |— idMensajeN/
+|       |— ...
+|       |— idChatN/
+|— eventos/
+|         |— idEvento0/
+|         |           |— fecha: string
+|         |           |— descripción: string
+|         |           |— uriImagen: string
+|         |           |— nombre: string
+|         |           |— idCreador: string
+|         |           |— precio: string
+|         |           |— hora: string
+|         |           |— númeroDeUsuarios: int
+|         |— ...
+|         |— idEventoN/
 |
-|———— chats/
-|
-|———— events/
-|
-|———— users/
-|
-
+|— usuarios/
+           |— idUsuario0/
+           |            |— edad: string
+           |            |— alEventos/
+           |            |           |— 0: idEvento0
+           |            |           |— ...
+           |            |           |— N: idEvento1
+           |            |
+           |            |— nombre: string
+           |            |— códigoPostal: string
+           |            |— sexo: string
+           |— ...
+           |— idUsuarioN/
 ```
 
 ## Arquitectura de _software_
