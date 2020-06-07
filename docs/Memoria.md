@@ -444,7 +444,7 @@ Desde el lanzamiento de la beta del JDK en 1995, Java no ha dejado de incorporar
 
 En la medida en que este proyecto pretende ajustarse a un desarrollo real adaptado a las particularidades de su tiempo y el modo en que se llevan a cabo en el mundo empresarial, hay que destacar el empeño que se ha tenido a la hora de utilizar Java, en concreto características de la versión 8 —se desplegó en marzo de 2014— que supusieron un gran avance y puesta al día de la plataforma. El uso al que se refiere este documento es el de las expresiones _lambda_ o funciones anónimas, que fueron incorporadas en esta iteración y añaden métodos de programación funcional, reduciendo el número de líneas de código redundante e innecesario.
 
-Los siguientes bloques de código Java suponen una pequeña demostración de cómo es el funcionamiento de estas expresiones _lambda_ y cuáles sus ventajas.
+Los siguientes bloques de código Java —simplificados para su exposición y comprensión— suponen una pequeña demostración de cómo es el funcionamiento de estas expresiones _lambda_ y cuáles sus ventajas.
 
 ```java
 // Este bloque de código contiene el fuente de Java resultante si no
@@ -712,6 +712,12 @@ JavaScript es el lenguaje en el que están escritas las funciones de Cloud Funct
 
 ## Modelo de datos
 
+La naturaleza de la base de datos seleccionada para la aplicación tuvo importantes implicaciones. La primera de ellas y más importante: ya no había que enfrentarse al tradicional diseño de esquemas relacionales, lo cual puede constituirse en ventaja o inconveniente. Como se ha dicho, todo parte de un gran árbol similar a JSON con lo que de ello se deriva y en nada se asemeja a las rígidas tablas SQL.
+
+De cualquier modo, se ha tratado de mantener una estructura similar —en la medida de lo posible— a como sería la base de datos en el caso de haber contado con una de tipología relacional. Todo, por supuesto, tratando de aunar y aprovechar la flexbilidad y rapidez que ofrecen este tipo de tecnologías más recientes. El problema se plantea en el momento de validar la integridad de los datos, que queda en manos de los desarrolladores; la validación ha de realizarse mediante código.
+
+Planteados los puntos anteriores, lo siguiente es presentar junto a unas pequeñas indicaciones el modelo de datos que sostiene la aplicación:
+
 ```
 /
 |— chats/
@@ -754,11 +760,46 @@ JavaScript es el lenguaje en el que están escritas las funciones de Cloud Funct
            |— idUsuarioN/
 ```
 
+Como puede apreciarse, en base a las necesidades y objetivos que se habían planteado, la base de datos destaca por lo reducido del número de elementos. De la raíz parten tres grandes subconjuntos: `chats`, `eventos` y `usuarios`. Sí que se mantiene cierta tradición heredada del modelo relacional, pues cada uno de los elementos contenidos dentro de estos subconjuntos está identificado por una clave (se recuerda que son pares clave-valor) única y autogenerada por Firebase Realtime Database y Firebase Authentication en el caso que corresponda:
+
+* La clave de cada usuario la proporciona Firebase Authentication; son UID o User ID.
+* La clave de cada evento la genera Firebase Realtime Database.
+* La clave de cada _chat_ es compartida con la del evento al que está asociado, esto es, son las mismas: la clave primaria de los _chats_ es, a su vez, foránea y apunta a la primaria de los eventos.
+* La clave de cada uno de los mensajes dentro de los _chats_ es única y generada por Firebase Realtime Database.
+* Los usuarios cuentan con un _array_ de claves foráneas asociadas a los eventos a los que están apuntados.
+
+Como puede comprobarse, se ha intentado evitar duplicidades y repeticiones, fenómeno bastante común en este tipo de bases de datos que a la larga conlleva mayor dificultad en su mantenimiento, utilizando técnicas y métodos procedentes del modelo relacional.
+
 ## Arquitectura de _software_
+
+En el apartado de diseño no solo se ha tenido en cuenta el modelo de datos, también la definición de una arquitectura completa —en la nube— que acompañe a todo el proceso de desarrollo; desde la documentación y su generación, hasta el control de versiones, despliegue de la aplicación e interacción con todos los servicios de Firebase y Google Coud.
 
 ![Cloud Architecture](../images/cloud_architecture.png)
 
+1. Todo el código y documentación —en texto plano— pasa por Git y GitHub.
+2. La documentación, escrita inicialmente en texto plano con etiquetas Markdown, es tratada por los motores de _render_ pandoc y wkhtmltopdf para generar el PDF final.
+3. El código que tiene por función el envío de notificaciones es escrito en JavaScript —Node.js— y se despliega en Cloud Functions, que, asimismo, interactúa con Cloud Messaging.
+4. Por su parte, el código fuente de la _app_ se escribe en Android Studio —Java para la parte programática, XML para el aspecto visual de la interfaz— y se instala en los dispositivos móviles.
+5. Con la aplicación instalada, Firebase Authentication controla el acceso de los usuarios a los distintos servicios: Cloud Functions, Cloud Messaging, Firebase Realtime Database, Cloud Storage, Maps SDK y Places SDK.
+6. Paralelamente a esta comunicación en red se encuentra el SDK de Google Analytics para ofrecer estadísticas de uso, funcionamiento, actividad, etc.
+
 ## Patrones de diseño
+
+Con la aparición de programas con interfaces gráficas —que han aumentado su complejidad— surgió el problema de la separación de datos; empezó a ser inviable el mantenimiento de un código en el que aquel dedicado a los datos y la lógica de negocio aparecía en el mismo lugar —y mezclado— junto al que se destinaba para su representación y gestión de conexiones/comunicaciones.
+
+Para solucionar esta problemática aparecieron diferentes patrones de arquitectura de _software_ que, a rasgos generales, proponen la construcción de tres módulos o componentes interconectados: unos se encargan de la representación de la información y otros de la interacción del usuario. Estos patrones toman prestadas ideas de reutilización de código y separación de conceptos, lo que facilita el desarrollo de los programas informáticos y su mantenimiento.
+
+Los tres patrones que aquí se plantean son los más destacados y conocidos dentro del sector informático, aunque existen muchos otros —todos ellos, en realidad, derivados unos de otros—:
+
+* Modelo-vista-controlador o MVC (_model-view-controller_).
+* Modelo-vista-presentador o MVP (_model-view-presenter_).
+* Modelo-vista-modelo de vista o MVVM (_model-view-viewmodel_).
+
+Otra de las ventajas que aparecen a raíz de la utilización de este tipo de patrones es el desacoplamiento, lo que reduce la dependencia entre componentes y permite, precisamente, la creación de módulos más pequeños e independientes que cumplen con una funcionalidad concreta:
+
+> Divide y vencerás.
+
+A continuación se explican estos tres patrones, sus ventajas y desventajas y los motivos que impulsaron la elección de uno de ellos —además de un pequeño ejemplo simplificado y preparado para tal fin de su implementación en la _app_—.
 
 ### Patrón MVC
 
