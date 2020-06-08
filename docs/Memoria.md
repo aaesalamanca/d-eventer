@@ -54,10 +54,6 @@
    6. [Configuración de Cloud Functions](#configuración-de-cloud-functions)
 9. [Aplicación móvil](#aplicación-móvil)
     1. [Introducción](#introducción)
-    2. [Breve estudio visual](#breve-estudio-visual)
-    3. [_View_](#view)
-    4. [_ViewModel_](#viewmodel)
-    5. [_Model_](#model)
 10. [Conclusión](#conclusión)
 11. [Mejoras](#mejoras)
 12. [Bibliografía](#bibliografía)
@@ -215,7 +211,7 @@ Debe entenderse como un lugar en el que concretar aquel partido de fútbol que s
 
 Y tres; tras una búsqueda de mayor profundidad, dimos con alternativas más alineadas con los objetivos que planteamos: dplanes, Plan & Go y GeoKeda. Las dos primeras desaparecieron de las _stores_ en las que estaban disponibles; desconemos los motivos que llevaron a dicho cierre en dplanes, pero Plan & Go dejó de estar disponible el 30 de septiembre de 2019 por falta de apoyo financiero aun habiendo conseguido más de 50.000 descargas en su primer año en Google Play. Plan & Go es, de hecho, la aplicación que más se asemeja a dEventer. Está en primera instancia orientada a los ciudadanos de la comunidad de Madrid y, lo más importante, se centraba en planes sin ánimo de lucro por el organizador, a pesar de que los hubiera con pagos para acceder a los lugares en los que tendría lugar el evento. GeoKeda, por su parte, sigue en activo con, también, más de 50.000 descargas en Play Store y los usuarios continúan usándola a día de hoy. No obstante, creemos que su aspecto está demasiado anclado en el Material Design presentado allá por 2014 y la última actualización que recibió la _app_ móvil fue el 18 de abril de 2017, hace más de tres años, lo cual deja entrever la falta de soporte actual y el añadido de nuevas características y funcionalidades.
 
-Como ya se señaló previamente, esta decisión se tomó en los primeros días de marzo, cuando la coyuntura todavía era propicia y no nos había alcanzado la crisis asociada al COVID-19. Tras el estado de alarma decretado por el Gobierno de España, las restricciónes a la libre circulación y reunión de personas y la lenta recuperación y vuelta a la normalidad que se prevé, especialmente en materia sociocultural, pudiera parecer el momento menos adecuado para un desarrollo de esta naturaleza. No podemos negar la mayor, lo sabemos, no es la situación adecuada para que prospere. No obstante, confiamos en que tras la recuperación, con el paso del tiempo, fuera capaz de erigirse en una opción válida para la realización de actividades con un fuerte componente social y, sobre todo, sin grandes pretensiones; planes sencillos que surgen en el día a día y no cuestan nada o casi nada.
+Como ya se señaló previamente, esta decisión se tomó en los primeros días de marzo, cuando la coyuntura todavía era propicia y no nos había alcanzado la crisis asociada al COVID-19. Tras el estado de alarma decretado por el Gobierno de España, las restricciónes a la libre circulación y reunión de personas y la lenta recuperación y vuelta a la normalidad que se prevé, especialmente en materia sociocultural, pudiera parecer el momento menos adecuado para un desarrollo de esta naturaleza. No podemos negar la mayor, lo sabemos, no es la situación adecuada para que prospere. Sin embargo, confiamos en que tras la recuperación, con el paso del tiempo, fuera capaz de erigirse en una opción válida para la realización de actividades con un fuerte componente social y, sobre todo, sin grandes pretensiones; planes sencillos que surgen en el día a día y no cuestan nada o casi nada.
 
 ## Objetivos del proyecto
 
@@ -839,7 +835,7 @@ La búsqueda de soluciones a los problemas de MVC dio con el patrón MVP. Ahora 
 
 Lo más significativo del cambio es que, en esta nueva coyuntura, la vista pasa a contener tan solo una referencia, la del presentador, facilitando todavía más la realización de pruebas y _testing_ debido a un mayor desacoplamiento y reducción de dependencias. Además, esta referencia ya no es sobre una clase concreta, sino sobre interfaces de vista y presentador que deben implementar, respectivamente, y que definen el contrato que las relaciona.
 
-No obstante, también aparecen nuevas desventajas: la estrecha relación entre la vista y el presentador puede hacer que aumente de forma considerable el número de interfaces y líneas de código, incluso para pequeñas operaciones de la interfaz gráfica.
+Sin embargo, también aparecen nuevas desventajas: la estrecha relación entre la vista y el presentador puede hacer que aumente de forma considerable el número de interfaces y líneas de código, incluso para pequeñas operaciones de la interfaz gráfica.
 
 ### Patrón MVVM
 
@@ -903,7 +899,7 @@ Por último, y para dar cuenta de lo que supone a nivel de desarrollo real, se a
 		</tr>
 		<tr>
 			<td><img alt="Modelo" src="../images/model.png"></td>
-			<td><img alt="Vista" src="../images/view.png"></td>
+			<td><img alt="Vista" src="../images/vie	w.png"></td>
 			<td><img alt="Modelo de vista" src="../images/viewmodel.png"></td>
 		</tr>
 	</table>
@@ -911,9 +907,11 @@ Por último, y para dar cuenta de lo que supone a nivel de desarrollo real, se a
 
 ## Configuración de Firebase
 
+Antes de comenzar a utilizar Firebase, es necesario tener cuenta en el servicio. Lo más común es disponer de cuenta en Google —gmail— que ofrece acceso directo a la consola de Firebase.
+
 ### Configuración general del proyecto
 
-Requisitos:
+Para poder añadir Firebase al proyecto hay unos requisitos que cumplir:
 
 * Android Studio
 * La API objetivo es Jelly Bean —número de versión 16— o superior.
@@ -924,31 +922,31 @@ Requisitos:
 * Configurar un dispositivo físico o un emulador en el que ejecutar la aplicación.
 * Iniciar sesión en Firebase.
 
-Usamos el flujo de trabajo recomendado con la consola de Firebase; la otra opción recurre al asistente de Firebase para Android Studio y necesita pasos adicionales para su puesta en marcha.
+Firebase ofrece dos opciones de _setup_, la recomendada y otra que recurre al asistente de Firebase para Android Studio y necesita pasos adicionales para su puesta en marcha. Aquí se muestran los pasos con el flujo de trabajo recomendado
 
 #### Crear el proyecto en Firebase
 
+El proceso de creación del proyecto de Firebase necesita el nombre asociado a este:
+
 ![Crear el proyecto en Firebase: Parte 1](../images/create-firebase-1.png)
 
-![Crear el proyecto en Firebase: Parte 2.1](../images/create-firebase-2-1.png)
+También se debe activar el SDK de Google Analytics para contar con herramientas de análisis, creación de informes, operaciones de publicidad, etc. Este paso solicita la creación de una cuenta, pero puede usar la que se crea por defecto.
 
 ![Crear el proyecto en Firebase: Parte 2.2](../images/create-firebase-2-2.png)
 
 ![Crear el proyecto en Firebase: Parte 3](../images/create-firebase-3.png)
 
+Una vez Firebase crea el proyecto, ofrece acceso a la consola desde la que gestionar todas las herramientas y servicios.
+
 ![Crear el proyecto en Firebase: Consola](../images/firebase-console.png)
 
 #### Registrar la aplicación en Firebase
 
-![Registrar la aplicación en Firebase: Parte 1](../images/firebase-add-app-1.png)
+Tras crear el proyecto, hay que añadir la aplicación para que tenga acceso a Firebase. El proceso es similar, aunque puede presentar diferencias en función de la plataforma en que se ha desarrollado la _app_: Android, iOS, _web_, Unity... Para el caso, solo se muestra el proceso con Android.
 
-![Registrar la aplicación en Firebase: Parte 2](../images/firebase-add-app-2.png)
+En primer lugar, hay que acceder al archivo `app/build.gradle` del proyecto en Android Studio y buscar el nombre del paquete, que suele ser el valor de `applicationId`. Aquí sería: es.deventer.test
 
-![Registrar la aplicación en Firebase: Parte 3](../images/firebase-add-app-3.png)
-
-`app/build.gradle`
 ```gradle
-
 // ...
 android {
 	// ...
@@ -960,10 +958,18 @@ android {
 }
 ```
 
+Este nombre del paquete es el que hay que escribir en el momento de registrar la aplicación.
+
+![Registrar la aplicación en Firebase: Parte 3](../images/firebase-add-app-3.png)
+
+En la imagen también se pide un apodo opcional que identifica internamente la aplicación —puede cambiarse más adelante— y un certificado de firma de depuración SHA-1, en principio, opcional. Sin embargo, es un requerimiento de Firebase Authentication, por lo que también se completa el campo en este paso.
+
 `SHA-1`
 ```
 $ keytool -list -v -alias androiddebugkey -keystore %USERPROFILE%\.android\debug.keystore
 ```
+
+La firma SHA-1, de _debug_, se obtiene ejecutando el comando anterior en un terminal de Windows y devuelve el siguiente fragmento de texto donde está la cadena necesaria para completar el proceso de registro.
 
 `SHA-1`
 ```
@@ -979,7 +985,6 @@ Válido desde: Mon Mar 23 20:46:00 CET 2020 hasta: Wed Mar 16 20:46:00 CET 2050
 Huellas digitales del certificado:
          MD5: DB:E6:70:E9:AF:7D:6E:A4:0C:6E:A9:B4:92:58:35:8C
          SHA1: CB:0D:20:6D:58:0D:55:95:85:FA:CA:BE:77:FF:CE:42:82:DC:F3:63
-
          SHA256: C8:C2:65:F9:79:F5:63:B8:7B:41:1A:AF:5C:27:36:11:1A:21:1C:6C:CB:95:EA:85:29:21:59:74:85:EB:B5:6D
 Nombre del algoritmo de firma: SHA1withRSA
 Algoritmo de clave pública de asunto: Clave RSA de 2048 bits
@@ -988,20 +993,23 @@ Versión: 1
 
 #### Añadir el archivo de configuración de Firebase
 
+Con la aplicación registrada, Firebase genera un archivo de nombre `google-services.json` que debe ser añadido a la carpeta `app` de la imagen como se ve en las imágenes que acompañan al texto.
+
 ![Añadir el archivo de configuración de Firebase: Parte 1](../images/firebase-add-app-4.png)
 
 ![Añadir el archivo de configuración de Firebase: Parte 2](../images/firebase-add-app-5.png)
 
-`project/build.gradle`
+Lo siguiente es comprobar y añadir que el proyecto dispone de los repositorios y servicios de Google y Google Services. Primero en el archivo `project/build.gradle`:
+
 ```gradle
 buildscript {
   repositories {
-    // Check that you have the following line (if not, add it):
-    google()  // Google's Maven repository
+    // Comprueba que tienes esta línea o añádela
+    google()  // Repositorio de Google Maven
   }
   dependencies {
     // ...
-    // Add this line
+    // Añade esta línea
     classpath 'com.google.gms:google-services:4.3.3'
   }
 }
@@ -1009,18 +1017,19 @@ buildscript {
 allprojects {
   // ...
   repositories {
-    // Check that you have the following line (if not, add it):
-    google()  // Google's Maven repository
+    // Comprueba que tienes esta línea o añádela
+    google()  // Repositorio de Google Maven
     // ...
   }
 }
 ```
 
-`app/build.gradle`
+Y después en `app/build.gradle`:
+
 ```gradle
 apply plugin: 'com.android.application'
-// Add the following line:
-apply plugin: 'com.google.gms.google-services'  // Google Services plugin
+// Añade la siguiente línea
+apply plugin: 'com.google.gms.google-services'  // Plugin de Google Services
 
 android {
   // ...
@@ -1029,35 +1038,50 @@ android {
 
 #### Añadir el SDK de Firebase a la _app_
 
-`app/build.gradle`
+Finalmente, para empezar a utilizar Firebase hay que añadir los SDK que vayan a ser utilizados en `app/build.gradle`:
+
 ```gradle
 dependencies {
-
   // ...
+  // Añade el SDK de Google Analytics
+  implementation 'com.google.firebase:firebase-analytics:17.4.3'
 
-  // Add the Firebase SDK for Google Analytics
-  implementation 'com.google.firebase:firebase-analytics:17.3.0'
-
-  // Add the dependencies for any other Firebase products you want to use in your app
-  // For example, to also use Firebase Authentication
-  implementation 'com.google.firebase:firebase-auth:19.3.0'
-
-  // Getting a "Could not find" error? Make sure that you've added
-  // Google's Maven repository to your root-level build.gradle file
+  // Añade el resto de SDK de Firebase
+  // SDK de Firebase Authentication
+  implementation 'com.google.firebase:firebase-auth:19.3.1'
+  // SDK de Firebase Realtime Database
+  implementation 'com.google.firebase:firebase-database:19.3.0'
+  // SDK de Firebase Cloud Storage
+  implementation 'com.google.firebase:firebase-storage:19.1.1'
+  // SDK de Cloud Functions
+  implementation 'com.google.firebase:firebase-functions:19.0.2'
+  // SDK de Firebase Cloud Messaging
+  implementation 'com.google.firebase:firebase-messaging:20.2.0'
 }
 ```
 
-`app/build.gradle`
+Otra forma de añadir el SDK de Firebase al archivo `app/build.gradle` es a través de Firebase Bill of Materials —BoM—, que actúa como un supercontenedor y evita la obligación de mantener el número de versión de cada uno de los SDK de forma independiente, solo hay que actualizar a la última versión de BoM:
+
 ```gradle
 dependencies {
-  // Import the platform
-  implementation platform('com.google.firebase:firebase-bom:25.2.2')
+// ...
+  // Añade Firebase Bill of Materials —BoM—
+  implementation platform('com.google.firebase:firebase-bom:25.4.1')
 
-  // When using a BoM, dependencies don't require a specified version
-  // If you do specify a version, it overrides the library version specified in the BoM
+  // Añade el SDK de Google Analytics
+  implementation 'com.google.firebase:firebase-analytics'
 
+  // Añade el resto de SDK de Firebase
+  // SDK de Firebase Authentication
   implementation 'com.google.firebase:firebase-auth'
-  implementation 'com.google.firebase:firebase-firestore'
+  // SDK de Firebase Realtime Database
+  implementation 'com.google.firebase:firebase-database'
+  // SDK de Firebase Cloud Storage
+  implementation 'com.google.firebase:firebase-storage'
+  // SDK de Cloud Functions
+  implementation 'com.google.firebase:firebase-functions'
+  // SDK de Firebase Cloud Messaging
+  implementation 'com.google.firebase:firebase-messaging'
 }
 ```
 
@@ -1191,9 +1215,9 @@ exports.enviarNotificacion = functions.https.onCall(async (data, context) => {
 
 ### Introducción
 
-### Conclusión
+## Conclusión
 
-### Mejoras
+## Mejoras
 
 En relación a los perfiles:
 
