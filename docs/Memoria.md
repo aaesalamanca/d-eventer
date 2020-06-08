@@ -14,7 +14,8 @@
 2. [Objetivos del proyecto](#objetivos-del-proyecto)
 3. [Requisitos](#requisitos)
    1. [Casos de uso](#casos-de-uso)
-4. [Tecnologías utilizadas](#tecnologías-utilizadas)
+4. [Aspecto visual](#aspecto-visual)
+5. [Tecnologías utilizadas](#tecnologías-utilizadas)
    1. [Firebase](#firebase)
       1. [Firebase Authentication](#firebase-authentication)
       2. [Firebase Realtime Database](#firebase-realtime-database)
@@ -34,14 +35,14 @@
       7. [Diagrams](#diagrams)
       8. [Android Studio](#android-studio)
       9. [Visual Studio Code](#visual-studio-code)
-5. [Modelo de datos](#modelo-de-datos)
-6. [Arquitectura de _software_](#arquitectura-de-software)
-7. [Patrones de diseño](#patrones-de-diseño)
+6. [Modelo de datos](#modelo-de-datos)
+7. [Arquitectura de _software_](#arquitectura-de-software)
+8. [Patrones de diseño](#patrones-de-diseño)
    1. [Patrón MVC](#patrón-mvc)
    2. [Patrón MVP](#patrón-mvp)
    3. [Patrón MVVM](#patrón-mvvm)
    4. [Elección del patrón](#elección-del-patrón)
-8. [Configuración de Firebase](#configuración-de-firebase)
+9. [Configuración de Firebase](#configuración-de-firebase)
    1. [Configuración general del proyecto](#configuración-general-del-proyecto)
       1. [Crear el proyecto en Firebase](#crear-el-proyecto-en-firebase)
       2. [Registrar la aplicación en Firebase](#registrar-la-aplicación-en-firebase)
@@ -52,8 +53,6 @@
    4. [Configuración de Cloud Storage](#configuración-de-cloud-storage)
    5. [Configuración de Firebase Cloud Messaging](#configuración-de-firebase-cloud-messaging)
    6. [Configuración de Cloud Functions](#configuración-de-cloud-functions)
-9. [Aplicación móvil](#aplicación-móvil)
-    1. [Introducción](#introducción)
 10. [Conclusión](#conclusión)
 11. [Mejoras](#mejoras)
 12. [Bibliografía](#bibliografía)
@@ -294,7 +293,38 @@ Finalmente, a aquellos inscritos en una misma quedada se les ofrece la posibilid
 
 En apartados futuros se verá cómo se plasman visualmente y a nivel de funcionalidad los diagramas mostrados.
 
+## Aspecto visual
+
+Como el vídeo de la presentación y la demostración ahondarán más en el diseño de la interfaz, la tabla contiene un conjunto significativo de imágenes que recogen las acciones representativas de lo que puede hacer un usuario mientras usa la aplicación.
+
+<p align="center">
+	<table>
+		<tr>
+			<td><p align="center"><b>Inicia sesión</b></p>
+			<td><p align="center"><b>Mira los planes disponibles</b></p>
+			<td><p align="center"><b>Mira tus planes</b></p>
+		</tr>
+		<tr>
+			<td><img alt="Inicia sesión" src="../images/1_sign_in.png"></td>
+			<td><img alt="Mira los planes disponibles" src="../images/2_view_events.png"></td>
+			<td><img alt="Mira tus planes" src="../images/3_view_own_events.png"></td>
+		</tr>
+		<tr>
+			<td><p align="center"><b>Mira los <i>chats</b></p>
+			<td><p align="center"><b><i>Chatea</i></b></p>
+			<td><p align="center"><b>Cambia tu imagen de perfil</b></p>
+		</tr>
+		<tr>
+			<td><img alt="Mira los chats" src="../images/4_view_chats.png"></td>
+			<td><img alt="Chatea" src="../images/5_view_chat.png"></td>
+			<td><img alt="Cambia tu imagen de perfil" src="../images/6_view_profile.png"></td>
+		</tr>
+	</table>
+</p>
+
 ## Tecnologías utilizadas
+
+No están todas las que son, pero son todas las que están. La lista total se ha visto reducida en pos de facilitar la legibilidad y se han eliminado, sobre todo, las relacionadas con el aspecto gráfico: Glide para descargar imágenes, CircleImageView —imágenes circulares—, RecyclerView en la carga optimizada de listas, botones de Material Design, barra inferior con pestañas, librerías de inicio de sesión con huella... Para comprobar su funcionamiento esta memoria se remite a la lectura del código completo que forma el proyecto.
 
 ### Firebase
 
@@ -1158,7 +1188,7 @@ public class Evento {
 }
 ```
 
-Escribir uno de los planes es tan sencillo como acceder a la ruta correspondiente dentro del JSON y pasar como parámetro un objeto de la clase `Evento` al método `setValue`. Previamente hay que crear un hijo con clave autogenerada en `/eventos`
+Escribir uno de los planes es tan sencillo como acceder a la ruta correspondiente dentro del JSON y pasar como parámetro un objeto de la clase `Evento` al método `setValue`. Previamente hay que crear un hijo con clave autogenerada en `/eventos`; la función es `push`.
 
 ```java
 // Sube un evento a la base de datos en la ruta /eventos con un id generado
@@ -1167,13 +1197,16 @@ FirebaseDatabase.getInstance().getReference.child("eventos").push()
 	.setValue(evento);
 ```
 
+La lectura sigue la operación inversa con un _listener_.
+
 ```java
 // Petición de todos los eventos disponibles en la base de datos, concretamente
 // en la ruta /eventos
 FirebaseDatabase.getInstance().getReference.child("eventos")
 	.addValueEventListener(new ValueEventListener() {
-	// El listener lee todos los datos la primera vez que se adjunta/añade
-	// y cada vez que cambia algún dato en la subrama que obtiene.
+		// El listener lee todos los datos la primera vez que se adjunta
+		// o añade y cada vez que cambia algún dato en la subrama que
+		// obtiene.
 		@Override
 		public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 			for (DataSnapshot fDataSnapshot : dataSnapshot.getChildren()) {
@@ -1191,6 +1224,31 @@ FirebaseDatabase.getInstance().getReference.child("eventos")
 ```
 
 ### Configuración de Cloud Storage
+
+Las imágenes —de eventos, perfiles y enviadas en los _chats_— no pueden guardarse directamente en Firebase Realtime Database —que sí almacena las URI generadas por este producto—. Cloud Storage surge para suplir esta carencia.
+
+El funcionamiento se asemeja a un árbol de directorios que en el proyecto se han diseñado para permitir que los _chats_ tengan su conjunto de imágenes independiente y los usuarios puedan sobreescribir la imagen de perfil.
+
+```
+/
+|— imagenes_chats/
+|                |— idChat0/
+|                |         |— idImagen0.jpg
+|                |         |— ...
+|                |         | idImagenN.jpg
+|                |— ...
+|                |— idChatN/
+|
+|— imagenes_eventos/
+|                  |— idEvento0.jpg
+|                  |— ...
+|                  |— idEventoN.jpg
+|
+|— imagenes_perfil/
+                  |— idUsuario0.jpg
+                  |— ...
+                  |— idUsuarioN.jpg
+```
 
 ### Configuración de Firebase Cloud Messaging
 

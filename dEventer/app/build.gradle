@@ -137,9 +137,4 @@ dependencies {
     // https://github.com/rtchagas/pingplacepicker#download
     // Release notes: https://github.com/rtchagas/pingplacepicker/releases
     implementation 'com.github.rtchagas:pingplacepicker:2.0.6'
-
-    // Dependencia de WorkManager para tareas asíncronas
-    // https://developer.android.com/jetpack/androidx/releases/work#declaring_dependencies
-    // Release notes: https://developer.android.com/jetpack/androidx/releases/work
-    implementation 'androidx.work:work-runtime:2.3.4'
 }
