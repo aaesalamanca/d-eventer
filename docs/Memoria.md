@@ -913,7 +913,7 @@ Antes de comenzar a utilizar Firebase, es necesario tener cuenta en el servicio.
 
 Para poder añadir Firebase al proyecto hay unos requisitos que cumplir:
 
-* Android Studio
+* Android Studio.
 * La API objetivo es Jelly Bean —número de versión 16— o superior.
 * Gradle 4.1 o superior.
 * Jetpack —AndroidX— cumpliendo:
@@ -922,7 +922,7 @@ Para poder añadir Firebase al proyecto hay unos requisitos que cumplir:
 * Configurar un dispositivo físico o un emulador en el que ejecutar la aplicación.
 * Iniciar sesión en Firebase.
 
-Firebase ofrece dos opciones de _setup_, la recomendada y otra que recurre al asistente de Firebase para Android Studio y necesita pasos adicionales para su puesta en marcha. Aquí se muestran los pasos con el flujo de trabajo recomendado
+Firebase ofrece dos opciones de _setup_, la recomendada —consola de Firebase— y otra que recurre al asistente de Firebase para Android Studio y necesita pasos adicionales para su puesta en marcha. Aquí se muestran los pasos con el flujo de trabajo recomendado.
 
 #### Crear el proyecto en Firebase
 
@@ -930,7 +930,7 @@ El proceso de creación del proyecto de Firebase necesita el nombre asociado a e
 
 ![Crear el proyecto en Firebase: Parte 1](../images/create-firebase-1.png)
 
-También se debe activar el SDK de Google Analytics para contar con herramientas de análisis, creación de informes, operaciones de publicidad, etc. Este paso solicita la creación de una cuenta, pero puede usar la que se crea por defecto.
+También se debe activar el SDK de Google Analytics para contar con herramientas de análisis, creación de informes, operaciones de publicidad, etc. Este paso solicita la creación de una cuenta, pero puede usar la que viene por defecto.
 
 ![Crear el proyecto en Firebase: Parte 2.2](../images/create-firebase-2-2.png)
 
@@ -993,13 +993,13 @@ Versión: 1
 
 #### Añadir el archivo de configuración de Firebase
 
-Con la aplicación registrada, Firebase genera un archivo de nombre `google-services.json` que debe ser añadido a la carpeta `app` de la imagen como se ve en las imágenes que acompañan al texto.
+Con la aplicación registrada, Firebase genera un archivo de nombre `google-services.json` que debe ser copiado a la carpeta `app` de la imagen como se ve en las imágenes que acompañan al texto.
 
 ![Añadir el archivo de configuración de Firebase: Parte 1](../images/firebase-add-app-4.png)
 
 ![Añadir el archivo de configuración de Firebase: Parte 2](../images/firebase-add-app-5.png)
 
-Lo siguiente es comprobar y añadir que el proyecto dispone de los repositorios y servicios de Google y Google Services. Primero en el archivo `project/build.gradle`:
+Lo siguiente es comprobar que el proyecto dispone de los repositorios y servicios de Google y Google Services. Primero en el archivo `project/build.gradle`:
 
 ```gradle
 buildscript {
@@ -1038,7 +1038,7 @@ android {
 
 #### Añadir el SDK de Firebase a la _app_
 
-Finalmente, para empezar a utilizar Firebase hay que añadir los SDK que vayan a ser utilizados en `app/build.gradle`:
+Finalmente, para empezar a utilizar Firebase hay que indicar los SDK que vayan a ser utilizados en `app/build.gradle`:
 
 ```gradle
 dependencies {
@@ -1087,6 +1087,8 @@ dependencies {
 
 ### Configuración de Firebase Authentication
 
+Los nuevos usuarios pueden crearse con el método `createUserWithEmailAndPassword` al que puede adjuntarse un oyente que estará a la escucha del intento de _sign up_ para, cuando se haya producido, llevar a cabo determinadas acciones dependiendo del resultado: registro con éxito o no.
+
 ```java
 FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password)
 	.addOnCompleteListener(task -> {
@@ -1101,6 +1103,8 @@ FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password)
 		}
 	});
 ```
+
+Lo mismo sucede cuando el usuario ya está creado y quiere iniciar sesión; cambia el método a llamar pero la dinámica es similar.
 
 ```java
 FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password)
@@ -1117,9 +1121,14 @@ FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password)
 	});
 ```
 
+A veces es interesante obtener el usuario —actual— para completar ciertas acciones o comprobar que el _token_ de sesión se mantiene.
+
 ```java
+// Si getCurrentUser == null el usuario no ha iniciado sesión
 FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 ```
+
+Para cerrar sesión, basta con una línea:
 
 ```java
 FirebaseAuth.getInstance.signOut();
@@ -1127,10 +1136,34 @@ FirebaseAuth.getInstance.signOut();
 
 ### Configuración de Firebase Realtime Database
 
+El epígrafe del modelo datos dejó constancia de la estructura que siguen estos en la base de datos y el JSON que la compone. El propósito ahora es exponer las operaciones de escritura y lectura.
+
+Primero hay que escribir una clase de los objetos que van a ser almacenados:
+
+```java
+public class Evento {
+	// Atributos
+	private String imageUri;
+	private String name;
+	private String date;
+	private String time;
+	private String location;
+	private String price;
+	private String description;
+	private String ownerId;
+	private int usersNum;
+	
+	// Constructores, getters, setters...
+	// ...
+}
+```
+
+Escribir uno de los planes es tan sencillo como acceder a la ruta correspondiente dentro del JSON y pasar como parámetro un objeto de la clase `Evento` al método `setValue`. Previamente hay que crear un hijo con clave autogenerada en `/eventos`
+
 ```java
 // Sube un evento a la base de datos en la ruta /eventos con un id generado
 // automáticamente que toma como base el tiempo actual
-FirebaseDatabase.getInstance().getReference.child("eventos")
+FirebaseDatabase.getInstance().getReference.child("eventos").push()
 	.setValue(evento);
 ```
 
@@ -1161,27 +1194,81 @@ FirebaseDatabase.getInstance().getReference.child("eventos")
 
 ### Configuración de Firebase Cloud Messaging
 
+Firebase Cloud Messaging es el SDK encargado de gestionar las notificaciones. Los bloques de código enseñan cómo empezar a recibir notificaciones de un _chat_ determinado y dejar de hacerlo.
+
 ```java
+// Suscribe el dispositivo a un tema para que empiece a recibir notificaciones
+// del chat
 FirebaseMessaging.getInstance().subscribeToTopic(idEvento);
 ```
 
 ```java
+// Desuscribe el dispositivo del tema para dejar de recibir notificaciones del
+// chat
 FirebaseMessaging.getInstance().unsubscribeFromTopic(idEvento);
+```
+
+Cuando la aplicación no se ha iniciado o está en segundo plano, el sistema operativo Android se encarga internamente de administrar las notificaciones recibidas. Además, todo _payload_ que vaya con la notificación se carga como extra del `Intent` que invoca a la actividad marcada en el Manifest con la acción `MAIN` y la categoría `LAUNCHER`.
+
+Por el contrario, si el usuario está utilizando la _app_ en primer plano, la notificación ha de ser gestionada por una clase de desarrollo propio que herede de `FirebaseMessagingService` e implemente el método `onMessageReceived`.
+
+```java
+public class MyFirebaseMessagingService extends FirebaseMessagingService {
+	// ...
+	@Override
+	public void onMessageReceived(RemoteMessage remoteMessage) {
+		// Gestión de la notificación recibida en primer plano
+		// ...
+	}
+}
+```
+
+Este servicio debe quedar reflejado en el archivo `AndroidManifest.xml`:
+
+```xml
+<manifest>
+	<!-- ... -->
+	<application>
+	<!-- ... -->
+		<service
+			android:name=".notifications.MyFirebaseMessagingService"
+			android:exported="false">
+			<intent-filter>
+				<action android:name="com.google.firebase.MESSAGING_EVENT" />
+			</intent-filter>
+		</service>
+	<!-- ... -->
+	</application>
+	<!-- ... -->
+</manifest>
 ```
 
 ### Configuración de Cloud Functions
 
+Conjuntamente a Firebase Cloud Messaging trabaja Cloud Functions. Cada vez que un usuario envía un mensaje ocurren dos acciones simultáneas:
+
+* El mensaje es escrito en la base de datos de Firebase Realtime Database.
+* Se invoca una función HTTPS de Cloud Functions desde la que se enviará la notificación a Firebase Cloud Messaging.
+
 ```java
+// Se construye el mensaje y el payload necesarios para la notificación
 Map<String, String> data = new HashMap<>();
 data.put("idEvento", idEvento);
 data.put("idUsuario", idUsuario);
 data.put("nombreUsuario", nombreUsuario);
 data.put("mensaje", mensaje);
+
+// Invocación de la función HTTPS de Cloud Functions a la que se le envían
+// los datos necesarios para construir la notificación
 FirebaseFunctions.getInstance()
 	.getHttpsCallable("enviarNotificacion").call(data);
 ```
 
+Cuando la función es llamada desde el código Java anterior en la aplicación móvil, se ejecuta lo siguiente en la nube de Google Cloud bajo un entorno _serverless_: los gastos se calculan en base al número de invocaciones, tiempo de ejecución y uso de CPU y memoria mientras dure la ejecución de la misma.
+
 ```javascript
+// Las seis primeras líneas solicitan acceso a Firebase identificándose como
+// función de Google Cloud y obtiene las dependencias y permisos
 const functions = require('firebase-functions');
 
 const admin = require('firebase-admin');
@@ -1189,12 +1276,16 @@ admin.initializeApp({
 	credential: admin.credential.applicationDefault(),
 });
 
+// Esta es la función HTTPS ejecutada sobre Cloud Functions en Node.js
 exports.enviarNotificacion = functions.https.onCall(async (data, context) => {
+	// Se obtienen los datos que se habían pasado como parámetro en el
+	// HashMap
 	const idEvento = data.idEvento;
 	const idUsuario = data.idUsuario;
 	const nombreUsuario = data.nombreUsuario;
 	const mensaje = data.mensaje;
 	
+	// Construcción de la notificación
 	var notificacion = {
 		topic: event_id,
 		notification: {
@@ -1207,13 +1298,12 @@ exports.enviarNotificacion = functions.https.onCall(async (data, context) => {
 		}
 	}
     
+    // Se envía la notificación que tiene por topic o tema la clave primaria
+    // del evento. En consecuencia, todos los dispositivos suscritos al topic
+    // del mensaje recibirán la notificación
 	admin.messaging().send(notificacion);
 });
 ```
-
-## Aplicación móvil
-
-### Introducción
 
 ## Conclusión
 
