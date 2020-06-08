@@ -816,6 +816,7 @@ Entre sus ventajas están:
 * Desarrollo paralelo: los desarrolladores pueden trabajar de forma concurrente en el modelo, el controlador y las vistas.
 * Alta cohesión: los módulos permiten el agrupamiento de acciones relacionadas entre sí —dentro del controlador—, así como las vistas asociadas a un determinado modelo.
 * Facilidad de modificación: gracias a la separación de funciones, las modificaciones que deban hacerse son más fáciles.
+* En consecuencia con lo anterior, implementar nuevas características es más sencillo también.
 * El mismo modelo puede funcionar para varias vistas a la vez.
 * Realización de pruebas: gracias a la separación de conceptos, cada una de las partes puede ser probada —pruebas unitarias, pruebas de integración, pruebas UI— con mayor facilidad gracias a la reducción de dependencias —e interdependencias—.
 
@@ -825,16 +826,63 @@ Por su parte, también presenta inconvenientes:
 * Persistencia entre elementos: descomponer una característica en tres partes obliga a mantener la persistencia —de los datos, por ejemplo— entre varias representaciones.
 * Curva de aprendizaje elevada: el desarrollador tiene que aprender múltiples tecnologías.
 * Código repetitivo: el hecho de contar con tres partes, cada una con su estado y comportamiento, provoca la existencia de código repetitivo que existe para poder satisfacer las demandas y requisitos de este patrón.
+* La vista y el controlador dependen del modelo o, dicho de otro modo, tienen una referencia al modelo.
+* Las pruebas unitarias son solo posibles en el controlador y el modelo; la vista depende de los dos al tener una referencia de cada uno.
+
+En Android las Activities, Fragments y Views serían vistas, los controladores estarían en clases separadas que no heredaran ni usaran ninguna clase de Android y el mismo esquema se aplicaría sobre el modelo.
 
 ### Patrón MVP
 
+La búsqueda de soluciones a los problemas de MVC dio con el patrón MVP. Ahora desaparece el controlador, que es sustituido por el presentador; un nuevo módulo que actúa —como _middleware_— sobre el modelo —obteniendo o escribiendo datos— y la vista —da formato a la información para que esta la represente—.
+
 <p align="center"><img alt="mvp" src="../images/mvp.png"></p>
 
+Lo más significativo del cambio es que, en esta nueva coyuntura, la vista pasa a contener tan solo una referencia, la del presentador, facilitando todavía más la realización de pruebas y _testing_ debido a un mayor desacoplamiento y reducción de dependencias. Además, esta referencia ya no es sobre una clase concreta, sino sobre interfaces de vista y presentador que deben implementar, respectivamente, y que definen el contrato que las relaciona.
+
+No obstante, también aparecen nuevas desventajas: la estrecha relación entre la vista y el presentador puede hacer que aumente de forma considerable el número de interfaces y líneas de código, incluso para pequeñas operaciones de la interfaz gráfica.
+
 ### Patrón MVVM
+
+Finalmente, para solventar todo lo anterior, aparece el patrón MVVM; donde nuevamente hay una sustitución, el presentador pasa a ser el modelo de vista. Lo que ocurre con el cambio es que, aun pareciendo similares —presentador y modelo de vista— y casi siéndolo, el modelo de vista, también, contiene la lógica de presentación, comportándose de algún modo como una abstracción de la interfaz del usuario, o de la vista. No solo ejerce de intermediario entre el modelo y la vista, también prepara la información que recibe de la vista para actualizar el modelo y, de igual modo, prepara los datos obtenidos del modelo para su representación en la vista de la forma en la que esta los necesita.
 
 <p align="center"><img alt="mvvm" src="../images/mvvm.png"></p>
 
 ### Elección del patrón
+
+```java
+public class Model {
+	// Lógica de negocio
+	// ...
+}
+
+public class ViewModel {
+	// Interacción con el modelo
+	// ...
+	
+	public BindedData getBindedData() {
+		// Obtención y tratamiento de los datos del modelo y la base de datos para
+		// servirlos a la vista
+		// ...
+		
+		return bindedData;
+	}
+}
+
+public class MyActivity extends View, AppCompatActivity {
+	private ViewModel viewModel;
+	
+	// ...
+	
+	// Obtiene los datos del modelo de vista con el formato que necesita la vista
+	// y los muestra, por ejemplo, al usuario por la pantalla del dispositivo
+	private void getBindedData() {
+		BindedData bindedData = viewModel.getBindedData();
+		
+		// Uso de los datos para que el usuario los visualice
+		// ...
+	}
+}
+```
 
 ## Configuración de Firebase
 
@@ -1118,41 +1166,6 @@ exports.enviarNotificacion = functions.https.onCall(async (data, context) => {
 
 ### Introducción
 
-```java
-public class Model {
-	// Lógica de negocio
-	// ...
-}
-
-public class ViewModel {
-	// Interacción con el modelo
-	// ...
-	
-	public BindedData getBindedData() {
-		// Obtención y tratamiento de los datos del modelo y la base de datos para
-		// servirlos a la vista
-		// ...
-		
-		return bindedData;
-	}
-}
-
-public class MyActivity extends View, AppCompatActivity {
-	private ViewModel viewModel;
-	
-	// ...
-	
-	// Obtiene los datos del modelo de vista con el formato que necesita la vista
-	// y los muestra, por ejemplo, al usuario por la pantalla del dispositivo
-	private void getBindedData() {
-		BindedData bindedData = viewModel.getBindedData();
-		
-		// Uso de los datos para que el usuario los visualice
-		// ...
-	}
-}
-```
-
 ### Breve estudio visual
 
 ![Paleta de color](../images/color-palette.png)
@@ -1237,8 +1250,10 @@ En relación al _backend_:
 * [Tutorialspoint | Learn MVVM](https://www.tutorialspoint.com/mvvm/index.htm)
 * [Tutorialspoint | Design Patterns - MVC Pattern](https://www.tutorialspoint.com/design_pattern/mvc_pattern.htm)
 * [Medium | Android Architecture Patterns Part 1: Model-View-Controller](https://medium.com/upday-devs/android-architecture-patterns-part-1-model-view-controller-3baecef5f2b6)
+* [Wikipedia | Model-view-presenter](https://en.wikipedia.org/wiki/Model-view-presenter)
 * [Medium | Android Architecture Patterns Part 2: Model-View-Presenter](https://medium.com/upday-devs/android-architecture-patterns-part-2-model-view-presenter-8a6faaae14a5)
 * [Medium | Android Architecture Patterns Part 3: Model-View-ViewModel](https://medium.com/upday-devs/android-architecture-patterns-part-3-model-view-viewmodel-e7eeee76b73b)
+* [Wikipedia | Model-view-viewmodel](https://en.wikipedia.org/wiki/Model-view-viewmodel)
 * [Medium | Model View Presenter(MVP) in Android with a simple demo project](https://medium.com/cr8resume/make-you-hand-dirty-with-mvp-model-view-presenter-eab5b5c16e42)
 * [raywenderlich.com | Getting Started with MVP (Model View Presenter) on Android](https://www.raywenderlich.com/7026-getting-started-with-mvp-model-view-presenter-on-android)
 * [Material Design](https://material.io)
