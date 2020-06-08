@@ -785,7 +785,7 @@ En el apartado de diseño no solo se ha tenido en cuenta el modelo de datos, tam
 
 ## Patrones de diseño
 
-Con la aparición de programas con interfaces gráficas —que han aumentado su complejidad— surgió el problema de la separación de datos; empezó a ser inviable el mantenimiento de un código en el que aquel dedicado a los datos y la lógica de negocio aparecía en el mismo lugar —y mezclado— junto al que se destinaba para su representación y gestión de conexiones/comunicaciones.
+Con la aparición de programas con interfaces gráficas —que han aumentado su complejidad— surgió el problema de la separación de datos; empezó a ser inviable el mantenimiento de un código en el que aquel dedicado a los datos y la lógica de negocio aparecía en el mismo lugar —y mezclado—, junto al que se destinaba para su representación y gestión de conexiones/comunicaciones.
 
 Para solucionar esta problemática aparecieron diferentes patrones de arquitectura de _software_ que, a rasgos generales, proponen la construcción de tres módulos o componentes interconectados: unos se encargan de la representación de la información y otros de la interacción del usuario. Estos patrones toman prestadas ideas de reutilización de código y separación de conceptos, lo que facilita el desarrollo de los programas informáticos y su mantenimiento.
 
@@ -799,11 +799,32 @@ Otra de las ventajas que aparecen a raíz de la utilización de este tipo de pat
 
 > Divide y vencerás.
 
-A continuación se explican estos tres patrones, sus ventajas y desventajas y los motivos que impulsaron la elección de uno de ellos —además de un pequeño ejemplo simplificado y preparado para tal fin de su implementación en la _app_—.
+A continuación se explican estos tres patrones, sus ventajas y desventajas y los motivos que impulsaron la elección de uno de ellos —además de un pequeño ejemplo simplificado y preparado para tal fin de su implementación en la _app_—. No hay que olvidar que, si bien inicialmente se pensaron para programas de escritorio, su ámbito de aplicación se ha extendido a aplicaciones de todo tipo: _web_, móvil, multiplataforma...
 
 ### Patrón MVC
 
+El primero de ellos, por orden de aparición y antigüedad —entre los años 70 y 80—, es el patrón MVC o modelo-vista-controlador, que son los tres componentes que conforman la arquitectura y en los que se divide el programa; donde cada uno —y su código— se encarga de una tarea específica.
+
 <p align="center"><img alt="mvc" src="../images/mvc.png"></p>
+
+* El modelo es la representación de los datos, la información, con la que la _app_ trabaja y administra los accesos sobre sí mismo —lecturas, escrituras, actualizaciones, eliminaciones, permisos y normas de acceso. Envía a la vista la información requerida en cada momento y las peticciones de acceso llegan desde el controlador.
+* El controlador hace la veces de _listener_ u oyente de eventos generados por el usuario que tienen por objeto una solicitud sobre la información, esto es, el modelo.
+* La vista es la representación visual del modelo para que el usuario pueda visualizar e interactuar con la información en un formato gráfico —interfaz—
+
+Entre sus ventajas están:
+
+* Desarrollo paralelo: los desarrolladores pueden trabajar de forma concurrente en el modelo, el controlador y las vistas.
+* Alta cohesión: los módulos permiten el agrupamiento de acciones relacionadas entre sí —dentro del controlador—, así como las vistas asociadas a un determinado modelo.
+* Facilidad de modificación: gracias a la separación de funciones, las modificaciones que deban hacerse son más fáciles.
+* El mismo modelo puede funcionar para varias vistas a la vez.
+* Realización de pruebas: gracias a la separación de conceptos, cada una de las partes puede ser probada —pruebas unitarias, pruebas de integración, pruebas UI— con mayor facilidad gracias a la reducción de dependencias —e interdependencias—.
+
+Por su parte, también presenta inconvenientes:
+
+* Navegación en el código: la navegación a través del código puede ser más compleja al haber nuevas capas intermedias.
+* Persistencia entre elementos: descomponer una característica en tres partes obliga a mantener la persistencia —de los datos, por ejemplo— entre varias representaciones.
+* Curva de aprendizaje elevada: el desarrollador tiene que aprender múltiples tecnologías.
+* Código repetitivo: el hecho de contar con tres partes, cada una con su estado y comportamiento, provoca la existencia de código repetitivo que existe para poder satisfacer las demandas y requisitos de este patrón.
 
 ### Patrón MVP
 
@@ -1211,6 +1232,8 @@ En relación al _backend_:
 * [Wikipedia | Ticketmaster](https://en.wikipedia.org/wiki/Ticketmaster)
 * [Ticketmaster](https://www.ticketmaster.com)
 * [Tutorialspoint | Learn MVC Framework](https://www.tutorialspoint.com/mvc_framework/index.htm)
+* [Wikipedia | Model-view-controller](https://en.wikipedia.org/wiki/Model-view-controller)
+* [Android Developers | Fundamentals of Testing](https://developer.android.com/training/testing/fundamentals)
 * [Tutorialspoint | Learn MVVM](https://www.tutorialspoint.com/mvvm/index.htm)
 * [Tutorialspoint | Design Patterns - MVC Pattern](https://www.tutorialspoint.com/design_pattern/mvc_pattern.htm)
 * [Medium | Android Architecture Patterns Part 1: Model-View-Controller](https://medium.com/upday-devs/android-architecture-patterns-part-1-model-view-controller-3baecef5f2b6)
