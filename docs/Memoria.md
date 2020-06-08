@@ -799,7 +799,7 @@ Otra de las ventajas que aparecen a raíz de la utilización de este tipo de pat
 
 > Divide y vencerás.
 
-A continuación se explican estos tres patrones, sus ventajas y desventajas y los motivos que impulsaron la elección de uno de ellos —además de un pequeño ejemplo simplificado y preparado para tal fin de su implementación en la _app_—. No hay que olvidar que, si bien inicialmente se pensaron para programas de escritorio, su ámbito de aplicación se ha extendido a aplicaciones de todo tipo: _web_, móvil, multiplataforma...
+A continuación se explican estos tres patrones —las diferencias, no aquellos aspectos que comparten o en los que son similares—, sus ventajas y desventajas y los motivos que impulsaron la elección de uno de ellos —además de un pequeño ejemplo simplificado y preparado para tal fin de su implementación en la _app_—. No hay que olvidar que, si bien inicialmente se pensaron para programas de escritorio, su ámbito de aplicación se ha extendido a aplicaciones de todo tipo: _web_, móvil, multiplataforma...
 
 ### Patrón MVC
 
@@ -847,7 +847,15 @@ Finalmente, para solventar todo lo anterior, aparece el patrón MVVM; donde nuev
 
 <p align="center"><img alt="mvvm" src="../images/mvvm.png"></p>
 
+Este diseño facilita la orientación a eventos, donde el _viewmodel_ detecta los cambios que se suceden en el modelo y los notifica a la vista para su representación visual.
+
 ### Elección del patrón
+
+El epígrafe de requisitos ya lo adelantó: se pretendía trasladar el modelo MVVM a la aplicación trabajada para el proyecto. Los motivos parecen claros, en base a la exposición previa de su evolución, ventajas y desventajas, MVVM parece la elección adecuada.
+
+Lo cierto es que el resultado final está a medio camino entre MVP y MVVM; no es una implementación pura de este último. Es cierto que la vista no tiene acceso al modelo, que el modelo de vista gestiona la lógica de presentación además de proveer a la vista con los datos que necesita en el formato adecuado y el proceso está orientado a eventos o _callbacks_. Falla únicamente en la utilización de _streams_ o flujos a los que tiene acceso la vista, de ahí que no se esté ante un desarrollo 100 % MVVM y aparezcan similitudes con MVP. No obstante, cumple con los objetivos planteados: reducir el acoplamiento y la dependencia entre clases, lo que facilita las fases de prueba, _testing_ y QA.
+
+El ejemplo que aparece a continuación está preparado específicamente para su demostración en esta memoria, pues supone una simplificación de las prácticas seguidas en todo el código fuente de la _app_. Hay que recordar, pues es importante, que este patrón aprovecha en gran medida la programación funcional introducida en Java 8 a través de funciones anónimas o expresiones _lambda_ —en el proyecto puede comprobarse con mayor detenimiento la mezcla de amboas formas de trabajar—.
 
 ```java
 public class Model {
@@ -883,6 +891,23 @@ public class MyActivity extends View, AppCompatActivity {
 	}
 }
 ```
+
+Por último, y para dar cuenta de lo que supone a nivel de desarrollo real, se adjunta la siguiente tabla con imágenes que ilustran el árbol de paquetes del proyecto —con la excepción del paquete dedicado a la gestión de notificaciones—:
+
+<p align="center">
+	<table>
+		<tr>
+			<td><p align="center">Modelo</p></td>
+			<td><p align="center">Vista</p></td>
+			<td><p align="center">Modelo de vista</p></td>
+		</tr>
+		<tr>
+			<td><img alt="Modelo" src="../images/model.png"></td>
+			<td><img alt="Vista" src="../images/view.png"></td>
+			<td><img alt="Modelo de vista" src="../images/viewmodel.png"></td>
+		</tr>
+	</table>
+</p>
 
 ## Configuración de Firebase
 
@@ -1166,16 +1191,6 @@ exports.enviarNotificacion = functions.https.onCall(async (data, context) => {
 
 ### Introducción
 
-### Breve estudio visual
-
-![Paleta de color](../images/color-palette.png)
-
-### _View_
-
-### _ViewModel_
-
-### Model
-
 ### Conclusión
 
 ### Mejoras
@@ -1258,7 +1273,7 @@ En relación al _backend_:
 * [Medium | Android Architecture Patterns Part 2: Model-View-Presenter](https://medium.com/upday-devs/android-architecture-patterns-part-2-model-view-presenter-8a6faaae14a5)
 * [Medium | Android Architecture Patterns Part 3: Model-View-ViewModel](https://medium.com/upday-devs/android-architecture-patterns-part-3-model-view-viewmodel-e7eeee76b73b)
 * [Wikipedia | Model-view-viewmodel](https://en.wikipedia.org/wiki/Model-view-viewmodel)
-* [Medium | Model View Presenter(MVP) in Android with a simple demo project](https://medium.com/cr8resume/make-you-hand-dirty-with-mvp-model-view-presenter-eab5b5c16e42)
+* [Medium | Model View Presenter (MVP) in Android with a simple demo project](https://medium.com/cr8resume/make-you-hand-dirty-with-mvp-model-view-presenter-eab5b5c16e42)
 * [raywenderlich.com | Getting Started with MVP (Model View Presenter) on Android](https://www.raywenderlich.com/7026-getting-started-with-mvp-model-view-presenter-on-android)
 * [Material Design](https://material.io)
 * [Wikipedia | Material Design](https://en.wikipedia.org/wiki/Material_Design)
