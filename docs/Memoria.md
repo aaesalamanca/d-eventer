@@ -1181,6 +1181,7 @@ exports.enviarNotificacion = functions.https.onCall(async (data, context) => {
 ### Mejoras
 
 En relación a los perfiles:
+
 * Borrar el perfil.
 * Cambiar el correo electrónico.
 * Cambiar la contraseña.
@@ -1188,15 +1189,18 @@ En relación a los perfiles:
 * Implementar correctamente el registro e inicio de sesión con otros proveedores como Google, Facebook, etc.
 
 En relación a los planes:
+
 * Buscador simple y avanzado: con filtros como categorías, localización, proximidad, etc.
 * Recomendador automático y personalizado de planes en base a gustos, preferencias, geolocalización...
 * Valoración del resto de usuarios.
 * Borrar una actividad.
 
 En relación a la seguridad de los datos tratados:
+
 * Cifrado de contraseñas, información personal y _chats_.
 
 En relación al _backend_:
+
 * Unificar _backends_ de las aplicaciones móvil y _web_.
 * Mejorar la implementación MVVM.
 * Migrar la base de datos de Firebase Realtime Database a Cloud Firestore.
