@@ -644,7 +644,7 @@ El primero se encarga de convertir esta documentación escrita en Markdown a HTM
 En Windows, tras la correspodiente instalación de ambos programas y la adición de la ruta de sus ejecutables al `PATH`, el comando básico para convertir un documento Markdown en PDF es:
 
 ```
-$ pandoc documento.html -o documento.pdf --pdf-engine=wkhtmltopdf
+$ pandoc documento.md -o documento.pdf --pdf-engine=wkhtmltopdf
 ```
 
 Hay alternativas a wkhtmltopdf para obtener PDF desde un documento `.md` que pueden combinarse a la perfección con Pandoc: prince, pdfroff, weasyprint, etc.
