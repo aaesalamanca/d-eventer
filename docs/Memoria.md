@@ -1394,6 +1394,16 @@ exports.enviarNotificacion = functions.https.onCall(async (data, context) => {
 
 ## Conclusión
 
+Antes de dar paso a la propuesta de mejoras y la bibliografía, creemos importante dejar constancia de lo que para nosotros ha supuesto el desarrollo de este módulo de Proyecto.
+
+Echando la vista atrás, allá por finales de febrero y principios de marzo, cuando empezaba a dar los primeros coletazos de vida, es reseñable el desconocimiento de las cotas que para nosotros llegaría a suponer, tanto por lo que creemos que hemos acabado haciendo como por la cantidad de documentación a revisar o la situación que en todos ha desatado la crisis sanitaria del SARS-CoV-2 y las restricciones de movilidad.
+
+La idea que planteaba el anteproyecto lejos queda del resultado final, más ambicioso y de mayor magnitud en comparación. Propusimos una aplicación móvil para Android, la entrega final suma a lo prometido una página _web responsive_ —que no hace presencia en este documento por cuestiones de tiempo— en navegadores de escritorio, _tablets_ y _smartphones_; de un lenguaje de programación pasamos a dos, Java y JavaScript; el número de tecnologías implicadas se vio incrementado de siete a más de veinte; ideamos la combinación de todas estas tecnologías en una arquitectura integrada, coherente y basada en la nube —cuyo punto neurálgico es Git y su reflejo _cloud_: GitHub—, que facilitara el desarrollo y su mantenimiento, acércandose a un escenario bastante más real y alejado del modo de trabajar en el aula; implementamos funciones que en otros ámbitos suelen pasar desapercibidas por habituales o comunes, y acabaron llevándose gran parte del protagonismo de cara al usuario final y nuestro tiempo y esfuerzo para conseguir hacerlas realidad —mensajería y notificaciones—; trabajamos con motores de generación automática de documentación que parten de la base escrita en texto plano; eliminamos la necesidad de administrar un servidor central activo constantemente que administre, gestione y centralice las diferentes peticiones, facilitando la escalabilidad, horizontal sobre todo, etc.
+
+Todo, por supuesto, con los inconvenientes que aparecen a raíz de la emergencia nacional y global. Como ocurrirá con el resto de grupos y compañeros, suponemos, la comunicación puede resultar más complicada, no por falta de interés o empeño, sino por caídas en las plataformas a las que recurríamos, problemas de conectividad, de audio, de los dispositivos... Y, más importante todavía, el papel destacado que toma la comunicación presencial y su plasticidad en determinadas explicaciones, que contribuyen a su correcto entendimiento, en especial las que toman un cariz visual y para las que recurrimos al movimiento de manos. Un protagonismo perdido con estos programas —Discord, Teams, WebEx, Skype, Slack—, que redunda en la necesidad de repetir y, en consecuencia, entorpecer un proceso que ya es farragoso de por sí.
+
+No queremos concluir sin antes insistir en el proceso de aprendizaje a lo largo de estos casi cuatro meses. Lidiar con lo desconocido, entenderlo y aprovecharlo en beneficio propio cambia la perspectiva, una desde la que afrontar, con mejores herramientas, nuevos retos: búsqueda activa de empleo en el sector, afrontar un nuevo Ciclo Formativo de Grado Superior, acceder a la Universidad, etc.
+
 ## Mejoras
 
 En relación a los perfiles:
