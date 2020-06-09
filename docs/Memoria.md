@@ -633,7 +633,7 @@ Esto es texto en **negrita** y _cursiva_.
 
 ---
 
-El número de opciones es mayor de lo que se muestra en el ejemplo anterior, como bloques de código, tablas, enlaces, imágenes, etc. Además, no es la especificación pura de Markdown determinada por Daring Fireball, sino el subconjunto propio de GitHub: GitHub Flavored Markdown, que introduce algunas etiquetas más como las listas de tareas o el resaltado sintáctico de los bloques de código cuando se indica el lenguaje de programación utilizado dentro de estos.
+El número de opciones es mayor de lo que se muestra en el ejemplo anterior, como fragmentos de código, tablas, enlaces, imágenes, etc. Además, no es la especificación pura de Markdown determinada por Daring Fireball, sino el subconjunto propio de GitHub: GitHub Flavored Markdown, que introduce algunas etiquetas más como las listas de tareas o el resaltado sintáctico de los bloques de código cuando se indica el lenguaje de programación utilizado dentro de estos.
 
 #### Pandoc y wkhtmltopdf
 
@@ -929,7 +929,7 @@ Por último, y para dar cuenta de lo que supone a nivel de desarrollo real, se a
 		</tr>
 		<tr>
 			<td><img alt="Modelo" src="../images/model.png"></td>
-			<td><img alt="Vista" src="../images/vie	w.png"></td>
+			<td><img alt="Vista" src="../images/view.png"></td>
 			<td><img alt="Modelo de vista" src="../images/viewmodel.png"></td>
 		</tr>
 	</table>
@@ -1197,7 +1197,7 @@ FirebaseDatabase.getInstance().getReference.child("eventos").push()
 	.setValue(evento);
 ```
 
-La lectura sigue la operación inversa con un _listener_.
+La lectura accede a la misma ruta para adjuntar un _listener_: hace la primera lectura y, luego, notifica los cambios en los hijos o elementos que contiene la subrama.
 
 ```java
 // Petición de todos los eventos disponibles en la base de datos, concretamente
@@ -1248,6 +1248,32 @@ El funcionamiento se asemeja a un árbol de directorios que en el proyecto se ha
                   |— idUsuario0.jpg
                   |— ...
                   |— idUsuarioN.jpg
+```
+
+La copia de capturas obliga a navegar por la estructura de rutas creada. Así, subir la fotografía de un plan —cuando es creado— sería:
+
+```java
+FirebaseStorage.getInstance().getReference().child("imagenes_eventos")
+	.child(idEvento).putFile(uriImagen).addOnSuccessListener(task -> {
+		// Acciones a realizar cuando se ha cargado la captura en Cloud Storage
+		// sin problemas
+		// Es una alternativa a los listeners de completado en los que
+		// posteriormente hay que comprobar si task.isSuccessful()
+		// ...
+	});
+```
+
+Tras el guardado de la imagen, hay que descargarla —la URI que genera Cloud Storage— en las situaciones que corresponda. Para ello se combina con Glide, una librería de carga rápida y eficiente de imágenes a partir de estas URI:
+
+```java
+FirebaseStorage.getInstance().getReference().child("imagenes_eventos")
+	.child(idEvento).getDownloadUrl().addOnSuccessListener(uri -> {
+		// Obtiene la URI de la imagen en la nube y la carga en el destino;
+		// un elemento UI que puede cargarla como CircleImageView
+		Glide.with(context).load(uri).dontTransform().centerCrop()
+			.diskCacheStrategy(DiskCacheStrategy.ALL)
+			.thumbnail(.5f).into(destino);
+	});
 ```
 
 ### Configuración de Firebase Cloud Messaging
@@ -1530,6 +1556,9 @@ En relación al _backend_:
 * [Firebase Docs | Add Firebase to your Android project](https://firebase.google.com/docs/android/setup)
 * [Firebase Docs | Firebase Authentication](https://firebase.google.com/docs/auth)
 * [Firebase Docs | Cloud Storage](https://firebase.google.com/docs/storage)
+* [Glide](https://bumptech.github.io/glide)
+* [Glide | Download & Setup](https://bumptech.github.io/glide/doc/download-setup.html)
+* [Glide | Getting Started](https://bumptech.github.io/glide/doc/getting-started.html)
 * [Firebase Docs | Firebase Cloud Messaging](https://firebase.google.com/docs/cloud-messaging)
 * [Firebase Docs | Cloud Functions](https://firebase.google.com/docs/functions)
 * [Firebase Docs | Cloud Functions Get Started](https://firebase.google.com/docs/functions/get-started)
