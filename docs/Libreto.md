@@ -190,13 +190,7 @@ Gracias a sus SDK, Firebase Authentication encapsula todo el flujo de registro e
 
 Firebase Realtime Database es, como su propio nombre indica, una base de datos NoSQL _hosteada_ en la nube de Google que almacena y sincroniza los datos utilizados por los usuarios de la _app_ en tiempo real. Esta sincronización es, por supuesto, multiplataforma, lo que deriva en un posible desarrollo de la misma naturaleza donde poder ver la misma información desde una aplicación para Android, iOS o _web_.
 
-Aunque ya se verá en epígrafes posteriores, hay que entender que Firebae Realtime Database almacena la información como un único y gran documento de naturaleza similar, por no decir idéntica, a JSON, en la forma de pares clave-valor, donde ambos pueden tomar diversos tipos. Queda patente su gran diferencia con las bases de datos relacionales y ahí radican sus beneficios y, si las hay, desventajas:
-
-* Las escrituras y lecturas de datos son sensiblemente más rápidas.
-* La atomicidad de las transacciones u operaciones se garantiza a nivel de subrama del árbol. Este punto es importante, ya que no todas las bases de datos NoSQL garantizan la atomicidad de las transacciones, lo que supondría una clara desventaja frente a las bases de datos relacionales.
-* Su caracter descentralizado permite la distribución de los datos y la escala a nivel horizontal.
-* Es, comparativamente, mucho más flexible en el tipo y modelo de datos que se presta a almacenar. Dicha característica puede ser, según se mire, una desventaja o un inconveniente al no garantizar la integridad de los datos que contiene y, si se quiere, debe ser una implementación propia. Para este proyecto fue, sin duda, una ventaja: parte del desarrollo, al tener que investigar sobre el funcionamiento, por un lado, de estructuras de almacenamiento NoSQL como JSON y, por el otro, del SDK en el que esta estructura funcionaba, fue a ciegas, haciendo numerosas pruebas hasta dar con el resultado correcto y esperado; de lo que puede deducirse que no se partía de un modelo ni esquema totalmente claro y esta flexibilidad permitía probar diferentes tipos y objetos almacenados en la base de datos sin todos los inconvenientes asociados que se habrían dado al elegir una base de datos relacional. Sin embargo, siempre es recomendable estructurar los datos siguiendo las recomendaciones indicadas por la documentación oficial y su normalización, esto es, evitar duplicidades innecesarias.
-* El árbol de Firebase Realtime Database se apoya en Gson, una librería de Java desarrollada por Google para convertir objetos de Java en su representación en JSON facilitando enormemente el _parseo_, proceso de _marshalling_ o _mapeo_.
+Aunque ya se verá en epígrafes posteriores, hay que entender que Firebae Realtime Database almacena la información como un único y gran documento de naturaleza similar, por no decir idéntica, a JSON, en la forma de pares clave-valor, donde ambos pueden tomar diversos tipos.
 
 Como colofón, el SDK de Firebase Realtime Database está optimizado para la pérdida de conexión del dispositivo: si se encuentra _offline_, la información se _cachea_ o persiste localmente hasta que vuelve la conexión y la información pendiente de enviar o recibir es sincronizada automáticamente.
 
@@ -222,11 +216,7 @@ Estas funciones deben estar escritas en JavaScript o TypeScript sobre el entorno
 
 ### Java
 
-Java, a pesar de lo que suela creerse, no es solo un lenguaje de programación; se trata de un conjunto de _software_, especificaciones y directrices desarrollados por James Gosling en 1995 que proporcionan un sistema o plataforma para el desarrollo y despliegue de aplicaciones multiplataforma.
-
-Una de las herramientas más importantes que provee es el lenguaje de programación que recibe su mismo nombre: Java. Este es orientado a objetos —basados en clases—, con recolector de basura y, originalmente, interpretado, esto es, el código fuente era _precompilado_ a _bytecode_ —un lenguaje intermedio que todas las máquinas virtuales de Java entienden, lo que hace posible su propósito multiplataforma— y era en tiempo de ejecución cuando estas instrucciones se convertían directamente a código máquina. Este paradigma fue evolucionando hasta incorporar las mejoras en rendimiento de compilación JIT (_just-int-time_): no se compila todo el código antes de su ejecución, sin embargo, mientras tiene lugar esta, el compilador analiza partes del código que se está ejecutando o prevé que lo hará repetidas veces aumentando el rendimiento hasta acercarse a niveles de programas compilados AOT (_ahead-of-time_) con la flexibilidad de ser, al mismo tiempo, interpretado.
-
-El otro pilar sobre el que se asienta la plataforma es la máquina virtual  que ejecuta este código Java o, mejor dicho, el _bytecode_ que se genera a partir del código fuente. La implementación oficial es HotSpot —libre y de código abierto— que Oracle impulsa y mejora con su alternativa privativa. Otras máquinas virtuales son: Azul Zulu, Eclipse OpenJ9, JamaicaVM...
+Java, a pesar de lo que suela creerse, no es solo un lenguaje de programación; se trata de un conjunto de _software_, especificaciones y directrices desarrollados por James Gosling en 1995 que proporcionan un sistema o plataforma para el desarrollo y despliegue de aplicaciones multiplataforma. Dentro de esta plataforma está el lenguaje de programación que toma el mismo nombre: Java.
 
 En la medida en que este proyecto pretende ajustarse a un desarrollo real adaptado a las particularidades de su tiempo y el modo en que se llevan a cabo en el mundo empresarial, hay que destacar el empeño que se ha tenido a la hora de utilizar Java, en concreto características de la versión 8 —se desplegó en marzo de 2014— que supusieron un gran avance y puesta al día de la plataforma. El uso al que se refiere este documento es el de las expresiones _lambda_ o funciones anónimas, que fueron incorporadas en esta iteración y añaden métodos de programación funcional, reduciendo el número de líneas de código redundante e innecesario.
 
@@ -313,15 +303,7 @@ En primer lugar, la arquitectura interna de Android funciona como una pila de te
 
 <p align="center"><img src="../images/android_stack.png"></p>
 
-En segundo lugar, de este _stack_ son interesantes de cara al desarrollo de aplicaciones: las librerías nativas en C y C++ para implementaciones nativas de carácter menor a bajo nivel o _bare metal_ a través del Android NDK —Native Development Kit—, que suelen proporcionar mejor rendimiento; y el _framework_ de Java que incluye las API básicas del sistema y son las más utilizadas para la creación de aplicaciones en este lenguaje.
-
-En tercer lugar, hay que destacar el papel de Android Runtime o ART, la máquina virtual sobre la que se ejecutan las aplicaciones Java que reemplazó a Dalvik —la antigua máquina virtual de Android— Android 5.0. Las mejoras de ART sobre Dalvik son significativas en rendimiento:
-
-* Compilación JIT mejorada.
-* Recolector de basura optimizado.
-* Adición de compilación AOT.
-* Reducción del tamaño de los archivos `.dex`.
-* Mejor soporte para _debugging_ con diagnósticos de excepciones, _crasheos_, rendimiento, etc.
+En segundo lugar, hay que destacar el papel de Android Runtime o ART, la máquina virtual sobre la que se ejecutan las aplicaciones Java que reemplazó a Dalvik —la antigua máquina virtual de Android— Android 5.0 incorporando mejoras significativas en el rendimiento.
 
 ### Material Design
 
@@ -358,7 +340,7 @@ Trae consigo el gestor de paquetes npm con el que instalar Firebase CLI —conso
 
 #### Markdown
 
-Markdown es un lenguaje de marcado ligero sobre texto plano construido con el propósito de darle formato bajo el mantra WYSIWYT —_What You See Is What You Type_—. En su concepción original, este pequeño conjunto de etiquetas para formatear texto plano eran convertidas a HTML, pero con el paso de los años aparecieron numerosas utilidades —pandoc y wkhtmltopdf— que recurrían a ese HTML como paso intermedio para construir documentos de Microsoft `.docx`, `.pdf`, documentos abiertos `.odt`...
+Markdown es un lenguaje de marcado ligero sobre texto plano construido con el propósito de darle formato bajo el mantra WYSIWYT —_What You See Is What You Type_—.
 
 Se utiliza en el proyecto para escribir la base de la documentación —como este documento—, así como los README.md —`.md` es la extensión de los documentos escritos en Markdown, y puede ser también `.txt` o no tenerla; sigue siendo texto plano junto a una serie de etiquetas— y demás documentos que aparecen en GitHub —que los renderiza correctamente para su visualización con el formato definitivo que indican las etiquetas—.
 
@@ -385,21 +367,17 @@ Esto es texto en **negrita** y _cursiva_.
 
 ---
 
-El número de opciones es mayor de lo que se muestra en el ejemplo anterior, como fragmentos de código, tablas, enlaces, imágenes, etc. Además, no es la especificación pura de Markdown determinada por Daring Fireball, sino el subconjunto propio de GitHub: GitHub Flavored Markdown, que introduce algunas etiquetas más como las listas de tareas o el resaltado sintáctico de los bloques de código cuando se indica el lenguaje de programación utilizado dentro de estos.
-
 #### Pandoc y wkhtmltopdf
 
 Pandoc y wkhtmltopdf son dos programas en principio independientes, pero que, en conjunto, generan automáticamente la documentación a partir de los archivos en los que esta es encuentra y que están escritos en texto plano con etiquetas propias de Markdown.
 
-El primero se encarga de convertir esta documentación escrita en Markdown a HTML. Tiene muchas más opciones de conversión y todas están disponibles en la documentación oficial: desde y hacia documentos `.docx`, LaTeX, ConTeXt, `.odt`... Sin embargo, no es capaz de realizar la conversión hacia PDF, por lo que aparece wkhtmltopdf, que tiene por entrada ese documento HTML intermedio y lo transforma en un documento PDF listo para entregar al que se le puede cambiar el aspecto a través de hojas de estilos en cascada CSS indicadas en las opciones del comando.
+El primero se encarga de convertir esta documentación escrita en Markdown a HTML. Como no es capaz de realizar la conversión hacia PDF, aparece wkhtmltopdf, que tiene por entrada ese documento HTML intermedio y lo transforma en un documento PDF listo para entregar.
 
-En Windows, tras la correspodiente instalación de ambos programas y la adición de la ruta de sus ejecutables al `PATH`, el comando básico para convertir un documento Markdown en PDF es:
+En Windows, el comando básico para convertir un documento Markdown en PDF es:
 
 ```
 $ pandoc documento.md -o documento.pdf --pdf-engine=wkhtmltopdf
 ```
-
-Hay alternativas a wkhtmltopdf para obtener PDF desde un documento `.md` que pueden combinarse a la perfección con Pandoc: prince, pdfroff, weasyprint, etc.
 
 #### Git y GitHub
 
@@ -454,7 +432,7 @@ Diagrams.net es un _software_ libre con cliente _web_ y para escritorio para el 
 
 #### Android Studio
 
-Android Studio es el entorno de desarrollo oficial para la creación de aplicaciones móviles para Android. Cuenta con herramientas de análisis y monitorización del rendimiento, autocompletado de texto, Gradle para la automatización de los procesos de _build_, herramientas de _debugging_, emuladores y mucho más.
+Android Studio es el entorno de desarrollo oficial para la creación de aplicaciones móviles para Android.
 
 Para hacer uso de las características avanzadas de Java 8 que aprovechan la programación funcional y las expresiones _lambda_ hay que escribir lo siguiente en el archivo `app/build.gradle`:
 
@@ -472,11 +450,7 @@ android {
 
 #### Visual Studio Code
 
-Visual Studio Code es un editor de texto con _features_ avanzadas como autocompletado por medio de IntelliSense, herramientas de _debugging_, integración nativa con _software_ de control de versiones —Git, TFS, Hg, Azure Repos— y un sin fin de otras más.
-
-Para el proyecto, se ha utilizado dada su compatibilidad con JavaScript, TypeScript, Node.js y Markdown sin tener que instalar nada, están incluidos por defecto en la instalación básica.
-
-JavaScript es el lenguaje en el que están escritas las funciones de Cloud Functions y para Markdown incluye una _preview_ o previsualización del aspecto final del documento antes de generar el `.pdf` o hacer un _commit_ de los cambios.
+Visual Studio Code es un editor de texto compatible con JavaScript, TypeScript, Node.js y Markdown sin tener que instalar nada, están incluidos por defecto en la instalación básica.
 
 ## Modelo de datos
 
