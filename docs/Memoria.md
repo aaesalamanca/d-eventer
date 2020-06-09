@@ -10,12 +10,12 @@
 
 ## Índice
 
-1. [Introducción](#introducción)
+1. [Intro](#intro)
 2. [Objetivos del proyecto](#objetivos-del-proyecto)
 3. [Requisitos](#requisitos)
    1. [Casos de uso](#casos-de-uso)
 4. [Aspecto visual](#aspecto-visual)
-5. [Tecnologías utilizadas](#tecnologías-utilizadas)
+5. [Tech Stack](#tech-stack)
    1. [Firebase](#firebase)
       1. [Firebase Authentication](#firebase-authentication)
       2. [Firebase Realtime Database](#firebase-realtime-database)
@@ -36,28 +36,28 @@
       8. [Android Studio](#android-studio)
       9. [Visual Studio Code](#visual-studio-code)
 6. [Modelo de datos](#modelo-de-datos)
-7. [Arquitectura de _software_](#arquitectura-de-software)
-8. [Patrones de diseño](#patrones-de-diseño)
-   1. [Patrón MVC](#patrón-mvc)
-   2. [Patrón MVP](#patrón-mvp)
-   3. [Patrón MVVM](#patrón-mvvm)
-   4. [Elección del patrón](#elección-del-patrón)
-9. [Configuración de Firebase](#configuración-de-firebase)
-   1. [Configuración general del proyecto](#configuración-general-del-proyecto)
+7. [Cloud Architecture](#arquitectura-de-software)
+8. [Arquitectura de Software](#arquitectura-de-software)
+   1. [MVC](#mvc)
+   2. [MVP](#mvp)
+   3. [MVVM](#mvvm)
+   4. [Propuesta final](#propuesta-final)
+9. [Firebase Setup](#firebase-setup)
+   1. [Empezar con Firebase](#empezar-con-firebase)
       1. [Crear el proyecto en Firebase](#crear-el-proyecto-en-firebase)
-      2. [Registrar la aplicación en Firebase](#registrar-la-aplicación-en-firebase)
-      3. [Añadir el archivo de configuración de Firebase](#añadir-el-archivo-de-configuración-de-firebase)
-      4. [Añadir el SDK de Firebase a la _app_](#añadir-el-sdk-de-firebase-a-la-app)
-   2. [Configuración de Firebase Authentication](#configuración-de-firebase-authentication)
-   3. [Configuración de Firebase Realtime Database](#configuración-de-firebase-realtime-database)
-   4. [Configuración de Cloud Storage](#configuración-de-cloud-storage)
-   5. [Configuración de Firebase Cloud Messaging](#configuración-de-firebase-cloud-messaging)
-   6. [Configuración de Cloud Functions](#configuración-de-cloud-functions)
-10. [Conclusión](#conclusión)
+      2. [Registrar app en Firebase](#registrar-app-en-firebase)
+      3. [Google Services](#google-services)
+      4. [SDK de Firebase](#sdk-de-firebase)
+   2. [Firebase Authentication Setup](#firebase-authentication-setup)
+   3. [Firebase Realtime Database Setup](#firebase-realtime-database-setup)
+   4. [Cloud Storage Setup](#cloud-storage-setup)
+   5. [Firebase Cloud Messaging Setup](#firebase-cloud-messaging-setup)
+   6. [Cloud Functions Setup](#cloud-functions-setup)
+10. [Conclusiones](#conclusiones)
 11. [Mejoras](#mejoras)
-12. [Bibliografía](#bibliografía)
+12. [Fuentes](#fuentes)
 
-## Introducción
+## Intro
 
 Es 2020, han pasado más de 10 años desde la presentación del sistema operativo Android —en 2007, el día 5 de noviembre— y el lanzamiento del primer _smartphone_ en hacer uso de este —HTC Dream, anunciado el 23 de septiembre de 2008 y puesto a la venta un mes más tarde, el 20 de octubre de 2008—. Desde entonces, sin apenas competencia con la excepción de Apple y su incursión en el terreno móvil gracias al iPhone y su sistema operativo iOS, Android es el dominador absoluto del mercado. Para ello una muestra:
 
@@ -322,7 +322,7 @@ Como el vídeo de la presentación y la demostración ahondarán más en el dise
 	</table>
 </p>
 
-## Tecnologías utilizadas
+## Tech Stack
 
 No están todas las que son, pero son todas las que están. La lista total se ha visto reducida en pos de facilitar la legibilidad y se han eliminado, sobre todo, las relacionadas con el aspecto gráfico: Glide para descargar imágenes, CircleImageView —imágenes circulares—, RecyclerView en la carga optimizada de listas, botones de Material Design, barra inferior con pestañas, librerías de inicio de sesión con huella... Para comprobar su funcionamiento esta memoria se remite a la lectura del código completo que forma el proyecto.
 
@@ -798,7 +798,7 @@ Como puede apreciarse, en base a las necesidades y objetivos que se habían plan
 
 Como puede comprobarse, se ha intentado evitar duplicidades y repeticiones, fenómeno bastante común en este tipo de bases de datos que a la larga conlleva mayor dificultad en su mantenimiento, utilizando técnicas y métodos procedentes del modelo relacional.
 
-## Arquitectura de _software_
+## Cloud Architecture
 
 En el apartado de diseño no solo se ha tenido en cuenta el modelo de datos, también la definición de una arquitectura completa —en la nube— que acompañe a todo el proceso de desarrollo; desde la documentación y su generación, hasta el control de versiones, despliegue de la aplicación e interacción con todos los servicios de Firebase y Google Coud.
 
@@ -812,7 +812,7 @@ En el apartado de diseño no solo se ha tenido en cuenta el modelo de datos, tam
 6. Paralelamente a esta comunicación en red se encuentra el SDK de Google Analytics para ofrecer estadísticas de uso, funcionamiento, actividad, etc.
 7. Para finalizar, los datos —de usuarios, eventos y mensajería— e imágenes se almacenan en Firebase Realtime Database y Cloud Storage, respectivamente.
 
-## Patrones de diseño
+## Arquitectura de Software
 
 Con la aparición de programas con interfaces gráficas —que han aumentado su complejidad— surgió el problema de la separación de datos; empezó a ser inviable el mantenimiento de un código en el que aquel dedicado a los datos y la lógica de negocio aparecía en el mismo lugar —y mezclado—, junto al que se destinaba para su representación y gestión de conexiones/comunicaciones.
 
@@ -830,7 +830,7 @@ Otra de las ventajas que aparecen a raíz de la utilización de este tipo de pat
 
 A continuación se explican estos tres patrones —las diferencias, no aquellos aspectos que comparten o en los que son similares—, sus ventajas y desventajas y los motivos que impulsaron la elección de uno de ellos —además de un pequeño ejemplo simplificado y preparado para tal fin de su implementación en la _app_—. No hay que olvidar que, si bien inicialmente se pensaron para programas de escritorio, su ámbito de aplicación se ha extendido a aplicaciones de todo tipo: _web_, móvil, multiplataforma...
 
-### Patrón MVC
+### MVC
 
 El primero de ellos, por orden de aparición y antigüedad —entre los años 70 y 80—, es el patrón MVC o modelo-vista-controlador, que son los tres componentes que conforman la arquitectura y en los que se divide el programa; donde cada uno —y su código— se encarga de una tarea específica.
 
@@ -860,7 +860,7 @@ Por su parte, también presenta inconvenientes:
 
 En Android las Activities, Fragments y Views serían vistas, los controladores estarían en clases separadas que no heredaran ni usaran ninguna clase de Android y el mismo esquema se aplicaría sobre el modelo.
 
-### Patrón MVP
+### MVP
 
 La búsqueda de soluciones a los problemas de MVC dio con el patrón MVP. Ahora desaparece el controlador, que es sustituido por el presentador; un nuevo módulo que actúa —como _middleware_— sobre el modelo —obteniendo o escribiendo datos— y la vista —da formato a la información para que esta la represente—.
 
@@ -870,7 +870,7 @@ Lo más significativo del cambio es que, en esta nueva coyuntura, la vista pasa 
 
 Sin embargo, también aparecen nuevas desventajas: la estrecha relación entre la vista y el presentador puede hacer que aumente de forma considerable el número de interfaces y líneas de código, incluso para pequeñas operaciones de la interfaz gráfica.
 
-### Patrón MVVM
+### MVVM
 
 Finalmente, para solventar todo lo anterior, aparece el patrón MVVM; donde nuevamente hay una sustitución, el presentador pasa a ser el modelo de vista. Lo que ocurre con el cambio es que, aun pareciendo similares —presentador y modelo de vista— y casi siéndolo, el modelo de vista, también, contiene la lógica de presentación, comportándose de algún modo como una abstracción de la interfaz del usuario, o de la vista. No solo ejerce de intermediario entre el modelo y la vista, también prepara la información que recibe de la vista para actualizar el modelo y, de igual modo, prepara los datos obtenidos del modelo para su representación en la vista de la forma en la que esta los necesita.
 
@@ -878,7 +878,7 @@ Finalmente, para solventar todo lo anterior, aparece el patrón MVVM; donde nuev
 
 Este diseño facilita la orientación a eventos, donde el _viewmodel_ detecta los cambios que se suceden en el modelo y los notifica a la vista para su representación visual.
 
-### Elección del patrón
+### Propuesta final
 
 El epígrafe de requisitos ya lo adelantó: se pretendía trasladar el modelo MVVM a la aplicación trabajada para el proyecto. Los motivos parecen claros, en base a la exposición previa de su evolución, ventajas y desventajas, MVVM parece la elección adecuada.
 
@@ -938,11 +938,11 @@ Por último, y para dar cuenta de lo que supone a nivel de desarrollo real, se a
 	</table>
 </p>
 
-## Configuración de Firebase
+## Firebase Setup
 
 Antes de comenzar a utilizar Firebase, es necesario tener cuenta en el servicio. Lo más común es disponer de cuenta en Google —gmail— que ofrece acceso directo a la consola de Firebase.
 
-### Configuración general del proyecto
+### Empezar con Firebase
 
 Para poder añadir Firebase al proyecto hay unos requisitos que cumplir:
 
@@ -973,7 +973,7 @@ Una vez Firebase crea el proyecto, ofrece acceso a la consola desde la que gesti
 
 ![Crear el proyecto en Firebase: Consola](../images/firebase-console.png)
 
-#### Registrar la aplicación en Firebase
+#### Registrar app en Firebase
 
 Tras crear el proyecto, hay que añadir la aplicación para que tenga acceso a Firebase. El proceso es similar, aunque puede presentar diferencias en función de la plataforma en que se ha desarrollado la _app_: Android, iOS, _web_, Unity... Para el caso, solo se muestra el proceso con Android.
 
@@ -1024,7 +1024,7 @@ Algoritmo de clave pública de asunto: Clave RSA de 2048 bits
 Versión: 1
 ```
 
-#### Añadir el archivo de configuración de Firebase
+#### Google Services
 
 Con la aplicación registrada, Firebase genera un archivo de nombre `google-services.json` que debe ser copiado a la carpeta `app` de la imagen como se ve en las imágenes que acompañan al texto.
 
@@ -1069,7 +1069,7 @@ android {
 }
 ```
 
-#### Añadir el SDK de Firebase a la _app_
+#### SDK de Firebase
 
 Finalmente, para empezar a utilizar Firebase hay que indicar los SDK que vayan a ser utilizados en `app/build.gradle`:
 
@@ -1118,7 +1118,7 @@ dependencies {
 }
 ```
 
-### Configuración de Firebase Authentication
+### Firebase Authentication Setup
 
 Los nuevos usuarios pueden crearse con el método `createUserWithEmailAndPassword` al que puede adjuntarse un oyente que estará a la escucha del intento de _sign up_ para, cuando se haya producido, llevar a cabo determinadas acciones dependiendo del resultado: registro con éxito o no.
 
@@ -1167,7 +1167,7 @@ Para cerrar sesión, basta con una línea:
 FirebaseAuth.getInstance.signOut();
 ```
 
-### Configuración de Firebase Realtime Database
+### Firebase Realtime Database Setup
 
 El epígrafe del modelo datos dejó constancia de la estructura que siguen estos en la base de datos y el JSON que la compone. El propósito ahora es exponer las operaciones de escritura y lectura.
 
@@ -1226,7 +1226,7 @@ FirebaseDatabase.getInstance().getReference.child("eventos")
 	});
 ```
 
-### Configuración de Cloud Storage
+### Cloud Storage Setup
 
 Las imágenes —de eventos, perfiles y enviadas en los _chats_— no pueden guardarse directamente en Firebase Realtime Database —que sí almacena las URI generadas por este producto—. Cloud Storage surge para suplir esta carencia.
 
@@ -1279,7 +1279,7 @@ FirebaseStorage.getInstance().getReference().child("imagenes_eventos")
 	});
 ```
 
-### Configuración de Firebase Cloud Messaging
+### Firebase Cloud Messaging Setup
 
 Firebase Cloud Messaging es el SDK encargado de gestionar las notificaciones. Los bloques de código enseñan cómo empezar a recibir notificaciones de un _chat_ determinado y dejar de hacerlo.
 
@@ -1330,7 +1330,7 @@ Este servicio debe quedar reflejado en el archivo `AndroidManifest.xml`:
 </manifest>
 ```
 
-### Configuración de Cloud Functions
+### Cloud Functions Setup
 
 Conjuntamente a Firebase Cloud Messaging trabaja Cloud Functions. Cada vez que un usuario envía un mensaje ocurren dos acciones simultáneas:
 
@@ -1392,7 +1392,7 @@ exports.enviarNotificacion = functions.https.onCall(async (data, context) => {
 });
 ```
 
-## Conclusión
+## Conclusiones
 
 Antes de dar paso a la propuesta de mejoras y la bibliografía, creemos importante dejar constancia de lo que para nosotros ha supuesto el desarrollo de este módulo de Proyecto.
 
@@ -1402,7 +1402,7 @@ La idea que planteaba el anteproyecto lejos queda del resultado final, más ambi
 
 Todo, por supuesto, con los inconvenientes que aparecen a raíz de la emergencia nacional y global. Como ocurrirá con el resto de grupos y compañeros, suponemos, la comunicación puede resultar más complicada, no por falta de interés o empeño, sino por caídas en las plataformas a las que recurríamos, problemas de conectividad, de audio, de los dispositivos... Y, más importante todavía, el papel destacado que toma la comunicación presencial y su plasticidad en determinadas explicaciones, que contribuyen a su correcto entendimiento, en especial las que toman un cariz visual y para las que recurrimos al movimiento de manos. Un protagonismo perdido con estos programas —Discord, Teams, WebEx, Skype, Slack—, que redunda en la necesidad de repetir y, en consecuencia, entorpecer un proceso que ya es farragoso de por sí.
 
-Mención especial merece la página _web_ que apareció con el desarrollo móvil bastante avanzado y cercana temporalmente a la fecha de entrega. El escaso tiempo disponible para documentar en paralelo su desarrollo excusa la ausencia en la presente memoria. A pesar de esta circunstancia, se asienta sobre un _backend_ similar —Firebase— que se propone integrar con el de la aplicación móvil a modo de mejora. Cierto es, asimismo, que introduce elementos propios del _stack web_: JavaScript, Bootstrap 4, CSS3 y jQuery.
+Mención especial merece la página _web_ que apareció con el desarrollo móvil bastante avanzado y cercana temporalmente a la fecha de entrega. El escaso tiempo disponible para documentar en paralelo su desarrollo excusa la ausencia en la presente memoria. A pesar de esta circunstancia, se asienta sobre un _backend_ similar —Firebase— que se propone integrar con el de la aplicación móvil a modo de mejora y hay ejemplos de fuentes en el vídeo de presentación. Cierto es, asimismo, que introduce elementos propios del _stack web_: JavaScript, Bootstrap 4, CSS3 y jQuery. La entrega del proyecto completo sí incluye el código de esta importante mejora para comprobar el funcionamiento.
 
 No queremos concluir sin antes insistir en el proceso de aprendizaje a lo largo de estos casi cuatro meses. Lidiar con lo desconocido, entenderlo y aprovecharlo en beneficio propio cambia la perspectiva, una desde la que afrontar, con mejores herramientas, nuevos retos: búsqueda activa de empleo en el sector, afrontar un nuevo Ciclo Formativo de Grado Superior, acceder a la Universidad, etc.
 
@@ -1433,7 +1433,7 @@ En relación al _backend_:
 * Mejorar la implementación MVVM.
 * Migrar la base de datos de Firebase Realtime Database a Cloud Firestore.
 
-## Bibliografía
+## Fuentes
 
 * [Wikipedia | Android (operating system) History](https://en.wikipedia.org/wiki/Android_(operating_system)#History)	
 * [Open Handset Alliance | Industry Leaders Announce Open Platform for Mobile Devices](http://www.openhandsetalliance.com/press_110507.html)
