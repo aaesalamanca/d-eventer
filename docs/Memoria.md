@@ -295,7 +295,7 @@ En apartados futuros se verá cómo se plasman visualmente y a nivel de funciona
 
 ## Aspecto visual
 
-Como el vídeo de la presentación y la demostración ahondarán más en el diseño de la interfaz, la tabla contiene un conjunto significativo de imágenes que recogen las acciones representativas de lo que puede hacer un usuario mientras usa la aplicación.
+Como el vídeo de la presentación y la demostración ahondarán más en el diseño de la interfaz, la tabla contiene un conjunto significativo de imágenes que recogen las acciones más frecuentes del usuario mientras usa la aplicación.
 
 <p align="center">
 	<table>
