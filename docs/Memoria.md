@@ -752,6 +752,7 @@ Planteados los puntos anteriores, lo siguiente es presentar junto a unas pequeñ
 |       |         |            |— fecha: long
 |       |         |            |— nombre: string
 |       |         |            |— uriImagenPerfil: string
+|       |         |            |— uriImagenEnviada: string
 |       |         |            |— texto: string
 |       |         |— ...
 |       |         |— idMensajeN/
@@ -761,13 +762,14 @@ Planteados los puntos anteriores, lo siguiente es presentar junto a unas pequeñ
 |— eventos/
 |         |— idEvento0/
 |         |           |— fecha: string
-|         |           |— descripción: string
+|         |           |— descripcion: string
 |         |           |— uriImagen: string
+|         |           |— ubicacion: string
 |         |           |— nombre: string
 |         |           |— idCreador: string
 |         |           |— precio: string
 |         |           |— hora: string
-|         |           |— númeroDeUsuarios: int
+|         |           |— numeroDeUsuarios: int
 |         |— ...
 |         |— idEventoN/
 |
@@ -780,7 +782,7 @@ Planteados los puntos anteriores, lo siguiente es presentar junto a unas pequeñ
            |            |           |— N: idEvento1
            |            |
            |            |— nombre: string
-           |            |— códigoPostal: string
+           |            |— codigoPostal: string
            |            |— sexo: string
            |— ...
            |— idUsuarioN/
@@ -1028,7 +1030,7 @@ Con la aplicación registrada, Firebase genera un archivo de nombre `google-serv
 
 ![Añadir el archivo de configuración de Firebase: Parte 1](../images/firebase-add-app-4.png)
 
-![Añadir el archivo de configuración de Firebase: Parte 2](../images/firebase-add-app-5.png)
+<p align="center"><img alt="Add google-services.json" src="../images/firebase-add-app-5.png"></p>
 
 Lo siguiente es comprobar que el proyecto dispone de los repositorios y servicios de Google y Google Services. Primero en el archivo `project/build.gradle`:
 
@@ -1174,15 +1176,15 @@ Primero hay que escribir una clase de los objetos que van a ser almacenados:
 ```java
 public class Evento {
 	// Atributos
-	private String imageUri;
-	private String name;
-	private String date;
-	private String time;
-	private String location;
-	private String price;
-	private String description;
-	private String ownerId;
-	private int usersNum;
+	private String uriImagen;
+	private String nombre;
+	private String fecha;
+	private String hora;
+	private String ubicacion;
+	private String precio;
+	private String descripcion;
+	private String idCreador;
+	private int numeroDeUsuarios;
 	
 	// Constructores, getters, setters...
 	// ...
