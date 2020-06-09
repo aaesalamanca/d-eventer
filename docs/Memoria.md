@@ -800,7 +800,7 @@ Como puede comprobarse, se ha intentado evitar duplicidades y repeticiones, fen�
 
 En el apartado de diseño no solo se ha tenido en cuenta el modelo de datos, también la definición de una arquitectura completa —en la nube— que acompañe a todo el proceso de desarrollo; desde la documentación y su generación, hasta el control de versiones, despliegue de la aplicación e interacción con todos los servicios de Firebase y Google Coud.
 
-![Cloud Architecture](../images/cloud_architecture.png)
+![Cloud Architecture](../images/cloud_architecture_w_index.png)
 
 1. Todo el código y documentación —en texto plano— pasa por Git y GitHub.
 2. La documentación, escrita inicialmente en texto plano con etiquetas Markdown, es tratada por los motores de _render_ pandoc y wkhtmltopdf para generar el PDF final.
@@ -808,6 +808,7 @@ En el apartado de diseño no solo se ha tenido en cuenta el modelo de datos, tam
 4. Por su parte, el código fuente de la _app_ se escribe en Android Studio —Java para la parte programática, XML para el aspecto visual de la interfaz— y se instala en los dispositivos móviles.
 5. Con la aplicación instalada, Firebase Authentication controla el acceso de los usuarios a los distintos servicios: Cloud Functions, Cloud Messaging, Firebase Realtime Database, Cloud Storage, Maps SDK y Places SDK.
 6. Paralelamente a esta comunicación en red se encuentra el SDK de Google Analytics para ofrecer estadísticas de uso, funcionamiento, actividad, etc.
+7. Para finalizar, los datos —de usuarios, eventos y mensajería— e imágenes se almacenan en Firebase Realtime Database y Cloud Storage, respectivamente.
 
 ## Patrones de diseño
 
