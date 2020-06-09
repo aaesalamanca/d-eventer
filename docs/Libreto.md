@@ -10,12 +10,11 @@
 
 ## Índice
 
-1. [Intro](#intro)
-2. [Objetivos del proyecto](#objetivos-del-proyecto)
-3. [Requisitos](#requisitos)
+1. [Objetivos del proyecto](#objetivos-del-proyecto)
+2. [Requisitos](#requisitos)
    1. [Casos de uso](#casos-de-uso)
-4. [Aspecto visual](#aspecto-visual)
-5. [Tech Stack](#tech-stack)
+3. [Aspecto visual](#aspecto-visual)
+4. [Tech Stack](#tech-stack)
    1. [Firebase](#firebase)
       1. [Firebase Authentication](#firebase-authentication)
       2. [Firebase Realtime Database](#firebase-realtime-database)
@@ -35,14 +34,14 @@
       7. [Diagrams](#diagrams)
       8. [Android Studio](#android-studio)
       9. [Visual Studio Code](#visual-studio-code)
-6. [Modelo de datos](#modelo-de-datos)
-7. [Cloud Architecture](#arquitectura-de-software)
-8. [Arquitectura de Software](#arquitectura-de-software)
+5. [Modelo de datos](#modelo-de-datos)
+6. [Cloud Architecture](#arquitectura-de-software)
+7. [Arquitectura de Software](#arquitectura-de-software)
    1. [MVC](#mvc)
    2. [MVP](#mvp)
    3. [MVVM](#mvvm)
    4. [Propuesta final](#propuesta-final)
-9. [Firebase Setup](#firebase-setup)
+8. [Firebase Setup](#firebase-setup)
    1. [Empezar con Firebase](#empezar-con-firebase)
       1. [Crear el proyecto en Firebase](#crear-el-proyecto-en-firebase)
       2. [Registrar app en Firebase](#registrar-app-en-firebase)
@@ -53,9 +52,7 @@
    4. [Cloud Storage Setup](#cloud-storage-setup)
    5. [Firebase Cloud Messaging Setup](#firebase-cloud-messaging-setup)
    6. [Cloud Functions Setup](#cloud-functions-setup)
-10. [Conclusiones](#conclusiones)
-11. [Mejoras](#mejoras)
-12. [Fuentes](#fuentes)
+9. [Mejoras](#mejoras)
 
 ## Objetivos del proyecto
 
@@ -102,41 +99,36 @@ Tan solo un apunte; adelantamos ya que el patrón de _software_ escogido es MVVM
 
 ### Casos de uso
 
-Una vez tomados los requisitos anteriores como referencia, llega el momendo de diseñar los modelos UML de los casos de uso. Como se verá en este y más ejemplos posteriores, siempre que podemos apostamos por la sencillez, tomando como referencia la expresión: menos es más.
-
-Este primer UML se identifica con el acceso a la aplicación. Es necesario disponer de perfil; el primer paso es crearlo y, después, iniciar sesión. El registro presenta, asimismo, varios requisitos: que todos los campos estén completos, que el correo electrónico esté formado correctamente y que el usuario sea mayor de edad.
-
-Por su parte, con el perfil ya creado, el inicio de sesión toma por credenciales el correo electrónico y la contraseña.
-
-<p align="center"><img alt="Caso de uso: Inicio" src="../images/use_case_1_start.png"></p>
-
-Tras el inicio de sesión, aparece el menú principal, desde el cual pueden verse todos los planes —creados por otros y a los que el usuario se ha apuntado—. Del mismo modo, se encuentra el acceso al perfil y a los _chats_, cada uno asociado a un evento.
-
-<p align="center"><img alt="Caso de uso: Menú" src="../images/use_case_2_home.png"></p>
-
-Si el usuario decide acceder al perfil, lo que verá son los datos con los que se registró, podrá añadir una foto, si es que no tenía una, o cambiar la que ya había subido previamente. Además, en todo momento cuenta con la posibilidad de cerrar la sesión. En este punto nos parece interesante también que la sesión permanezca entre cierres y lanzamientos de la aplicación; de tal modo, no debe introducir el _email_ y la contraseña cada vez que abre la _app_ desde el lanzador de Android.
-
-<p align="center"><img alt="Caso de uso: Perfil" src="../images/use_case_3_profile.png"></p>
-
-En principio, el _core_ de la aplicación es el que se aparece en las tres imágenes siguientes: ver los eventos que han creado otros, crear nuevos eventos para que otros puedan apuntarse y contar con una lista de los planes a los que uno se ha inscrito.
-
-Siguiendo las indicaciones, la primera imagen hace referencia a las quedadas ya disponibles y visibles por todos.
-
-<p align="center"><img alt="Caso de uso: Planes" src="../images/use_case_4_events.png"></p>
-
-Esta segunda imagen, por un lado, informa sobre la necesidad de una serie de datos para crear un evento —no puede quedar ninguno vacío— y la relación de este con el resto de usuarios después de haber sido subido a la base de datos.
-
-<p align="center"><img alt="Caso de uso: Crear plan" src="../images/use_case_5_create_event.png"></p>
-
-Completa la tríada el panel desde el que cada uno de los usuarios puede ver los planes a los que se ha apuntado, planes que lo relacionan con otros usuarios que, a su vez, han hecho lo mismo.
-
-<p align="center"><img alt="Caso de uso: Mis planes" src="../images/use_case_6_own_events.png"></p>
-
-Finalmente, a aquellos inscritos en una misma quedada se les ofrece la posibilidad de mantener una conversación o _chat_ con objeto de que todos participen, se conozcan y puedan preparar la actividad sin depender de servicios de mensajería externos.
-
-<p align="center"><img alt="Caso de uso: Chat" src="../images/use_case_7_chat.png"></p>
-
-En apartados futuros se verá cómo se plasman visualmente y a nivel de funcionalidad los diagramas mostrados.
+<p align="center">
+	<table>
+		<tr>
+			<td><p align="center"><b>Inicio</b></p>
+			<td><p align="center"><b>Menú</b></p>
+			<td><p align="center"><b>Perfil</b></p>
+		</tr>
+		<tr>
+			<td><img alt="Caso de uso: Inicio" src="../images/use_case_1_start.png"></td>
+			<td><img alt="Caso de uso: Menú" src="../images/use_case_2_home.png"></td>
+			<td><img alt="Caso de uso: Perfil" src="../images/use_case_3_profile.png"></td>
+		</tr>
+		<tr>
+			<td><p align="center"><b>Planes</b></p>
+			<td><p align="center"><b><i>Crear plan</i></b></p>
+			<td><p align="center"><b>Mis planes</b></p>
+		</tr>
+		<tr>
+			<td><img alt="Caso de uso: Planes" src="../images/use_case_4_events.png"></td>
+			<td><img alt="Caso de uso: Crear plan" src="../images/use_case_5_create_event.png"></td>
+			<td><img alt="Caso de uso: Mis planes" src="../images/use_case_6_own_events.png"></td>
+		</tr>
+		<tr>
+			<td colspan="3"><p align="center"><b><i>Chat</i></b></p></td>
+		</tr>
+		<tr>
+			<td colspan="3"><img alt="Caso de uso: Chat" src="../images/use_case_7_chat.png"></td>
+		</tr>
+	</table>
+</p>
 
 ## Aspecto visual
 
