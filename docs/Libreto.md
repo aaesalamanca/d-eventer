@@ -593,6 +593,8 @@ public class Model {
 }
 
 public class ViewModel {
+	private Model model;
+	
 	// Interacción con el modelo
 	// ...
 	
